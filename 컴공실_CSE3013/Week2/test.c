@@ -8,15 +8,23 @@ void CountDigits(int N, int* num)
     {
         int remainder = N % 10;
         N /= 10;
-        for (j = 0; j < remainder; j++) // from 0 to 'remainder - 1'
+
+        // from 0 to 'remainder - 1'
+        for (j = 0; j < remainder; j++)
             num[j] += (N + 1) * i;
-        num[remainder] += N * i + rightDigit + 1; // same w/ below (N * i) + the right digit + 1
-        for (j = remainder + 1; j < 10; j++) // from 'remainder + 1' to 9
+
+        // same w/ below (N * i) + the right digit + 1
+        num[remainder] += N * i + rightDigit + 1;
+
+        // from 'remainder + 1' to 9
+        for (j = remainder + 1; j < 10; j++)
             num[j] += N * i;
 
         printf("%d ", i);
-        num[0] -= i; // the digit '0' was overcounted
-        rightDigit += remainder * i; // for the next calculation of 'num[remainder]'
+        // the digit '0' was overcounted
+        num[0] -= i;
+        // for the next calculation of 'num[remainder]'
+        rightDigit += remainder * i;
     }
     printf("\n");
 }
@@ -29,17 +37,18 @@ void CountDigits2(int N, int* num)
     {
         int remainder = N % 10;
         N /= 10;
-        for (j = 0; j < remainder; j++) // from 0 to 'remainder - 1'
+        for (j = 0; j < remainder; j++)
             num[j] += (N + 1) * i;
-        num[remainder] += N * i + rightDigit + 1; // same w/ below (N * i) + the right digit + 1
-        for (j = remainder + 1; j < 10; j++) // from 'remainder + 1' to 9
+        num[remainder] += N * i + rightDigit + 1;
+        for (j = remainder + 1; j < 10; j++)
             num[j] += N * i;
 
-        rightDigit += remainder * i; // for the next calculation of 'num[remainder]'
+        rightDigit += remainder * i;
     }
 
+    // the digit '0' has been overcounted
     printf("Count2 : ");
-    while (i > 0) // the digit '0' has been overcounted
+    while (i > 0)
     {
         i /= 10;
         num[0] -= i;
