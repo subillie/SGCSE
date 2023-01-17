@@ -1,7 +1,8 @@
 CC = gcc
 CFLAGS = -W -g
-TARGET = main
+
 OBJS = main.o CountDigits.o Print.o
+TARGET = subin
 
 $(TARGET) : $(OBJS)
 	$(CC) $(CLFAGS) -o $(TARGET) $(OBJS)
@@ -9,8 +10,7 @@ $(TARGET) : $(OBJS)
 %.o : %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-main.o CountDigits.o Print.o : Header.h
-
 clean :
-	rm $(TARGET) $(OBJS)
+	rm -f $(TARGET) $(OBJS)
+
 .PHONY : clean
