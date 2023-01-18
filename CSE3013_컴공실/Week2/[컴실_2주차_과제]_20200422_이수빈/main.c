@@ -8,8 +8,8 @@ int main()
     {
         scanf("%d", &N);
         int num[10] = {0,};
-        CountDigits(N, num);
-        Print(num);
+        countDigits(N, num);
+        print(num);
     }
     return 0;
 }

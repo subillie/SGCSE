@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -W -g
 
-OBJS = main.o CountDigits.o Print.o
+OBJS = main.o countDigits.o print.o
 TARGET = subin
 
 $(TARGET) : $(OBJS)
@@ -11,6 +11,6 @@ $(TARGET) : $(OBJS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean :
-	rm -f $(TARGET) $(OBJS)
+	rm $(TARGET) $(OBJS)
 
 .PHONY : clean

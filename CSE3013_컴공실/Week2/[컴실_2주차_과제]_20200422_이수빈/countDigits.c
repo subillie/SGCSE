@@ -1,6 +1,6 @@
 #include "Header.h"
 
-void CountDigits(int N, int* num)
+void countDigits(int N, int* num)
 {
     int i, j, rightDigit = 0;
 
