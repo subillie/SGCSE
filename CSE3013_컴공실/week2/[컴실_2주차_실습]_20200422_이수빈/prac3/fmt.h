@@ -6,4 +6,5 @@
 
 int checkHead(char *L1);
 void checkTail(char *L1);
-void print(char *L1, int *Count, int *B_Flag);
+void outputL1(char *L1, int *Count, int *B_Flag);
+void Get_Blanks_Chars(char *L1, int Start, int *N_Blanks, int *N_Chars);
