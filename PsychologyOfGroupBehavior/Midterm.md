@@ -30,7 +30,7 @@
 
 `5. 상호의존성` : 집단마다 차이가 있음
 - 구성원들의 성과(outcomes), 행위(action), 사고, 느낌, 경험이 부분적으로 집단 내 다른 사람들에 의해 결정됨  
-![45763FB5-3ECE-4BAF-AB4A-7950D83229BC](https://user-images.githubusercontent.com/112736264/227857202-054678b6-b17c-4be6-8b5c-fb1a0c69f7fc.jpeg)
+<img src="https://user-images.githubusercontent.com/112736264/227857202-054678b6-b17c-4be6-8b5c-fb1a0c69f7fc.jpeg" width="200" height="400"/>
 
 `6. 구조` : 집단은 어떻게 조직되는가?
 - **역할(role)** : 집단 내 서로 다른 지위에 따라 기대되는 행동 규정
@@ -38,7 +38,7 @@
 - **구성원 간 관계** : 지위, 친소, 정보소통 관계  
 
 `7. 목표` : 집단과제의 원형 모형 (Mcgrath, 1984)
-![8596C7C2-59D8-4E7C-B891-07AD30062816](https://user-images.githubusercontent.com/112736264/227857921-41e5e058-a646-4e98-9229-50fceb5b70f1.jpeg)
+<img src="https://user-images.githubusercontent.com/112736264/227857921-41e5e058-a646-4e98-9229-50fceb5b70f1.jpeg" width="200" height="400"/>
 
 `8. 기원` : 계획집단(창조) vs 출현집단(형성)  
 
