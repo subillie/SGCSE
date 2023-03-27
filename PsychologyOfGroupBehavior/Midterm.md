@@ -52,7 +52,7 @@
 - **구성원 간 관계** : 지위, 친소, 정보소통 관계  
 
 `7. 목표` : 집단과제의 원형 모형 (Mcgrath, 1984)  
-<img src="https://user-images.githubusercontent.com/112736264/227857921-41e5e058-a646-4e98-9229-50fceb5b70f1.jpeg" width="300" height="300"/>
+<img src="https://user-images.githubusercontent.com/112736264/227857921-41e5e058-a646-4e98-9229-50fceb5b70f1.jpeg" width="300" height="250"/>
 
 `8. 기원` : 계획집단(창조) vs 출현집단(형성)  
 
