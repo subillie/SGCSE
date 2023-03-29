@@ -6,5 +6,8 @@
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int conditional(int x, int y, int z) {
-  return x ? y : z;
+
+	int mask = !x + ~0;
+	return (y & mask) | (z & ~mask);
 }
+

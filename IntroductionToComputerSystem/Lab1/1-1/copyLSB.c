@@ -6,9 +6,6 @@
  *   Legal ops: ! ~ & ^ | + << >>
  */
 int copyLSB(int x) {
-    if (x & 1 == 1) {
-        return -1;
-    } else {
-        return 0;
-    }
+
+	return (x << 31) >> 31;
 }

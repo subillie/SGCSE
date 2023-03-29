@@ -5,5 +5,6 @@
  */
 
 void addNumber(unsigned char* set, int x) {
-  return;
+
+	set[x / 16] |= 1 << (x % 16);
 }
