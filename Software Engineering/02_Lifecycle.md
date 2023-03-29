@@ -18,8 +18,7 @@ Hacking focuses attention on implementation details before
 ```  
 
 ### Waterfall
-> sequential with little feedback  
-
+**`sequential with little feedback`**  
 design the system completely, consistently, and unambiguously on the first attempt  
 1. write all the program interfaces and internal detatils correctly `on the first attempt`  
 2. integrate the system components in `one large step`  
@@ -47,8 +46,7 @@ Problems w/ the Waterfall Model
 ```  
 
 ### Incremental  
-> staged development  
-
+**`staged development`**  
 Design is partitioned into a series of `prioritized` builds  
 ```  
 - Each build adds capabilities to the existing base in priority order
@@ -58,13 +56,13 @@ Design is partitioned into a series of `prioritized` builds
 ```
 
 ### Evolutionary  
-> exploratory development  
+**`exploratory development`**  
 
 ### Spiral  
-> risk management and verification  
+**`risk management and verification`**  
 
 ### Unified Software Development Process  
-> complex, object-oriented  
+**`complex, object-oriented`**  
 
 ### Extreme Programming  
-> light-weight, small and quick  
+**`light-weight, small and quick`**  
