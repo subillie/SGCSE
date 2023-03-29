@@ -18,13 +18,11 @@ Hacking focuses attention on implementation details before
 ```  
 
 ### Waterfall
-> sequential with little feedback
+> sequential with little feedback  
 design the system completely, consistently, and unambiguously on the first attempt  
-
 1. write all the program interfaces and internal detatils correctly **on the first attempt**  
 2. integrate the system components in **one large step**  
 3. do **system testing as the last step**  
-
 <img src="https://user-images.githubusercontent.com/112736264/228539435-f1c8935e-5aef-403b-b22f-248b6f9cdbd5.png" width="340" height="170"/>  
 ###### 절대적 절차는 아님. 회사마다 다름.
 
