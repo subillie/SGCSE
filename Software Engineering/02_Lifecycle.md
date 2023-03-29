@@ -26,14 +26,14 @@ design the system completely, consistently, and unambiguously on the first attem
 <img src="https://user-images.githubusercontent.com/112736264/228539435-f1c8935e-5aef-403b-b22f-248b6f9cdbd5.png" width="340" height="170"/>  
 
 ###### 위 그림이 절대적 절차는 아님. 회사마다 다름.  
-Advantages of Waterfall Approach  
+- Advantages of Waterfall Approach  
 ```  
 - Hacking과 달리, 각각의 선후관계가 지켜짐 :
 	develop requirements -> design -> write programs -> integrate them -> test
 - have progress review at each step
 - establish and control product baselines
 ```  
-Problems w/ the Waterfall Model  
+- Problems w/ the Waterfall Model  
 <img src="https://user-images.githubusercontent.com/112736264/228547302-02e007a9-3aa4-487e-81f0-9d0174e973c0.png" width="340" height="170"/>  
 ```  
 - 고객은 처음부터 모든 필요사항을 다 말해야함
