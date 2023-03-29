@@ -19,6 +19,7 @@ Hacking focuses attention on implementation details before
 
 ### Waterfall
 > sequential with little feedback  
+
 design the system completely, consistently, and unambiguously on the first attempt  
 1. write all the program interfaces and internal detatils correctly **on the first attempt**  
 2. integrate the system components in **one large step**  
