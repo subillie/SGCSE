@@ -1,15 +1,12 @@
 # Problem Description
-### In this homework, you are going to implement a program
-### which accepts two strings (`str`, `pat`)
-### and checks whether `pat` appears as substrings in `str`.  
+### In this homework, you are going to implement a program which accepts two strings (`str`, `pat`) and checks whether `pat` appears as substrings in `str`.  
 
 **In the lectures,**  
 we saw program `ex016` and `ex017` that use the naive algorithm and the KMP algorithm for string pattern matching, respectively.  
 
 **In this homework,**  
 we are going to change the problem slightly.
-### If pat appears in str multiple times,  
-### the program should print all starting positions and count the number of appearances.  
+### If pat appears in str multiple times, the program should print all starting positions and count the number of appearances.  
 
 Let us consider the following example. Suppose the two strings `str` and `pat` are:  
 
