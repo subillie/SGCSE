@@ -19,7 +19,7 @@
 `Problem 1-3 (conditional.c)` :
 - **conditional(x, y, z)** : return the result of ternary operation “x ? y : z” in C
 - e.g. conditional(2,4,5) = 4  
-
+  
 
 **For 1-4,** there is no constraint on the code; just focus on the functionality.  
 
