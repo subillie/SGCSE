@@ -6,7 +6,9 @@
  *   Example: absVal(-1) = 1
  *   Legal ops: ! ~ & ^ | + << >>
  */
+
 int absVal(int x) {
 
-	return (x + (x >> 31)) ^ (x >> 31);
+	int bit_mask = x >> 31;
+	return (x + bit_mask) ^ bit_mask;
 }

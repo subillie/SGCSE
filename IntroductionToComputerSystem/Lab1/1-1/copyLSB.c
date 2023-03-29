@@ -5,6 +5,7 @@
  *   Example: copyLSB(5) = 0xFFFFFFFF, copyLSB(6) = 0x00000000
  *   Legal ops: ! ~ & ^ | + << >>
  */
+
 int copyLSB(int x) {
 
 	return (x << 31) >> 31;
