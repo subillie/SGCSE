@@ -20,7 +20,8 @@
 - **conditional(x, y, z)** : return the result of ternary operation “x ? y : z” in C
 - e.g. conditional(2,4,5) = 4  
 
-**For 1-4,** there is no constraint on the code; just focus on the functionality.
+**For 1-4,** there is no constraint on the code; just focus on the functionality.  
+
 `Problem 1-4 (bitset.c)` :
 - **addNumber(set, x)** : Add 'x' to the bitset represented in array 'set'
 - Assume that 0 <= x <= 127 and 'set' is a pointer to 16-byte array
