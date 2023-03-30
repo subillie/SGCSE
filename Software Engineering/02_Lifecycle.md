@@ -56,8 +56,7 @@ Design is partitioned into a series of `prioritized` builds
 ```
 <img src="https://user-images.githubusercontent.com/112736264/228720896-a437f018-a661-43e9-b144-ab122136ecdc.png" width="200" height = "150">  
 
-###### example (a six month incremental project)  
-Analysis/Design 2 months && Implementation 4 months  
+`example` (a six month incremental project -> Analysis/Design : Implementation = 2 : 4 months)  
 |Version|Goal: rework < 20%|bi-weekly demos|
 |:---:|:---|:---:|
 |0.1|input reader|Demo1|
@@ -69,7 +68,7 @@ Analysis/Design 2 months && Implementation 4 months
 |0.7|plus optimizer|Demo7|
 |0.8|plus writer|Customer Version 1.0|  
 
-**`Advantages of Incremental Development`**    
+`Advantages of Incremental Development`    
 - allows early and continuing demonstrations of progress
 - `Components built first` are tested most
 - can incorporate some changes to requirements in later versions
