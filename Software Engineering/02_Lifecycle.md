@@ -54,9 +54,10 @@ Design is partitioned into a series of `prioritized` builds
 - Most critical parts are built first  
 	- and tested && demonstrated most often  
 ```
-<img src="https://user-images.githubusercontent.com/112736264/228720896-a437f018-a661-43e9-b144-ab122136ecdc.png" width="200" height = "200">  
+<img src="https://user-images.githubusercontent.com/112736264/228720896-a437f018-a661-43e9-b144-ab122136ecdc.png" width="200" height = "150">  
+
 ###### example (a six month incremental project)  
-Analysis/Design 2 months && Implementation 4 months
+Analysis/Design 2 months && Implementation 4 months  
 |Version|Goal: rework < 20%|bi-weekly demos|
 |:---:|:---|:---:|
 |0.1|input reader|Demo1|
