@@ -6,8 +6,8 @@ SRC_NAIVE = hw1_naive.c
 OBJ_KMP = $(SRC_KMP:.c=.o)
 OBJ_NAIVE = $(SRC_NAIVE:.c=.o)
 
-CC = cc
-RM = rm -rf
+CC = gcc
+RM = rm -f
 
 all : $(TARGET_KMP) $(TARGET_NAIVE)
 
@@ -20,12 +20,11 @@ $(TARGET_NAIVE): $(OBJ_NAIVE)
 	$(CC) -o $(TARGET_NAIVE) $(OBJ_NAIVE)
 
 clean :
-	$(RM) $(OBJ_KMP)
-	$(RM) $(OBJ_NAIVE)
+	$(RM) $(OBJ_KMP) $(OBJ_NAIVE)
+	$(RM) result_*.txt
 
 fclean : clean
-	$(RM) $(TARGET_KMP)
-	$(RM) $(TARGET_NAIVE)
+	$(RM) $(TARGET_KMP) $(TARGET_NAIVE)
 
 re : fclean all
 
