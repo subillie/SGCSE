@@ -21,6 +21,7 @@ navigate the directories in shell
 ```c
 // 구현한 함수 설명
 ```
+<br>
 
 **`echo`**  
 print the contents of a file  
@@ -34,6 +35,7 @@ print the contents of a file
 ```c
 // 구현한 함수 설명
 ```
+<br>
 
 **`exit`**  
 terminate all the child processes and quit the shell  
@@ -100,6 +102,7 @@ bash: exit: adf: numeric argument required
 exit
 bash: exit: 44444444444444444444444444444444444: numeric argument required
 ```
+<br>
 
 **`history`**  
 track shell commands executed sice shell started  
