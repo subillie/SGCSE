@@ -13,13 +13,13 @@ int main()
 
 	while (1) {
 	/* Read */
-	printf("> ");
-	fgets(cmdline, MAXLINE, stdin);
-	if (feof(stdin))
-		exit(0);
+		printf("> ");
+		fgets(cmdline, MAXLINE, stdin);
+		if (feof(stdin))
+			exit(0);
 
-	/* Evaluate */
-	eval(cmdline);
+		/* Evaluate */
+		eval(cmdline);
 	}
 }
 /* $end shellmain */
@@ -47,7 +47,7 @@ void eval(char *cmdline)
 		if (!bg){ 
 			int status;
 		}
-		else//when there is backgrount process!
+		else//when there is background process!
 			printf("%d %s", pid, cmdline);
 	}
 	return;

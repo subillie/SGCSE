@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"myshell.h": "c",
+		"pthread.h": "c"
+	}
+}

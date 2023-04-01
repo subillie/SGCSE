@@ -6,7 +6,7 @@ int main()
 	char cmdline[MAXLINE];
 
 	while (1) {
-		printf("CSE4100-MP-P1> ");
+		printf("CSE4100-MP-P3> ");
 		fgets(cmdline, MAXLINE, stdin);
 		if (feof(stdin))
 			exit(0);
