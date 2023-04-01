@@ -10,9 +10,10 @@ create and remove directory using shell
 
 **`touch`, `cat`**  
 create and read the contents of a file  
+<br>
 
-
-## Built-in Command
+## Built-in Commands
+*Reference : [Bash Builtin Commands 공식 문서](https://www.gnu.org/software/bash/manual/html_node/Bash-Builtins.html)
 
 **`cd`**  
 navigate the directories in shell  
@@ -55,9 +56,7 @@ exit
 0
 ```
 
-### 문자나 long long을 벗어날 때
-
-종료상태는 imac에서 확인해봐야 한다.
+- 문자나 long long을 벗어날 때
 
 ```shell
 > bash
@@ -77,7 +76,7 @@ bash: exit: 55555555555555555555555: numeric argument required
 255
 ```
 
-### 두 개 이상의 인자가 들어올 경우
+- 두 개 이상의 인자가 들어올 경우
 
 ```shell
 > bash
@@ -88,7 +87,7 @@ bash: exit: too many arguments
 1
 ```
 
-### 두 개 이상의 인자가 들어왔는데 첫 인자가 long long을 벗어나거나 문자일 때
+- 두 개 이상의 인자가 들어왔는데 첫 인자가 long long을 벗어나거나 문자일 때
 
 ```shell
 > bash-3.2$ exit adf 332
@@ -104,7 +103,8 @@ bash: exit: 44444444444444444444444444444444444: numeric argument required
 
 **`history`**  
 track shell commands executed sice shell started  
-|extra functions||
+###### 빌트인 함수는 아니지만, 빌트인 함수처럼 구현 및 실행됨 <br> The history command should keep track of command sexecuted since shell was executes. The history comand of the default shell provides many functions, but in this project, only two funcions below need to be implemented.
+|||
 |:---:|:---|
 |!!|print the lastest executed command, then execute the command <br> (It doesn't update history log)|
 |!#|print the command on the # line, then execute the command|
