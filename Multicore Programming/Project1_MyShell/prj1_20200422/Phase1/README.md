@@ -105,8 +105,8 @@ bash: exit: 44444444444444444444444444444444444: numeric argument required
 <br>
 
 **`history`**  
-track shell commands executed sice shell started  
-###### 빌트인 함수는 아니지만, 빌트인 함수처럼 구현 및 실행됨 <br> The history command should keep track of command sexecuted since shell was executes. The history comand of the default shell provides many functions, but in this project, only two funcions below need to be implemented.
+track shell commands executed since the shell started  
+###### 빌트인 함수는 아니지만, 빌트인 함수처럼 구현 및 실행됨 <br> The history command should keep track of command sexecuted since shell was executes. <br> The history comand of the default shell provides many functions, but in this project, only two funcions below need to be implemented.
 |||
 |:---:|:---|
 |!!|print the lastest executed command, then execute the command <br> (It doesn't update history log)|
