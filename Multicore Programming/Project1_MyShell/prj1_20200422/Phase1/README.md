@@ -18,7 +18,7 @@ create and read the contents of a file
 navigate the directories in shell  
 
 ```c
-구현한 함수 설명
+// 구현한 함수 설명
 ```
 
 **`echo`**  
@@ -31,7 +31,7 @@ print the contents of a file
 |-E|disables the interpretation of these escape characters, <br> even on systems where they are interpreted by default|
 
 ```c
-구현한 함수 설명
+// 구현한 함수 설명
 ```
 
 **`exit`**  
