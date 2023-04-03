@@ -189,14 +189,14 @@ void Sigdelset(sigset_t *set, int signum) {
 	return;
 }
 
-int Sigismember(const sigset_t *set, int signum) {
+// int Sigismember(const sigset_t *set, int signum) {
 
-	int rc;
+// 	int rc;
 
-	if ((rc = sigismember(set, signum)) < 0)
-		unix_error("Sigismember error");
-	return rc;
-}
+// 	if ((rc = sigismember(set, signum)) < 0)
+// 		unix_error("Sigismember error");
+// 	return rc;
+// }
 
 int Sigsuspend(const sigset_t *set) {
 
