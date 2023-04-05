@@ -31,10 +31,8 @@ void Strstr(char *string, char *pattern, FILE *fp_res) {
 		j = 0;
 		if (string[i] == pattern[j]) {
 			while (pattern[j] && (string[i + j] == pattern[j])) j++;
-			if (!pattern[j]) {
-				result[count] = i;
-				count++;
-			}
+			if (!pattern[j])
+				result[count++] = i;
 		}
 		i++;
 	}

@@ -9,7 +9,7 @@ int main() {
 	FILE *fp_pat = fopen("pattern.txt", "r");
 	if (!fp_str || !fp_pat) {
 		printf("The string file does not exist.\n");
-		return 0;
+		exit(1);
 	}
 	fgets(string, MAX_STRING_SIZE, fp_str);
 	fgets(pattern, MAX_PATTERN_SIZE, fp_pat);
@@ -24,40 +24,38 @@ int main() {
 	return 0;
 }
 
+/* Initialize (int) failure[MAX_PATTERN_SIZE] */
 void getFailure(char *pattern) {
 
-	int idx_pat = 1, idx_fail = -1;
-	int size_pat = strlen(pattern);
+	int i, j, lenp = strlen(pattern);
 
 	failure[0] = -1;
-	while (idx_pat <= size_pat) {
-		if (idx_fail == -1 || pattern[idx_pat - 1] == pattern[idx_fail]) {
-			failure[idx_pat] = idx_fail + 1;
-			idx_pat++;
-			idx_fail++;
-		}
-		else
-			idx_fail = failure[idx_fail];
+	for(j = 1; j < lenp; j++) {
+		i = failure[j - 1];
+		while ((pattern[j] != pattern[i + 1]) && (i >= 0)) i = failure[i];
+		if (pattern[j] == pattern[i + 1]) failure[j] = i + 1;
+		else failure[j] = -1;
 	}
 }
 
+/* Match string with pattern, based on failure */
 void matchWithPattern(char *string, char *pattern, FILE *fp_res) {
 
-	int idx_str = 0, idx_pat = 0, count = 0;
-	int size_str = strlen(string);
-	int size_pat = strlen(pattern);
-	int *result = (int *)malloc(sizeof(int) * size_str);
+	int i_str = 0, i_pat = 0, count = 0;
+	int lens = strlen(string);
+	int lenp = strlen(pattern);
+	int *result = (int *)malloc(sizeof(int) * lens);
 
-	while (idx_str < size_str) {
-		while (idx_pat >= 0) {
-			if (string[idx_str] == pattern[idx_pat])
+	while (i_str < lens) {
+		while (i_pat >= 0) {
+			if (string[i_str] == pattern[i_pat])
 				break;
-			idx_pat = failure[idx_pat];
+			i_pat = failure[i_pat];
 		}
-		idx_str++;
-		idx_pat++;
-		if (idx_pat == size_pat) {
-			result[count] = idx_str - idx_pat;
+		i_str++;
+		i_pat++;
+		if (i_pat == lenp) {
+			result[count] = i_str - i_pat;
 			count++;
 		}
 	}

@@ -2,16 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-static void warn_wrong_args(int ac, char **av, FILE *fp_input, FILE *fp_output);
+static void checkArguments(int ac, char **av, FILE *fp_input, FILE *fp_output);
 
 int main(int ac, char **av) {
 
     FILE *fp_input, *fp_output;
 
-    warn_wrong_args(ac, av, fp_input, fp_output);
+    checkArguments(ac, av, fp_input, fp_output);
     int size_dataword = atoi(av[4]);
     int size_generator = strlen(av[3]);
     int size_codeword = size_dataword + size_generator - 1;
+    int size_input = 0; while (!fgetc(fp_input)) size_input++;
+
+    char ;
+
+
     // char *string;
     // fgets(string, MAX_STRING_SIZE, fp_str);
 
@@ -21,7 +26,7 @@ int main(int ac, char **av) {
     return 0;
 }
 
-static void warn_wrong_args(int ac, char **av, FILE *fp_input, FILE *fp_output) {
+static void checkArguments(int ac, char **av, FILE *fp_input, FILE *fp_output) {
 
     if (ac != 5) {
         printf("usage: ./crc_encoder input_file _output_file generator size_dataword\n");

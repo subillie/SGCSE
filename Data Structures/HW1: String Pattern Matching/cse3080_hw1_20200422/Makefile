@@ -21,9 +21,11 @@ $(TARGET_NAIVE): $(OBJ_NAIVE)
 
 clean :
 	$(RM) $(OBJ_KMP) $(OBJ_NAIVE)
+
+fclean : clean
 	$(RM) $(TARGET_KMP) $(TARGET_NAIVE)
 	$(RM) result_*.txt
 
-re : clean all
+re : fclean all
 
-.PHONY: all clean re
+.PHONY: all clean fclean re
