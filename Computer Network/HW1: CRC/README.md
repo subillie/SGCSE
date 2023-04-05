@@ -9,7 +9,7 @@ Cyclic redundancy check (CRC)를  이용하여  오류를  검출한다.
  
 ## 상세설명 
  
-**1. crc_encoder ** 
+**1. crc_encoder** 
  
 (1) crc_encoder는  다음과  같이  실행시킨다.
 ```shell

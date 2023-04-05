@@ -4,34 +4,33 @@
 
 int main(int ac, char **av) {
 
-    FILE *fp_input, *fp_output;
-
     if (ac != 5) {
-        printf("usage: ./crc_encoder input_file _output_file generator dataword_size\n");
-        return 0;
+        printf("usage: ./crc_encoder input_file _output_file generator size_dataword\n");
+        exit 1;
     }
-    if (!(fp_input = fopen(av[2], "r"))) {
+    FILE *fp_input;
+    if (!(fp_input = fopen(av[1], "r"))) {
         printf("input file open error.\n");
-        return 0;
+        exit 1;
     }
-    if (!(fp_output = fopen(av[3], "r"))) {
+    FILE *fp_output;
+    if (!(fp_output = fopen(av[2], "w"))) {
         printf("output file open error.\n");
-        return 0;
+        exit 1;
     }
-    if (!(av[5] == 4 || av[5] == 8)) {
+    int size_dataword = av[4];
+    if (!(size_dataword == 4 || size_dataword == 8)) {
         printf("dataword size must be 4 or 8.\n");
-        return 0;
+        exit 1;
     }
+    int size_generator = strlen(av[3]);
+    int size_codeword = size_dataword + size_generator - 1;
 
+
+    char *string;
     fgets(string, MAX_STRING_SIZE, fp_str);
-    fgets(pattern, MAX_PATTERN_SIZE, fp_pat);
-    fclose(fp_str);
-    fclose(fp_pat);
 
-    FILE *fp_res = fopen("result_kmp.txt", "w");
-    getFailure(pattern);
-    matchWithPattern(string, pattern, fp_res);
-    fclose(fp_res);
-
+    fclose(fp_input);
+    fclose(fp_output);
     return 0;
 }
