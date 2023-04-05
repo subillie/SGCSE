@@ -9,7 +9,7 @@ Cyclic redundancy check (CRC)를  이용하여  오류를  검출한다.
  
 ## 상세설명 
  
-**1. crc_encoder** 
+### 1. crc_encoder
  
 (1) crc_encoder는  다음과  같이  실행시킨다.
 ```shell
@@ -80,7 +80,7 @@ codeword로  바꾸면  총  14비트가  된다.  파일은  바이트  단위�
 00000010 00010001 10001101 
 ```  
 
-**2. crc_decoder** 
+### 2. crc_decoder
  
 (1) crc_decoder는  다음과  같이  실행시킨다. 
 ```
@@ -144,7 +144,7 @@ dataword size must be 4 or 8.
 수에  포함되지  않는다. 
 
 
-**3. linksim **
+### 3. linksim
  
 - linksim은  숙제로  구현하는  프로그램이  아니고  바이너리  포맷으로  제공되는  프로그램이다. 
  
