@@ -4,7 +4,7 @@
 Cyclic redundancy check (CRC)를  이용하여  오류를  검출한다. 
  
 ## 작성해야 할 프로그램 
-`crc_encoder` : CRC를  이용하여  dataword를  codeword로  변환한다. 
+`crc_encoder` : CRC를  이용하여  dataword를  codeword로  변환한다.  
 `crc_decoder` : codeword를  dataword로   복원하면서,  오류가  있으면  검출한다. 
  
 ## 상세설명 
@@ -59,7 +59,8 @@ dataword size must be 4 or 8.
 - dataword '0100'의  codeword는  '0100011'이  된다. 
 -  나머지  dataword도  동일한  방식으로  codeword로  바꿔준다. 
  
-(7) CRC를  이용하여  변환한  codeword들을  output file에  써  주어야  한다.  그런데  한  가지  문제는, 
+(7) CRC를  이용하여  변환한  codeword들을  output file에  써  주어야  한다.  
+그런데  한  가지  문제는, 
 codeword는  8의  배수가  아니기  때문에  파일의  사이즈가  바이트  단위로  떨어지지  않을  수  있다는 
 것이다.   
 -  예를  들어  'A'  한  글자로  이루어진  파일은  내용이  8비트이지만, 4비트인  generator를  써서 
@@ -133,8 +134,8 @@ dataword size must be 4 or 8.
  
 (10) codeword에  오류가  있든  없든  dataword로  복원하여  출력  파일에  쓴다.   
  
-(11) result file에는  총  codeword  개수와  오류가  난  codeword의  개수를  기록한다.  예를  들어  총 
-codeword  개수가  23개이고  그  중에  오류가  난  codeword가  5개라면  result file에는  다음과  같이 
+(11) result file에는  총  codeword  개수와  오류가  난  codeword의  개수를  기록한다.  
+예를  들어  총 codeword  개수가  23개이고  그  중에  오류가  난  codeword가  5개라면  result file에는  다음과  같이 
 한  줄만  쓰면  된다. 
 ```
 23 5 
@@ -161,7 +162,7 @@ codeword  개수가  23개이고  그  중에  오류가  난  codeword가  5개
  
 4. 실행 순서 
  
-crc_encoder와  crc_decoder의  구현을  마쳤으면  다음과  같이  테스트한다. 
+crc_encoder와  crc_decoder의  구현을  마쳤으면  다음과  같이  테스트한다.   
 데이터가  들어있는  파일의  이름이  datastream.tx  라고  가정한다. 
 ``` 
 >> ./crc_encoder datastream.tx codedstream.tx 1101 4 
