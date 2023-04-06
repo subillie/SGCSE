@@ -1,0 +1,65 @@
+#include "myshell.h"
+
+/* Function prototypes */
+static void render_line(char *cmdline, char *buf);
+
+/* $begin parseline */
+/* parseline - Parse the command line and build the argv array */
+int parseline(char *cmdline, char *buf, char **argv) {
+
+	char *delim;	// Points to opening_q space delimiter
+	int argc = 0;	// Number of args
+	int bg;			// Background job?
+
+	render_line(cmdline, buf);
+
+	/* Build the argv list */
+	while ((delim = strchr(buf, ' '))) {
+		argv[argc++] = buf;
+		*delim = '\0';
+		buf = delim + 1;
+		while (*buf && (*buf == ' '))	// Ignore spaces
+			buf++;
+	}
+	argv[argc] = NULL;
+
+	/* Ignore blank line */
+	if (argc == 0)
+		return 1;
+
+	/* Should the job run in the background? */
+	if ((bg = (*argv[argc-1] == '&')) != 0)
+		argv[--argc] = NULL;
+
+	return bg;
+}
+
+/* Render cmdline and copy to buf */
+static void render_line(char *cmdline, char *buf) {
+
+	int i_b, i_c = -1;
+
+	strcpy(buf, cmdline);
+	cmdline[strlen(cmdline)-1] = ' ';		// Replace trailing '\n' with space
+	while (*cmdline && (*cmdline == ' '))	// Ignore leading spaces
+		cmdline++;
+
+	/* Replace tab with space */
+	while (cmdline[++i_c])
+		if (cmdline[i_c] == '\t')
+			cmdline[i_c] = ' ';
+
+	/* Put space besides | and & */
+	i_b = 0, i_c = 0;
+	while (cmdline[i_c] && i_b < MAXLINE - 1) {
+		if (cmdline[i_c] == '|' || cmdline[i_c] == '&') {
+			buf[i_b++] = ' ';
+			buf[i_b++] = cmdline[i_c++];
+			buf[i_b++] = ' ';
+		} else
+			buf[i_b++] = cmdline[i_c++];
+	}
+
+	strcpy(cmdline, buf);
+}
+/* $end parseline */

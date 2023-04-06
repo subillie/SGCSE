@@ -32,6 +32,10 @@
 extern int h_errno;    /* Defined by BIND for DNS errors */ 
 extern char **environ; /* Defined by libc */
 
+/* Function prototypes */
+void eval(char *cmdline);
+int parseline(char *cmdline, char *buf, char **argv);
+
 /************************** 
  * Error-handling functions
  **************************/
