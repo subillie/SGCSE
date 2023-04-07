@@ -27,37 +27,47 @@ int main() {
 /* Initialize (int) failure[MAX_PATTERN_SIZE] */
 void getFailure(char *pattern) {
 
-	int i, j, lenp = strlen(pattern);
+	int value, i;
+	int patternlen = strlen(pattern);
 
 	failure[0] = -1;
-	for(j = 1; j < lenp; j++) {
-		i = failure[j - 1];
-		while ((pattern[j] != pattern[i + 1]) && (i >= 0)) i = failure[i];
-		if (pattern[j] == pattern[i + 1]) failure[j] = i + 1;
-		else failure[j] = -1;
+	for(i = 1; i < patternlen; i++) {
+		value = failure[i - 1];
+
+		// If there was matching prefix and suffix,
+		// find the longest prefix of pattern[0..i] that is also a suffix of pattern[0..i]
+		while ((pattern[i] != pattern[value + 1]) && (value >= 0))
+			value = failure[value];
+
+		// If there is matching prefix and suffix, failure[i] = 0
+		if (pattern[i] == pattern[value + 1])
+			failure[i] = value + 1;
+
+		// If there is no matching prefix and suffix, failure[i] = -1
+		else failure[i] = -1;
 	}
 }
 
 /* Match string with pattern, based on failure */
 void matchWithPattern(char *string, char *pattern, FILE *fp_res) {
 
-	int i_str = 0, i_pat = 0, count = 0;
-	int lens = strlen(string);
-	int lenp = strlen(pattern);
-	int *result = (int *)malloc(sizeof(int) * lens);
+	int iterator = 0, index_p = 0, count = 0;
+	int stringlen = strlen(string);
+	int patternlen = strlen(pattern);
+	int *result = (int *)malloc(sizeof(int) * stringlen);
 
-	while (i_str < lens) {
-		while (i_pat >= 0) {
-			if (string[i_str] == pattern[i_pat])
-				break;
-			i_pat = failure[i_pat];
+	while (iterator < stringlen) {
+		while (index_p >= 0) {
+			// Break if there is a matching prefix and suffix
+			if (string[iterator] == pattern[index_p]) break;
+			// Break if index_p = -1
+			index_p = failure[index_p];
 		}
-		i_str++;
-		i_pat++;
-		if (i_pat == lenp) {
-			result[count] = i_str - i_pat;
-			count++;
-		}
+		iterator++;
+		index_p++;
+		// If index_p == patternlen, there is a full match
+		if (index_p == patternlen)
+			result[count++] = iterator - index_p;
 	}
 
 	fprintf(fp_res, "%d\n", count);
