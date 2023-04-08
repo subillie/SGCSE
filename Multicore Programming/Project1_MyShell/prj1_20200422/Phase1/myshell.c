@@ -1,13 +1,10 @@
 #include "myshell.h"
 
-/* Function prototypes */
-void handler(int sig);
-
 /* $begin shellmain */
 int main() {
 
 	char cmdline[MAXLINE];	/* Command line */
-	using_history();
+	t_history *history = NULL;
 
 	while (1) {
 		/* Read */
@@ -17,11 +14,9 @@ int main() {
 			exit(0);
 
 		/* Evaluate */
-		eval(cmdline);
-
-		if (strlen(cmdline) > 0)
-			add_history(cmdline);
+		eval(cmdline, &history);
 	}
+	// TODO history 로그 파일 만들기
 	return 0;
 }
 /* $end shellmain */

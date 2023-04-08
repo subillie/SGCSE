@@ -5,7 +5,7 @@ static void render_line(char *cmdline, char *buf);
 
 /* $begin parseline */
 /* parseline - Parse the command line and build the argv array */
-int parseline(char *cmdline, char *buf, char **argv) {
+int parseline(char *cmdline, char *buf, char **argv) { //TODO quote 처리
 
 	char *delim;	// Points to opening_q space delimiter
 	int argc = 0;	// Number of args

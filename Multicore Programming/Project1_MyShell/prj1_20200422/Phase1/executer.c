@@ -4,13 +4,14 @@
 int signal_flag = 0;
 
 /* Function prototypes */
-static void nonBuiltin(char *filename, char *argv[], char *environ[]);
-static void handler(int sig);
-static int builtinCommand(char **argv);
+static void handler();
+static void addHistory(char *cmdline, t_history **history);
+static void externFunction(char *filename, char *argv[], char *environ[]);
+static int builtinCommand(char **argv, t_history **history);
 
 /* $begin eval */
 /* eval - Evaluate a command line */
-void eval(char *cmdline) {
+void eval(char *cmdline, t_history **history) {
 
 	char *argv[MAXARGS];	// Argument list execve()
 	char buf[MAXLINE];		// Holds modified command line
@@ -24,43 +25,37 @@ void eval(char *cmdline) {
 	Signal(SIGCHLD, handler);
 
 	bg = parseline(cmdline, buf, argv);
-	if (argv[0] == NULL)	/* Ignore empty lines */
+	if (argv[0] == NULL) // Ignore empty lines
 		return;
+	if (strlen(buf) > 0)
+		addHistory(cmdline, history);
 
-	/* quit -> exit(0), & -> ignore, other -> run */
-	if (!builtinCommand(argv)) {
-		char bin_argv[MAXARGS] = "/bin/";
-		strcat(bin_argv, argv[0]);
+	// quit -> exit(0), & -> ignore, other -> run
+	if (!builtinCommand(argv, history)) {
 		Sigprocmask(SIG_BLOCK, &mask_one, &prev_one);
-		nonBuiltin(argv[0], argv, environ);	// e.g. /bin/ls ls -al &
-
-		/* Parent waits for foreground job to terminate */
-		if (!bg){ 
-			int status;
-		} else	/* when there is background process */
-			printf("%d %s", pid, cmdline);
+		char *filename = argv[0];
+		// Child runs user job
+		if ((pid = Fork()) == 0) {
+			Sigprocmask(SIG_SETMASK, &prev_one, NULL);
+			// setpgid(0, 0);
+			externFunction(filename, argv, environ);
+		}
+		Sigprocmask(SIG_BLOCK, &mask_all, NULL);
+		Sigprocmask(SIG_SETMASK, &prev_one, NULL);
 	}
+		// Parent waits for foreground job to terminate
+		if (!bg) {
+			int status;
+			// if (waitpid(pid, &status, 0) < 0)
+				// unix_error("waitfg: waitpid error");
+		}
+		else	// when there is background process
+			printf("%d %s", pid, cmdline);
 	return;
 }
 
-static void nonBuiltin(char *filename, char *argv[], char *environ[]) {
-
-	if (execve(filename, argv, environ) < 0) {
-		strcpy(filename, "/bin/");
-		strcat(filename, argv[0]);
-		if (execve(filename, argv, environ) < 0) {
-			strcpy(filename, "/usr/bin/");
-			strcat(filename, argv[0]);
-			if (execve(filename, argv, environ) < 0) {
-				printf("%s: Command not found.\n", argv[0]);
-				exit (0);
-			}
-		}
-	}
-}
-
 /* handler - Handle signal */
-static void handler(int sig) {
+static void handler() {
 
 	int olderrno = errno;
 	int status;
@@ -82,8 +77,60 @@ static void handler(int sig) {
 	errno = olderrno;
 }
 
+static void addHistory(char *cmdline, t_history **history) {
+
+	t_history *new = (t_history *)malloc(sizeof(t_history));
+	if (new == NULL)
+		unix_error("malloc error\n");
+	new->cmd = (char *)malloc(sizeof(char) * strlen(cmdline));
+	if (new->cmd == NULL)
+		unix_error("malloc error\n");
+	strcpy(new->cmd, cmdline);
+	new->next = NULL;
+
+	if (*history == NULL)
+		*history = new;
+	else {
+		t_history *cur = *history;
+		while (cur->next)
+			cur = cur->next;
+		if (strcmp(cur->cmd, cmdline))
+			cur->next = new;
+		else {	// If the same command is entered, delete the new node
+			free(new->cmd);
+			free(new);
+		}
+	}
+}
+
+static void externFunction(char *filename, char *argv[], char *environ[]) {
+
+	if (execve(filename, argv, environ) < 0) {	// e.g. /bin/ls ls -al &
+		char *path = getenv("PATH");
+		for (int i = 0; path[i]; i++) {
+			if (path[i] == ':') {
+				path[i] = '\0';
+				strcpy(filename, path);
+				strlcat(filename, "/", strlen(filename) + 2);
+				strlcat(filename, argv[0], strlen(filename) + strlen(argv[0]) + 1);
+				printf("path? %s\n", filename);
+				if (execve(filename, argv, environ) < 0) {
+					path[i] = ':';
+					path += i + 1;
+					i = 0;
+				} else
+					break;
+			}
+		}
+		free(path); // TODO: free() or not?
+		free(filename);
+		fprintf(stderr, "CSE4100: %s: Command not found.\n", argv[0]);
+		exit (1);
+	}
+}
+
 /* If opening_q arg is a builtin command, run it and return true */
-static int builtinCommand(char **argv) {
+static int builtinCommand(char **argv, t_history **history) {
 
 	if (!strcmp(argv[0], "exit"))		// exit command
 		exit(0);
@@ -94,9 +141,9 @@ static int builtinCommand(char **argv) {
 			chdir(getenv("HOME"));
 		else if (chdir(argv[1]) < 0) {
 			if (!argv[2])
-				printf("cd: no such file or directory:%s\n", argv[1]);
+				fprintf(stderr, "CSE4100: cd: no such file or directory:%s\n", argv[1]); // TODO ㄷㅏ stderr로 바바꿔꿔
 			else {
-				printf("cd : string not in pwd:");
+				fprintf(stderr, "CSE4100: cd : string not in pwd:");
 				for (int i = 2; argv[i]; i++)
 					printf(" %s", argv[i]);
 				printf("\n");
@@ -106,32 +153,32 @@ static int builtinCommand(char **argv) {
 	}
 	if (!strcmp(argv[0], "mkdir")) {	// mkdir command
 		if (argv[1] == NULL)
-			printf("usage: mkdir [-pv] [-m mode] directory ...\n");
+			printf("CSE4100: usage: mkdir [-pv] [-m mode] directory ...\n");
 		else if (mkdir(argv[1], 0755) < 0)
-			printf("mkdir: %s: File exists\n", argv[1]);
+			printf("CSE4100: mkdir: %s: File exists\n", argv[1]);
 		return 1;
 	}
 	if (!strcmp(argv[0], "rmdir")) {	// rmdir command
 		if (argv[1] == NULL)
 			printf("usage: rmdir [-p] directory ...\n");
 		else if (rmdir(argv[1]) < 0)
-			printf("rmdir: %s: No such file or directory\n", argv[1]);
+			printf("CSE4100: rmdir: %s: No such file or directory\n", argv[1]);
 		return 1;
 	}
 	if (!strcmp(argv[0], "touch")) {	// touch command
 		if (argv[1] == NULL)
 			printf("usage:\ntouch [-A [-][[hh]mm]SS] [-acfhm] [-r file] [-t [[CC]YY]MMDDhhmm[.SS]] file ...\n");
 		else
-			creat(argv[1], 0644);
+			creat(argv[1], 0644); //TODO touch myshell-dir/cse4100
 		return 1;
 	}
 	if (!strcmp(argv[0], "cat")) {		// cat command
 		if (argv[1] == NULL)
-			printf("cat: missing operand\n");
+			printf("usage: cat: missing operand\n");
 		else {
 			int fd = open(argv[1], O_RDONLY);
 			if (fd < 0) {
-				printf("cat: %s: No such file or directory\n", argv[1]);
+				printf("CSE4100: cat: %s: No such file or directory\n", argv[1]);
 				return 1;
 			}
 			char buf[MAXLINE];
@@ -151,39 +198,49 @@ static int builtinCommand(char **argv) {
 		printf("\n");
 		return 1;
 	}
-	if (!strcmp(argv[0], "history")) {
-		if (argv[1] == NULL) {
-			printf("history: missing operand\n");
+	if (!strcmp(argv[0], "history")) {		// history command
+		if (*history == NULL)
+			return 1;
+		else { //TODO 방금 입력한 history 명령어까지 등록되도록 하기
+			t_history *cur = *history;
+			for (int i = 1; cur->next; i++) {
+				printf("%-4d%s\n", i, cur->cmd);
+				cur = cur->next;
+			}
+			free(cur);
 			return 1;
 		}
+	}
+	if (!strcmp(argv[0], "!!")) {
+		if (*history == NULL)
+			return 1;
 		else {
-			HISTORY_STATE *history_info = history_get_history_state();
-			HIST_ENTRY **my_history = history_list();
-			for (int i = 0; i < history_info->length; i++) {
-				printf("%d  %s\n", i + 1, my_history[i]->line);
-				free_history_entry(my_history[i]);
+			t_history *cur = *history;
+			while (cur->next)
+				cur = cur->next;
+			eval(cur->cmd, history);
+			free(cur);
+			return 1;
+		}
+	}
+	if ((argv[0][0] == '!') && ('0' <= argv[0][1] && argv[0][1] <= '9')) {	// !# command
+		if (history == NULL)
+			return 1;
+		else {
+			int num = atoi(argv[0] + 1); 
+			int i = 1;
+			t_history *cur = *history;
+			while (cur->next && i < num) {
+				cur = cur->next;
+				i++;
 			}
-			free(history_info);
-			free(my_history);
+			if (i == num)
+				eval(cur->cmd, history);
+			else
+				printf("CSE4100: %s: event not found\n", argv[0]);
+			return 1;
 		}
 	}
 	return 0;							// Not a builtin command
 }
-
-    /* get the state of your history list (offset, length, size) */
-    // HISTORY_STATE *myhist = history_get_history_state ();
-
-    // /* retrieve the history list */
-    // HIST_ENTRY **mylist = history_list ();
-
-    // printf ("\nsession history for %s@%s\n\n", p, host);
-    // for (int i = 0; i < myhist->length; i++) { /* output history list */
-    //     printf (" %8s  %s\n", mylist[i]->line, mylist[i]->timestamp);
-    //     free_history_entry (mylist[i]);     /* free allocated entries */
-    // }
-    // putchar ('\n');
-
-    // free (myhist);  /* free HIST_ENTRY list */
-    // free (mylist);  /* free HISTORY_STATE   */
-
 /* $end eval */
