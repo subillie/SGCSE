@@ -2,64 +2,59 @@
 #include <stdlib.h>
 #include <string.h>
 
-void *simplify(char *cmdline, char *buf) {
+// void test(char *cmdline, char *buf) {
+// 	/* Ignore matching quotes */
+// 	i_b = 0;
+// 	int inside_quote = 0;
+// 	char quote_char = '\0';
 
-	int i_b, i_c = -1;
+// 	for (int i = 0; i < strlen(cmdline); i++) {
+// 		if (cmdline[i] == '"' || cmdline[i] == '\'') {
+// 			if (inside_quote && cmdline[i] == quote_char) {
+// 				// End of quote found, do not include the quotes in the buf
+// 				inside_quote = 0;
+// 				quote_char = '\0';
+// 			} else if (!inside_quote) {	// Start of quote found
+// 				inside_quote = 1;
+// 				quote_char = cmdline[i];
+// 			} else
+// 				buf[i_b++] = cmdline[i];	// Nested quotes found
+// 		} else {
+// 			if (inside_quote == 0)
+// 				buf[i_b++] = cmdline[i];	// Add non-quote characters to the buf
+// 			else
+// 				buf[i_b++] = cmdline[i];	// Add quote characters to the buf
+// 		}
+// 	}
+// }
 
-	/* Replace tab with space */
-	while (cmdline[++i_c])
-		if (cmdline[i_c] == '\t')
-			cmdline[i_c] = ' ';
-
-	/* Put space besides | and & */
-	for (i_b = 0, i_c = 0; cmdline[i_c]; i_c++) {
-		if (cmdline[i_c] == '|' || \
-			(cmdline[i_c - 1] != '|' && cmdline[i_c] == '&')) {
-			buf[i_b++] = ' ';
-			buf[i_b++] = cmdline[i_c];
-			buf[i_b++] = ' ';
-		} else
-			buf[i_b++] = cmdline[i_c];
+void test(char *cmdline, char *buf) {
+	int i_b = 0;
+	while (buf[i_b]) {
+		if (buf[i_b] == '\'' || buf[i_b] == '\"') {
+			char quote = buf[i_b];			// quote - ' or "
+			int opening_q = i_b + 1;		// opening_q - index of the opening quote
+			while (buf[opening_q] && buf[opening_q] != quote)
+				opening_q++;
+			if (buf[opening_q] == quote) {
+				int closing_q = opening_q;	// closing_q - index of the closing quote
+				while (buf[closing_q]) {
+					buf[closing_q - 1] = buf[closing_q];
+					closing_q++;
+				}
+				buf[closing_q] = ' ';
+			}
+		}
+		i_b++;
 	}
-	buf[i_b] = '\0';
-	return (buf);
+	buf[i_b] = 0;
 }
 
-char **parseline(char *cmdline, char *buf, char **argv) {
-
-	char *delim;	/* Points to first space delimiter */
-	int argc;		/* Number of args */
-	int bg;			/* Background job? */
-
-	cmdline[strlen(cmdline)-1] = ' ';		/* Replace trailing '\n' with space */
-	while (*cmdline && (*cmdline == ' '))	/* Ignore leading spaces */
-		cmdline++;
-	simplify(cmdline, buf);
-
-	/* Build the argv list */
-	argc = 0;
-	while ((delim = strchr(buf, ' '))) {
-		argv[argc++] = buf;
-		printf("delim: %s, buf: %s\n", delim, buf);
-		*delim = '\0';
-		buf = delim + 1;
-		while (*buf && (*buf == ' '))	/* Ignore spaces */
-			buf++;
-	}
-	argv[argc] = NULL;
-
-	return (argv);
-}
-
-int main()
-{
-	char cmdline[] = "   a  &  c  d  e  f& g ||  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z   ";
-	char *buf = malloc(strlen(cmdline) + 1);
-	char **argv = malloc(100 * sizeof(char *));
-	argv = parseline(simplify(cmdline, buf), buf, argv);
-	for (int i = 0; argv[i] != NULL; i++)
-		printf("%s\n", argv[i]);
-	free(buf);  // free dynamically allocated memory
-	free(argv); // free dynamically allocated memory
+int main() {
+	char *cmdline = "ls -l | grep \"hello world\" | wc -l &";
+	char *buf = (char *)malloc(strlen(cmdline) + 1);
+	// char buf[8192];
+	test(cmdline, buf);
+	printf("%s\n", buf);
 	return 0;
 }

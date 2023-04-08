@@ -2,6 +2,7 @@
 
 /* Extern values */
 int signal_flag = 0;
+int explamation_flag = -2;
 
 /* Function prototypes */
 static void handler();
@@ -27,8 +28,24 @@ void eval(char *cmdline, t_history **history) {
 	bg = parseline(cmdline, buf, argv);
 	if (argv[0] == NULL) // Ignore empty lines
 		return;
-	if (strlen(buf) > 0)
+	for (int i = 0; argv[i]; i++) { // Check if there is !! or !#
+		for (int j = 1; argv[i][j]; j++) {
+			if (argv[i][j - 1] == '!' && argv[i][j] == '!') {
+				explamation_flag = -1;
+				break;
+			}
+			else if (argv[i][j - 1] == '!' && isdigit(argv[i][j])) {
+				explamation_flag = i;
+				break;
+			}
+		}
+		if (explamation_flag)
+			break;
+	}
+	if ((strlen(buf) > 0) && (explamation_flag == 0)) {
+		add_history(cmdline);
 		addHistory(cmdline, history);
+	}
 
 	// quit -> exit(0), & -> ignore, other -> run
 	if (!builtinCommand(argv, history)) {
@@ -62,9 +79,8 @@ static void handler() {
 	pid_t pid;
 	sigset_t mask_all, prev;
 
-	// WNOHANG, WUNTRACED:
-	// return immediately if no child has exited, and also return if a child has stopped
 	Sigfillset(&mask_all);
+	// Wait for a child process to stop or terminate
 	while ((pid = waitpid(-1, &status, WNOHANG | WUNTRACED)) > 0) {
 		Sigprocmask(SIG_BLOCK, &mask_all, &prev);
 		// If child process is stopped or terminated, set signal_flag
@@ -82,6 +98,7 @@ static void addHistory(char *cmdline, t_history **history) {
 	t_history *new = (t_history *)malloc(sizeof(t_history));
 	if (new == NULL)
 		unix_error("malloc error\n");
+	cmdline[strlen(cmdline) - 1] = '\0';
 	new->cmd = (char *)malloc(sizeof(char) * strlen(cmdline));
 	if (new->cmd == NULL)
 		unix_error("malloc error\n");
@@ -122,7 +139,7 @@ static void externFunction(char *filename, char *argv[], char *environ[]) {
 					break;
 			}
 		}
-		free(path); // TODO: free() or not?
+		free(path); // TODO: free or not?
 		free(filename);
 		fprintf(stderr, "CSE4100: %s: Command not found.\n", argv[0]);
 		exit (1);
@@ -136,6 +153,7 @@ static int builtinCommand(char **argv, t_history **history) {
 		exit(0);
 	if (!strcmp(argv[0], "&"))			// Ignore singleton &
 		return 1;
+
 	if (!strcmp(argv[0], "cd")) {		// cd command
 		if (argv[1] == NULL)
 			chdir(getenv("HOME"));
@@ -151,30 +169,26 @@ static int builtinCommand(char **argv, t_history **history) {
 		}
 		return 1;
 	}
+
 	if (!strcmp(argv[0], "mkdir")) {	// mkdir command
 		if (argv[1] == NULL)
-			printf("CSE4100: usage: mkdir [-pv] [-m mode] directory ...\n");
+			fprintf(stderr, "usage: mkdir [-pv] [-m mode] directory ...\n");
 		else if (mkdir(argv[1], 0755) < 0)
-			printf("CSE4100: mkdir: %s: File exists\n", argv[1]);
+			fprintf(stderr, "CSE4100: mkdir: %s: File exists\n", argv[1]);
 		return 1;
 	}
+
 	if (!strcmp(argv[0], "rmdir")) {	// rmdir command
 		if (argv[1] == NULL)
-			printf("usage: rmdir [-p] directory ...\n");
+			fprintf(stderr, "usage: rmdir [-p] directory ...\n");
 		else if (rmdir(argv[1]) < 0)
-			printf("CSE4100: rmdir: %s: No such file or directory\n", argv[1]);
+			fprintf(stderr, "CSE4100: rmdir: %s: No such file or directory\n", argv[1]);
 		return 1;
 	}
-	if (!strcmp(argv[0], "touch")) {	// touch command
-		if (argv[1] == NULL)
-			printf("usage:\ntouch [-A [-][[hh]mm]SS] [-acfhm] [-r file] [-t [[CC]YY]MMDDhhmm[.SS]] file ...\n");
-		else
-			creat(argv[1], 0644); //TODO touch myshell-dir/cse4100
-		return 1;
-	}
+
 	if (!strcmp(argv[0], "cat")) {		// cat command
 		if (argv[1] == NULL)
-			printf("usage: cat: missing operand\n");
+			fprintf(stderr, "usage: cat: missing operand\n");
 		else {
 			int fd = open(argv[1], O_RDONLY);
 			if (fd < 0) {
@@ -189,6 +203,7 @@ static int builtinCommand(char **argv, t_history **history) {
 		}
 		return 1;
 	}
+
 	if (!strcmp(argv[0], "echo")) {		// echo command
 		int i = 1;
 		while (argv[i] != NULL) {
@@ -198,49 +213,81 @@ static int builtinCommand(char **argv, t_history **history) {
 		printf("\n");
 		return 1;
 	}
-	if (!strcmp(argv[0], "history")) {		// history command
+
+	if (!strcmp(argv[0], "history")) {	// history command
 		if (*history == NULL)
 			return 1;
-		else { //TODO 방금 입력한 history 명령어까지 등록되도록 하기
+		else {
 			t_history *cur = *history;
-			for (int i = 1; cur->next; i++) {
+			for (int i = 1; cur; i++) {
 				printf("%-4d%s\n", i, cur->cmd);
 				cur = cur->next;
 			}
-			free(cur);
 			return 1;
 		}
 	}
-	if (!strcmp(argv[0], "!!")) {
-		if (*history == NULL)
+
+	if (explamation_flag == -1) {		// !! command
+		if (*history == NULL) {
+			explamation_flag = 0;
 			return 1;
+		}
 		else {
 			t_history *cur = *history;
 			while (cur->next)
 				cur = cur->next;
-			eval(cur->cmd, history);
-			free(cur);
-			return 1;
-		}
-	}
-	if ((argv[0][0] == '!') && ('0' <= argv[0][1] && argv[0][1] <= '9')) {	// !# command
-		if (history == NULL)
-			return 1;
-		else {
-			int num = atoi(argv[0] + 1); 
-			int i = 1;
-			t_history *cur = *history;
-			while (cur->next && i < num) {
-				cur = cur->next;
-				i++;
+			for (int i = 0; argv[i]; i++) {
+				char *token = strtok(argv[i], "!!"); // TODO !만 인식되는지 !!가 인식되는지
+				if (token == NULL)
+					printf("%s", cur->cmd);
+				while (token != NULL) {
+					char *prev_token = token;
+					token = strtok(NULL, "!!");
+					if (token == NULL)
+						printf("%s", cur->cmd);
+					printf("%s", prev_token);
+				}
 			}
-			if (i == num)
-				eval(cur->cmd, history);
-			else
-				printf("CSE4100: %s: event not found\n", argv[0]);
+			printf("\n");
+			eval(cur->cmd, history);
+			explamation_flag = -2;
 			return 1;
 		}
 	}
+
+	if (explamation_flag > -1) {		// !# command
+		int start = 0;
+		while ((argv[explamation_flag][start] == '!') && isdigit(argv[explamation_flag][start + 1]))
+			start++;
+		int num = atoi(argv[explamation_flag][start]부터 끝까지); //TODO
+		int count = 1;
+		t_history *cur = *history;
+		while (cur->next && count < num) {
+			count++;
+			cur = cur->next;
+		}
+		if (count == num && cur) {
+			for (int i = 0; argv[i]; i++) {
+				argv[explamation_flag] -= 1; //TODO
+				char *token = strtok(argv[i], argv[explamation_flag]);
+				if (token == NULL)
+					printf("%s", cur->cmd);
+				while (token != NULL) {
+					char *prev_token = token;
+					token = strtok(NULL, (argv[explamation_flag]));
+					if (token == NULL)
+						printf("%s", cur->cmd);
+					printf("%s", prev_token);
+				}
+			}
+			printf("\n");
+		}
+		else
+			fprintf(stderr, "CSE4100: %s: event not found\n", argv[0]);
+		explamation_flag = -2;
+		return 1;
+	}
+
 	return 0;							// Not a builtin command
 }
 /* $end eval */

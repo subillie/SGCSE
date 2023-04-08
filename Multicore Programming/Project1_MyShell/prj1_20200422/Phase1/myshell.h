@@ -1,6 +1,7 @@
 #ifndef __MYSHELL_H__
 #define __MYSHELL_H__
 
+#include <readline/history.h>
 #include "csapp.h"
 
 #define MAXARGS 128
