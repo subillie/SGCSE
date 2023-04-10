@@ -11,9 +11,14 @@ int parseline(char *cmdline, char *buf, char **argv) { //TODO quote 처리
 	int argc = 0;	// Number of args
 	int bg;			// Background job?
 
+	strcpy(buf, cmdline);
 	render_line(cmdline, buf);
 
-	/* Build the argv list */
+	buf[strlen(buf)-1] = ' ';		// Replace trailing '\n' with space
+	for (int i = 0; (buf[i] && buf[i] == ' '); i++)	// Ignore leading spaces
+		buf++;
+
+	// Build the argv list
 	while ((delim = strchr(buf, ' '))) {
 		argv[argc++] = buf;
 		*delim = '\0';
@@ -23,34 +28,21 @@ int parseline(char *cmdline, char *buf, char **argv) { //TODO quote 처리
 	}
 	argv[argc] = NULL;
 
-	/* Ignore blank line */
+	// Ignore blank line
 	if (argc == 0)
 		return 1;
 
-	/* Should the job run in the background? */
+	// Should the job run in the background?
 	if ((bg = (*argv[argc-1] == '&')) != 0)
 		argv[--argc] = NULL;
-
 	return bg;
 }
 
 /* Render cmdline and copy to buf */
 static void render_line(char *cmdline, char *buf) {
 
-	int i_b, i_c = -1;
-
-	strcpy(buf, cmdline);
-	cmdline[strlen(cmdline)-1] = ' ';		// Replace trailing '\n' with space
-	while (*cmdline && (*cmdline == ' '))	// Ignore leading spaces
-		cmdline++;
-
-	/* Replace tab with space */
-	while (cmdline[++i_c])
-		if (cmdline[i_c] == '\t')
-			cmdline[i_c] = ' ';
-
-	/* Put space besides | and & */
-	i_b = 0, i_c = 0;
+	// Put space besides | and &
+	int i_b = 0, i_c = 0;
 	while (cmdline[i_c] && i_b < MAXLINE - 1) {
 		if (cmdline[i_c] == '|' || cmdline[i_c] == '&') {
 			buf[i_b++] = ' ';
@@ -60,6 +52,13 @@ static void render_line(char *cmdline, char *buf) {
 			buf[i_b++] = cmdline[i_c++];
 	}
 
-	strcpy(cmdline, buf);
+	// Remove trailing newline
+	cmdline[strlen(cmdline) - 1] = '\0';
+
+	// Replace tab with space
+	i_b = -1;
+	while (buf[++i_b])
+		if (buf[i_b] == '\t')
+			buf[i_b] = ' ';
 }
 /* $end parseline */

@@ -1,6 +1,6 @@
 #include "myshell.h"
 
-/* Extern values */
+/* Global variables */
 int signal_flag = 0;
 int explamation_flag = -2;
 
@@ -8,11 +8,11 @@ int explamation_flag = -2;
 static void handler();
 static void addHistory(char *cmdline, t_history **history);
 static void externFunction(char *filename, char *argv[], char *environ[]);
-static int builtinCommand(char **argv, t_history **history);
+static int builtinCommand(char *cmdline, char **argv, FILE *fp_history);
 
 /* $begin eval */
 /* eval - Evaluate a command line */
-void eval(char *cmdline, t_history **history) {
+void eval(char *cmdline, FILE *fp_history) {
 
 	char *argv[MAXARGS];	// Argument list execve()
 	char buf[MAXLINE];		// Holds modified command line
@@ -39,16 +39,14 @@ void eval(char *cmdline, t_history **history) {
 				break;
 			}
 		}
-		if (explamation_flag)
+		if (explamation_flag >= -1)
 			break;
 	}
-	if ((strlen(buf) > 0) && (explamation_flag == 0)) {
+	if ((strlen(buf) > 0) && (explamation_flag == 0))
 		add_history(cmdline);
-		addHistory(cmdline, history);
-	}
 
 	// quit -> exit(0), & -> ignore, other -> run
-	if (!builtinCommand(argv, history)) {
+	if (!builtinCommand(cmdline, argv, fp_history)) {
 		Sigprocmask(SIG_BLOCK, &mask_one, &prev_one);
 		char *filename = argv[0];
 		// Child runs user job
@@ -81,46 +79,23 @@ static void handler() {
 
 	Sigfillset(&mask_all);
 	// Wait for a child process to stop or terminate
-	while ((pid = waitpid(-1, &status, WNOHANG | WUNTRACED)) > 0) {
+	while ((pid = waitpid(-1, &status, WNOHANG | WUNTRACED))) {
 		Sigprocmask(SIG_BLOCK, &mask_all, &prev);
+
 		// If child process is stopped or terminated, set signal_flag
 		if(WIFSTOPPED(status) || WIFEXITED(status) || WIFSIGNALED(status))
 			signal_flag = 1;
+
 		Sigprocmask(SIG_SETMASK, &prev, NULL);
 	}
-	if (errno != ECHILD)
-		unix_error("waitpid error\n");
+	if (errno != ECHILD)	//  ECHILD - No child processes (POSIX.1-2001).
+		unix_error("waitpid error");
 	errno = olderrno;
 }
 
-static void addHistory(char *cmdline, t_history **history) {
-
-	t_history *new = (t_history *)malloc(sizeof(t_history));
-	if (new == NULL)
-		unix_error("malloc error\n");
-	cmdline[strlen(cmdline) - 1] = '\0';
-	new->cmd = (char *)malloc(sizeof(char) * strlen(cmdline));
-	if (new->cmd == NULL)
-		unix_error("malloc error\n");
-	strcpy(new->cmd, cmdline);
-	new->next = NULL;
-
-	if (*history == NULL)
-		*history = new;
-	else {
-		t_history *cur = *history;
-		while (cur->next)
-			cur = cur->next;
-		if (strcmp(cur->cmd, cmdline))
-			cur->next = new;
-		else {	// If the same command is entered, delete the new node
-			free(new->cmd);
-			free(new);
-		}
-	}
-}
-
 static void externFunction(char *filename, char *argv[], char *environ[]) {
+
+	int execve_flag;
 
 	if (execve(filename, argv, environ) < 0) {	// e.g. /bin/ls ls -al &
 		char *path = getenv("PATH");
@@ -130,8 +105,9 @@ static void externFunction(char *filename, char *argv[], char *environ[]) {
 				strcpy(filename, path);
 				strlcat(filename, "/", strlen(filename) + 2);
 				strlcat(filename, argv[0], strlen(filename) + strlen(argv[0]) + 1);
-				printf("path? %s\n", filename);
-				if (execve(filename, argv, environ) < 0) {
+				printf("path? %s\n", filename);	//TODO: delete
+				execve_flag = execve(filename, argv, environ);
+				if (execve_flag < 0) {
 					path[i] = ':';
 					path += i + 1;
 					i = 0;
@@ -139,15 +115,29 @@ static void externFunction(char *filename, char *argv[], char *environ[]) {
 					break;
 			}
 		}
-		free(path); // TODO: free or not?
 		free(filename);
-		fprintf(stderr, "CSE4100: %s: Command not found.\n", argv[0]);
-		exit (1);
+		if (execve_flag < 0)
+			unix_error("CSE4100: ");
+			// fprintf(stderr, "CSE4100: %s: Command not found.\n", argv[0]);
 	}
 }
 
+static int getPrevHistory(FILE *fp_history) {
+
+	char c = '0';
+	int log_index = 0;
+	while ('0' <= c && c <= '9') {
+		char c = fgetc(fp_history);
+		if (c == EOF)
+			return 0;
+		log_index *= 10;
+		log_index += (c - '0');
+	}
+	return (log_index + 1);
+}
+
 /* If opening_q arg is a builtin command, run it and return true */
-static int builtinCommand(char **argv, t_history **history) {
+static int builtinCommand(char *cmdline, char **argv, FILE *fp_history) {
 
 	if (!strcmp(argv[0], "exit"))		// exit command
 		exit(0);
@@ -159,7 +149,8 @@ static int builtinCommand(char **argv, t_history **history) {
 			chdir(getenv("HOME"));
 		else if (chdir(argv[1]) < 0) {
 			if (!argv[2])
-				fprintf(stderr, "CSE4100: cd: no such file or directory:%s\n", argv[1]); // TODO ㄷㅏ stderr로 바바꿔꿔
+				unix_error("CSE4100: cd: "); // TODO unix_error로 바꿔보기
+				//fprintf(stderr, "CSE4100: cd: no such file or directory:%s\n", argv[1]);
 			else {
 				fprintf(stderr, "CSE4100: cd : string not in pwd:");
 				for (int i = 2; argv[i]; i++)
@@ -215,77 +206,20 @@ static int builtinCommand(char **argv, t_history **history) {
 	}
 
 	if (!strcmp(argv[0], "history")) {	// history command
-		if (*history == NULL)
+		int log_index = getPrevHistory(fp_history);
+		if (log_index == 1)
 			return 1;
-		else {
-			t_history *cur = *history;
-			for (int i = 1; cur; i++) {
-				printf("%-4d%s\n", i, cur->cmd);
-				cur = cur->next;
-			}
-			return 1;
-		}
+		fprintf(fp_history, "%-4d%s\n", log_index, cmdline);
+		return 1;
 	}
 
-	if (explamation_flag == -1) {		// !! command
-		if (*history == NULL) {
+	if (explamation_flag >= -1) {
+		int log_index = getPrevHistory(fp_history);
+		if (log_index == 1) {
 			explamation_flag = 0;
 			return 1;
 		}
-		else {
-			t_history *cur = *history;
-			while (cur->next)
-				cur = cur->next;
-			for (int i = 0; argv[i]; i++) {
-				char *token = strtok(argv[i], "!!"); // TODO !만 인식되는지 !!가 인식되는지
-				if (token == NULL)
-					printf("%s", cur->cmd);
-				while (token != NULL) {
-					char *prev_token = token;
-					token = strtok(NULL, "!!");
-					if (token == NULL)
-						printf("%s", cur->cmd);
-					printf("%s", prev_token);
-				}
-			}
-			printf("\n");
-			eval(cur->cmd, history);
-			explamation_flag = -2;
-			return 1;
-		}
-	}
-
-	if (explamation_flag > -1) {		// !# command
-		int start = 0;
-		while ((argv[explamation_flag][start] == '!') && isdigit(argv[explamation_flag][start + 1]))
-			start++;
-		int num = atoi(argv[explamation_flag][start]부터 끝까지); //TODO
-		int count = 1;
-		t_history *cur = *history;
-		while (cur->next && count < num) {
-			count++;
-			cur = cur->next;
-		}
-		if (count == num && cur) {
-			for (int i = 0; argv[i]; i++) {
-				argv[explamation_flag] -= 1; //TODO
-				char *token = strtok(argv[i], argv[explamation_flag]);
-				if (token == NULL)
-					printf("%s", cur->cmd);
-				while (token != NULL) {
-					char *prev_token = token;
-					token = strtok(NULL, (argv[explamation_flag]));
-					if (token == NULL)
-						printf("%s", cur->cmd);
-					printf("%s", prev_token);
-				}
-			}
-			printf("\n");
-		}
-		else
-			fprintf(stderr, "CSE4100: %s: event not found\n", argv[0]);
-		explamation_flag = -2;
-		return 1;
+		
 	}
 
 	return 0;							// Not a builtin command

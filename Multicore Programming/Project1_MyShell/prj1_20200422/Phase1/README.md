@@ -1,5 +1,9 @@
 # Project Phase I: Building and Testing My Shell  
 
+- char * `cmdline` : 입력받은 문자열에서 마지막 '\n'만 지워진 상태
+- char * `buf` : cmdline에서 '\t'를 ' '로 바꾸고, |와 & 문자 양옆에 공백을 삽입한 상태
+- char ** `argv` : parseline의 최종 결과물
+
 ## Extern Functions
 
 **`ls`**  
@@ -44,7 +48,7 @@ terminate all the child processes and quit the shell
 
 ```shell
 > bash
-> delphinus@Delphinus-Laptop:~$ exit 25
+> exit 25
 exit
 > echo $?
 25
@@ -52,7 +56,7 @@ exit
 
 ```shell
 > bash
-> delphinus@Delphinus-Laptop:~$ exit 256
+> exit 256
 exit
 > echo $?
 0
@@ -62,7 +66,7 @@ exit
 
 ```shell
 > bash
-> delphinus@Delphinus-Laptop:~$ exit a
+> exit a
 exit
 bash: exit: a: numeric argument required
 > echo $?
@@ -71,7 +75,7 @@ bash: exit: a: numeric argument required
 
 ```shell
 > bash
-> delphinus@Delphinus-Laptop:~$ exit 55555555555555555555555
+> exit 55555555555555555555555
 exit
 bash: exit: 55555555555555555555555: numeric argument required
 > echo $?
@@ -82,23 +86,23 @@ bash: exit: 55555555555555555555555: numeric argument required
 
 ```shell
 > bash
-> delphinus@Delphinus-Laptop:~$ exit 5 2
+> exit 5 2
 exit
 bash: exit: too many arguments
-> delphinus@Delphinus-Laptop:~$ echo $?
+> echo $?
 1
 ```
 
 - 두 개 이상의 인자가 들어왔는데 첫 인자가 long long을 벗어나거나 문자일 때
 
 ```shell
-> bash-3.2$ exit adf 332
+> bash$ exit adf 332
 exit
 bash: exit: adf: numeric argument required
 ```
 
 ```shell
-> bash-3.2$ exit 44444444444444444444444444444444444 32
+> bash$ exit 44444444444444444444444444444444444 32
 exit
 bash: exit: 44444444444444444444444444444444444: numeric argument required
 ```
