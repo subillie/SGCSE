@@ -25,35 +25,13 @@ static void modulo2division(char* dividend, char* generator, int generator_size,
 	strncpy(remainder, &tmp[codeword_size], generator_size - 1);
 }
 
-static char *makeBinary(int ascii) {
-	int binary[8];
-	char *binary_str = (char *)malloc(sizeof(char) * 9);
-	if (!binary_str) { printf("Error: malloc failed\n"); exit(1); }
-
-	// convert ascii to binary
-	for (int i = 0; ascii > 0 && i < 8; i++) {
-		binary[i++] = ascii % 2;
-		ascii = ascii / 2;
-	}
-	// make binary string
-	for (int i = 0; i < 8; i++) {
-		if (binary[i] == 1)
-			binary_str[7 - i] = '1';
-		else
-			binary_str[7 - i] = '0';
-	}
-	binary_str[8] = '\0';
-	return binary_str;
-}
-
 static void encode(FILE *fp_input, FILE *fp_output, char *generator, unsigned int dataword_size) {
 
 	int generator_size = strlen(generator);
 	char *chunk = (char *)malloc(sizeof(char));
 	char *codeword = (char *)malloc(sizeof(char) * (dataword_size + generator_size));
-	char *remainder1 = (char *)malloc(sizeof(char) * (generator_size - 1));
-	char *remainder2 = (char *)malloc(sizeof(char) * (generator_size - 1));
-	if (!chunk || !codeword || !remainder1 || !remainder2 ) { printf("Error: malloc failed\n"); exit(1); }
+	char *remainder = (char *)malloc(sizeof(char) * (generator_size - 1));
+	if (!chunk || !codeword || !remainder) { printf("Error: malloc failed\n"); exit(1); }
 	
 	// padding bits to make the codeword size a multiple of 8
 	int padding_bits = (8 - (generator_size - 1) % 8) % 8;
@@ -64,36 +42,24 @@ static void encode(FILE *fp_input, FILE *fp_output, char *generator, unsigned in
 	while (fscanf(fp_input, "%s", chunk) != EOF) {
 		int len = strlen(chunk);
 		for (int i = 0; i < len; i++) {
-			char *tmp = makeBinary(chunk[i]);
-			char *char1 = (char *)malloc(sizeof(char) * 5);
-			char *char2 = (char *)malloc(sizeof(char) * 5);
-			strncpy(char1, tmp, 4); strcpy(char2, tmp + 4);
-			printf("char1: %s, char2: %s\n", char1, char2); //TODO
-
 			// get remainder
-			modulo2division(char1, generator, generator_size, remainder1);
-			modulo2division(char2, generator, generator_size, remainder2);
-			printf("remainder1: %s\n", remainder1); //TODO
-			printf("remainder2: %s\n", remainder2); //TODO
+			modulo2division(chunk, generator, generator_size, remainder);
+			printf("remainder: %s\n", remainder); //TODO
 			// concatenate dataword and remainder to create codeword
 			strcpy(codeword, chunk);
-			strcat(codeword, remainder); // ㄱㅗ치기!!!!!!!!!!!!!!!!!!!!!1 //TODO
+			strcat(codeword, remainder);
 
 			// write codeword to output file
 			for (int i = 0; (i < dataword_size + generator_size + padding_bits - 1); i++) {
 				printf("%c", codeword[i]); //TODO
 				fputc(codeword[i], fp_output);
 			}
-			free(tmp);
-			free(char1);
-			free(char2);
 			printf("\n\n"); //TODO
 		}
 	}
 	free(chunk);
 	free(codeword);
-	free(remainder1);
-	free(remainder2);
+	free(remainder);
 }
 
 int main(int ac, char *av[]) {
