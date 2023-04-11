@@ -55,9 +55,9 @@ typedef struct {
 extern int h_errno;    /* Defined by BIND for DNS errors */ 
 extern char **environ; /* Defined by libc */
 
-/* Misc constants */
-#define	MAXLINE	 8192  /* Max text line length */
-#define MAXBUF   8192  /* Max I/O buffer size */
+// /* Misc constants */
+// #define	MAXLINE	 8192  /* Max text line length */
+// #define MAXBUF   8192  /* Max I/O buffer size */
 #define LISTENQ  1024  /* Second argument to listen() */
 
 /* Our own error-handling functions */
@@ -87,7 +87,7 @@ void Sigemptyset(sigset_t *set);
 void Sigfillset(sigset_t *set);
 void Sigaddset(sigset_t *set, int signum);
 void Sigdelset(sigset_t *set, int signum);
-int Sigismember(const sigset_t *set, int signum);
+// int Sigismember(const sigset_t *set, int signum);
 int Sigsuspend(const sigset_t *set);
 
 /* Sio (Signal-safe I/O) routines */
@@ -168,7 +168,7 @@ pthread_t Pthread_self(void);
 void Pthread_once(pthread_once_t *once_control, void (*init_function)());
 
 /* POSIX semaphore wrappers */
-void Sem_init(sem_t *sem, int pshared, unsigned int value);
+// void Sem_init(sem_t *sem, int pshared, unsigned int value);
 void P(sem_t *sem);
 void V(sem_t *sem);
 

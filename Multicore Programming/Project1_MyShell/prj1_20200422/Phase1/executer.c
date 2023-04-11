@@ -6,9 +6,15 @@ int explamation_flag = -1;
 
 /* Function prototypes */
 static void handler();
+<<<<<<< HEAD
+static void externFunction(char *filename, char *argv[], char *environ[]);
+static int getPrevHistory(FILE *fp_history);
+static int builtinCommand(char *cmdline, char **argv, FILE *fp_history);
+=======
 static void addHistory(char *cmdline);
 static void externFunction(char *filename, char *argv[], char *environ[]);
 static int builtinCommand(char *cmdline, char *argv[], FILE *fp_history);
+>>>>>>> cbed93a0ef291f1bc3ce33624cc13500d9e72992
 
 /* $begin eval */
 /* eval - Evaluate a command line */
@@ -26,24 +32,30 @@ void eval(char *cmdline, FILE *fp_history) {
 	Signal(SIGCHLD, handler);
 
 	bg = parseline(cmdline, buf, argv);
-	if (argv[0] == NULL) // Ignore empty lines
+	if (argv[0] == NULL)			// Ignore empty lines
 		return;
-	for (int i = 0; argv[i]; i++) { // Check if there is !! or !#
+	for (int i = 0; argv[i]; i++) {	// Check if there is !! or !#
 		for (int j = 1; argv[i][j]; j++) {
 			if (argv[i][j - 1] == '!' && argv[i][j] == '!') {
-				explamation_flag = -1;
+				explamation_flag = 1;
 				break;
 			}
 			else if (argv[i][j - 1] == '!' && isdigit(argv[i][j])) {
-				explamation_flag = i;
+				explamation_flag = 2;
 				break;
 			}
 		}
 		if (explamation_flag > 0)
 			break;
 	}
+<<<<<<< HEAD
+	if ((strlen(buf) > 0) && (explamation_flag < 1)) {
+=======
 	if ((strlen(buf) > 0) && (explamation_flag < 0))
+>>>>>>> cbed93a0ef291f1bc3ce33624cc13500d9e72992
 		add_history(cmdline);
+		fprintf(fp_history, "%-4d%s\n", (getPrevHistory(fp_history) + 1), cmdline);
+	}
 
 	// quit -> exit(0), & -> ignore, other -> run
 	if (!builtinCommand(cmdline, argv, fp_history)) {
@@ -117,8 +129,13 @@ static void externFunction(char *filename, char *argv[], char *environ[]) {
 		}
 		free(filename);
 		if (execve_flag < 0)
+<<<<<<< HEAD
+			//unix_error("CSE4100: ");
+			fprintf(stderr, "CSE4100: %s: Command not found.\n", argv[0]);
+=======
 			fprintf(stderr, "CSE4100: %s: Command not found.\n", argv[0]);
 			// unix_error("CSE4100: ");
+>>>>>>> cbed93a0ef291f1bc3ce33624cc13500d9e72992
 	}
 }
 
@@ -136,8 +153,13 @@ static int getPrevHistory(FILE *fp_history) {
 	return (log_index + 1);
 }
 
+<<<<<<< HEAD
+/* If cmd is a builtin command, run it and return true */
+static int builtinCommand(char *cmdline, char **argv, FILE *fp_history) {
+=======
 /* If opening_q arg is a builtin command, run it and return true */
 static int builtinCommand(char *cmdline, char *argv[], FILE *fp_history) {
+>>>>>>> cbed93a0ef291f1bc3ce33624cc13500d9e72992
 
 	if (!strcmp(argv[0], "exit"))		// exit command
 		exit(0);
@@ -207,10 +229,9 @@ static int builtinCommand(char *cmdline, char *argv[], FILE *fp_history) {
 	}
 
 	if (!strcmp(argv[0], "history")) {	// history command
-		int log_index = getPrevHistory(fp_history);
-		if (log_index == 1)
-			return 1;
-		fprintf(fp_history, "%-4d%s\n", log_index, cmdline);
+		fseek(fp_history, 0, SEEK_SET);
+		char *line;
+		fgets(line, sizeof(line), fp_history);
 		return 1;
 	}
 
@@ -220,11 +241,41 @@ static int builtinCommand(char *cmdline, char *argv[], FILE *fp_history) {
 			explamation_flag = 0;
 			return 1;
 		}
+<<<<<<< HEAD
+		char line[MAXLINE];
+		char *fdline;
+		for (int i = 0; i <= log_index; i++)
+			fdline = fgets(line, sizeof(line), fp_history);
+		while (isdigit(*fdline) || isspace(*fdline))
+			fdline++;
+		fdline++;
+		for (int i = 0; argv[i]; i++) {
+			char *token = strtok(argv[i], "!!"); // TODO !만 인식되는지 !!가 인식되는지
+			if (token == NULL)
+				printf("%s", fdline);
+			while (token != NULL) {
+				char *prev_token = token;
+				token = strtok(NULL, "!!");
+				if (token == NULL)
+					printf("%s", fdline);
+				printf("%s", prev_token);
+			}
+		}
+		printf("\n");
+		eval(fdline, fp_history);
+		explamation_flag = -1;
+	}
+
+	if (explamation_flag == 2) {			// !# command
+		printf("NOT YET...\n");
+		return 1;
+=======
 		explamation_flag = -1;	
 	}
 
 	if (explamation_flag == 2) {		// !# command
 		explamation_flag = -1;
+>>>>>>> cbed93a0ef291f1bc3ce33624cc13500d9e72992
 	}
 
 	return 0;							// Not a builtin command

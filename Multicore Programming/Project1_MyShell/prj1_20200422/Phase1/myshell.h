@@ -7,10 +7,6 @@
 #define MAXARGS 128
 #define MAXLINE 8192
 
-/* External variables */
-extern int h_errno;    /* Defined by BIND for DNS errors */ 
-extern char **environ; /* Defined by libc */
-
 /* Function prototypes */
 void eval(char *cmdline, FILE *fp_history);
 int parseline(char *cmdline, char *buf, char **argv);
