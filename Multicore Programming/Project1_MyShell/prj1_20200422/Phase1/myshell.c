@@ -1,19 +1,23 @@
+/* $begin shellmain */
 #include "myshell.h"
 
-/* $begin shellmain */
 int main() {
 
-	char cmdline[MAXLINE];	// Command line
-	FILE *fp_history = fopen("history.txt", "w");
+	sigset_t mask_all, mask_one;
+	char cmdline[MAXLINE];	/* Command line */
+	FILE *fp_history = Fopen("history.txt", "w");
 
 	while (1) {
+		/* Read */
 		printf("CSE4100-MP-P1> ");
-		fgets(cmdline, MAXLINE, stdin);	// Read
+		fgets(cmdline, MAXLINE, stdin);
 		if (feof(stdin))
 			exit(0);
-		eval(cmdline, fp_history);		// Evaluate
+
+		/* Evaluate */
+		eval(cmdline, fp_history);
 	}
-	fclose(fp_history);
+	Fclose(fp_history);
 
 	return 0;
 }

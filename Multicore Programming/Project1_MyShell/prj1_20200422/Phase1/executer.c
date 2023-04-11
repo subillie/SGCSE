@@ -2,13 +2,13 @@
 
 /* Global variables */
 int signal_flag = 0;
-int explamation_flag = -2;
+int explamation_flag = -1;
 
 /* Function prototypes */
 static void handler();
-static void addHistory(char *cmdline, t_history **history);
+static void addHistory(char *cmdline);
 static void externFunction(char *filename, char *argv[], char *environ[]);
-static int builtinCommand(char *cmdline, char **argv, FILE *fp_history);
+static int builtinCommand(char *cmdline, char *argv[], FILE *fp_history);
 
 /* $begin eval */
 /* eval - Evaluate a command line */
@@ -39,10 +39,10 @@ void eval(char *cmdline, FILE *fp_history) {
 				break;
 			}
 		}
-		if (explamation_flag >= -1)
+		if (explamation_flag > 0)
 			break;
 	}
-	if ((strlen(buf) > 0) && (explamation_flag == 0))
+	if ((strlen(buf) > 0) && (explamation_flag < 0))
 		add_history(cmdline);
 
 	// quit -> exit(0), & -> ignore, other -> run
@@ -117,8 +117,8 @@ static void externFunction(char *filename, char *argv[], char *environ[]) {
 		}
 		free(filename);
 		if (execve_flag < 0)
-			unix_error("CSE4100: ");
-			// fprintf(stderr, "CSE4100: %s: Command not found.\n", argv[0]);
+			fprintf(stderr, "CSE4100: %s: Command not found.\n", argv[0]);
+			// unix_error("CSE4100: ");
 	}
 }
 
@@ -137,10 +137,11 @@ static int getPrevHistory(FILE *fp_history) {
 }
 
 /* If opening_q arg is a builtin command, run it and return true */
-static int builtinCommand(char *cmdline, char **argv, FILE *fp_history) {
+static int builtinCommand(char *cmdline, char *argv[], FILE *fp_history) {
 
 	if (!strcmp(argv[0], "exit"))		// exit command
 		exit(0);
+
 	if (!strcmp(argv[0], "&"))			// Ignore singleton &
 		return 1;
 
@@ -149,8 +150,8 @@ static int builtinCommand(char *cmdline, char **argv, FILE *fp_history) {
 			chdir(getenv("HOME"));
 		else if (chdir(argv[1]) < 0) {
 			if (!argv[2])
-				unix_error("CSE4100: cd: "); // TODO unix_error로 바꿔보기
-				//fprintf(stderr, "CSE4100: cd: no such file or directory:%s\n", argv[1]);
+				fprintf(stderr, "CSE4100: cd: no such file or directory:%s\n", argv[1]);
+				// unix_error("CSE4100: cd: "); // TODO unix_error로 바꿔보기
 			else {
 				fprintf(stderr, "CSE4100: cd : string not in pwd:");
 				for (int i = 2; argv[i]; i++)
@@ -213,13 +214,17 @@ static int builtinCommand(char *cmdline, char **argv, FILE *fp_history) {
 		return 1;
 	}
 
-	if (explamation_flag >= -1) {
+	if (explamation_flag == 1) {		// !! command
 		int log_index = getPrevHistory(fp_history);
 		if (log_index == 1) {
 			explamation_flag = 0;
 			return 1;
 		}
-		
+		explamation_flag = -1;	
+	}
+
+	if (explamation_flag == 2) {		// !# command
+		explamation_flag = -1;
 	}
 
 	return 0;							// Not a builtin command
