@@ -41,3 +41,8 @@
 41             cd
 42              cd .
 43          history
+44   hi
+45   hello
+46   history
+47   ls
+48   /bin/ls

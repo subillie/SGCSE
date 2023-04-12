@@ -48,16 +48,18 @@ void eval(char *cmdline, FILE *fp_history, int *history_count) {
 
 	// Execute command line
 	if (!builtinCommand(cmdline, argv, fp_history, history_count)) {
-		// Sigprocmask(SIG_BLOCK, &mask_one, &prev_one);
+		Sigprocmask(SIG_BLOCK, &mask_one, &prev_one);
 		char *filename = (char *)malloc(sizeof(char) * MAXLINE);
 		strcpy(filename, argv[0]);
-		// if ((pid = Fork()) == 0) {	// Child runs user job
-			// Sigprocmask(SIG_SETMASK, &prev_one, NULL);
-			// setpgid(0, 0);
+		if ((pid = Fork()) == 0) {	// Child runs user job
+			Sigprocmask(SIG_SETMASK, &prev_one, NULL);
+			setpgid(0, 0);
 			externFunction(filename, argv, environ);
-		// }
-		// Sigprocmask(SIG_BLOCK, &mask_all, NULL);
-		// Sigprocmask(SIG_SETMASK, &prev_one, NULL);
+		}
+		int status;
+		wait(&status);
+		Sigprocmask(SIG_BLOCK, &mask_all, NULL);
+		Sigprocmask(SIG_SETMASK, &prev_one, NULL);
 	}
 	// Parent waits for foreground job to terminate
 	if (!bg) {
