@@ -8,7 +8,7 @@
 #define MAXLINE 8192
 
 /* Function prototypes */
-void eval(char *cmdline, FILE *fp_history);
+void eval(char *cmdline, FILE *fp_history, int *history_count);
 int parseline(char *cmdline, char *buf, char **argv);
 
 #endif
