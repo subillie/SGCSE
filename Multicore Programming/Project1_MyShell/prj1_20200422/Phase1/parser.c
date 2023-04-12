@@ -28,6 +28,12 @@ int parseline(char *cmdline, char *buf, char **argv) { //TODO quote 처리
 	}
 	argv[argc] = NULL;
 
+	if (!argv[0][0]) {
+		for (argc = 0; argv[argc + 1]; argc++)
+			argv[argc] = argv[argc + 1];
+		argv[argc] = NULL;
+	}
+
 	// Ignore blank line
 	if (argc == 0)
 		return 1;

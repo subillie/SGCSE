@@ -1,2 +1,43 @@
 1   aseilfjaslfjsd
 2   history
+3   /bin/ls ls -al
+4   ls
+5   echo hi
+6   sajdklfjsdlk
+7   echo hello
+8   history
+9   echo hello
+10   history
+11    history
+12   history           
+13   history
+14    history
+15   histoyr
+16   history
+17   history   
+18   history                               	`
+19   history aslrjewlijfe
+20   ls
+21   asd
+22   /bin/ls
+23   bin/ls
+24   ls
+25   bin/ls
+26   /bin/ls
+26   bin/ls
+28   ls
+29   /bin/ls
+30   echo h
+31   echo hell
+32   echo h
+33   echo hi
+34                     echo hi
+35                    echo hi
+36                 echo hi
+37         echo hi
+38          echo hi
+39           echo hi
+40         echo hi
+41             cd
+42              cd .
+43          history

@@ -6,9 +6,9 @@ int explamation_flag = -1;
 
 /* Function prototypes */
 static void handler();
-static void checkExplamation(char *argv[]);
-static void externFunction(char *filename, char *argv[], char *environ[]);
-static int builtinCommand(char *cmdline, char *argv[], FILE *fp_history, int *history_count);
+static void checkExplamation(char **argv);
+static void externFunction(char *filename, char **argv, char **environ);
+static int builtinCommand(char *cmdline, char **argv, FILE *fp_history, int *history_count);
 
 /* $begin eval */
 /* eval - Evaluate a command line */
@@ -63,7 +63,7 @@ void eval(char *cmdline, FILE *fp_history, int *history_count) {
 	if (!bg) {
 		int status;
 		// if (waitpid(pid, &status, 0) < 0)
-			// unix_error("waitfg: waitpid error");
+		// 	unix_error("waitfg: waitpid error");
 	}
 	else	// when there is background process
 		printf("%d %s", pid, cmdline);
@@ -95,7 +95,7 @@ static void handler() {
 }
 
 /* checkExplamation - Check if there is !! or !# */
-static void checkExplamation(char *argv[]) {
+static void checkExplamation(char **argv) {
 
 	for (int i = 0; argv[i]; i++) {
 		for (int j = 1; argv[i][j]; j++) {
@@ -116,7 +116,7 @@ static void checkExplamation(char *argv[]) {
 	}
 }
 
-static void externFunction(char *filename, char *argv[], char *environ[]) {
+static void externFunction(char *filename, char **argv, char **environ) {
 
 	int execve_flag;
 
@@ -145,7 +145,7 @@ static void externFunction(char *filename, char *argv[], char *environ[]) {
 }
 
 /* If opening_q arg is a builtin command, run it and return true */
-static int builtinCommand(char *cmdline, char *argv[], FILE *fp_history, int *history_count) {
+static int builtinCommand(char *cmdline, char **argv, FILE *fp_history, int *history_count) {
 
 	if (!strcmp(argv[0], "exit"))		// exit command
 		exit(0);

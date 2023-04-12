@@ -19,7 +19,12 @@ int main() {
 		fgets(cmdline, MAXLINE, stdin);
 		if (feof(stdin))
 			exit(0);
-		// add_history(cmdline); //TODO
+		// char *cmdline = readline("CSE4100-MP-P1> ");
+		// if (!cmdline)
+		// 	break;
+		// printf("<%s>\n", cmdline);
+		// if (cmdline[0] != '\0')
+		// 	add_history(cmdline);
 
 		/* Evaluate */
 		eval(cmdline, fp_history, &history_count);
