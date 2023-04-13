@@ -46,6 +46,7 @@ void eval(char *cmdline, FILE *fp_history, int *history_count) {
 		strcat(cmdline, "\n");
 		if (strcmp(line + count + 3, cmdline) != 0 && argv[0][0]) {	// Add history
 			(*history_count)++;
+			// add_history(cmdline); //TODO
 			fprintf(fp_history, "%d   %s", *history_count, cmdline);
 			fflush(fp_history);
 		}
@@ -64,15 +65,17 @@ void eval(char *cmdline, FILE *fp_history, int *history_count) {
 		}
 		Sigprocmask(SIG_BLOCK, &mask_all, NULL);
 		Sigprocmask(SIG_SETMASK, &prev_one, NULL);
+
+		// Parent waits for foreground job to terminate
+		if (!bg) {
+			int status;
+			if (waitpid(pid, &status, 0) < 0)
+				unix_error("waitfg: waitpid error");
+		}
+		else	// when there is background process
+			printf("%d %s", pid, cmdline);
 	}
-	// Parent waits for foreground job to terminate
-	if (!bg) {
-		int status;
-		 if (waitpid(pid, &status, 0) < 0)
-		 	unix_error("waitfg: waitpid error");
-	}
-	else	// when there is background process
-		printf("%d %s", pid, cmdline);
+
 	return;
 }
 
