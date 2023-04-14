@@ -1,66 +1,76 @@
 #include "myshell.h"
 
-void	firstPipe(int pipe_count, int bg, char *cmdline, char **argv, int *index, FILE *fp_history, int *history_count, int **fd) {
+void	firstPipe(int bg, char *cmdline, char **argv, int *index, FILE *fp_history, int *history_count, int **fd) {
 
-	if (pipe(fd[0]) == -1) {
-		unix_error("Pipe error");
-		return ;
-	}
-	pid_t pid = Fork();
-	printf("=============================\n");
-	for (char **tmp = argv; *tmp; tmp++)
-		printf("fst: %s\n", *tmp);
-	printf("=============================\n");
+    int pipe_i = 0;
+    char **tmp = argv + (*index);
+    for (; (tmp[pipe_i] && tmp[pipe_i][0] != '|'); pipe_i++);
+
+//    printf("=============================\n");
+//    for (char **tmp = argv + (*index); *tmp; tmp++)
+//        printf("fst: %s\n", *tmp);
+//    printf("=============================\n");
+
+    if (pipe(fd[0]) == -1) {
+        unix_error("Pipe error");
+        return ;
+    }
+    pid_t pid = Fork();
 	if (pid == 0) {
 		close(fd[0][0]);
 		dup2(fd[0][1], STDOUT_FILENO);
 		close(fd[0][1]);
-		if (!builtinCommand(cmdline, argv, fp_history, history_count)) {
+
+		if (!builtinCommand(cmdline, tmp, fp_history, history_count)) {
 			char *filename = (char *)malloc(sizeof(char) * MAXLINE);
-			strcpy(filename, argv[0]);
-			externFunction(filename, argv, environ);
+			strcpy(filename, tmp[0]);
+            tmp[pipe_i] = NULL;
+			externFunction(filename, tmp, environ);
 		} // background 추가
 		exit(1);
 	} else if (pid > 0) {
 		close(fd[0][1]);
-		*index += 2;
+		*index += pipe_i + 1;
 	}
-}
-
-static void	run_child(int pipe_count, int bg, char *cmdline, char **argv, FILE *fp_history, int *history_count, int **fd, int i) {
-
-	close(fd[i][0]);
-	dup2(fd[i - 1][0], STDIN_FILENO);
-	close(fd[i - 1][0]);
-	dup2(fd[i][1], STDOUT_FILENO);
-	close(fd[i][1]);
-	if (!builtinCommand(cmdline, argv, fp_history, history_count)) {
-		char *filename = (char *)malloc(sizeof(char) * MAXLINE);
-		strcpy(filename, argv[0]);
-		externFunction(filename, argv, environ);
-	} // background 추가
-	exit(1);
 }
 
 int	midPipe(int pipe_count, int bg, char *cmdline, char **argv, int *index, FILE *fp_history, int *history_count, int **fd) {
 
-	printf("=============================\n");
-	for (char **tmp = (argv + (*index)); *tmp; tmp++)
-		printf("mid: %s\n", *tmp);
-	printf("=============================\n");
+    int pipe_i = 0;
+    char **tmp = argv + (*index);
+    for (; (tmp[pipe_i] && tmp[pipe_i][0] != '|'); pipe_i++);
+
+//	printf("=============================\n");
+//	for (char **tmp = (argv + (*index)); *tmp; tmp++)
+//		printf("mid: %s\n", *tmp);
+//	printf("=============================\n");
+
 	int i = 0;
-	while (++i < pipe_count) {
+	while (i < pipe_count - 1) {
+        i++;
 		if (pipe(fd[i]) == -1) {
 			unix_error("Pipe error");
 			return (-1);
 		}
 		pid_t pid = Fork();
-		if (pid == 0) // 자식
-			run_child(pipe_count, bg, cmdline, (argv + (*index)), fp_history, history_count, fd, i);
+		if (pid == 0) { // 자식
+            close(fd[i][0]);
+            dup2(fd[i - 1][0], STDIN_FILENO);
+            close(fd[i - 1][0]);
+            dup2(fd[i][1], STDOUT_FILENO);
+            close(fd[i][1]);
+            if (!builtinCommand(cmdline, tmp, fp_history, history_count)) {
+                char *filename = (char *)malloc(sizeof(char) * MAXLINE);
+                strcpy(filename, tmp[0]);
+                tmp[pipe_i] = NULL;
+                externFunction(filename, tmp, environ);
+            } // background 추가
+            exit(1);
+        }
 		else if (pid > 0) {
 			close(fd[i - 1][0]);
 			close(fd[i][1]);
-			*index += 2;
+			*index += pipe_i + 1;
 		} else
 			return (-1);
 	}
@@ -69,21 +79,27 @@ int	midPipe(int pipe_count, int bg, char *cmdline, char **argv, int *index, FILE
 
 int	lastPipe(int pipe_count, int bg, char *cmdline, char **argv, int *index, FILE *fp_history, int *history_count, int **fd, int i) {
 
+    int pipe_i = 0;
+    char **tmp = argv + (*index);
+    for (; (tmp[pipe_i] && tmp[pipe_i][0] != '|'); pipe_i++);
+
+//	printf("=============================\n");
+//	for (char **tmp = (argv + (*index)); *tmp; tmp++)
+//		printf("lst: %s\n", *tmp);
+//	printf("=============================\n");
+
 	pid_t pid = Fork();
 	int status = 0;
 
-	printf("=============================\n");
-	for (char **tmp = (argv + (*index)); *tmp; tmp++)
-		printf("lst: %s\n", *tmp);
-	printf("=============================\n");
 	if (pid == 0) {	// 자식
 		dup2(fd[i][0], STDIN_FILENO);
 		close(fd[i][0]);
-		if (!builtinCommand(cmdline, argv, fp_history, history_count)) {
-			char *filename = (char *)malloc(sizeof(char) * MAXLINE);
-			strcpy(filename, argv[0]);
-			externFunction(filename, argv, environ);
-		} // background 추가
+        if (!builtinCommand(cmdline, tmp, fp_history, history_count)) {
+            char *filename = (char *)malloc(sizeof(char) * MAXLINE);
+            strcpy(filename, tmp[0]);
+            tmp[pipe_i] = NULL;
+            externFunction(filename, tmp, environ);
+        } // background 추가
 		exit(1);
 	} else if (pid > 0) {
 		close(fd[i][0]);

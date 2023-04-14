@@ -12,7 +12,7 @@ void eval(char *cmdline, FILE *fp_history, int *history_count);
 int builtinCommand(char *cmdline, char **argv, FILE *fp_history, int *history_count);
 void externFunction(char *filename, char **argv, char **environ);
 void noPipe(int pipe_count, int bg, char *cmdline, char **argv, FILE *fp_history, int *history_count);
-void firstPipe(int pipe_count, int bg, char *cmdline, char **argv, int *index, FILE *fp_history, int *history_count, int **fd);
+void firstPipe(int bg, char *cmdline, char **argv, int *index, FILE *fp_history, int *history_count, int **fd);
 int midPipe(int pipe_count, int bg, char *cmdline, char **argv, int *index, FILE *fp_history, int *history_count, int **fd);
 int lastPipe(int pipe_count, int bg, char *cmdline, char **argv, int *index, FILE *fp_history, int *history_count, int **fd, int i);
 

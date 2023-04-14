@@ -48,14 +48,22 @@ int parseline(char *cmdline, char *buf, char **argv) { //TODO quote 처리
 static void render_line(char *cmdline, char *buf) {
 
 	// Put space besides | and &
-	int i_b = 0, i_c = 0;
-	while (cmdline[i_c] && i_b < MAXLINE - 1) {
-		if (cmdline[i_c] == '|' || cmdline[i_c] == '&') {
-			buf[i_b++] = ' ';
-			buf[i_b++] = cmdline[i_c++];
-			buf[i_b++] = ' ';
+	int count = 0;
+	int i_b = -1, i_c = -1;
+	while (cmdline[++i_c] && ++i_b < MAXLINE - 1) {
+		if (cmdline[i_c] == '|') {
+			buf[i_b] = ' ';
+			buf[++i_b] = cmdline[i_c];
+			buf[++i_b] = ' ';
+			count += 2;
+			(*pipe_count)++;
+		} else if (cmdline[i_c] == '&') {
+			buf[i_b] = ' ';
+			buf[++i_b] = cmdline[i_c];
+			buf[++i_b] = ' ';
+			count += 2;
 		} else
-			buf[i_b++] = cmdline[i_c++];
+			buf[i_b] = cmdline[i_c];
 	}
 
 	// Remove trailing newline
@@ -66,5 +74,6 @@ static void render_line(char *cmdline, char *buf) {
 	while (buf[++i_b])
 		if (buf[i_b] == '\t')
 			buf[i_b] = ' ';
+	buf[i_c + count] = '\0';
 }
 /* $end parseline */

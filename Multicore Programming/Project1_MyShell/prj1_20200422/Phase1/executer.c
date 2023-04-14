@@ -215,7 +215,7 @@ static int builtinCommand(char *cmdline, char **argv, FILE *fp_history, int *his
 		else {
 			int fd = open(argv[1], O_RDONLY);
 			if (fd < 0) {
-				printf("cat: %s: No such file or directory\n", argv[1]);
+				fprintf(stderr, "cat: %s: No such file or directory\n", argv[1]);
 				return 1;
 			}
 			char buf[MAXLINE];

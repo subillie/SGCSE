@@ -21,9 +21,11 @@ void eval(char *cmdline, FILE *fp_history, int *history_count) {
 
 	// Parse command line
 	bg = parseline(cmdline, buf, argv, &pipe_count);
-	if (argv[0] == NULL)			// Ignore empty lines
-		return;
-	addHistory(cmdline, buf, argv, fp_history, history_count);
+    if (bg == -1)
+        return ;
+    if (argv[0] == NULL || (strlen(argv[0]) == 0 && argv[1] == NULL))			// Ignore empty lines
+        return;
+    addHistory(cmdline, buf, argv, fp_history, history_count);
 
 	// Execute command line
 	if (pipe_count == 0)
@@ -110,13 +112,9 @@ static void isPipe(int pipe_count, int bg, char *cmdline, char **argv, FILE *fp_
 		fd[i] = Malloc(sizeof(int) * 2);
 
 	int index = 0;
-	printf("FIRST\n");
-	firstPipe(pipe_count, bg, cmdline, argv, &index, fp_history, history_count, fd);
-	printf("MID\n");
+	firstPipe(bg, cmdline, argv, &index, fp_history, history_count, fd);
 	int i = midPipe(pipe_count, bg, cmdline, argv, &index, fp_history, history_count, fd);
-	printf("LAST\n");
 	int status = lastPipe(pipe_count, bg, cmdline, argv, &index, fp_history, history_count, fd, i);
-	printf("END\n");
 
 	for (i = 0; i < pipe_count; i++)
 		free(fd[i]);
@@ -155,10 +153,10 @@ void externFunction(char *filename, char **argv, char **environ) {
 /* If opening_q arg is a builtin command, run it and return true */
 int builtinCommand(char *cmdline, char **argv, FILE *fp_history, int *history_count) {
 
-	if (!strcmp(argv[0], "exit"))		// exit command
+	if (!strcmp(argv[0], "exit"))		    // exit command
 		exit(0);
 
-	if (!strcmp(argv[0], "&"))			// Ignore singleton &
+	if (!strcmp(argv[0], "&"))			    // Ignore singleton &
 		return 1;
 
 	if (strcmp(argv[0], "cd") == 0) {		// cd command
@@ -191,7 +189,7 @@ int builtinCommand(char *cmdline, char **argv, FILE *fp_history, int *history_co
 		else {
 			int fd = open(argv[1], O_RDONLY);
 			if (fd < 0) {
-				printf("cat: %s: No such file or directory\n", argv[1]);
+				fprintf(stderr, "cat: %s: No such file or directory\n", argv[1]);
 				return 1;
 			}
 			char buf[MAXLINE];
