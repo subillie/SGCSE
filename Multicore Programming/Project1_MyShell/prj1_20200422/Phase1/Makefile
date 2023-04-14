@@ -1,2 +1,2 @@
 all: 
-	gcc -g -lreadline *.c
+	gcc *.c

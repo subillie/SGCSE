@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"myshell.h": "c",
-		"pthread.h": "c",
-		"history.h": "c",
-		"readline.h": "c",
-		"csapp.h": "c"
-	}
-}

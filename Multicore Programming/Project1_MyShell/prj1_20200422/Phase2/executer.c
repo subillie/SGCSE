@@ -6,12 +6,8 @@ int explamation_flag = -1;
 volatile sig_atomic_t pid;
 
 /* Function prototypes */
-// static void handlerSIGINT(int sig);
-// static void handlerSIGTSTP(int sig);
-// static void handlerSIGCHLD(int sig);
 static void addHistory(char *cmdline, char *buf, char **argv, FILE *fp_history, int *history_count);
-static void externFunction(char *filename, char **argv, char **environ);
-static int builtinCommand(char *cmdline, char **argv, FILE *fp_history, int *history_count);
+static void isPipe(int pipe_count, int bg, char *cmdline, char **argv, FILE *fp_history, int *history_count);
 
 /* $begin eval */
 /* eval - Evaluate a command line */
@@ -20,95 +16,30 @@ void eval(char *cmdline, FILE *fp_history, int *history_count) {
 	char *argv[MAXARGS];	// Argument list execve()
 	char buf[MAXLINE];		// Holds modified command line
 	int bg;					// Should the job run in bg or fg?
+	int pipe_count = 0;		// Check if there is pipe
 	//pid_t pid;				// Process id
-	// sigset_t mask_all, mask_one, prev_one;
-
-	// Sigfillset(&mask_all);
-	// Sigemptyset(&mask_one);
-	// Sigaddset(&mask_one, SIGCHLD);
-	// Signal(SIGCHLD, handlerSIGCHLD);
-	// Signal(SIGINT, handlerSIGINT);
-	// Signal(SIGTSTP, handlerSIGTSTP);
 
 	// Parse command line
-	bg = parseline(cmdline, buf, argv);
+	bg = parseline(cmdline, buf, argv, &pipe_count);
 	if (argv[0] == NULL)			// Ignore empty lines
 		return;
 	addHistory(cmdline, buf, argv, fp_history, history_count);
 
 	// Execute command line
-	if (!builtinCommand(cmdline, argv, fp_history, history_count)) {
-		// Sigprocmask(SIG_BLOCK, &mask_one, &prev_one);
-		char *filename = (char *)malloc(sizeof(char) * MAXLINE);
-		strcpy(filename, argv[0]);
-		if ((pid = Fork()) == 0) {	// Child runs user job
-			// Sigprocmask(SIG_SETMASK, &prev_one, NULL);
-			// setpgid(0, 0);
-			externFunction(filename, argv, environ);
-			exit(1);
-		}
-		// Sigprocmask(SIG_BLOCK, &mask_all, NULL);
-		// Sigprocmask(SIG_SETMASK, &prev_one, NULL);
-
-		// Parent waits for foreground job to terminate
-		if (!bg) {
-			int status;
-			// if (waitpid(pid, &status, 0) < 0)
-			// 	unix_error("waitfg: waitpid error");
-		}
-		else	// when there is background process
-			printf("%d %s", pid, cmdline);
-
-		int status;	//TODO
-		wait(&status);
+	if (pipe_count == 0)
+		noPipe(pipe_count, bg, cmdline, argv, fp_history, history_count);
+	else {
+		int stdin_dup = dup(STDIN_FILENO);
+		int stdout_dup = dup(STDOUT_FILENO);
+		isPipe(pipe_count, bg, cmdline, argv, fp_history, history_count);
+		dup2(stdin_dup, STDIN_FILENO);
+		dup2(stdout_dup, STDOUT_FILENO);
+		close(stdin_dup);
+		close(stdout_dup);
 	}
 
 	return;
 }
-
-// static void handlerSIGINT(int sig) {
-
-// 	if (pid != 0)
-// 		kill(-pid, SIGINT);
-// 	return ;
-// }
-
-// static void handlerSIGTSTP(int sig) {
-
-// 	if (pid != 0)
-// 		kill(-pid, SIGTSTP);
-// 	return ;
-// }
-
-// static void handlerSIGCHLD(int sig) {
-// 	int olderrno = errno;
-// 	pid = waitpid(-1, NULL, 0);
-// 	errno = olderrno;
-// }
-
-/* handler - Handle signal */
-//static void handler() {
-//
-//    int olderrno = errno;
-//    int status;
-//    pid_t pid;
-//    sigset_t mask_all, prev;
-//
-//    Sigfillset(&mask_all);
-//    // Wait for a child process to stop or terminate
-//    while ((pid = waitpid(-1, &status, WNOHANG | WUNTRACED))) {
-//       Sigprocmask(SIG_BLOCK, &mask_all, &prev);
-//
-//       // If child process is stopped or terminated, set signal_flag
-//       if(WIFSTOPPED(status) || WIFEXITED(status) || WIFSIGNALED(status))
-//           signal_flag = 1;
-//
-//       Sigprocmask(SIG_SETMASK, &prev, NULL);
-//    }
-//    if (errno != ECHILD)	//  ECHILD - No child processes (POSIX.1-2001).
-//       unix_error("waitpid error");
-//    errno = olderrno;
-//}
 
 static void addHistory(char *cmdline, char *buf, char **argv, FILE *fp_history, int *history_count) {
 
@@ -148,7 +79,52 @@ static void addHistory(char *cmdline, char *buf, char **argv, FILE *fp_history, 
 	}
 }
 
-static void externFunction(char *filename, char **argv, char **environ) {
+void noPipe(int pipe_count, int bg, char *cmdline, char **argv, FILE *fp_history, int *history_count) {
+
+	if (!builtinCommand(cmdline, argv, fp_history, history_count)) {
+		// Sigprocmask(SIG_BLOCK, &mask_one, &prev_one);
+		char *filename = (char *)malloc(sizeof(char) * MAXLINE);
+		strcpy(filename, argv[0]);
+		if ((pid = Fork()) == 0) {	// Child runs user job
+			externFunction(filename, argv, environ);
+			exit(1);
+		}
+
+		// Parent waits for foreground job to terminate
+		if (!bg) {
+			int status;
+		}
+		else	// when there is background process
+			printf("%d %s", pid, cmdline);
+		if (pipe_count == 0) {
+			int status;	//TODO
+			wait(&status);
+		}
+	}
+}
+
+static void isPipe(int pipe_count, int bg, char *cmdline, char **argv, FILE *fp_history, int *history_count) {
+
+	int **fd = Malloc(sizeof(int *) * pipe_count);
+	for (int i = 0; i < pipe_count; i++)
+		fd[i] = Malloc(sizeof(int) * 2);
+
+	int index = 0;
+	printf("FIRST\n");
+	firstPipe(pipe_count, bg, cmdline, argv, &index, fp_history, history_count, fd);
+	printf("MID\n");
+	int i = midPipe(pipe_count, bg, cmdline, argv, &index, fp_history, history_count, fd);
+	printf("LAST\n");
+	int status = lastPipe(pipe_count, bg, cmdline, argv, &index, fp_history, history_count, fd, i);
+	printf("END\n");
+
+	for (i = 0; i < pipe_count; i++)
+		free(fd[i]);
+	free(fd);
+	// 시그널 처리
+}
+
+void externFunction(char *filename, char **argv, char **environ) {
 
 	int execve_flag;
 
@@ -177,7 +153,7 @@ static void externFunction(char *filename, char **argv, char **environ) {
 }
 
 /* If opening_q arg is a builtin command, run it and return true */
-static int builtinCommand(char *cmdline, char **argv, FILE *fp_history, int *history_count) {
+int builtinCommand(char *cmdline, char **argv, FILE *fp_history, int *history_count) {
 
 	if (!strcmp(argv[0], "exit"))		// exit command
 		exit(0);

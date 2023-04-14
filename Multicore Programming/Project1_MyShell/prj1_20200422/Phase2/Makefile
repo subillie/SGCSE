@@ -1,0 +1,2 @@
+all: 
+	gcc -Og *.c

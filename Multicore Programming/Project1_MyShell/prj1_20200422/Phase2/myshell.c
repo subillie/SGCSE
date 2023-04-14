@@ -1,16 +1,29 @@
-#include "csapp.h"
-#define MAXARGS 128
+#include "myshell.h"
 
-int main()
-{
-	char cmdline[MAXLINE];
+/* $begin shellmain */
+int main() {
+
+	sigset_t mask_all, mask_one;
+	char cmdline[MAXLINE];	/* Command line */
+	FILE *fp_history = Fopen("history.txt", "a+");
+
+	fseek(fp_history, 0L, SEEK_SET);
+	char line[MAXLINE];
+	int history_count = 0;
+	for (; fgets(line, MAXLINE, fp_history); history_count++);
 
 	while (1) {
-		printf("CSE4100-MP-P2> ");
+		/* Read */
+		printf("CSE4100-MP-P1> ");
 		fgets(cmdline, MAXLINE, stdin);
 		if (feof(stdin))
 			exit(0);
-		eval(cmdline);
+
+		/* Evaluate */
+		eval(cmdline, fp_history, &history_count);
 	}
+	Fclose(fp_history);
+
 	return 0;
 }
+/* $end shellmain */

@@ -1,0 +1,31 @@
+1   ls
+2   echo hi
+3   cat |ls
+4   cat | ls
+5   cat|ls
+6   cat |ls
+7   cat | ls
+8   a|a|a|a|
+9   a| a| |
+10   a|a|a|a|a|A|A|A|A|A\A|A\a|A|A|A
+11   A | B | C | D
+12   A | B  | C
+13   a | v | c
+14   a | b | c
+15   A|B|C|D
+16   A|B
+17   A|B|C|D
+18   A|B|C
+19   A|B|C|D
+20   ls
+21   echo
+22   cat
+23   cat dsjklafjsd
+24   sleep 100
+25   ls
+26   pwd'
+27   pwd
+28   A|B|C|D
+29   A|b|c
+30   A | B | sleep 100
+31   A|B|C|D

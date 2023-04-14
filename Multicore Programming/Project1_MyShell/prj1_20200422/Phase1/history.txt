@@ -1,106 +1,27 @@
-1   aseilfjaslfjsd
-2   history
-3   /bin/ls ls -al
-4   ls
-5   echo hi
-6   sajdklfjsdlk
-7   echo hello
-8   history
-9   echo hello
-10   history
-11    history
-12   history           
-13   history
-14    history
-15   histoyr
-16   history
-17   history   
-18   history                               	`
-19   history aslrjewlijfe
+1   asjfi
+2   aljeifsd
+3   jsdalkfjds
+4   sadjflks
+5   eiajlkdscxa
+6   resajdalk
+7   history
+8   ls
+9   /bi/ls
+10   /bin/ls
+11   ls
+12              ls
+13   ls         
+14   ls -al
+15   ls -a
+16   ls -l
+17   cd jsadlifds cds
+18   ls
+19   mkdir a
 20   ls
-21   asd
-22   /bin/ls
-23   bin/ls
+21   cd a
+22   ls
+23   cd ..
 24   ls
-25   bin/ls
-26   /bin/ls
-26   bin/ls
-28   ls
-29   /bin/ls
-30   echo h
-31   echo hell
-32   echo h
-33   echo hi
-34                     echo hi
-35                    echo hi
-36                 echo hi
-37         echo hi
-38          echo hi
-39           echo hi
-40         echo hi
-41             cd
-42              cd .
-43          history
-44   hi
-45   hello
-46   history
-47   ls
-48   /bin/ls
-49   ls
-50   /bin/ls
-51   ls
-52   /bin/ls
-53   exit
-54   ls
-55   /bin/ld
-56   ld
-57   ls
-58   /vin/ld
-59   ls
-60   /bin/ls
-61   /bin/ld
-62   /bin/ls
-62   ls
-63   /bin/ls
-65   /bin/ld
-66   /bin/;d
-67   /bin/ls
-68   /bin/ld
-69   /bin/ls
-70   /bin/ld
-71   /bin/ls
-72   /bin/ld
-73   /bin/ls
-74   ps -j
-75   /bin/ld
-76   /bin/ls
-77   /bin/ld
-78   /bin/ls
-79   ls
-80   sls
-81   lslslejifjwealjgialirsweggr
-82   ae
-83   afgrd
-84   afgs
-85   fgds
-86   fgsddfs
-87   ggfds
-88   gfds
-89   fgds
-90   jklaskljdasljkfgdaw
-91   gfad
-92   ;fda
-93   [fdalkjndfs
-94   dfs
-95   fds
-96   gfa
-97   gf
-98   'fgdhsjrgealijgreolgrese
-99   rgejirwegaljmregioaljrgljgreijgraei;agrg
-100   raw
-101   ls
-102   /bin/ld
-103   /bin/ls
-104   ls
-105   /bin/ls
-106   ls
+25   rmdir a
+26   cd a
+27   cd adf asdf
