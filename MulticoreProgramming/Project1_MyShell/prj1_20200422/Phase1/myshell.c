@@ -3,28 +3,22 @@
 /* $begin shellmain */
 int main() {
 
-	sigset_t mask_all, mask_one;
-	char cmdline[MAXLINE];	/* Command line */
 	FILE *fp_history = Fopen("history.txt", "a+");
-	// using_history(); //TODO
-
 	fseek(fp_history, 0L, SEEK_SET);
 	char line[MAXLINE];
 	int history_count = 0;
 	for (; fgets(line, MAXLINE, fp_history); history_count++);
 
+	initSignal();
+	char cmdline[MAXLINE];	// Command line
 	while (1) {
+		signal_flag = 0;
+
 		/* Read */
 		printf("CSE4100-MP-P1> ");
 		fgets(cmdline, MAXLINE, stdin);
 		if (feof(stdin))
 			exit(0);
-		// char *cmdline = readline("CSE4100-MP-P1> ");
-		// if (!cmdline)
-		// 	break;
-		// printf("<%s>\n", cmdline);
-		// if (cmdline[0] != '\0')
-		// 	add_history(cmdline);
 
 		/* Evaluate */
 		eval(cmdline, fp_history, &history_count);
