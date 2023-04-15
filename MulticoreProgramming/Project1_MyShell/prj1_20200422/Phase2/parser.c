@@ -1,18 +1,18 @@
 #include "myshell.h"
 
 /* Function prototypes */
-static void render_line(char *cmdline, char *buf);
+static void render_line(char *cmdline, char *buf, int *pipe_count);
 
 /* $begin parseline */
 /* parseline - Parse the command line and build the argv array */
-int parseline(char *cmdline, char *buf, char **argv) { //TODO quote 처리
+int parseline(char *cmdline, char *buf, char **argv, int *pipe_count) {
 
 	char *delim;	// Points to opening_q space delimiter
 	int argc = 0;	// Number of args
 	int bg;			// Background job?
 
 	strcpy(buf, cmdline);
-	render_line(cmdline, buf);
+	render_line(cmdline, buf, pipe_count);
 
 	buf[strlen(buf)-1] = ' ';		// Replace trailing '\n' with space
 	for (int i = 0; (buf[i] && buf[i] == ' '); i++)	// Ignore leading spaces
@@ -20,6 +20,7 @@ int parseline(char *cmdline, char *buf, char **argv) { //TODO quote 처리
 
 	// Build the argv list
 	while ((delim = strchr(buf, ' '))) {
+		argv[argc] = (char *)Malloc(sizeof(char) * MAXLINE + 1);
 		argv[argc++] = buf;
 		*delim = '\0';
 		buf = delim + 1;
@@ -28,24 +29,25 @@ int parseline(char *cmdline, char *buf, char **argv) { //TODO quote 처리
 	}
 	argv[argc] = NULL;
 
-	if (!argv[0][0]) {
+	// Ignore blank line
+	if (argv == NULL || argv[0] == NULL || (argv[0][0] == '\0' && argv[1] == NULL))
+		return (-1);
+
+	// If a command follows by a blank line, ignore the blank line
+	if (argv[0][0] == '\0') {
 		for (argc = 0; argv[argc + 1]; argc++)
 			argv[argc] = argv[argc + 1];
 		argv[argc] = NULL;
 	}
 
-	// Ignore blank line
-	if (argc == 0)
-		return 1;
-
 	// Should the job run in the background?
-	if ((bg = (*argv[argc-1] == '&')) != 0)
+	if ((bg = (*argv[argc - 1] == '&')) != 0)
 		argv[--argc] = NULL;
 	return bg;
 }
 
 /* Render cmdline and copy to buf */
-static void render_line(char *cmdline, char *buf) {
+static void render_line(char *cmdline, char *buf, int *pipe_count) {
 
 	// Put space besides | and &
 	int count = 0;
@@ -65,8 +67,6 @@ static void render_line(char *cmdline, char *buf) {
 		} else
 			buf[i_b] = cmdline[i_c];
 	}
-
-	// Remove trailing newline
 	cmdline[strlen(cmdline) - 1] = '\0';
 
 	// Replace tab with space

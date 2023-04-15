@@ -1,0 +1,18 @@
+#ifndef __MYSHELL_H__
+#define __MYSHELL_H__
+
+#include "csapp.h"
+
+#define MAXARGS 128
+#define MAXLINE 8192
+
+/* Function prototypes  - evaluator. */
+void eval(char *cmdline, FILE *fp_history, int *history_count);
+/* Function prototypes - parser.c */
+int parseline(char *cmdline, char *buf, char **argv);
+/* Function prototypes - executer.c */
+int addHistory(char *cmdline, char *buf, char **argv, FILE *fp_history, int *history_count);
+int builtinCommand(int explamation, char *cmdline, char **argv, FILE *fp_history, int *history_count);
+void externFunction(char *filename, char **argv, char **environ);
+
+#endif

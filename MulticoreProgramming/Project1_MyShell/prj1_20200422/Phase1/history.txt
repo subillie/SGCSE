@@ -25,3 +25,12 @@
 25   rmdir a
 26   cd a
 27   cd adf asdf
+28              ls
+29   history
+30   ls
+31   cat
+32   cat hi
+33   echo hi
+34   LS
+35   Ls
+36   lS

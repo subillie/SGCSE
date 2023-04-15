@@ -190,3 +190,10 @@
 190   q3azw4serxdtcyfvugihujoikpl,'
 191   2Y3QAW4ERSE5TRDYTUFIYGOUHLIJ;KLHUKJFHRDFTHYGTHYKJULK;L
 192   64eksd65rtyty0ijk98xrdjt890poijme4zp09jkrxtpkdxr90tpkr,tkmdrpxtk095e46kope5mj,thpotopd,tyrdplomydrotpkmjrtdopkmtrdxopkrtdxopktrdxpo,kmtrdxpoktrxopdrtxkoprdtxkoprtdxkoprtdxkoprtdxkoprtdxkoptrdxkopxtrdkoprtdx
+193   dsaf    
+194                 waefds
+195   ls
+196   ls | grep filename
+197   ls | grep a
+198   cat aaa | grep -i "abc" | sort -r
+199   cat myshell.c | grep -i "abc" | sort -r
