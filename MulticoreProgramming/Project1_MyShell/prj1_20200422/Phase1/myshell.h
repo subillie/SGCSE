@@ -9,12 +9,11 @@
 sigset_t mask_all, mask_one, prev_one;
 volatile int signal_flag;
 pid_t pid;
-int fg;
 
 /* Function prototypes - signal.c */
 void initSignal();
 /* Function prototypes - evaluator.c */
-void eval(char *cmdline, FILE *fp_history, int *history_count);
+void eval(char *cmdline, FILE *fp_history, int *history_count, int *bg_count);
 /* Function prototypes - parser.c */
 int parseline(char *cmdline, char *buf, char **argv);
 /* Function prototypes - executer.c */
