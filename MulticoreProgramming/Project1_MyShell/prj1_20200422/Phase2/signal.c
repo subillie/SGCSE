@@ -3,7 +3,6 @@
 /* Function prototypes */
 static void handlerSIGINT(int sig);
 static void handlerSIGTSTP(int sig);
-static void handlerSIGCHLD(int sig);
 
 void initSignal() {
 
@@ -41,7 +40,7 @@ static void handlerSIGTSTP(int sig) {
 	return;
 }
 
-static void handlerSIGCHLD(int sig) {
+void handlerSIGCHLD(int sig) {
 
 	int olderrno = errno;
 
@@ -56,6 +55,26 @@ static void handlerSIGCHLD(int sig) {
 		// Set signal_flag if stopped, exited, or signaled
 		if (WIFSTOPPED(status) || WIFEXITED(status) || WIFSIGNALED(status))
 			signal_flag = 1;
+		Sigprocmask(SIG_SETMASK, &prev, NULL);
+	}
+	errno = olderrno;
+}
+
+void pipeHandlerSIGCHLD(int sig) {
+
+	int olderrno = errno;
+
+	int status;
+	sigset_t mask, prev;
+	Sigfillset(&mask);
+
+	// WNOHANG - return immediately instead of waiting, if there is no child process ready to be noticed
+	// WUNTRACED - report the status of any child processes that have been stopped as well as those that have terminated
+	while ((pid = waitpid(-1, &status, WNOHANG | WUNTRACED)) > 0) {
+		Sigprocmask(SIG_BLOCK, &mask, &prev);
+		// Set signal_flag if stopped, exited, or signaled
+		if (WIFSTOPPED(status) || WIFEXITED(status) || WIFSIGNALED(status))
+			pipe_flag = 1;
 		Sigprocmask(SIG_SETMASK, &prev, NULL);
 	}
 	errno = olderrno;

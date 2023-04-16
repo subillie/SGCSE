@@ -8,7 +8,7 @@
 
 sigset_t mask_all, mask_one, prev_one;
 volatile int signal_flag;
-pid_t pid;
+volatile sig_atomic_t pid;
 
 /* Function prototypes - signal.c */
 void initSignal();

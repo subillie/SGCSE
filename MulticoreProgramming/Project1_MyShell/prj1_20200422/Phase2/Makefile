@@ -1,6 +1,6 @@
 TARGET = phase2
 
-SRC = csapp.c myshell.c evaluator.c executer.c parser.c pipe.c
+SRC = csapp.c myshell.c signal.c evaluator.c executer.c parser.c pipe.c
 OBJ = $(SRC:.c=.o)
 
 CC = gcc

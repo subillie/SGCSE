@@ -12,6 +12,10 @@ void eval(char *cmdline, FILE *fp_history, int *history_count) {
 	int bg;					// Should the job run in bg or fg?
 	int pipe_count = 0;		// Count the number of pipes
 
+	job_front = NULL;
+	job_last = NULL;
+	job_count = 0;
+
 	// Parse command line
 	bg = parseline(cmdline, buf, argv, &pipe_count);
 	if (bg == -1)	// Ignore empty line

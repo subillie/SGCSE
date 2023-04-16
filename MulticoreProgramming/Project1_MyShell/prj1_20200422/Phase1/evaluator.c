@@ -25,20 +25,20 @@ void eval(char *cmdline, FILE *fp_history, int *history_count) {
 		Sigprocmask(SIG_BLOCK, &mask_one, &prev_one);	// Block SIGCHLD
 		if ((pid = Fork()) == 0) {	// Child runs user job
 			 Sigprocmask(SIG_SETMASK, &prev_one, NULL);
-			 setpgid(0, 0);			// Add the child to the job list
+			 setpgid(0, 0);			// Add the child process to the process group
 			 externFunction(filename, argv, environ);
-			 exit(1);
+			 exit(0);
 		}
 
 		// Parent waits for foreground job to terminate
 		if (!bg) {
 			int status;
-			setpgid(pid, 0);				// Set child process to a new process group
+			setpgid(pid, 0);				// Set the process to a new process group
 			tcsetpgrp(STDERR_FILENO, pid);	// Pass terminal control to the child process
-			while (signal_flag != 1)
-				Sigsuspend(&prev_one);	// Wait until SIGCHLD occurs
+			while (signal_flag == 0)		// Wait until SIGCHLD occurs
+				Sigsuspend(&prev_one);
 			signal_flag = 0;
-			Sigprocmask(SIG_SETMASK, &prev_one, NULL);    // Unblock SIGCHLD
+			Sigprocmask(SIG_SETMASK, &prev_one, NULL);	// Unblock SIGCHLD
 			pid = getpgrp();
 			tcsetpgrp(STDERR_FILENO, pid);
 
