@@ -13,7 +13,7 @@ pid_t pid;
 /* Function prototypes - signal.c */
 void initSignal();
 /* Function prototypes - evaluator.c */
-void eval(char *cmdline, FILE *fp_history, int *history_count, int *bg_count);
+void eval(char *cmdline, FILE *fp_history, int *history_count);
 /* Function prototypes - parser.c */
 int parseline(char *cmdline, char *buf, char **argv);
 /* Function prototypes - executer.c */

@@ -2,7 +2,7 @@
 
 /* $begin eval */
 /* eval - Evaluate a command line */
-void eval(char *cmdline, FILE *fp_history, int *history_count, int *bg_count) {
+void eval(char *cmdline, FILE *fp_history, int *history_count) {
 
 	char *argv[MAXARGS];	// Argument list execve()
 	char buf[MAXLINE];		// Holds modified command line
@@ -42,11 +42,9 @@ void eval(char *cmdline, FILE *fp_history, int *history_count, int *bg_count) {
 			pid = getpgrp();
 			tcsetpgrp(STDERR_FILENO, pid);
 
-		// when there is background process
-		} else {
-			(*bg_count)++;
-			printf("[%d] %d\n", *bg_count, pid);
-		}
+		// When there is background process
+		} else
+			printf("[%d] %s", pid, cmdline);
 	}
 
 	return;

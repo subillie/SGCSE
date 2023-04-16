@@ -6,7 +6,7 @@ int main() {
 	FILE *fp_history = Fopen("history.txt", "a+");
 	fseek(fp_history, 0L, SEEK_SET);
 	char line[MAXLINE];
-	int bg_count = 0, history_count = 0;
+	int history_count = 0;
 	for (; fgets(line, MAXLINE, fp_history); history_count++);
 
 	initSignal();
@@ -21,7 +21,7 @@ int main() {
 			exit(0);
 
 		/* Evaluate */
-		eval(cmdline, fp_history, &history_count, &bg_count);
+		eval(cmdline, fp_history, &history_count);
 	}
 	Fclose(fp_history);
 
