@@ -126,12 +126,12 @@ canceled when infeasible / product is completed, delivered / converted to increm
 - `lots of small iterations`
 - `based on incremental model`
 - `on-site customer` + `open workspace`
-1. Potential features 식별(requirements phase와 유사)
-	- Initial features are chosen based on cost-benefit analysis
-2. `Pair programming` : implementation proceeds by programming pairs
-3. Design은 덜 중요
-4. `Ego-less programming` : no specialization among team members
-	- Collective owenership (coding standars)
+	1. Potential features 식별(requirements phase와 유사)
+		- Initial features are chosen based on cost-benefit analysis
+	2. `Pair programming` : implementation proceeds by programming pairs
+	3. Design은 덜 중요
+	4. `Ego-less programming` : no specialization among team members
+		- Collective owenership (coding standars)
 - Iteration  
 	- **Customer picks use cases** w/ highest priority  
 	- Split them into **tasks**  
