@@ -20,6 +20,9 @@ int main() {
 		if (feof(stdin))
 			exit(0);
 
+		if (signal_flag == 2)
+			continue;
+
 		/* Evaluate */
 		eval(cmdline, fp_history, &history_count);
 	}

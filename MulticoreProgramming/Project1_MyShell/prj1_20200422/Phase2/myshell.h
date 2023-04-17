@@ -11,6 +11,7 @@ sigset_t mask_all, mask_one, prev_one;
 volatile int signal_flag;
 volatile int pipe_flag;
 volatile sig_atomic_t pid;
+volatile sig_atomic_t parent_pid;
 
 /* Function prototypes - signal.c */
 void initSignal();

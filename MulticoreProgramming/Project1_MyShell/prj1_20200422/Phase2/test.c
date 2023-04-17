@@ -1,7 +1,4 @@
-#include <stdio.h>
-
-int main() {
+int main(){
 	while (1);
-	printf("HELLO\n");
 	return 0;
 }

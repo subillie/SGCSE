@@ -8,9 +8,6 @@ void eval(char *cmdline, FILE *fp_history, int *history_count) {
 	char buf[MAXLINE];		// Holds modified command line
 	int bg;					// Should the job run in bg or fg?
 
-	if (signal_flag == 2)
-		return;
-
 	// Parse command line
 	bg = parseline(cmdline, buf, argv);
 	if (bg == -1)			// Ignore empty line

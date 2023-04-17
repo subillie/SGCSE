@@ -191,11 +191,9 @@ int builtinCommand(int explamation, char *cmdline, char **argv, FILE *fp_history
 			if (latest_stjob) {	// Resume the latest stopped job
 				latest_stjob->state = BG;
 				kill(latest_stjob->pid, SIGCONT);
-				return 1;
-			} else {			// Nothing specified
+			} else 				// Nothing specified
 				Sio_puts("-bash: bg: no such job or already in background\n");
-				return 1;
-			}
+			return 1;
 		}
 
 		// If there is an argument
@@ -204,6 +202,7 @@ int builtinCommand(int explamation, char *cmdline, char **argv, FILE *fp_history
 			jid = atoi(&argv[1][1]);
 		else
 			jid = atoi(argv[1]);
+
 		for (job = job_front; job; job = job->next) {
 			if (job->jid == jid && job->state == ST) {
 				pid = job->pid;
@@ -212,7 +211,7 @@ int builtinCommand(int explamation, char *cmdline, char **argv, FILE *fp_history
 				Sio_puts("[");
 				Sio_putl((long)job->jid);
 				Sio_puts("] ");
-				Sio_puts((long)job->pid);
+				Sio_putl((long)job->pid);
 				Sio_puts(" ");
 				Sio_puts(job->cmdline);
 				Sio_puts("\n");
@@ -236,35 +235,83 @@ int builtinCommand(int explamation, char *cmdline, char **argv, FILE *fp_history
 				else if (job->state == BG)
 					latest_bgjob = job;
 			}
-			if (latest_stjob) {	// Resume the latest stopped job
+
+			// Resume the latest stopped job
+			if (latest_stjob) {
 				latest_stjob->state = FG;
 				Sio_puts(latest_stjob->cmdline);
 				Sio_puts("\n");
 				kill(-(latest_stjob->pid), SIGCONT);
-				Sigprocmask(SIG_BLOCK, &mask, &prev);
-				while (fgpid(job_list) != 0)
-					sigsuspend(&prev);
-				Sigprocmask(SIG_SETMASK, &prev, NULL);
-				return 1;
-			} else if (latest_bgjob) {	// Resume the latest background job
+				tcsetpgrp(STDIN_FILENO, latest_stjob->pid);
+				while (signal_flag == 0)
+					Sigsuspend(&prev);
+				signal_flag = 0;
+				Signal(SIGTTOU, SIG_IGN);
+				tcsetpgrp(STDIN_FILENO, getpid());	// Set terminal foreground process group
+				Signal(SIGTTOU, SIG_DFL);
+			/* tcgetpgrp(3) — Linux manual page
+				If tcsetpgrp() is called by a member of a background process group,
+				and the calling process is not blocking or ignoring SIGTTOU,
+				a SIGTTOU signal is sent to all members of this background process group. */
+			
+			// Resume the latest background job
+			} else if (latest_bgjob) {
 				latest_bgjob->state = FG;
 				kill(latest_bgjob->pid, SIGCONT);
-				Sigprocmask(SIG_BLOCK, &mask, &prev);
-				while (fgpid(job_list) != 0)
-					sigsuspend(&prev);
-				Sigprocmask(SIG_SETMASK, &prev, NULL);
-				return 1;
-			} else {			// Nothing specified
+				tcsetpgrp(STDIN_FILENO, latest_stjob->pid);
+				while (signal_flag == 0)
+					Sigsuspend(&prev);
+				signal_flag = 0;
+				Signal(SIGTTOU, SIG_IGN);
+				tcsetpgrp(STDIN_FILENO, getpid());	// Set terminal foreground process group
+				Signal(SIGTTOU, SIG_DFL);
+
+			// Nothing specified
+			} else
 				Sio_puts("-bash: fg: no such job or already in foreground\n");
-				return 1;
-			}
 		}
-		
 		return 1;
 	}
 
 	if (strcmp(argv[0], "kill") == 0) {		// kill command
+		pid = 0;
+		if (argv[1][0] == '%') {
+			int jid = atoi(&argv[1][1]);
+			for (job = job_front; job; job = job->next)
+				if (job->jid == jid) {
+					pid = job->pid;
+					break;
+				}
+		} else {
+			pid_t tmp = atoi(argv[1]);
+			for (job = job_front; job; job = job->next)
+				if (job->pid == tmp) {
+					pid = job->pid;
+					break;
+				}
+		}
 
+		if (pid == 0) {
+			Sio_puts("-bash: kill: no such job or process\n");
+			return 1;
+		}
+		if (job->state == ST) {
+			Sio_puts("[");
+			Sio_putl((long)job->jid);
+			Sio_puts("] ");
+			Sio_putl((long)job->pid);
+			Sio_puts(" ");
+			Sio_puts(job->cmdline);
+			Sio_puts("\n");
+		}
+
+	/* kill(2) - Linux manual page
+		For a process to have permission to send a signal, it must either be privileged,
+		or the real or effective user ID of the sending process must equal the real or saved set-user-ID of the target process.
+		In the case of SIGCONT, it suffices when the sending and receiving processes belong to the same session. */
+
+		kill(-pid, SIGCONT);
+		kill(-pid, SIGINT);
 		return 1;
 	}
 

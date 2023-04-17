@@ -5,7 +5,7 @@
 1. How to compile
 ```bash
 > make		# compile
-> ./phase2	# execute
+> ./myshell	# execute
 ```
 
 2. Makefile options
@@ -27,4 +27,4 @@ A `pipe` allows us to use two or more commands in a shell so that the output of 
 | evaluator.c	| Evaluate command line by parser and executer |
 | parser.c		| Parse command line |
 | executer.c	| Execute command line in the way of builtin commands or extern functions |
-| pipe.c        | Fuctions used when there exists pipe in command line |
+| pipe.c		| Functions used when command line has pipe |

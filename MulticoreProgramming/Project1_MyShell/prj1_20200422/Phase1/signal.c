@@ -2,7 +2,6 @@
 
 /* Function prototypes */
 static void handlerSIGINT(int sig);
-static void handlerSIGTSTP(int sig);
 static void handlerSIGCHLD(int sig);
 
 void initSignal() {
@@ -16,28 +15,19 @@ void initSignal() {
 
 	// void (*signal(int signum, void (*handler)(int)))(int)
 	Signal(SIGCHLD, handlerSIGCHLD);
-	Signal(SIGINT, handlerSIGINT);		// SIGINT - interrupt from keyboard
-	Signal(SIGTSTP, handlerSIGTSTP);	// SIGTSTP - stop execution
-	Signal(SIGTTIN, SIG_IGN);			// SIGTTIN - background process read attempt
-	Signal(SIGTTOU, SIG_IGN);			// SIGTTOU - background process의 write attempt
+	Signal(SIGINT, handlerSIGINT);	// SIGINT - interrupt from keyboard
+	Signal(SIGTSTP, handlerSIGINT);	// SIGTSTP - stop execution
+	Signal(SIGTTIN, SIG_IGN);		// SIGTTIN - background process read attempt
+	Signal(SIGTTOU, SIG_IGN);		// SIGTTOU - background process의 write attempt
 }
 
 static void handlerSIGINT(int sig) {
 
 	if (pid != 0)
 		kill(-pid, SIGINT);
-	// printf("\nCSE4100-MP-P1> ");
-	// fflush(stdout);
+	printf("\nCSE4100-MP-P1> ");
+	fflush(stdout);
 	signal_flag = 2;
-	return;
-}
-
-static void handlerSIGTSTP(int sig) {
-
-	if (pid != 0)
-		kill(-pid, SIGINT);
-	signal_flag = 3;
-	unix_error("exit");
 	return;
 }
 

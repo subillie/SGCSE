@@ -15,28 +15,19 @@ void initSignal() {
 
 	// void (*signal(int signum, void (*handler)(int)))(int)
 	Signal(SIGCHLD, handlerSIGCHLD);
-	Signal(SIGINT, handlerSIGINT);		// SIGINT - interrupt from keyboard
-	Signal(SIGTSTP, handlerSIGTSTP);	// SIGTSTP - stop execution
-	Signal(SIGTTIN, SIG_IGN);			// SIGTTIN - background process read attempt
-	Signal(SIGTTOU, SIG_IGN);			// SIGTTOU - background process의 write attempt
+	Signal(SIGINT, handlerSIGINT);	// SIGINT - interrupt from keyboard
+	Signal(SIGTSTP, handlerSIGINT);	// SIGTSTP - stop execution
+	Signal(SIGTTIN, SIG_IGN);		// SIGTTIN - background process read attempt
+	Signal(SIGTTOU, SIG_IGN);		// SIGTTOU - background process의 write attempt
 }
 
 static void handlerSIGINT(int sig) {
 
-	if (pid != 0)
+	if (parent_pid != getpid())
 		kill(-pid, SIGINT);
-	// printf("\nCSE4100-MP-P1> ");
-	// fflush(stdout);
+	printf("\nCSE4100-MP-P1> ");
+	fflush(stdout);
 	signal_flag = 2;
-	return;
-}
-
-static void handlerSIGTSTP(int sig) {
-
-	if (pid != 0)
-		kill(-pid, SIGINT);
-	signal_flag = 3;
-	unix_error("exit");
 	return;
 }
 
@@ -55,26 +46,6 @@ void handlerSIGCHLD(int sig) {
 		// Set signal_flag if stopped, exited, or signaled
 		if (WIFSTOPPED(status) || WIFEXITED(status) || WIFSIGNALED(status))
 			signal_flag = 1;
-		Sigprocmask(SIG_SETMASK, &prev, NULL);
-	}
-	errno = olderrno;
-}
-
-void pipeHandlerSIGCHLD(int sig) {
-
-	int olderrno = errno;
-
-	int status;
-	sigset_t mask, prev;
-	Sigfillset(&mask);
-
-	// WNOHANG - return immediately instead of waiting, if there is no child process ready to be noticed
-	// WUNTRACED - report the status of any child processes that have been stopped as well as those that have terminated
-	while ((pid = waitpid(-1, &status, WNOHANG | WUNTRACED)) > 0) {
-		Sigprocmask(SIG_BLOCK, &mask, &prev);
-		// Set signal_flag if stopped, exited, or signaled
-		if (WIFSTOPPED(status) || WIFEXITED(status) || WIFSIGNALED(status))
-			pipe_flag = 1;
 		Sigprocmask(SIG_SETMASK, &prev, NULL);
 	}
 	errno = olderrno;

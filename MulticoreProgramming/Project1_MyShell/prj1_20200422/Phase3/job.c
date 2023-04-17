@@ -9,14 +9,14 @@ static void addJob(pid_t pid, int state, char *cmdline) {
 	strcpy(job->cmdline, cmdline);
 	job->next = NULL;
 
-	if (job->state == BG) {			// BG gets jid
+	if (job->state == BG) {			// BG gets job id
 		job_entry_t *tmp;
 		int max_jid = 0;
 		for (tmp = job_front; tmp != NULL; tmp = tmp->next)
 			if (tmp->jid > max_jid)
 				max_jid = tmp->jid;
 		job->jid = max_jid + 1;
-	} else if (job->state == FG)	// FG doesn't get jid
+	} else if (job->state == FG)	// FG doesn't get job id
 		job->jid = -1;
 
 	// If empty
@@ -47,7 +47,7 @@ static void updateJob(pid_t pid, int state) {
 }
 
 // getJob - Get job entry by pid
-static job_entry_t *getJob(int pid) {
+job_entry_t *getJob(int pid) {
 
 	job_entry_t *job;
 	for (job = job_front; job; job = job->next)
@@ -57,7 +57,7 @@ static job_entry_t *getJob(int pid) {
 }
 
 // deleteJob - Delete a job from the job entry
-static void deleteJob(int jid) {
+void deleteJob(int jid) {
 
 	job_entry_t *job = job_front, *prev = job_front;
 	while (job && job->jid != jid) {
@@ -84,18 +84,18 @@ static void deleteJob(int jid) {
 		prev->next = job->next;
 		free(job);
 	}
+	job_count--;
 }
 
 void printJob() {
 
 	job_entry_t *job;
 	for (job = job_front; job != NULL; job = job->next) {
-		if (job->pid != 0) {
+		// if (job->pid != 0) {
 			if (job->state == BG) {
 				Sio_puts("[");
 				Sio_putl((long)job->jid);
 				Sio_puts("]  RUNNING      ");
-				// Sio_puts("]+  RUNNING      ");
 				Sio_putl((long)job->pid);
 				Sio_puts(" ");
 				Sio_puts(job->cmdline);
@@ -104,7 +104,6 @@ void printJob() {
 				Sio_puts("[");
 				Sio_putl((long)job->jid);
 				Sio_puts("]  RUNNING      ");
-				// Sio_puts("]+  RUNNING      ");
 				Sio_putl((long)job->pid);
 				Sio_puts(" ");
 				Sio_puts(job->cmdline);
@@ -113,7 +112,6 @@ void printJob() {
 				Sio_puts("[");
 				Sio_putl((long)job->jid);
 				Sio_puts("]  STOPPED      ");
-				// Sio_puts("]+  STOPPED      ");
 				Sio_putl((long)job->pid);
 				Sio_puts(" ");
 				Sio_puts(job->cmdline);
@@ -122,7 +120,6 @@ void printJob() {
 				Sio_puts("[");
 				Sio_putl((long)job->jid);
 				Sio_puts("]  DONE         ");
-				// Sio_puts("]+  DONE         ");
 				Sio_putl((long)job->pid);
 				Sio_puts(" ");
 				Sio_puts(job->cmdline);
@@ -131,14 +128,13 @@ void printJob() {
 				Sio_puts("[");
 				Sio_putl((long)job->jid);
 				Sio_puts("]  TERMINATED   ");
-				// Sio_puts("]+  TERMINATED   ");
 				Sio_putl((long)job->pid);
 				Sio_puts(" ");
 				Sio_puts(job->cmdline);
 				Sio_puts("\n");
 			}
 		}
-	}
+	// }
 
 	job_entry_t *job_next;
 	for (job = job_front; job; job = job_next) {

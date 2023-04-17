@@ -1,13 +1,13 @@
-TARGET = phase3
+TARGET = myshell
 
-SRC = csapp.c myshell.c signal.c evaluator.c executer.c parser.c pipe.c jobs.c
+SRC = csapp.c myshell.c signal.c evaluator.c executer.c parser.c pipe.c job.c
 OBJ = $(SRC:.c=.o)
 
 CC = gcc
 RM = rm -f
 
 all : $(TARGET)
-	@printf "/* Run phase3! */\n"
+	@printf "/* Run myshell! */\n"
 
 %.o: %.c
 	@$(CC) -I./ -c $< -o $@

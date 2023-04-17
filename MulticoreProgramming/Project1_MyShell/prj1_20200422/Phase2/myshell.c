@@ -9,6 +9,7 @@ int main() {
 	int history_count = 0;
 	for (; fgets(line, MAXLINE, fp_history); history_count++);
 
+	parent_pid = getpid();
 	initSignal();
 	char cmdline[MAXLINE];	// Command line
 	while (1) {
@@ -19,6 +20,9 @@ int main() {
 		fgets(cmdline, MAXLINE, stdin);
 		if (feof(stdin))
 			exit(0);
+		
+		if (signal_flag == 2)
+			continue;
 
 		/* Evaluate */
 		eval(cmdline, fp_history, &history_count);

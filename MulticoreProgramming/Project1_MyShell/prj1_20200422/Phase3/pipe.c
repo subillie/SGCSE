@@ -1,16 +1,11 @@
 #include "myshell.h"
 
 /* Function prototypes */
-static void handleSignalInPipe();
 static void firstPipe(int explamation, int bg, char *cmdline, char **argv, int *index, FILE *fp_history, int *history_count, int **fd);
 static int midPipe(int explamation, int pipe_count, int bg, char *cmdline, char **argv, int *index, FILE *fp_history, int *history_count, int **fd);
 static void lastPipe(int explamation, int pipe_count, int bg, char *cmdline, char **argv, int *index, FILE *fp_history, int *history_count, int **fd, int i);
 
 void isPipe(int explamation, int pipe_count, int bg, char *cmdline, char **argv, FILE *fp_history, int *history_count) {
-
-	Signal(SIGCHLD, handlerSIGCHLD);
-	Signal(SIGINT, SIG_DFL);
-	Signal(SIGTSTP, SIG_DFL);
 
 	int **fd = Malloc(sizeof(int *) * pipe_count);
 	for (int i = 0; i < pipe_count; i++)
@@ -20,7 +15,7 @@ void isPipe(int explamation, int pipe_count, int bg, char *cmdline, char **argv,
 	firstPipe(explamation, bg, cmdline, argv, &index, fp_history, history_count, fd);
 	int i = midPipe(explamation, pipe_count, bg, cmdline, argv, &index, fp_history, history_count, fd);
 	lastPipe(explamation, pipe_count, bg, cmdline, argv, &index, fp_history, history_count, fd, i);
-
+	initSignal();
 	for (i = 0; i < pipe_count; i++)
 		free(fd[i]);
 	free(fd);
@@ -39,6 +34,8 @@ static void	firstPipe(int explamation, int bg, char *cmdline, char **argv, int *
 
 	pid_t pid = Fork();
 	if (pid == 0) {			// child process
+		Signal(SIGINT, SIG_DFL);
+		Signal(SIGTSTP, SIG_DFL);
 		close(fd[0][0]);
 		dup2(fd[0][1], STDOUT_FILENO);
 		close(fd[0][1]);
@@ -56,9 +53,9 @@ static void	firstPipe(int explamation, int bg, char *cmdline, char **argv, int *
 			int status;
 			setpgid(pid, 0);				// Set the process to a new process group
 			tcsetpgrp(STDERR_FILENO, pid);	// Pass terminal control to the child process
-			while (signal_flag == 0)		// Wait until SIGCHLD occurs
+			while (pipe_flag == 0)			// Wait until SIGCHLD occurs
 				Sigsuspend(&prev_one);
-			signal_flag = 0;
+			pipe_flag = 0;
 			Sigprocmask(SIG_SETMASK, &prev_one, NULL);	// Unblock SIGCHLD
 			pid = getpgrp();
 			tcsetpgrp(STDERR_FILENO, pid);
@@ -89,6 +86,8 @@ static int	midPipe(int explamation, int pipe_count, int bg, char *cmdline, char 
 		}
 		pid_t pid = Fork();
 		if (pid == 0) {			// child process
+			Signal(SIGINT, SIG_DFL);
+			Signal(SIGTSTP, SIG_DFL);
 			close(fd[i][0]);
 			dup2(fd[i - 1][0], STDIN_FILENO);
 			close(fd[i - 1][0]);
@@ -108,9 +107,9 @@ static int	midPipe(int explamation, int pipe_count, int bg, char *cmdline, char 
 				int status;
 				setpgid(pid, 0);				// Set the process to a new process group
 				tcsetpgrp(STDERR_FILENO, pid);	// Pass terminal control to the child process
-				while (signal_flag == 0)		// Wait until SIGCHLD occurs
+				while (pipe_flag == 0)			// Wait until SIGCHLD occurs
 					Sigsuspend(&prev_one);
-				signal_flag = 0;
+				pipe_flag = 0;
 				Sigprocmask(SIG_SETMASK, &prev_one, NULL);	// Unblock SIGCHLD
 				pid = getpgrp();
 				tcsetpgrp(STDERR_FILENO, pid);
@@ -139,7 +138,10 @@ static void	lastPipe(int explamation, int pipe_count, int bg, char *cmdline, cha
 
 	int status = 0;
 	pid_t pid = Fork();
+	printf("pid : %d\n", pid);
 	if (pid == 0) {			// child process
+		Signal(SIGINT, SIG_DFL);
+		Signal(SIGTSTP, SIG_DFL);
 		dup2(fd[i][0], STDIN_FILENO);
 		close(fd[i][0]);
 
@@ -156,9 +158,9 @@ static void	lastPipe(int explamation, int pipe_count, int bg, char *cmdline, cha
 			int status;
 			setpgid(pid, 0);				// Set the process to a new process group
 			tcsetpgrp(STDERR_FILENO, pid);	// Pass terminal control to the child process
-			while (signal_flag == 0)		// Wait until SIGCHLD occurs
+			while (pipe_flag == 0)			// Wait until SIGCHLD occurs
 				Sigsuspend(&prev_one);
-			signal_flag = 0;
+			pipe_flag = 0;
 			Sigprocmask(SIG_SETMASK, &prev_one, NULL);	// Unblock SIGCHLD
 			pid = getpgrp();
 			tcsetpgrp(STDERR_FILENO, pid);
@@ -171,6 +173,7 @@ static void	lastPipe(int explamation, int pipe_count, int bg, char *cmdline, cha
 	} else if (pid > 0) {	// parent process
 		close(fd[i][0]);
 		i = -1;
+		printf("count: %d\n", pipe_count);
 		while (++i < pipe_count + 1) {
 			int tmp;
 			if (pid == wait(&tmp))

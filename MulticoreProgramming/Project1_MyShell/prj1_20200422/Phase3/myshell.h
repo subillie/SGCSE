@@ -12,6 +12,7 @@ sigset_t mask_all, mask_one, prev_one;
 volatile int signal_flag;
 volatile int pipe_flag;
 volatile sig_atomic_t pid;
+volatile sig_atomic_t parent_pid;
 enum job_state { UNDEF, BG, FG, ST, DONE, TT };
 
 typedef struct job_entry *job_ptr;
@@ -28,6 +29,8 @@ job_ptr job_last;
 int job_count;
 
 /* Function prototypes - job.c */
+job_entry_t *getJob(int pid);
+void deleteJob(int jid);
 void printJob();
 /* Function prototypes - signal.c */
 void initSignal();

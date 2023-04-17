@@ -5,14 +5,14 @@
 1. How to compile
 ```bash
 > make		# compile
-> ./phase1	# execute
+> ./myshell	# execute
 ```
 
 2. Makefile options
 ```
 - make clean	: remove all the object files
 - make fclean	: remove all the object files and the executable binary file
-- make re   : fclean and then make
+- make re		: fclean and then make
 ```
 
 ## PHASE1
