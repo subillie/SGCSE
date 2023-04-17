@@ -20,7 +20,6 @@ typedef struct job_entry {
 	int jid;				// Job ID [1, 2, ...]
 	int state;				// UNDEF, BG, FG, ST, DONE
 	char cmdline[MAXLINE];	// Command line
-	int count;				// Number of jobs
 	job_ptr next;
 } job_entry_t;
 

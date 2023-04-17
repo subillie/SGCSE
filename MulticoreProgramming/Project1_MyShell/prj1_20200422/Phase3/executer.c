@@ -178,8 +178,50 @@ int builtinCommand(int explamation, char *cmdline, char **argv, FILE *fp_history
 		return 1;
 	}
 
+	pid_t pid;
+	job_entry_t *job;
 	if (strcmp(argv[0], "bg") == 0) {		// bg command
+		job_entry_t *latest_stjob = NULL;
 
+		// If there is no argument
+		if (!argv[1]) {
+			for (job = job_front; job; job = job->next)
+				if (job->state == ST)
+					latest_stjob = job;
+			if (latest_stjob) {	// Resume the latest stopped job
+				latest_stjob->state = BG;
+				kill(latest_stjob->pid, SIGCONT);
+				return 1;
+			} else {			// Nothing specified
+				Sio_puts("-bash: bg: no such job or already in background\n");
+				return 1;
+			}
+		}
+
+		// If there is an argument
+		int jid;
+		if (argv[1][0] == '%')
+			jid = atoi(&argv[1][1]);
+		else
+			jid = atoi(argv[1]);
+		for (job = job_front; job; job = job->next) {
+			if (job->jid == jid && job->state == ST) {
+				pid = job->pid;
+				if (job->pid == 0)
+					break;
+				Sio_puts("[");
+				Sio_putl((long)job->jid);
+				Sio_puts("] ");
+				Sio_puts((long)job->pid);
+				Sio_puts(" ");
+				Sio_puts(job->cmdline);
+				Sio_puts("\n");
+				job->state = BG;
+				kill(job->pid, SIGCONT);
+				return 1;
+			}
+		}
+		Sio_puts("-bash: bg: no such job or already in background\n");
 		return 1;
 	}
 
