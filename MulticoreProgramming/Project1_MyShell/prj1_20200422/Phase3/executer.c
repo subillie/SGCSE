@@ -226,7 +226,40 @@ int builtinCommand(int explamation, char *cmdline, char **argv, FILE *fp_history
 	}
 
 	if (strcmp(argv[0], "fg") == 0) {		// fg command
-
+		sigset_t prev;
+		Sigemptyset(&prev);
+		job_entry_t *latest_stjob = NULL, *latest_bgjob = NULL;
+		if (!argv[1]) {
+			for (job = job_front; job; job = job->next) {
+				if (job->state == ST)
+					latest_stjob = job;
+				else if (job->state == BG)
+					latest_bgjob = job;
+			}
+			if (latest_stjob) {	// Resume the latest stopped job
+				latest_stjob->state = FG;
+				Sio_puts(latest_stjob->cmdline);
+				Sio_puts("\n");
+				kill(-(latest_stjob->pid), SIGCONT);
+				Sigprocmask(SIG_BLOCK, &mask, &prev);
+				while (fgpid(job_list) != 0)
+					sigsuspend(&prev);
+				Sigprocmask(SIG_SETMASK, &prev, NULL);
+				return 1;
+			} else if (latest_bgjob) {	// Resume the latest background job
+				latest_bgjob->state = FG;
+				kill(latest_bgjob->pid, SIGCONT);
+				Sigprocmask(SIG_BLOCK, &mask, &prev);
+				while (fgpid(job_list) != 0)
+					sigsuspend(&prev);
+				Sigprocmask(SIG_SETMASK, &prev, NULL);
+				return 1;
+			} else {			// Nothing specified
+				Sio_puts("-bash: fg: no such job or already in foreground\n");
+				return 1;
+			}
+		}
+		
 		return 1;
 	}
 
