@@ -12,7 +12,7 @@
 ```
 - make clean	: remove all the object files
 - make fclean	: remove all the object files and the executable binary file
-- make re		: fclean and then make
+- make re   : fclean and then make
 ```
 
 ## PHASE1
