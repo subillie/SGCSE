@@ -269,6 +269,35 @@ int builtinCommand(int explamation, char *cmdline, char **argv, FILE *fp_history
 			// Nothing specified
 			} else
 				Sio_puts("-bash: fg: no such job or already in foreground\n");
+		
+		// If there is an argument
+		} else {
+			int jid;
+			if (argv[1][0] == '%')
+				jid = atoi(&argv[1][1]);
+			else
+				jid = atoi(argv[1]);
+
+			for (job = job_front; job; job = job->next) {
+				if (job->jid == jid && job->state == ST) {
+					pid = job->pid;
+					if (job->pid == 0)
+						break;
+					Sio_puts(job->cmdline);
+					Sio_puts("\n");
+					job->state = FG;
+					kill(job->pid, SIGCONT);
+					tcsetpgrp(STDIN_FILENO, job->pid);
+					while (signal_flag == 0)
+						Sigsuspend(&prev);
+					signal_flag = 0;
+					Signal(SIGTTOU, SIG_IGN);
+					tcsetpgrp(STDIN_FILENO, getpid());	// Set terminal foreground process group
+					Signal(SIGTTOU, SIG_DFL);
+					return 1;
+				}
+			}
+			Sio_puts("-bash: fg: no such job or already in foreground\n");
 		}
 		return 1;
 	}
@@ -277,18 +306,20 @@ int builtinCommand(int explamation, char *cmdline, char **argv, FILE *fp_history
 		pid = 0;
 		if (argv[1][0] == '%') {
 			int jid = atoi(&argv[1][1]);
-			for (job = job_front; job; job = job->next)
+			for (job = job_front; job; job = job->next) {
 				if (job->jid == jid) {
 					pid = job->pid;
 					break;
 				}
+			}
 		} else {
 			pid_t tmp = atoi(argv[1]);
-			for (job = job_front; job; job = job->next)
+			for (job = job_front; job; job = job->next) {
 				if (job->pid == tmp) {
 					pid = job->pid;
 					break;
 				}
+			}
 		}
 
 		if (pid == 0) {
