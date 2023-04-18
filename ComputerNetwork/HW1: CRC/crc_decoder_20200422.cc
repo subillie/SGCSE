@@ -1,90 +1,91 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <bitset>
+#include <vector>
+using namespace std;
 
-#define MAX_CODEWORD_SIZE 1024
+int main(int argc, char* argv[]) {
 
-int main(int argc, char *argv[]) {
-    // Check argument count
+    // Check the number of arguments
     if (argc != 6) {
-        printf("usage: ./crc_decoder input_file output_file result_file generator dataword_size\n");
-        exit(1);
+        // If wrong, let the user know the usage
+        cerr << "usage: " << argv[0] << " input_file output_file result_file generator dataword_size" << endl;
+        return 1;
     }
 
-    // Open input file
-    FILE *input_file = fopen(argv[1], "rb");
-    if (input_file == NULL) {
-        printf("input file open error.\n");
-        exit(1);
+    // Check if the params are valid, and initialize the variables
+    ifstream input_file(argv[1], ios::binary);
+    if (!input_file.is_open()) {
+        cerr << "input file open error." << endl;
+        return 1;
     }
-
-    // Open output file
-    FILE *output_file = fopen(argv[2], "wb");
-    if (output_file == NULL) {
-        printf("output file open error.\n");
-        exit(1);
+    ofstream output_file(argv[2], ios::binary);
+    if (!output_file.is_open()) {
+        cerr << "output file open error." << endl;
+        return 1;
     }
-
-    // Open result file
-    FILE *result_file = fopen(argv[3], "w");
-    if (result_file == NULL) {
-        printf("result file open error.\n");
-        exit(1);
+    ofstream result_file(argv[3]);
+    if (!result_file.is_open()) {
+        cerr << "result file open error." << endl;
+        return 1;
     }
-
-    // Parse arguments
-    unsigned int generator = strtol(argv[4], NULL, 2);
-    int dataword_size = atoi(argv[5]);
+    bitset<9> generator(argv[4]);
+    int dataword_size = stoi(argv[5]);
     if (dataword_size != 4 && dataword_size != 8) {
-        printf("dataword size must be 4 or 8.\n");
-        exit(1);
+        cerr << "dataword size must be 4 or 8." << endl;
+        return 1;
     }
 
-    // Read padding size
+    // Calculate the CRC checksum
     int padding_size;
-    fread(&padding_size, sizeof(char), 1, input_file);
-
-    // Discard padding bits
-    int discard_size = padding_size % 8;
-    if (discard_size > 0) {
-        fseek(input_file, 1, SEEK_CUR);
-    }
-
-    // Read and decode codewords
-    int codeword_count = 0;
+    input_file.read((char*)&padding_size, sizeof(padding_size));
+    vector<char> crc(dataword_size / 8);
+    bitset<8> checksum;
     int error_count = 0;
-    unsigned char codeword[MAX_CODEWORD_SIZE];
-    while (fread(codeword, sizeof(char), dataword_size + 2, input_file) == dataword_size + 2) {
-        // Extract dataword and CRC bits
-        unsigned int dataword = 0;
-        memcpy(&dataword, codeword, dataword_size);
-        unsigned int crc = 0;
-        memcpy(&crc, codeword + dataword_size, 2);
-
-        // Check CRC
-        unsigned int remainder = dataword;
-        for (int i = 0; i < 16; i++) {
-            if (remainder & (1 << (dataword_size + i))) {
-                remainder ^= generator << i;
-            }
-        }
-        if (remainder != crc) {
-            error_count++;
+    for (int frame_count = 1; input_file.read(&crc[0], crc.size()); frame_count++) {
+        // Remove the padding bits
+        if (frame_count == 1) {
+            checksum = bitset<8>(crc[0]);
+            checksum >>= (8 - padding_size);
+            crc[0] &= ((1 << (8 - padding_size)) - 1);
         }
 
-        // Write dataword to output file
-        fwrite(&dataword, sizeof(char), dataword_size, output_file);
+        // Convert to a bitset
+        bitset<64> codeword;
+        for (int i = 0; i < crc.size(); i++) {
+            codeword <<= 8;
+            codeword |= bitset<8>(crc[i]);
+        }
+        codeword >>= (64 - dataword_size - 9);
 
-        codeword_count++;
+        // Calculate the CRC checksum
+        for (int i = 0; i < dataword_size + 9; i++) {
+            bool xor = checksum[7] ^ codeword[i];
+            checksum <<= 1;
+            checksum[0] = xor;
+            if (i == dataword_size + 8 && checksum.any())
+                error_count++;
+        }
+
+        // Write the dataword to the output file
+        bitset<64> dataword = codeword >> 9;
+        for (int i = dataword_size / 8 - 1; i >= 0; i--)
+            for (int j = 7; j >= 0; j--)
+                output_file.put(dataword[i * 8 + j]);
     }
-
-    // Write result to result file
-    fprintf(result_file, "%d %d\n", codeword_count, error_count);
-
-    // Close files
-    fclose(input_file);
-    fclose(output_file);
-    fclose(result_file);
-
-    return 0;
 }
+// Write the CRC checksum to the output file
+for (int i = 7; i >= 0; i--)
+    output_file.put(checksum[i]);
+
+// Write the result to the result file
+result_file << "number of frames: " << frame_count << endl;
+result_file << "number of errors detected: " << error_count << endl;
+
+// Close the files
+input_file.close();
+output_file.close();
+result_file.close();
+
+return 0;

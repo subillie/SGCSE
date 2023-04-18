@@ -1,88 +1,82 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <bitset>
+using namespace std;
 
-#define DATAWORD_SIZE_MAX 8
+string modulo2division(string dataword, string generator) {
 
-// Perform modulo-2 division
-int modulo2div(int dividend, unsigned char divisor) {
-
-	int k = 3;
-	int remainder = 0;
-
-	for (int i = 31; i >= 0; i--) {
-		remainder |= ((dividend >> k) & 1) << i;
-		k--;
-	}
-
-	for (int i = 27; i >= 0; i--) {
-		if ((remainder >> (i + 4)) & 1) {
-			remainder ^= ((int)divisor << i);
+	int generator_size = generator.length();
+	string dividend = dataword + string(generator_size - 1, '0');
+	string remainder = dividend.substr(0, generator_size);
+	for (int i = generator_size; i < dividend.length(); i++) {
+		if (remainder[0] == '1') {
+			for (int j = 0; j < generator_size; j++) {
+				if (remainder[j] == generator[j]) remainder[j] = '0';
+				else remainder[j] = '1';
+			}
 		}
+		remainder = remainder.substr(1) + dividend[i];
 	}
-
 	return remainder;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char** argv) {
 
+	// Check the number of arguments
 	if (argc != 5) {
-		fprintf(stderr, "usage: %s input_file output_file generator dataword_size\n", argv[0]);
+		// If wrong, let the user know the usage
+		cerr << "usage: " << argv[0] << " input_file output_file generator dataword_size" << endl;
 		return 1;
 	}
-	FILE *fp_input = fopen(argv[1], "rb");
-	if (fp_input) {
-		fprintf(stderr, "input file open error.\n");
+
+	// Check if the params are valid, and initialize the variables
+	ifstream input(argv[1], ios::binary);
+	if (!input.is_open()) {
+		cerr << "input file open error." << endl;
 		return 1;
 	}
-	FILE *fp_output = fopen(argv[2], "wb");
-	if (!fp_output) {
-		fprintf(stderr, "output file open error.\n");
+	ofstream output(argv[2], ios::binary);
+	if (!output.is_open()) {
+		cerr << "output file open error." << endl;
 		return 1;
 	}
-	unsigned int generator = (unsigned int)strtoul(argv[3], NULL, 2);
+	string generator = argv[3];
 	int dataword_size = atoi(argv[4]);
 	if (dataword_size != 4 && dataword_size != 8) {
-		fprintf(stderr, "dataword size must be 4 or 8.\n");
+		cerr << "dataword size must be 4 or 8." << endl;
 		return 1;
 	}
 
-	int count = 0;
-	int dataword = 0;
-	unsigned char chunk;
+	string dataword;
+	while (input) {
+		char c = input.get();
+		if (input) {
+			// Append the bitset on the dataword
+			dataword += bitset<8>(c).to_string().substr(0, dataword_size);
 
-	while (fread(&chunk, sizeof(unsigned char), 1, fp_input)) {
-		// Append bits to dataword
-		for (int i = 7; i >= 0; i--) {
-			dataword |= ((chunk >> i) & 1) << count;
-			count++;
-			if (count == dataword_size) {
-				// Perform modulo-2 division
-				int remainder = modulo2div(dataword, generator);
+			// If the dataword is full, do modulo2division and make the codeword
+			if (dataword.length() != dataword_size) continue;
+			string remainder = modulo2division(dataword, generator);
 
-				// Append remainder to dataword to form codeword
-				dataword <<= 4;
-				dataword |= remainder;
+			// Make the codeword
+			string codeword = dataword + remainder;
+			int padding = 0;
+			int codeword_size = codeword.length();
+			if (codeword_size % 8 != 0)	// Add padding if the codeword size is not a multiple of 8
+				padding = 8 - codeword_size % 8;
+			codeword += string(padding, '0');
 
-				count = 0;
-				fwrite(&dataword, sizeof(int), 1, fp_output);
-				dataword = 0;
+			// Write the codeword to the output file
+			for (int i = 0; i < codeword_size + padding; i += 8) {
+				char encoded_char = static_cast<char>(bitset<8>(codeword.substr(i, 8)).to_ulong());
+				output.put(encoded_char);
 			}
+			dataword.clear();
 		}
 	}
 
-	// If there are any remaining bits in the dataword, pad with zeros and form the final codeword
-	if (count > 0) {
-		dataword <<= (dataword_size - count);
-		int remainder = modulo2div(dataword, generator);
-		dataword <<= 4;
-		dataword |= remainder;
-		fwrite(&dataword, sizeof(int), 1, fp_output);
-	}
-
-	fclose(fp_input);
-	fclose(fp_output);
-
+	input.close();
+	output.close();
 	return 0;
 }
