@@ -157,21 +157,6 @@ void Inet_pton(int af, const char *src, void *dst);
 struct hostent *Gethostbyname(const char *name);
 struct hostent *Gethostbyaddr(const char *addr, int len, int type);
 
-/* Pthreads thread control wrappers */
-void Pthread_create(pthread_t *tidp, pthread_attr_t *attrp, 
-		    void * (*routine)(void *), void *argp);
-void Pthread_join(pthread_t tid, void **thread_return);
-void Pthread_cancel(pthread_t tid);
-void Pthread_detach(pthread_t tid);
-void Pthread_exit(void *retval);
-pthread_t Pthread_self(void);
-void Pthread_once(pthread_once_t *once_control, void (*init_function)());
-
-/* POSIX semaphore wrappers */
-// void Sem_init(sem_t *sem, int pshared, unsigned int value);
-void P(sem_t *sem);
-void V(sem_t *sem);
-
 /* Rio (Robust I/O) package */
 ssize_t rio_readn(int fd, void *usrbuf, size_t n);
 ssize_t rio_writen(int fd, void *usrbuf, size_t n);

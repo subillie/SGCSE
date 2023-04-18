@@ -7,9 +7,10 @@ using namespace std;
 string modulo2division(string dataword, string generator) {
 
 	int generator_size = generator.length();
-	string dividend = dataword + string(generator_size - 1, '0');
+	string dividend = dataword + string(generator_size - 1, '0'); // Append 0s to the dataword
 	string remainder = dividend.substr(0, generator_size);
-	for (int i = generator_size; i < dividend.length(); i++) {
+
+	for (int i = generator_size; i <= dividend.length(); i++) {
 		if (remainder[0] == '1') {
 			for (int j = 0; j < generator_size; j++) {
 				if (remainder[j] == generator[j]) remainder[j] = '0';
@@ -20,6 +21,7 @@ string modulo2division(string dataword, string generator) {
 	}
 	return remainder;
 }
+
 
 int main(int argc, char** argv) {
 
@@ -48,12 +50,17 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 
+	int flag = 0;
 	string dataword;
 	while (input) {
 		char c = input.get();
 		if (input) {
 			// Append the bitset on the dataword
-			dataword += bitset<8>(c).to_string().substr(0, dataword_size);
+			if (flag == 0) {
+				dataword += bitset<8>(c).to_string().substr(0, dataword_size);
+				if (dataword_size == 8) flag = 1;
+			} else if (flag == 1)
+				dataword += bitset<8>(c).to_string().substr(3, dataword_size);
 
 			// If the dataword is full, do modulo2division and make the codeword
 			if (dataword.length() != dataword_size) continue;
@@ -62,14 +69,19 @@ int main(int argc, char** argv) {
 			// Make the codeword
 			string codeword = dataword + remainder;
 			int padding = 0;
-			int codeword_size = codeword.length();
+			int codeword_size = 0;
+			for (; codeword[codeword_size] != '\0'; codeword_size++);
 			if (codeword_size % 8 != 0)	// Add padding if the codeword size is not a multiple of 8
 				padding = 8 - codeword_size % 8;
-			codeword += string(padding, '0');
+
+			string padded_codeword = string(padding, '0');
+			padded_codeword += codeword;
 
 			// Write the codeword to the output file
 			for (int i = 0; i < codeword_size + padding; i += 8) {
-				char encoded_char = static_cast<char>(bitset<8>(codeword.substr(i, 8)).to_ulong());
+				string binary_string = padded_codeword.substr(i, 8);
+				bitset<8> bitset(binary_string);
+				char encoded_char = static_cast<char>(bitset.to_ulong());
 				output.put(encoded_char);
 			}
 			dataword.clear();
