@@ -55,7 +55,10 @@ int main(int argc, char* argv[]) {
         bitset<64> codeword;
         for (int i = 0; i < crc.size(); i++) {
             codeword <<= 8;
-            codeword |= bitset<8>(crc[i]);
+            for (int j = 7; j >= 0; j--) {
+                bool bit = (crc[i] >> j) & 1;
+                codeword |= bit;
+            }
         }
         codeword >>= (64 - dataword_size - 9);
 
