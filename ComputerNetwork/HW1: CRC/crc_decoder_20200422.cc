@@ -15,18 +15,18 @@ int main(int argc, char* argv[]) {
     }
 
     // Check if the params are valid, and initialize the variables
-    ifstream input_file(argv[1], ios::binary);
-    if (!input_file.is_open()) {
+    ifstream input(argv[1], ios::binary);
+    if (!input.is_open()) {
         cerr << "input file open error." << endl;
         return 1;
     }
-    ofstream output_file(argv[2], ios::binary);
-    if (!output_file.is_open()) {
+    ofstream output(argv[2], ios::binary);
+    if (!output.is_open()) {
         cerr << "output file open error." << endl;
         return 1;
     }
-    ofstream result_file(argv[3]);
-    if (!result_file.is_open()) {
+    ofstream result(argv[3]);
+    if (!result.is_open()) {
         cerr << "result file open error." << endl;
         return 1;
     }
@@ -39,11 +39,11 @@ int main(int argc, char* argv[]) {
 
     // Calculate the CRC checksum
     int padding_size;
-    input_file.read((char*)&padding_size, sizeof(padding_size));
+    input.read((char*)&padding_size, sizeof(padding_size));
     vector<char> crc(dataword_size / 8);
     bitset<8> checksum;
-    int error_count = 0;
-    for (int frame_count = 1; input_file.read(&crc[0], crc.size()); frame_count++) {
+    int frame_count = 1, error_count = 0;
+    for (; input.read(&crc[0], crc.size()); frame_count++) {
         // Remove the padding bits
         if (frame_count == 1) {
             checksum = bitset<8>(crc[0]);
@@ -61,9 +61,9 @@ int main(int argc, char* argv[]) {
 
         // Calculate the CRC checksum
         for (int i = 0; i < dataword_size + 9; i++) {
-            bool xor = checksum[7] ^ codeword[i];
+            bool bool_xor = checksum[7] ^ codeword[i];
             checksum <<= 1;
-            checksum[0] = xor;
+            checksum[0] = bool_xor;
             if (i == dataword_size + 8 && checksum.any())
                 error_count++;
         }
@@ -72,20 +72,21 @@ int main(int argc, char* argv[]) {
         bitset<64> dataword = codeword >> 9;
         for (int i = dataword_size / 8 - 1; i >= 0; i--)
             for (int j = 7; j >= 0; j--)
-                output_file.put(dataword[i * 8 + j]);
+                output.put(dataword[i * 8 + j]);
     }
-}
-// Write the CRC checksum to the output file
-for (int i = 7; i >= 0; i--)
-    output_file.put(checksum[i]);
 
-// Write the result to the result file
-result_file << "number of frames: " << frame_count << endl;
-result_file << "number of errors detected: " << error_count << endl;
+    // Write the CRC checksum to the output file
+    for (int i = 7; i >= 0; i--)
+        output.put(checksum[i]);
 
-// Close the files
-input_file.close();
-output_file.close();
-result_file.close();
+    // Write the result to the result file
+    result << "number of frames: " << frame_count << endl;
+    result << "number of errors detected: " << error_count << endl;
 
-return 0;
+    // Close the files
+    input.close();
+    output.close();
+    result.close();
+
+    return 0;
+    }
