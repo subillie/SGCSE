@@ -1,4 +1,4 @@
-# 1. ECF - processes
+# 1. ECF - exceptions and processes
 - Exceptions
 	- Events that require nonstandard control flow
 	- Generated externally (interrupts) or internally (traps and faults)
@@ -7,6 +7,6 @@
 	- Only one can execute at a time on a single core, though
 	- Each process appears to have total control of processor + private memory space
 
-# 2. ECF - signals
+# 2. ECF - signals and nonlocal jumps
 # 3. System Level I/O
 # 4. Network Programming

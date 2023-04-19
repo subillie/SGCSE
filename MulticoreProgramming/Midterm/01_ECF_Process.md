@@ -28,7 +28,6 @@
 - 각 event는 고유 번호의 `handler(interrupt vector)`가 있음
 - event 발생하면, user code -> kernel code -> `exception handling`
 - `exception table`의 주소(번호)를 찾아감 -> 해당 exception code 실행 -> 다시 process로 돌아감 (해결하는 동안 process는 동시적으로 실행되고 있음)  
-###### ZeroDivisionError 같은 경우, software 수준에서 발생하는 예외 상황
 
 |class|cause|동기/비동기|return behavior|
 |:---:|:---|:---:|:---|
@@ -64,7 +63,8 @@
 			실행하려는 파일(내 코드)이 memory 상에 없고 disk에 있으면 page fault 발생 (-> main memory로 가져와서 실행해야 함)
 		- `protection faults` (unrecoverable(e.g. 가상메모리, `SIGSEGV`))  
 			 -> detect invalid address -> signal process
-		- floating point exceptions (e.g. overflow)
+		- floating point exceptions (e.g. overflow, zero division)  
+			-> software 수준에서 발생하는 error
 	- **`Aborts`**  
 		e.g. illegal instruction, parity error, machine check
 
