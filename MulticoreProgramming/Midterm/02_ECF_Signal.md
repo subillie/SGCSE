@@ -86,10 +86,15 @@ Else // pnb의 least nonzero bit을 찾아서, 프로세스가 해당 시그널�
 ```
 
 ## Signal Handlers
+- separate logical flow (not process)
+- runs concurrently with the kmain program
 ```c
 handler_t *signal(int signum, handler_t *handler)
-// default action을 overriding할 수 있음 (= 나의 handler로 바꿀 수 있음)
-// except SIGKILL, SIGSTOP
+// default action을 overriding할 수 있음 (= 나의 handler로 바꿀 수 있음) except SIGKILL, SIGSTOP
+// 'SIG_IGN' : ignore(무시)
+// 'SIG_DFL' : revert(재정의) to the default action
+// user-level signal handler : 'installing' the handler
+// -> executing handler = `catching` or `handling` the signal
 ```
-- `SIG_IGN`: ignore(무시)
-- `SIG_DFL` : revert(재정의) to the default action
+<img src="https://user-images.githubusercontent.com/112736264/233095774-4df6b975-6b81-4fc3-b802-e31ddad24f5a.png" width="300" height="150"/>  
+
