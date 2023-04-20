@@ -65,6 +65,7 @@ STAT (process state) Legend
 - `A pending signal is received at most once`
 - `Signals are not queued`
 	- If a process has a pending signal of type k, <br> then subsequent signals of type k that are sent to that process are discarded  
+	- You can't use signals to count events, such as children terminating
 
 |Bit Vertor|set|cleared|
 |:---:|:---:|:---:|
@@ -94,7 +95,121 @@ handler_t *signal(int signum, handler_t *handler)
 // 'SIG_IGN' : ignore(무시)
 // 'SIG_DFL' : revert(재정의) to the default action
 // user-level signal handler : 'installing' the handler
-// -> executing handler = `catching` or `handling` the signal
+// -> executing handler = 'catching' or 'handling' the signal
+signal wrapper : using 'sigaction'
+1. handler 한 번 설치하면 재설치할 필요 없음
+2. slow system call(e.g. read) 중 interrupt 발생하는 경우 고려할 필요 없음
 ```
 <img src="https://user-images.githubusercontent.com/112736264/233095774-4df6b975-6b81-4fc3-b802-e31ddad24f5a.png" width="300" height="150"/>  
 
+## Nested Signal Handlers
+시그널 중첩 : handler 함수 내에서 또 다른 handler 함수가 불림 -> recursion (global 변수 사용 불가)  
+- Implicit blocking mechanism : 같은 종류의 시그널은 중첩되어 발생 불가 (자동 block 처리)
+- Explicit blocking and unblocking mechanism
+	```c
+	sigprocmask()	// 수행 중 다른 종류의 시그널이 들어왔을 때 수동 blocking
+	sigemptyset(&mask)	// mask를 모두 clear (0으로 채움)
+	sigfillset(&mask)	// mask를 모두 set (1로 채움)
+	sigaddset(&mask, SIGINT)	// mask를 bit vector에 add
+	sigdelset(&mask, SIGINT)
+	```  
+## 6 Guidelines for Writing Safe Handlers
+1. handler를 최대한 simple하게 하기
+	- handler가 할 일을 일부 main에서 처리 (e.g. Set a `global flag` and return)
+2. Call only `async-signal-safe` funcions in handlers
+	- reentrant
+	- use only variables (i.e. use local stack)
+	- non-interruptible by signals
+	- 가능 : _exit, write, wait, waitpid, sleep, kill
+	- 불가능 : exit, printf, sprintf, malloc
+3. Save and restrre `errno` on entry and exit (overwrite하지 않도록)
+	```c
+	void handler (int sig) {
+		int olderrno = errno;
+		...
+		errno = olderrno;
+	}
+	```
+4. Protect accesses to shared data structures by `temporarily blocking all signals`
+5. Declare global variables as `volatile`
+	- to prevent compiler from storing them in a register
+	- register에 저장하여 최적화하지 말고 매번 memory 영역을 참조해라 -> 속도는 느려질 수 있지만 안전함
+6. Declare global flags as `volatile sig_atomic_t`
+	- flag : variable that is only read or written (e.g. flag = 1, not flag++)
+
+## Synchronization Error (Race Condition)
+```c
+int main(int argc, char **argv) {
+
+	int pid;
+	sigset_t mask_all, mask_one, prev_one;
+
+	Sigfillset(&mask_all);
+	Sigemptyset(&mask_one);
+	Sigaddset(&mask_one, SIGCHLD);
+	Signal(SIGCHLD, handler);
+	initjobs();
+
+	while (1) {
+		Sigprocmask(SIG_BLOCK, &mask_one, &prev_one);	// Block SIGCHLD
+		if (pid = Fork() == 0) {						// Child process
+			Sigprocmask(SIG_SETMASK, &prev_one, NULL);	// Unblock SIGCHLD for another fork from chld
+			Execve();
+		}
+		Sigprocmask(SIG_BLOCK, &mask_all, NULL);		// Parent process
+		addjob(pid);									// Add the child to the job list
+		Sigprocmask(SIG_SETMASK, &prev_one, NULL);		// Unblock SIGCHLD
+	}
+	exit(0);
+}
+```
+
+## Explicitly Waiting for Signals
+```bash
+> job
+# ctrl-z -> stopped (SIGTSTP을 받은 상태)
+# bg or fg -> SIGCONT (continue!) -> running
+```
+```c
+while (!pid);			// correct, but wasteful
+while (!pid) pause();	// race condition (pause는 어떤 시그널이든 들어오면 풀림)
+while (!pid) sleep(1);	// safe, but slow
+
+int sigsuspend(const siget_t *mask)	// atomic(uninterruptable)!!
+// 아래와 로직이 동일함 (전 상태를 가지고 있다가 되돌려줌)
+sigprocmask(SIG_BLOCK, &mask, &prev);
+pause();
+sigprocmask(SIG_SETMASK, &prev, NULL);
+```
+```c
+int main(int argc, char **argv) {
+
+	sigset_t mask, prev;
+	Signal(SIGCHLD, sigchld_handler);
+	Signal(SIGINT, sigint_handler);
+	Sigemptyset(&mask);
+	Sigaddset(&mask);
+
+	while (1) {
+		Sigprocmask(SIG_BLOCK, &mask, &prev);	// Block SIGCHLD
+		if (Fork() == 0) exit (0);	// Child
+		int pid = 0;
+		while (!pid)
+			Sigsuspend(&prev);
+		Sigprocmask(SIG_SETMASK, &prev, NULL);
+		...
+	}
+	exit(0);
+}
+```
+
+## Nonlocal Jumps
+매우 위험하고 안 좋은 함수지만 signal error handling에 유용함
+문제점
+- can cause memory leak (no deallocation)
+- works within stack discipline
+```c
+// 꼭 setjmp -> longjmp 순서여야 함
+int setjmp(jmp_buf env)
+void longjmp(jmp_buf env, int retval)
+```
