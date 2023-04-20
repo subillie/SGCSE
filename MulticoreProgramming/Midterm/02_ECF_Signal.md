@@ -108,6 +108,10 @@ signal wrapper : using 'sigaction'
 - Explicit blocking and unblocking mechanism
 	```c
 	sigprocmask()	// 수행 중 다른 종류의 시그널이 들어왔을 때 수동 blocking
+	SIG_BLOCK // 기존 mask에 append
+	SIG_UNBLOCK
+	SIG_SETMASK // mask 바꿔치기
+
 	sigemptyset(&mask)	// mask를 모두 clear (0으로 채움)
 	sigfillset(&mask)	// mask를 모두 set (1로 채움)
 	sigaddset(&mask, SIGINT)	// mask를 bit vector에 add
@@ -177,9 +181,9 @@ while (!pid) sleep(1);	// safe, but slow
 
 int sigsuspend(const siget_t *mask)	// atomic(uninterruptable)!!
 // 아래와 로직이 동일함 (전 상태를 가지고 있다가 되돌려줌)
-sigprocmask(SIG_BLOCK, &mask, &prev);
+sigprocmask(SIG_SETMASK, &mask, &prev); // temporarily replace
 pause();
-sigprocmask(SIG_SETMASK, &prev, NULL);
+sigprocmask(SIG_SETMASK, &prev, NULL); // restore the blocked set to its state
 ```
 ```c
 int main(int argc, char **argv) {
