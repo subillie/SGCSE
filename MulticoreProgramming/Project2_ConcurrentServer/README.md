@@ -2,7 +2,7 @@
 
 ## Event-based
 
-[Reference; System Programming](https://velog.io/@tonyhan18/%EC%8B%9C%EC%8A%A4%ED%85%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-13-1-Concurrent-Programming)  
+[[Reference] System Programming](https://velog.io/@tonyhan18/%EC%8B%9C%EC%8A%A4%ED%85%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-13-1-Concurrent-Programming)  
 
 - 단일 process, connfd or listenfd를 포함한 array를 가지고 있음
 - Determine which file descriptor (connfd's or listenfd) has pending inputs
@@ -13,7 +13,7 @@
 			-> then add new connfd to array
 		- `Service` all `connfd's` with pending inputs
 
-[Reference; Event-based Concurrency](https://velog.io/@kmin-283/Event-based-Concurrency-Advanced)  
+[[Reference] Event-based Concurrency](https://velog.io/@kmin-283/Event-based-Concurrency-Advanced)  
 
 어떤 일이 일어날 때까지 기다리는 것, event가 발생하면 event의 type에 따라 `event handler`로 동작을 수행한다.  
 즉, 어떤 event를 수행할 것인지에 대한 행동이 마치 scheduling과 같은 기능을 한다.  
@@ -34,4 +34,4 @@ Node.js같은 server-side framework, 고성능 웹서버나 검색엔진에서 �
 			Asynchronous I/O control block
 
 ## Thread-based
-[Reference; System Programming](https://velog.io/@tonyhan18/%EC%8B%9C%EC%8A%A4%ED%85%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-13-1-Concurrent-Programming)  
+[[Reference] System Programming](https://velog.io/@tonyhan18/%EC%8B%9C%EC%8A%A4%ED%85%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-13-1-Concurrent-Programming)  
