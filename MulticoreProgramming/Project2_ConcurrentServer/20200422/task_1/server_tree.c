@@ -4,7 +4,8 @@
 #include "csapp.h"
 #include "stockserver.h"
 
-void free_tree(stock_item_t *ptr) {
+void free_tree(stock_t *ptr) {
+
 	if (ptr == NULL) {
 		return;
 	}
@@ -13,19 +14,19 @@ void free_tree(stock_item_t *ptr) {
 	free(ptr);
 }
 
-void traverse(stock_item_t *ptr, char *list) {
+void traverse(stock_t *ptr, char *list) {
 
 	if (ptr == NULL) {
 		return;
 	}
 	traverse(ptr->left, list);
-	sprintf(list + strlen(list), "%d %d %d\n", ptr->id, ptr->left_stock, ptr->price);
+	sprintf(list + strlen(list), "%d %d %d\n", ptr->id, ptr->quantity, ptr->price);
 	traverse(ptr->right, list);
 }
 
-stock_item_t *find(int id) {
+stock_t *find(int id) {
 
-	stock_item_t *ptr = root;
+	stock_t *ptr = root;
 
 	/* Find the node with the given id */
 	while (ptr != NULL) {
@@ -39,13 +40,13 @@ stock_item_t *find(int id) {
 	return ptr;
 }
 
-void print_inorder(stock_item_t *ptr, FILE *fp) {
+void print_inorder(stock_t *ptr, FILE *fp) {
 
 	if (ptr == NULL) {
 		return;
 	}
 	print_inorder(ptr->left, fp);
-	fprintf(fp, "%d %d %d\n", ptr->id, ptr->left_stock, ptr->price);
+	fprintf(fp, "%d %d %d\n", ptr->id, ptr->quantity, ptr->price);
 	print_inorder(ptr->right, fp);
 }
 

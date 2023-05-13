@@ -1,17 +1,19 @@
-# CC = gcc
-# CFLAGS = -O2 -Wall
-# LDLIBS = -lpthread
+CC = gcc
+CFLAGS = -O2 -Wall
+LDLIBS = -lpthread
 
-# all: multiclient stockclient stockserver
+SRCS_MULTICLIENT = multiclient.c csapp.c
+SRCS_STOCKCLIENT = stockclient.c csapp.c
+SRCS_STOCKSERVER = stockserver.c server_utils.c server_tree.c csapp.c
 
-# multiclient: multiclient.c csapp.c csapp.h
-# stockclient: stockclient.c csapp.c csapp.h
-# stockserver: stockserver.c csapp.c csapp.h
+all: multiclient stockclient stockserver
 
-# clean:
-# 	rm -rf *~ multiclient stockclient stockserver *.o
+multiclient: $(SRCS_MULTICLIENT)
+	$(CC) $(CFLAGS) $(LDLIBS) -o multiclient $(SRCS_MULTICLIENT)
+stockclient: $(SRCS_STOCKCLIENT)
+	$(CC) $(CFLAGS) $(LDLIBS) -o stockclient $(SRCS_STOCKCLIENT)
+stockserver: $(SRCS_STOCKSERVER)
+	$(CC) $(CFLAGS) $(LDLIBS) -o stockserver $(SRCS_STOCKSERVER)
 
-all:
-	gcc -O2 -Wall -lpthread -o multiclient multiclient.c csapp.c csapp.h
-	gcc -O2 -Wall -lpthread -o stockclient stockclient.c csapp.c csapp.h
-	gcc -O2 -Wall -lpthread -o stockserver stockserver.c csapp.c csapp.h
+clean:
+	rm -rf *~ multiclient stockclient stockserver *.o

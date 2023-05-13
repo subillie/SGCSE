@@ -5,44 +5,48 @@
 #ifndef __STOCKSERVER_H__
 #define __STOCKSERVER_H__
 
+/* 주식 종목 리스트 */
+typedef struct stock_s {
+	int id;
+	int quantity;
+	int price;
+	struct stock_s *next;
+	struct stock_s *left;
+	struct stock_s *right;
+}	stock_t;
+stock_t *root;
+
+/* 클라이언트 리스트 */
+typedef struct client_s {
+	int fd;		/* Active descriptor */
+	rio_t rio;	/* Buffered I/O for each client */
+	struct client_s *next;
+}	client_t;
+client_t *client_head;
+client_t *client_tail;
+
 typedef struct pool_s {
-	int maxfd;					 /* Largest descriptor in read_set */
-	fd_set read_set;			 /* Set of all active descriptors */
-	fd_set ready_set;			 /* Subset of descriptors ready for reading */
-	int nready;					 /* Number of ready descriptors from select */
-	int maxi;					 /* Highwater index into client array */
-	int clientfd[FD_SETSIZE];	 /* Set of active descriptors */
-	rio_t clientrio[FD_SETSIZE]; /* Set of active read buffers; buffered I/O for each client */
+	int listenfd;		/* Largest descriptor in read_set */
+	int nready;			/* Number of ready descriptors from select */
+	int nclient;		/* Number of client */
+	int nstock;			/* Number of stock */
+	fd_set read_set;	/* Set of all active descriptors */
+	fd_set ready_set;	/* Subset of descriptors ready for reading */
+	client_t *client;	/* Set of active descriptors and read buffers */
 }	pool_t;
 
-/* 주식 종목 리스트 */
-typedef struct stock_item_s *stock_item_list;
-typedef struct stock_item_s {
-	int id;
-	int left_stock;
-	int price;
-	int readcnt;
-	sem_t mutex;
-	sem_t writer;
-	stock_item_list next;
-	stock_item_list left;
-	stock_item_list right;
-}	stock_item_t;
+/* function prototypes - server_utils.c */
+void init_pool(char *listenfd, pool_t *pool);
+void add_fd(int connfd, pool_t *pool);
+void delete_fd(int connfd, pool_t *pool);
+void execute_command(int connfd, int buflen, char *buf, pool_t *pool);
 
-stock_item_list *root = NULL;
-stock_item_list *head = NULL;
-stock_item_list *tail = NULL;
-int stock_count = 0; /* 주식 종목 개수 */
-
-/* 주식 거래 요청 리스트*/
-// typedef struct request_s *request_list;
-// typedef struct request_s {
-// 	int fd;
-// 	request_list next;
-// }	request_t;
-
-// request_list *request_head = NULL;
-// request_list *request_tail = NULL;
+/* function prototypes - server_tree.c */
+void free_tree(stock_t *ptr);
+void traverse(stock_t *ptr, char *list);
+stock_t *find(int id);
+void print_inorder(stock_t *ptr, FILE *fp);
+void upload_file();
 
 #endif /* __STOCKSERVER_H__ */
 /* $end stockserver.h */
