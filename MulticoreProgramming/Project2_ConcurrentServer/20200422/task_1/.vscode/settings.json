@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"csapp.h": "c",
+		"stockserver.h": "c",
+		"ios": "c",
+		"__locale": "c"
+	}
+}

@@ -101,6 +101,8 @@ void init_pool(char *listenfd, pool_t *pool) {
 	while (fscanf(fp, "%d %d %d", &id, &quantity, &price) != EOF)
 		add_stock(id, quantity, price, pool);
 	fclose(fp);
+	printf("Server initialized\n");
+	print_inorder(root, fp);
 
 	/* Initially, listenfd is only member of select read set */
 	pool->listenfd = Open_listenfd(listenfd);

@@ -26,17 +26,17 @@ client_t *client_head;
 client_t *client_tail;
 
 typedef struct pool_s {
-	int listenfd;		/* Largest descriptor in read_set */
-	int nready;			/* Number of ready descriptors from select */
-	int nclient;		/* Number of client */
-	int nstock;			/* Number of stock */
+	int maxfd;			/* Largest descriptor in read_set */
 	fd_set read_set;	/* Set of all active descriptors */
 	fd_set ready_set;	/* Subset of descriptors ready for reading */
+	int nready;			/* Number of ready descriptors from select */
+	int maxi;			/* High water index into client array */
+	int nstock;			/* Number of stock */
 	client_t *client;	/* Set of active descriptors and read buffers */
 }	pool_t;
 
 /* function prototypes - server_utils.c */
-void init_pool(char *listenfd, pool_t *pool);
+void init_pool(int listenfd, pool_t *pool);
 void add_fd(int connfd, pool_t *pool);
 void delete_fd(int connfd, pool_t *pool);
 void execute_command(int connfd, int buflen, char *buf, pool_t *pool);

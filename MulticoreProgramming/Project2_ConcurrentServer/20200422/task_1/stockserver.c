@@ -27,7 +27,6 @@ int main(int argc, char **argv) {
 		/* Wait for listening/connected descriptor(s) to become ready */
 		pool.ready_set = pool.read_set;
 		pool.nready = Select(pool.listenfd + 1, &pool.ready_set, NULL, NULL, NULL);
-		printf("Waiting for connection...\n");
 		if (pool.nready <= 0)
 			continue;
 
