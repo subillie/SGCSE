@@ -24,22 +24,21 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "usage: %s <port>\n", argv[0]);
 		exit(0);
 	}
-	Signal(SIGINT, sigint_handler);
 	byte_cnt = 0;
+	root = NULL;
 	listenfd = Open_listenfd(argv[1]);
 	init_pool(listenfd, &pool);
 	init_items();
+	Signal(SIGINT, sigint_handler);
 
 	while (1) {
 		/* Wait for listening/connected descriptor(s) to become ready */
 		pool.ready_set = pool.read_set;
-		pool.nready = Select(pool.maxi + 1, &pool.ready_set, NULL, NULL, NULL);
-		printf("nready: %d\n", pool.nready);
+		pool.nready = Select(pool.maxfd + 1, &pool.ready_set, NULL, NULL, NULL);
 		/* If listening descriptor ready, add new client to pool */
 		if ((FD_ISSET(listenfd, &pool.ready_set))) {
-			printf("got client\n");
 			clientlen = sizeof(struct sockaddr_storage);
-			connfd = Accept(pool.maxi, (SA *)&clientaddr, &clientlen);
+			connfd = Accept(listenfd, (SA *)&clientaddr, &clientlen);
 			Getnameinfo((SA *) &clientaddr, clientlen, client_hostname, MAXLINE, client_port, MAXLINE, 0);
 			printf("Connected to (%s, %s)\n", client_hostname, client_port);
 			// FD_SET(connfd, &pool.read_set); //TODO: 이게맞나....

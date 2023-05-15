@@ -33,6 +33,7 @@ void init_items() {
 	while (fscanf(fp, "%d %d %d", &id, &quantity, &price) != EOF)
 		add_item(root, id, quantity, price);
 	fclose(fp);
+	print_inorder(root, stdout);
 }
 
 static void delete_in_tree(item_t *ptr, item_t *parent, item_t *child) {

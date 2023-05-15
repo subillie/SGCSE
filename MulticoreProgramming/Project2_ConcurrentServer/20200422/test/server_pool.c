@@ -23,23 +23,25 @@ void add_client(int connfd, pool_t *pool) {
 	int i;
 
 	pool->nready--;
+	// Find an available slot in the clientfd array
 	for (i = 0; i < FD_SETSIZE; i++) {
 		if (pool->clientfd[i] < 0) {
-			/* Add connected descriptor to the pool */
+			// Add connected descriptor to the pool
 			pool->clientfd[i] = connfd;
 			Rio_readinitb(&pool->clientrio[i], connfd);
 
-			/* Add the descriptor to descriptor set */
+			// Add the descriptor to the descriptor set
 			FD_SET(connfd, &pool->read_set);
 
-			/* Update max descriptor and pool high water mark */
-			if (pool->maxfd < connfd)
+			// Update max descriptor and pool high water mark
+			if (connfd > pool->maxfd)
 				pool->maxfd = connfd;
-			if (pool->maxi < i)
+			if (i > pool->maxi)
 				pool->maxi = i;
 			break;
 		}
 	}
+
 	if (i == FD_SETSIZE)
 		app_error("add_client error: Too many clients");
 }
@@ -56,7 +58,7 @@ void check_clients(pool_t *pool) {
 		rio = pool->clientrio[i];
 
 		/* If the descriptor is ready, echo a text line from it */
-		if ((connfd > 0) && (FD_ISSET(connfd, &pool->ready_set))) {
+		if ((connfd > 0) && (FD_ISSET(connfd, &pool->ready_set)) && (recv(connfd, buf, 1, MSG_PEEK | MSG_DONTWAIT) > 0)) {
 			pool->nready--;
 			if ((n = Rio_readlineb(&rio, buf, MAXLINE)) != 0) {
 				byte_cnt += n;
@@ -134,11 +136,11 @@ void execute_command(int i, int connfd, int buflen, char *buf, pool_t *pool) {
 	char command[MAXLINE];
 
 	if (!strcmp(buf, "exit\n")) {
-		Close(connfd);
+		upload_file();
+		Close(connfd);               // Close the connection
 		FD_CLR(connfd, &pool->read_set);
 		pool->clientfd[i] = -1;
-		Rio_writen(connfd, buf, buflen);
-		upload_file();
+		return;                      // Return after closing the connection
 	}
 	else if (!strcmp(buf, "\n"))
 		Rio_writen(connfd, buf, buflen);
