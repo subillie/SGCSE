@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "usage: %s <port>\n", argv[0]);
 		exit(0);
 	}
-	byte_cnt = 0;
+	// byte_cnt = 0;
 	root = NULL;
 	listenfd = Open_listenfd(argv[1]);
 	init_pool(listenfd, &pool);

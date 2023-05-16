@@ -61,8 +61,9 @@ void check_clients(pool_t *pool) {
 		if ((connfd > 0) && (FD_ISSET(connfd, &pool->ready_set)) && (recv(connfd, buf, 1, MSG_PEEK | MSG_DONTWAIT) > 0)) {
 			pool->nready--;
 			if ((n = Rio_readlineb(&rio, buf, MAXLINE)) != 0) {
-				byte_cnt += n;
-				printf("Server received %d (%d total) bytes on fd %d\n", n, byte_cnt, connfd);
+				// byte_cnt += n;
+				// printf("Server received %d (%d total) bytes on fd %d\n", n, byte_cnt, connfd);
+				printf("Server received %d bytes\n", n);
 				execute_command(i, connfd, n, buf, pool);
 			}
 			/* EOF detected, remove descriptor from pool */
