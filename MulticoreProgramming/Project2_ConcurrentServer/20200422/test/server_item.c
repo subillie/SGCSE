@@ -4,21 +4,21 @@
 #include "csapp.h"
 #include "stockserver.h"
 
-void add_item(item_t *ptr, int id, int quantity, int price) {
+void add_item(item_t **ptr, int id, int quantity, int price) {
 
-	if (ptr == NULL) {
-		ptr = (item_t *)Malloc(sizeof(item_t));
-		ptr->id = id;
-		ptr->quantity = quantity;
-		ptr->price = price;
-		ptr->left = NULL;
-		ptr->right = NULL;
+	if ((*ptr) == NULL) {
+		(*ptr) = (item_t *)Malloc(sizeof(item_t));
+		(*ptr)->id = id;
+		(*ptr)->quantity = quantity;
+		(*ptr)->price = price;
+		(*ptr)->left = NULL;
+		(*ptr)->right = NULL;
 	}
 	else {
-		if (id < ptr->id)
-			add_item(ptr->left, id, quantity, price);
-		else if (id > ptr->id)
-			add_item(ptr->right, id, quantity, price);
+		if (id < (*ptr)->id)
+			add_item((&(*ptr)->left), id, quantity, price);
+		else if (id > (*ptr)->id)
+			add_item((&(*ptr)->right), id, quantity, price);
 		else
 			app_error("add_item error: Item already exists");
 	}
@@ -29,19 +29,27 @@ void init_items() {
 	int id, quantity, price;
 
 	FILE *fp = fopen("stock.txt", "r");
+	if (fp == NULL) {
+		app_error("file open error");
+		exit(1);
+	}
 	nstock = 0;
-	while (fscanf(fp, "%d %d %d", &id, &quantity, &price) != EOF)
-		add_item(root, id, quantity, price);
+	while (fscanf(fp, "%d %d %d", &id, &quantity, &price) != EOF) {
+		add_item(&root, id, quantity, price);
+		nstock++;
+	}
 	fclose(fp);
-	print_inorder(root, stdout);
 }
 
 static void delete_in_tree(item_t *ptr, item_t *parent, item_t *child) {
 
+	/* If there is no parent */
 	if (parent == NULL)
 		root = child;
+	/* If the left node of the parent is to be deleted */
 	else if (parent->left == ptr)
 		parent->left = child;
+	/* If the right node of the parent is to be deleted */
 	else
 		parent->right = child;
 }
@@ -118,18 +126,19 @@ item_t *find(int id) {
 	return ptr;
 }
 
-void print_inorder(item_t *ptr, FILE *fp) {
+void print_fp(item_t *ptr, FILE *fp) {
 
 	if (ptr == NULL)
 		return;
-	print_inorder(ptr->left, fp);
+	print_fp(ptr->left, fp);
 	fprintf(fp, "%d %d %d\n", ptr->id, ptr->quantity, ptr->price);
-	print_inorder(ptr->right, fp);
+	fflush(fp);
+	print_fp(ptr->right, fp);
 }
 
 void upload_file() {
 
 	FILE *fp = fopen("stock.txt", "w");
-	print_inorder(root, fp);
+	print_fp(root, fp);
 	fclose(fp);
 }

@@ -35,12 +35,12 @@ void check_clients(pool_t *pool);
 void execute_command(int i, int connfd, int buflen, char *buf, pool_t *pool);
 
 /* function prototypes - server_pool.c */
-void add_item(item_t *ptr, int id, int quantity, int price);
+void add_item(item_t **ptr, int id, int quantity, int price);
 void init_items();
 void delete_item(int id, pool_t *pool);
 void free_tree(item_t *ptr);
 item_t *find(int id);
-void print_inorder(item_t *ptr, FILE *fp);
+void print_fp(item_t *ptr, FILE *fp);
 void upload_file();
 
 #endif /* __STOCKSERVER_H__ */

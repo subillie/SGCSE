@@ -23,25 +23,25 @@ void add_client(int connfd, pool_t *pool) {
 	int i;
 
 	pool->nready--;
-	// Find an available slot in the clientfd array
+	/* Find an available slot in the clientfd array */
 	for (i = 0; i < FD_SETSIZE; i++) {
 		if (pool->clientfd[i] < 0) {
-			// Add connected descriptor to the pool
+			/* Add connected descriptor to the pool */
 			pool->clientfd[i] = connfd;
 			Rio_readinitb(&pool->clientrio[i], connfd);
 
-			// Add the descriptor to the descriptor set
+			/* Add the descriptor to the descriptor set */
 			FD_SET(connfd, &pool->read_set);
 
-			// Update max descriptor and pool high water mark
-			if (connfd > pool->maxfd)
+			/* Update max descriptor and pool high water mark */
+			if (pool->maxfd < connfd)
 				pool->maxfd = connfd;
-			if (i > pool->maxi)
+			if (pool->maxi < i)
 				pool->maxi = i;
 			break;
 		}
 	}
-
+	/* Couldn't find an empty slot */
 	if (i == FD_SETSIZE)
 		app_error("add_client error: Too many clients");
 }
@@ -58,7 +58,7 @@ void check_clients(pool_t *pool) {
 		rio = pool->clientrio[i];
 
 		/* If the descriptor is ready, echo a text line from it */
-		if ((connfd > 0) && (FD_ISSET(connfd, &pool->ready_set)) && (recv(connfd, buf, 1, MSG_PEEK | MSG_DONTWAIT) > 0)) {
+		if ((connfd > 0) && (FD_ISSET(connfd, &pool->ready_set))) {
 			pool->nready--;
 			if ((n = Rio_readlineb(&rio, buf, MAXLINE)) != 0) {
 				// byte_cnt += n;
@@ -76,25 +76,31 @@ void check_clients(pool_t *pool) {
 	}
 }
 
-static void traverse(item_t *ptr, char *list) {
+static void print_rio(item_t *ptr, char *list) {
 
 	if (ptr == NULL) {
 		return;
 	}
-	traverse(ptr->left, list);
+	print_rio(ptr->left, list);
 	sprintf(list + strlen(list), "%d %d %d\n", ptr->id, ptr->quantity, ptr->price);
-	traverse(ptr->right, list);
+	print_rio(ptr->right, list);
 }
 
 static void show(int connfd) {
 
 	char list[MAXLINE];
-
 	list[0] = '\0';
-	traverse(root, list);
-	strcat(list, "\n");
-	Rio_writen(connfd, list, strlen(list));
+	print_rio(root, list);
+
+	size_t list_len = strlen(list);
+	// for (size_t i = 0; i < list_len; i++) {
+	// 	write(connfd, &list[i], 1);
+	// 	// Rio_writen(connfd, &list[i], 1);
+	// }
+	Rio_writen(connfd, list, list_len);
+	Rio_writen(connfd, "\n", 1);
 }
+
 
 static void buy(int connfd, int id, int count) {
 
@@ -138,22 +144,18 @@ void execute_command(int i, int connfd, int buflen, char *buf, pool_t *pool) {
 
 	if (!strcmp(buf, "exit\n")) {
 		upload_file();
-		Close(connfd);               // Close the connection
+		Close(connfd); /* Close the connection */
 		FD_CLR(connfd, &pool->read_set);
 		pool->clientfd[i] = -1;
-		return;                      // Return after closing the connection
+		return;        /* Return after closing the connection */
 	}
-	else if (!strcmp(buf, "\n"))
-		Rio_writen(connfd, buf, buflen);
-	else {
-		sscanf(buf, "%s %d %d", command, &id, &count);
-		if (!strcmp(command, "show"))
-			show(connfd);
-		else if (!strcmp(command, "buy"))
-			buy(connfd, id, count);
-		else if (!strcmp(command, "sell"))
-			sell(connfd, id, count);
-		else
-			Rio_writen(connfd, "Invalid command\n", 16);
-	}
+	sscanf(buf, "%s %d %d", command, &id, &count);
+	if (!strcmp(command, "show"))
+		show(connfd);
+	else if (!strcmp(command, "buy"))
+		buy(connfd, id, count);
+	else if (!strcmp(command, "sell"))
+		sell(connfd, id, count);
+	else
+		Rio_writen(connfd, "Invalid command\n", 16);
 }
