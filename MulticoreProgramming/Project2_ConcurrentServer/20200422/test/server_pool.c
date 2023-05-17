@@ -61,8 +61,6 @@ void check_clients(pool_t *pool) {
 		if ((connfd > 0) && (FD_ISSET(connfd, &pool->ready_set))) {
 			pool->nready--;
 			if ((n = Rio_readlineb(&rio, buf, MAXLINE)) != 0) {
-				// byte_cnt += n;
-				// printf("Server received %d (%d total) bytes on fd %d\n", n, byte_cnt, connfd);
 				printf("Server received %d bytes\n", n);
 				execute_command(i, connfd, n, buf, pool);
 			}
@@ -93,14 +91,10 @@ static void show(int connfd) {
 	print_rio(root, list);
 
 	size_t list_len = strlen(list);
-	// for (size_t i = 0; i < list_len; i++) {
-	// 	write(connfd, &list[i], 1);
-	// 	// Rio_writen(connfd, &list[i], 1);
-	// }
+	printf("list: %s\n", list); //TODO: delete
 	Rio_writen(connfd, list, list_len);
 	Rio_writen(connfd, "\n", 1);
 }
-
 
 static void buy(int connfd, int id, int count) {
 
@@ -150,7 +144,7 @@ void execute_command(int i, int connfd, int buflen, char *buf, pool_t *pool) {
 		return;        /* Return after closing the connection */
 	}
 	sscanf(buf, "%s %d %d", command, &id, &count);
-	if (!strcmp(command, "show"))
+	if (!strcmp(command, "show")) //TODO: format???
 		show(connfd);
 	else if (!strcmp(command, "buy"))
 		buy(connfd, id, count);

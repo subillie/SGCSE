@@ -41,11 +41,10 @@ int main(int argc, char **argv) {
 			connfd = Accept(listenfd, (SA *)&clientaddr, &clientlen);
 			Getnameinfo((SA *) &clientaddr, clientlen, client_hostname, MAXLINE, client_port, MAXLINE, 0);
 			printf("Connected to (%s, %s)\n", client_hostname, client_port);
-			// FD_SET(connfd, &pool.read_set); //TODO: 이게맞나....
 			add_client(connfd, &pool);
 		}
 		/* If the descriptor is ready, execute the command */
-		check_clients(&pool);
+		check_clients(&pool); //TODO: clientrio에 명령어가 계속 남아있음, 버퍼를 비워줘야함
 	}
 	exit(0);
 }
