@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e26d7115-aa6c-4b5c-8e63-3f21d27cc61f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../MulticoreProgramming/Project2_ConcurrentServer/20200422/task_1/server_pool.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../MulticoreProgramming/Project2_ConcurrentServer/20200422/task_1/server_pool.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MulticoreProgramming/Project2_ConcurrentServer/20200422/task_1/stock.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../MulticoreProgramming/Project2_ConcurrentServer/20200422/task_1/stock.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="2PxzmdYRCONBE1PdZTYYpC1KEcL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e26d7115-aa6c-4b5c-8e63-3f21d27cc61f" name="Changes" comment="" />
+      <created>1684413681473</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1684413681473</updated>
+      <workItem from="1684413682852" duration="19000" />
+    </task>
+    <servers />
+  </component>
+</project>

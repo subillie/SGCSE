@@ -78,28 +78,46 @@ void check_clients(pool_t *pool) {
 	}
 }
 
-// static void print_rio(item_t *ptr, char *list, int *listlen) {
+// static void print_rio(item_t *ptr, char *list) {
 
 // 	if (ptr == NULL)
 // 		return;
 
-// 	print_rio(ptr->left, list, listlen);
-// 	*listlen += strlen(list);
-// 	printf("listlen: %d\n", *listlen); //TODO: remove
+// 	print_rio(ptr->left, list);
 // 	sprintf(list + strlen(list), "%d %d %d\n", ptr->id, ptr->quantity, ptr->price);
-// 	print_rio(ptr->right, list, listlen);
+// 	print_rio(ptr->right, list);
 // }
 
 // static void show(int connfd) {
 
 // 	char list[MAXLINE];
-// 	list[0] = '\0';
-// 	int listlen = 0;
 
-// 	print_rio(root, list, &listlen);
-// 	Rio_writen(connfd, list, listlen);
-// 	Rio_writen(connfd, "\n", 1);
+// 	memset(list, 0, MAXLINE);
+// 	print_rio(root, list);
+// 	printf("len: %lu, list: <%s>\n", strlen(list), list); //TODO: remove
+// 	Rio_writen(connfd, list, strlen(list));
 // }
+
+static void print_rio(item_t *ptr, int connfd) {
+
+	char list[MAXLINE];
+	if (ptr == NULL)
+		return;
+
+	print_rio(ptr->left, connfd);
+	sprintf(list, "%d %d %d\n", ptr->id, ptr->quantity, ptr->price);
+	Rio_writen(connfd, list, strlen(list));
+	memset(list, 0, MAXLINE);
+	print_rio(ptr->right, connfd);
+}
+
+static void show(int connfd) {
+
+	char list[MAXLINE];
+
+	memset(list, 0, MAXLINE);
+	print_rio(root, connfd);
+}
 
 // static void show(item_t *ptr, int connfd) {
 
@@ -165,25 +183,25 @@ void check_clients(pool_t *pool) {
 // 	show_helper(ptr, list, connfd);
 // }
 
-static void show(int connfd) {
+// static void show(int connfd) {
 
-	FILE *fp = fopen("stock.txt", "r");
-	if (fp == NULL) {
-		Rio_writen(connfd, "Error: Stock file not opened\n", 29);
-		return;
-	}
+// 	FILE *fp = fopen("stock.txt", "r");
+// 	if (fp == NULL) {
+// 		Rio_writen(connfd, "Error: Stock file not opened\n", 29);
+// 		return;
+// 	}
 
-	char buffer[MAXLINE];
-	memset(buffer, 0, MAXLINE);
+// 	char buffer[MAXLINE];
+// 	memset(buffer, 0, MAXLINE);
 
-	size_t bytesRead;
-	while ((bytesRead = fread(buffer, sizeof(char), MAXLINE - 1, fp)) > 0) {
-		Rio_writen(connfd, buffer, bytesRead);
-		memset(buffer, 0, MAXLINE);
-	}
+// 	size_t bytesRead;
+// 	while ((bytesRead = fread(buffer, sizeof(char), MAXLINE - 1, fp)) > 0) {
+// 		Rio_writen(connfd, buffer, bytesRead);
+// 		memset(buffer, 0, MAXLINE);
+// 	}
 
-	fclose(fp);
-}
+// 	fclose(fp);
+// }
 
 static void buy(int connfd, int id, int count) {
 
