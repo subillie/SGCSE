@@ -91,7 +91,7 @@ static void show(int connfd) {
 	print_rio(root, list);
 
 	size_t list_len = strlen(list);
-	printf("list: %s\n", list); //TODO: delete
+	// printf("list: %s\n", list); //TODO: delete
 	Rio_writen(connfd, list, list_len);
 	Rio_writen(connfd, "\n", 1);
 }
@@ -144,12 +144,13 @@ void execute_command(int i, int connfd, int buflen, char *buf, pool_t *pool) {
 		return;        /* Return after closing the connection */
 	}
 	sscanf(buf, "%s %d %d", command, &id, &count);
-	if (!strcmp(command, "show")) //TODO: format???
+	if (!strcmp(command, "show"))
 		show(connfd);
 	else if (!strcmp(command, "buy"))
 		buy(connfd, id, count);
 	else if (!strcmp(command, "sell"))
 		sell(connfd, id, count);
-	else
+	else 
 		Rio_writen(connfd, "Invalid command\n", 16);
+	Rio_readinitb(&pool->clientrio[connfd], connfd);
 }

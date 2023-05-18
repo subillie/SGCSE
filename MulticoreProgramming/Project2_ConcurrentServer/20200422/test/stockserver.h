@@ -25,8 +25,7 @@ typedef struct pool_s {
 	rio_t clientrio[FD_SETSIZE]; /* Set of active read buffers */
 }	pool_t;
 
-// int byte_cnt; /* Counts total bytes received by server */
-int nstock;	  /* Number of stock */
+int nstock;	/* Number of stock */
 
 /* function prototypes - server_item.c */
 void init_pool(int listenfd, pool_t *pool);
