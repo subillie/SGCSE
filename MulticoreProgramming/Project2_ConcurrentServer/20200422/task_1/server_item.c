@@ -4,6 +4,13 @@
 #include "csapp.h"
 #include "stockserver.h"
 
+void update_textfile() {
+
+	FILE *fp = fopen("stock.txt", "w");
+	print_fp(root, fp);
+	fclose(fp);
+}
+
 void add_item(item_t **ptr, int id, int quantity, int price) {
 
 	if ((*ptr) == NULL) {
@@ -41,65 +48,6 @@ void init_items() {
 	fclose(fp);
 }
 
-static void delete_in_tree(item_t *ptr, item_t *parent, item_t *child) {
-
-	/* If there is no parent */
-	if (parent == NULL)
-		root = child;
-	/* If the left node of the parent is to be deleted */
-	else if (parent->left == ptr)
-		parent->left = child;
-	/* If the right node of the parent is to be deleted */
-	else
-		parent->right = child;
-}
-
-void delete_item(int id, pool_t *pool) {
-
-	item_t *ptr = root;
-	item_t *parent = NULL;
-
-	/* Find the node with the given id */
-	while (ptr != NULL) {
-		if (id < ptr->id) {
-			parent = ptr;
-			ptr = ptr->left;
-		}
-		else if (id > ptr->id) {
-			parent = ptr;
-			ptr = ptr->right;
-		}
-		else
-			break;
-	}
-	if (ptr == NULL)
-		app_error("delete_item error: Item not found");
-
-	/* Delete the node */
-	if (ptr->left == NULL && ptr->right == NULL)
-		delete_in_tree(ptr, parent, NULL);
-	else if (ptr->left == NULL)
-		delete_in_tree(ptr, parent, ptr->right);
-	else if (ptr->right == NULL)
-		delete_in_tree(ptr, parent, ptr->left);
-	else {
-		item_t *tmp_ptr = ptr->right;
-		item_t *tmp_parent = ptr;
-
-		for (; tmp_ptr->left != NULL; tmp_ptr = tmp_ptr->left)
-			tmp_parent = tmp_ptr;
-		if (tmp_parent->left == tmp_ptr)
-			tmp_parent->left = tmp_ptr->right;
-		else
-			tmp_parent->right = tmp_ptr->right;
-		ptr->id = tmp_ptr->id;
-		ptr->quantity = tmp_ptr->quantity;
-		ptr->price = tmp_ptr->price;
-		ptr = tmp_ptr;
-	}
-	free(ptr);
-}
-
 void free_tree(item_t *ptr) {
 
 	if (ptr == NULL) {
@@ -134,11 +82,4 @@ void print_fp(item_t *ptr, FILE *fp) {
 	fprintf(fp, "%d %d %d\n", ptr->id, ptr->quantity, ptr->price);
 	fflush(fp);
 	print_fp(ptr->right, fp);
-}
-
-void upload_file() {
-
-	FILE *fp = fopen("stock.txt", "w");
-	print_fp(root, fp);
-	fclose(fp);
 }

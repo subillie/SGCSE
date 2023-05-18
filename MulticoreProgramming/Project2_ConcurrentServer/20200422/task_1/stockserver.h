@@ -6,47 +6,40 @@
 #define __STOCKSERVER_H__
 
 /* 주식 종목 리스트 */
-typedef struct stock_s {
+typedef struct item_s {
 	int id;
 	int quantity;
 	int price;
-	struct stock_s *next;
-	struct stock_s *left;
-	struct stock_s *right;
-}	stock_t;
-stock_t *root;
-
-/* 클라이언트 리스트 */
-typedef struct client_s {
-	int fd;		/* Active descriptor */
-	rio_t rio;	/* Buffered I/O for each client */
-	struct client_s *next;
-}	client_t;
-client_t *client_head;
-client_t *client_tail;
+	struct item_s *left;
+	struct item_s *right;
+}	item_t;
+item_t *root;
 
 typedef struct pool_s {
-	int maxfd;			/* Largest descriptor in read_set */
-	fd_set read_set;	/* Set of all active descriptors */
-	fd_set ready_set;	/* Subset of descriptors ready for reading */
-	int nready;			/* Number of ready descriptors from select */
-	int maxi;			/* High water index into client array */
-	int nstock;			/* Number of stock */
-	client_t *client;	/* Set of active descriptors and read buffers */
+	int maxfd;					 /* Largest descriptor in read_set */
+	fd_set read_set;			 /* Set of all active descriptors */
+	fd_set ready_set;			 /* Subset of descriptors ready for reading */
+	int nready;					 /* Number of ready descriptors from select */
+	int maxi;					 /* High water index into client array */
+	int clientfd[FD_SETSIZE];	 /* Set of active descriptors and read buffers */
+	rio_t clientrio[FD_SETSIZE]; /* Set of active read buffers */
 }	pool_t;
 
-/* function prototypes - server_utils.c */
-void init_pool(int listenfd, pool_t *pool);
-void add_fd(int connfd, pool_t *pool);
-void delete_fd(int connfd, pool_t *pool);
-void execute_command(int connfd, int buflen, char *buf, pool_t *pool);
+int nstock;	/* Number of stock */
 
-/* function prototypes - server_tree.c */
-void free_tree(stock_t *ptr);
-void traverse(stock_t *ptr, char *list);
-stock_t *find(int id);
-void print_inorder(stock_t *ptr, FILE *fp);
-void upload_file();
+/* function prototypes - server_item.c */
+void init_pool(int listenfd, pool_t *pool);
+void add_client(int connfd, pool_t *pool);
+void check_clients(pool_t *pool);
+void execute_command(int i, int connfd, int buflen, char *buf, pool_t *pool);
+
+/* function prototypes - server_pool.c */
+void add_item(item_t **ptr, int id, int quantity, int price);
+void init_items();
+void free_tree(item_t *ptr);
+item_t *find(int id);
+void print_fp(item_t *ptr, FILE *fp);
+void update_textfile();
 
 #endif /* __STOCKSERVER_H__ */
 /* $end stockserver.h */
