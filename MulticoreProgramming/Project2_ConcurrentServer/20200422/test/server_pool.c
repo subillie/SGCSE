@@ -48,7 +48,7 @@ void add_client(int connfd, pool_t *pool) {
 
 void check_clients(pool_t *pool) {
 
-	int connfd, n;
+	int connfd, n = 0;
 	char buf[MAXLINE];
 	rio_t rio;
 
@@ -60,9 +60,16 @@ void check_clients(pool_t *pool) {
 		/* If the descriptor is ready, echo a text line from it */
 		if ((connfd > 0) && (FD_ISSET(connfd, &pool->ready_set))) {
 			pool->nready--;
-			if ((n = Rio_readlineb(&rio, buf, MAXLINE)) != 0) {
-				printf("Server received %d bytes\n", n);
+			if (Rio_readnb(&rio, buf, 1) != 0) {
+				while (buf[n] != '\n') {
+					n++;
+					Rio_readnb(&rio, buf + n, 1);
+				}
+				printf("Server received %d bytes\n", n + 1);
 				execute_command(i, connfd, n, buf, pool);
+				memset(buf, 0, MAXLINE);
+				//TODO: clientrio에 명령어가 계속 남아있음, 버퍼를 비워줘야함
+				n = 0;
 			}
 			/* EOF detected, remove descriptor from pool */
 			else {
@@ -91,7 +98,6 @@ static void show(int connfd) {
 	print_rio(root, list);
 
 	size_t list_len = strlen(list);
-	// printf("list: %s\n", list); //TODO: delete
 	Rio_writen(connfd, list, list_len);
 	Rio_writen(connfd, "\n", 1);
 }
@@ -152,5 +158,4 @@ void execute_command(int i, int connfd, int buflen, char *buf, pool_t *pool) {
 		sell(connfd, id, count);
 	else 
 		Rio_writen(connfd, "Invalid command\n", 16);
-	Rio_readinitb(&pool->clientrio[connfd], connfd);
 }
