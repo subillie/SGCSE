@@ -11,8 +11,8 @@ int main(int argc, char **argv)
 	rio_t rio;
 
 	if (argc != 3) {
-	fprintf(stderr, "usage: %s <host> <port>\n", argv[0]);
-	exit(0);
+		fprintf(stderr, "usage: %s <host> <port>\n", argv[0]);
+		exit(0);
 	}
 	host = argv[1];
 	port = argv[2];
@@ -22,10 +22,8 @@ int main(int argc, char **argv)
 
 	while (Fgets(buf, MAXLINE, stdin) != NULL) {
 		Rio_writen(clientfd, buf, strlen(buf));
-		if (strcmp(buf, "exit\n") == 0) {
-			break; // Exit the loop for "exit" command
-		}
-		Rio_readlineb(&rio, buf, MAXLINE);
+		if (strcmp(buf, "exit\n") == 0) break; // Exit the loop for "exit" command
+		Rio_readnb(&rio, buf, MAXLINE);
 		Fputs(buf, stdout);
 	}
 	Close(clientfd); //line:netp:stockclient:close
