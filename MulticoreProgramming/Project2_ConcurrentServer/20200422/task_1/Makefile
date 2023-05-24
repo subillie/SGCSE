@@ -4,7 +4,7 @@ LDLIBS = -lpthread
 
 SRCS_MULTICLIENT = multiclient.c csapp.c
 SRCS_STOCKCLIENT = stockclient.c csapp.c
-SRCS_STOCKSERVER = stockserver.c server_item.c server_pool.c csapp.c
+SRCS_STOCKSERVER = stockserver.c server_utils.c server_bst.c csapp.c
 
 all: multiclient stockclient stockserver
 
