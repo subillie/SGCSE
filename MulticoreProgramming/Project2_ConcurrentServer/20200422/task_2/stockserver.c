@@ -18,7 +18,6 @@ int main(int argc, char **argv) {
 	int i, listenfd, connfd;
 	socklen_t clientlen;
 	struct sockaddr_storage clientaddr;
-	pthread_t tid;
 	char client_hostname[MAXLINE], client_port[MAXLINE];
 
 	if (argc != 2) {
@@ -31,8 +30,10 @@ int main(int argc, char **argv) {
 	listenfd = Open_listenfd(argv[1]);
 	sbuf_init(&sbuf, 1024); /* Give the max num of slots to the second param. */
 	init_items();
+
+	pthread_t *tid = Malloc(sbuf.n * sizeof(pthread_t));
 	for (i = 0; i < sbuf.n; i++) /* Create worker threads */
-		Pthread_create(&tid, NULL, thread, NULL);
+		Pthread_create(&tid[i], NULL, thread, NULL);
 
 	while (1) {
 		clientlen = sizeof(struct sockaddr_storage);
@@ -41,7 +42,10 @@ int main(int argc, char **argv) {
 		printf("Connected to (%s, %s)\n", client_hostname, client_port);
 		sbuf_insert(&sbuf, connfd); /* Insert connfd in buffer */
 	}
-//	for (i = 0; i < sbuf.n; i++)
-//		Pthread_join();
+	for (i = 0; i < sbuf.n; i++)
+		Pthread_join(tid[i], NULL);
+
+	free(tid);
+	return 0;
 }
 /* $end stockserver main */

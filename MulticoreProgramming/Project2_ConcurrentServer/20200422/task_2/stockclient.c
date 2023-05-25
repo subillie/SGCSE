@@ -25,6 +25,11 @@ int main(int argc, char **argv)
 		if (strcmp(buf, "exit\n") == 0) break; // Exit the loop for "exit" command
 		Rio_readnb(&rio, buf, MAXLINE);
 		Fputs(buf, stdout);
+		// while (Rio_readlineb(&rio, buf, MAXLINE) > 0) {
+		// 	Fputs(buf, stdout);
+		// 	if (strcmp(buf, "Response complete\n") == 0)
+		// 		break;
+		// }
 	}
 	Close(clientfd); //line:netp:stockclient:close
 	exit(0);

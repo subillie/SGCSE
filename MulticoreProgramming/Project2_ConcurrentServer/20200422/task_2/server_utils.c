@@ -11,20 +11,45 @@ void *thread(void *vargp) {
 	int n;
 
 	Pthread_detach(pthread_self());
+
 	while (1) {
 		int connfd = sbuf_remove(&sbuf); /* Remove connfd from buffer */
-		while (1)
-		{
-			memset(buf, 0, MAXLINE);
-			Rio_readinitb(&rio, connfd);
-			if ((n = Rio_readlineb(&rio, buf, MAXLINE)) == 0) {
-				Close(connfd);
-				break;
-			}
+		Rio_readinitb(&rio, connfd);
+
+		while ((n = Rio_readlineb(&rio, buf, MAXLINE)) > 0) {
+			printf("server received %d bytes\n", n);
 			execute_command(connfd, buf);
+			memset(buf, 0, MAXLINE);
 		}
+		Close(connfd);
 	}
+
+	return NULL;
 }
+
+// void *thread(void *vargp) {
+
+// 	char buf[MAXLINE];
+// 	rio_t rio;
+// 	int n;
+
+// 	Pthread_detach(pthread_self());
+// 	int connfd = sbuf_remove(&sbuf); /* Remove connfd from buffer */
+// 	while (1) {
+// 		while (1)
+// 		{
+// 			memset(buf, 0, MAXLINE);
+// 			Rio_readinitb(&rio, connfd);
+// 			if ((n = Rio_readlineb(&rio, buf, MAXLINE)) == 0) {
+// 				Close(connfd);
+// 				break;
+// 			}
+// 			printf("server received %d bytes\n", n);
+// 			execute_command(connfd, buf);
+// 		}
+// 	}
+// 	return (NULL);
+// }
 /*
    void *thread(void *vargp) {
 
@@ -199,4 +224,3 @@ void execute_command(int connfd, char *buf) {
 	else 
 		Rio_writen(connfd, "Invalid command\n", 16);
 }
-
