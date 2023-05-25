@@ -56,7 +56,6 @@ void init_items() {
 	}
 	nstock = 0;
 	while (fscanf(fp, "%d %d %d", &id, &quantity, &price) != EOF) {
-		printf("[%d %d %d]\n", id, quantity, price);
 		add_item(&root, id, quantity, price);
 		nstock++;
 	}
@@ -65,9 +64,9 @@ void init_items() {
 
 void free_tree(item_t *ptr) {
 
-	if (ptr == NULL) {
+	if (ptr == NULL)
 		return;
-	}
+
 	free_tree(ptr->left);
 	free_tree(ptr->right);
 	free(ptr);

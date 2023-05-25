@@ -6,14 +6,15 @@
 
 void *thread(void *vargp) {
 
-	char buf[MAXLINE];
 	rio_t rio;
-	int n;
+	int n, connfd;
+	memset(buf, 0, MAXLINE);
 
 	Pthread_detach(pthread_self());
 
 	while (1) {
-		int connfd = sbuf_remove(&sbuf); /* Remove connfd from buffer */
+		char buf[MAXLINE];
+		connfd = sbuf_remove(&sbuf); /* Remove connfd from buffer */
 		Rio_readinitb(&rio, connfd);
 
 		while ((n = Rio_readlineb(&rio, buf, MAXLINE)) > 0) {
@@ -40,6 +41,7 @@ void *thread(void *vargp) {
 // 		{
 // 			memset(buf, 0, MAXLINE);
 // 			Rio_readinitb(&rio, connfd);
+// 			memset(rio.rio_buf, 0, MAXLINE);
 // 			if ((n = Rio_readlineb(&rio, buf, MAXLINE)) == 0) {
 // 				Close(connfd);
 // 				break;
@@ -50,6 +52,7 @@ void *thread(void *vargp) {
 // 	}
 // 	return (NULL);
 // }
+
 /*
    void *thread(void *vargp) {
 
