@@ -667,12 +667,12 @@ void Pthread_create(pthread_t *tidp, pthread_attr_t *attrp,
 	posix_error(rc, "Pthread_create error");
 }
 
-// void Pthread_cancel(pthread_t tid) {
-// 	int rc;
+void Pthread_cancel(pthread_t tid) {
+	int rc;
 
-// 	if ((rc = pthread_cancel(tid)) != 0)
-// 	posix_error(rc, "Pthread_cancel error");
-// }
+	if ((rc = pthread_cancel(tid)) != 0)
+	posix_error(rc, "Pthread_cancel error");
+}
 
 void Pthread_join(pthread_t tid, void **thread_return) {
 	int rc;
@@ -698,9 +698,9 @@ pthread_t Pthread_self(void) {
 	return pthread_self();
 }
 
-// void Pthread_once(pthread_once_t *once_control, void (*init_function)()) {
-// 	pthread_once(once_control, init_function);
-// }
+void Pthread_once(pthread_once_t *once_control, void (*init_function)()) {
+	pthread_once(once_control, init_function);
+}
 
 /*******************************
  * Wrappers for Posix semaphores
@@ -792,34 +792,23 @@ static ssize_t rio_read(rio_t *rp, char *usrbuf, size_t n)
 {
 	int cnt;
 
-	printf("A\n");
 	while (rp->rio_cnt <= 0) {  /* Refill if buf is empty */
-	printf("B\n");
-	printf("rp->rio_cnt = %d\n", rp->rio_cnt);
-	printf("rp->rio_fd = %d\n", rp->rio_fd);
-	printf("rp->rio_buf = %s\n", rp->rio_buf);
-	rp->rio_cnt = read(rp->rio_fd, rp->rio_buf, sizeof(rp->rio_buf));
-	printf("rio cnt : %d\n", rp->rio_cnt);
+	rp->rio_cnt = read(rp->rio_fd, rp->rio_buf, 
+			sizeof(rp->rio_buf));
 	if (rp->rio_cnt < 0) {
-		printf("D\n");
 		if (errno != EINTR) /* Interrupted by sig handler return */
 		return -1;
 	}
-	else if (rp->rio_cnt == 0) {  /* EOF */
-		printf("E\n");
+	else if (rp->rio_cnt == 0)  /* EOF */
 		return 0;
-	}
-	else {
-		printf("F\n");
+	else 
 		rp->rio_bufptr = rp->rio_buf; /* Reset buffer ptr */
 	}
-	}
-	printf("C\n");
 
 	/* Copy min(n, rp->rio_cnt) bytes from internal buf to user buf */
-	cnt = n;         
+	cnt = n;          
 	if (rp->rio_cnt < n)   
-		cnt = rp->rio_cnt;
+	cnt = rp->rio_cnt;
 	memcpy(usrbuf, rp->rio_bufptr, cnt);
 	rp->rio_bufptr += cnt;
 	rp->rio_cnt -= cnt;
@@ -870,26 +859,21 @@ ssize_t rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen)
 	int n, rc;
 	char c, *bufp = usrbuf;
 
-	for (n = 1; n < maxlen; n++) 
-	{
-		printf("HI\n");
+	for (n = 1; n < maxlen; n++) { 
 		if ((rc = rio_read(rp, &c, 1)) == 1) {
-			printf("myko\n");
-			*bufp++ = c;
-			if (c == '\n') {
+		*bufp++ = c;
+		if (c == '\n') {
 				n++;
-				break;
+			break;
 			}
-		} else if (rc == 0) {
-			printf("juyojeon\n");
-			if (n == 1)
-				return 0; /* EOF, no data read */
-			else
-				break;    /* EOF, some data was read */
-		} else
-			return -1;	  /* Error */
-		}
-		printf("sungwook\n");
+	} else if (rc == 0) {
+		if (n == 1)
+		return 0; /* EOF, no data read */
+		else
+		break;    /* EOF, some data was read */
+	} else
+		return -1;	  /* Error */
+	}
 	*bufp = 0;
 	return n-1;
 }

@@ -42,17 +42,13 @@ void *thread(void *vargp) {
 	memset(buf, 0, MAXLINE);
 
 	while (1) {
-		printf("1\n");
 		if ((n = Rio_readlineb(&rio, buf, MAXLINE)) == 0) {
 			Close(connfd);
 			break;
 		}
-		printf("line: %s", buf);
-		printf("2\n");
 		printf("server received %d bytes\n", n);
 		execute_command(connfd, buf);
 		memset(buf, 0, MAXLINE);
-		printf("3\n");
 		Rio_readinitb(&rio, connfd);
 		memset(rio.rio_buf, 0, RIO_BUFSIZE);
 	}

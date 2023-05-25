@@ -22,17 +22,9 @@ int main(int argc, char **argv)
 
 	while (Fgets(buf, MAXLINE, stdin) != NULL) {
 		Rio_writen(clientfd, buf, strlen(buf));
-		if (strcmp(buf, "exit\n") == 0)
-			break; // Exit the loop for "exit" command
-		// Rio_readnb(&rio, buf, MAXLINE);
-		read(clientfd, buf, MAXLINE);
-		printf("Response: %s", buf);
+		if (strcmp(buf, "exit\n") == 0) break; // Exit the loop for "exit" command
+		Rio_readnb(&rio, buf, MAXLINE);
 		Fputs(buf, stdout);
-		// while (Rio_readlineb(&rio, buf, MAXLINE) > 0) {
-		// 	Fputs(buf, stdout);
-		// 	if (strcmp(buf, "Response complete\n") == 0)
-		// 		break;
-		// }
 	}
 	Close(clientfd); //line:netp:stockclient:close
 	exit(0);
