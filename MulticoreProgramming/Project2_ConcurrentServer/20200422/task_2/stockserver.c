@@ -42,9 +42,6 @@ int main(int argc, char **argv) {
 		printf("Connected to (%s, %s)\n", client_hostname, client_port);
 		sbuf_insert(&sbuf, connfd); /* Insert connfd in buffer */
 	}
-	for (i = 0; i < sbuf.n; i++)
-		Pthread_join(tid[i], NULL);
-
 	free(tid);
 	return 0;
 }
