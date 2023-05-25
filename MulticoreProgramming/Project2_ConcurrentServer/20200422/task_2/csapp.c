@@ -792,23 +792,34 @@ static ssize_t rio_read(rio_t *rp, char *usrbuf, size_t n)
 {
 	int cnt;
 
+	printf("A\n");
 	while (rp->rio_cnt <= 0) {  /* Refill if buf is empty */
-	rp->rio_cnt = read(rp->rio_fd, rp->rio_buf, 
-			sizeof(rp->rio_buf));
+	printf("B\n");
+	printf("rp->rio_cnt = %d\n", rp->rio_cnt);
+	printf("rp->rio_fd = %d\n", rp->rio_fd);
+	printf("rp->rio_buf = %s\n", rp->rio_buf);
+	rp->rio_cnt = read(rp->rio_fd, rp->rio_buf, sizeof(rp->rio_buf));
+	printf("rio cnt : %d\n", rp->rio_cnt);
 	if (rp->rio_cnt < 0) {
+		printf("D\n");
 		if (errno != EINTR) /* Interrupted by sig handler return */
 		return -1;
 	}
-	else if (rp->rio_cnt == 0)  /* EOF */
+	else if (rp->rio_cnt == 0) {  /* EOF */
+		printf("E\n");
 		return 0;
-	else 
+	}
+	else {
+		printf("F\n");
 		rp->rio_bufptr = rp->rio_buf; /* Reset buffer ptr */
 	}
+	}
+	printf("C\n");
 
 	/* Copy min(n, rp->rio_cnt) bytes from internal buf to user buf */
-	cnt = n;          
+	cnt = n;         
 	if (rp->rio_cnt < n)   
-	cnt = rp->rio_cnt;
+		cnt = rp->rio_cnt;
 	memcpy(usrbuf, rp->rio_bufptr, cnt);
 	rp->rio_bufptr += cnt;
 	rp->rio_cnt -= cnt;
@@ -859,21 +870,26 @@ ssize_t rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen)
 	int n, rc;
 	char c, *bufp = usrbuf;
 
-	for (n = 1; n < maxlen; n++) { 
+	for (n = 1; n < maxlen; n++) 
+	{
+		printf("HI\n");
 		if ((rc = rio_read(rp, &c, 1)) == 1) {
-		*bufp++ = c;
-		if (c == '\n') {
+			printf("myko\n");
+			*bufp++ = c;
+			if (c == '\n') {
 				n++;
-			break;
+				break;
 			}
-	} else if (rc == 0) {
-		if (n == 1)
-		return 0; /* EOF, no data read */
-		else
-		break;    /* EOF, some data was read */
-	} else
-		return -1;	  /* Error */
-	}
+		} else if (rc == 0) {
+			printf("juyojeon\n");
+			if (n == 1)
+				return 0; /* EOF, no data read */
+			else
+				break;    /* EOF, some data was read */
+		} else
+			return -1;	  /* Error */
+		}
+		printf("sungwook\n");
 	*bufp = 0;
 	return n-1;
 }

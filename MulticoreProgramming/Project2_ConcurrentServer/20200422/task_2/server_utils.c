@@ -4,25 +4,57 @@
 #include "csapp.h"
 #include "stockserver.h"
 
+// void *thread(void *vargp) {
+
+// 	Pthread_detach(pthread_self());
+
+// 	rio_t rio;
+// 	int n;
+// 	int connfd = sbuf_remove(&sbuf); /* Remove connfd from buffer */
+// 	char buf[MAXLINE];
+
+// 	while (1) {
+// 		Rio_readinitb(&rio, connfd);
+
+// 		while (1) {
+// 			memset(buf, 0, MAXLINE);
+// 			if ((n = Rio_readnb(&rio, buf, MAXLINE)) == 0) {
+// 				Close(connfd);
+// 				break;
+// 			}
+// 			printf("server received %d bytes\n", n);
+// 			execute_command(connfd, buf);
+// 		}
+// 	}
+
+// 	return NULL;
+// }
+
 void *thread(void *vargp) {
 
 	rio_t rio;
 	int n, connfd;
-	memset(buf, 0, MAXLINE);
+	char buf[MAXLINE];
 
 	Pthread_detach(pthread_self());
+	connfd = sbuf_remove(&sbuf); /* Remove connfd from buffer */
+	Rio_readinitb(&rio, connfd);
+	memset(buf, 0, MAXLINE);
 
 	while (1) {
-		char buf[MAXLINE];
-		connfd = sbuf_remove(&sbuf); /* Remove connfd from buffer */
-		Rio_readinitb(&rio, connfd);
-
-		while ((n = Rio_readlineb(&rio, buf, MAXLINE)) > 0) {
-			printf("server received %d bytes\n", n);
-			execute_command(connfd, buf);
-			memset(buf, 0, MAXLINE);
+		printf("1\n");
+		if ((n = Rio_readlineb(&rio, buf, MAXLINE)) == 0) {
+			Close(connfd);
+			break;
 		}
-		Close(connfd);
+		printf("line: %s", buf);
+		printf("2\n");
+		printf("server received %d bytes\n", n);
+		execute_command(connfd, buf);
+		memset(buf, 0, MAXLINE);
+		printf("3\n");
+		Rio_readinitb(&rio, connfd);
+		memset(rio.rio_buf, 0, RIO_BUFSIZE);
 	}
 
 	return NULL;
@@ -53,29 +85,28 @@ void *thread(void *vargp) {
 // 	return (NULL);
 // }
 
-/*
-   void *thread(void *vargp) {
+// void *thread(void *vargp) {
 
-   char buf[MAXLINE];
-   rio_t rio;
-   int n;
+// 	char buf[MAXLINE];
+// 	rio_t rio;
+// 	int n;
 
-   Pthread_detach(pthread_self());
-   while (1) {
-   int connfd = sbuf_remove(&sbuf); // Remove connfd from buffer /
-   memset(buf, 0, MAXLINE);
-   Rio_readinitb(&rio, connfd);
-   while (1) {
-   if ((n = Rio_readlineb(&rio, buf, MAXLINE)) == 0)
-   break;
-   printf("server received %d bytes\n", n);
-   execute_command(connfd, buf);
-   memset(buf, 0, MAXLINE);
-   }
-   Close(connfd);
-   }
-   }
- */
+// 	Pthread_detach(pthread_self());
+// 	while (1) {
+// 		int connfd = sbuf_remove(&sbuf); // Remove connfd from buffer /
+// 		memset(buf, 0, MAXLINE);
+// 		Rio_readinitb(&rio, connfd);
+// 			while (1) {
+// 			if ((n = Rio_readlineb(&rio, buf, MAXLINE)) == 0)
+// 			break;
+// 			printf("server received %d bytes\n", n);
+// 			execute_command(connfd, buf);
+// 			memset(buf, 0, MAXLINE);
+// 			}
+// 		Close(connfd);
+// 	}
+// }
+
 /* Create an empty, bounded, shared FIFO buffer with n slots */
 void sbuf_init(sbuf_t *sp, int n) {
 
@@ -211,7 +242,7 @@ void execute_command(int connfd, char *buf) {
 		Close(connfd);
 		sbuf_deinit(&sbuf);
 		free_tree(root);
-		exit(0);
+		return;
 	}
 	sscanf(buf, "%s %d %d", command, &id, &count);
 	if (!strcmp(command, "show"))
