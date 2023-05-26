@@ -145,6 +145,7 @@ static void print_rio(item_t *ptr, int connfd) {
 		return;
 
 	char list[MAXLINE];
+	memset(list, 0, MAXLINE);
 	print_rio(ptr->left, connfd);
 
 	/* Reader's lock */
@@ -156,8 +157,7 @@ static void print_rio(item_t *ptr, int connfd) {
 
 	/* $begin critical section */
 	sprintf(list, "%d %d %d\n", ptr->id, ptr->quantity, ptr->price);
-	Rio_writen(connfd, list, strlen(list));
-	memset(list, 0, MAXLINE);
+	Rio_writen(connfd, list, MAXLINE);
 	/* $end critical section */
 
 	/* Reader's unlock */
@@ -181,10 +181,13 @@ static void buy(int connfd, int id, int count) {
 
 	/* Find the given id in tree */
 	item_t *ptr = find(id);
+	char *tmp = (char *)Calloc(MAXLINE, sizeof(char));
 
 	/* If the node is not found, return */
 	if (ptr == NULL) {
-		Rio_writen(connfd, "Invalid ID\n", 11);
+		strcpy(tmp, "Invalid ID\n");
+		Rio_writen(connfd, tmp, MAXLINE);
+		free(tmp);
 		return;
 	}
 	/* Writer's lock */
@@ -194,10 +197,15 @@ static void buy(int connfd, int id, int count) {
 	/* If the node is found, update the stock */
 	if (ptr->quantity >= count) {
 		ptr->quantity -= count;
-		Rio_writen(connfd, "[buy] success\n", 14);
+		strcpy(tmp, "[buy] success\n");
+		Rio_writen(connfd, tmp, MAXLINE);
+		free(tmp);
 	}
-	else /* If there is not enough stock, return */
-		Rio_writen(connfd, "Not enough left stock\n", 22);
+	else { /* If there is not enough stock, return */
+		strcpy(tmp, "Not enough left stock\n");
+		Rio_writen(connfd, tmp, MAXLINE);
+		free(tmp);
+	}
 	/* $end critical section */
 
 	/* Writer's unlock */
@@ -208,10 +216,13 @@ static void sell(int connfd, int id, int count) {
 
 	/* Find the node with the given id */
 	item_t *ptr = find(id);
+	char *tmp = (char *)Calloc(MAXLINE, sizeof(char));
 
 	/* If not found, return */
 	if (ptr == NULL) {
-		Rio_writen(connfd, "Invalid ID\n", 11);
+		strcpy(tmp, "Invalid ID\n");
+		Rio_writen(connfd, tmp, MAXLINE);
+		free(tmp);
 		return;
 	}
 
@@ -221,7 +232,9 @@ static void sell(int connfd, int id, int count) {
 	/* $begin critical section */
 	/* If found, update the stock */
 	ptr->quantity += count;
-	Rio_writen(connfd, "[sell] success\n", 15);
+	strcpy(tmp, "[sell] success\n");
+	Rio_writen(connfd, tmp, MAXLINE);
+	free(tmp);
 	/* $end critical section */
 
 	/* Writer's unlock */
@@ -251,6 +264,10 @@ void execute_command(int connfd, char *buf) {
 		sell(connfd, id, count);
 		update_textfile();
 	}
-	else 
-		Rio_writen(connfd, "Invalid command\n", 16);
+	else {
+		char *tmp = (char *)Calloc(MAXLINE, sizeof(char));
+		strcpy(tmp, "Invalid command\n");
+		Rio_writen(connfd, tmp, MAXLINE);
+		free(tmp);
+	}
 }
