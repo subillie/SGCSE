@@ -1,6 +1,127 @@
 # Concurrent Server
 
-## Event-based
+buy, sell만 요청
+```bash
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1
+elapsed time: 0.000175 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1
+elapsed time: 0.000121 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 5
+elapsed time: 0.000561 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 5
+elapsed time: 0.000619 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 10
+elapsed time: 0.001336 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 10
+elapsed time: 0.001132 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 50
+elapsed time: 0.006542 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 50
+elapsed time: 0.006069 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 100
+elapsed time: 0.012980 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 100
+elapsed time: 0.013170 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 500
+elapsed time: 0.049395 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 500
+elapsed time: 0.046285 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1000
+elapsed time: 0.097789 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1000
+elapsed time: 0.111961 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 2000
+elapsed time: 0.198911 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 2000
+
+```
+
+show만 요청
+```bash
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1
+elapsed time: 0.000157 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 5
+elapsed time: 0.000545 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 5
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 10
+elapsed time: 0.001134 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 10
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 50
+elapsed time: 0.006017 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 50
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 100
+elapsed time: 0.012355 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 100
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 500
+elapsed time: 0.046356 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 500
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1000
+elapsed time: 0.093159 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1000
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 2000
+elapsed time: 0.150788 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 2000
+```
+
+buy, sell, show 섞어서 요청
+```bash
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1
+elapsed time: 0.000124 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1
+elapsed time: 0.000146 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 5
+elapsed time: 0.000547 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 5
+elapsed time: 0.000533 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 10
+elapsed time: 0.001315 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 10
+elapsed time: 0.001283 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 50
+elapsed time: 0.006429 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 50
+elapsed time: 0.006185 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 100
+elapsed time: 0.012040 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 100
+elapsed time: 0.011703 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 500
+elapsed time: 0.044736 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 500
+elapsed time: 0.049257 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1000
+elapsed time: 0.094493 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1000
+elapsed time: 0.114475 seconds
+
+cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 2000
+elapsed time: 0.173487 seconds
+cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 2000
+elapsed time: 0.205187 seconds
+```
+
+## Event-based Approach
 
 [[Reference] System Programming](https://velog.io/@tonyhan18/%EC%8B%9C%EC%8A%A4%ED%85%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-13-1-Concurrent-Programming)  
 
@@ -33,5 +154,5 @@ Node.js같은 server-side framework, 고성능 웹서버나 검색엔진에서 �
 		- solution :  
 			Asynchronous I/O control block
 
-## Thread-based
+## Thread-based Approach
 [[Reference] System Programming](https://velog.io/@tonyhan18/%EC%8B%9C%EC%8A%A4%ED%85%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-13-1-Concurrent-Programming)  
