@@ -139,14 +139,12 @@ int sbuf_remove(sbuf_t *sp) {
 	return connfd;
 }
 
-static void print_rio(item_t *ptr, int connfd) {
+static void show(item_t *ptr, int connfd) {
 
-	if (ptr == NULL)
-		return;
-
-	char list[MAXLINE];
-	memset(list, 0, MAXLINE);
-	print_rio(ptr->left, connfd);
+	FILE *fp = fopen("stock.txt", "r");
+	char *tmp = (char *)Calloc(MAXLINE, sizeof(char));
+	char *line = (char *)Calloc(MAXLINE, sizeof(char));
+	int len = 0;
 
 	/* Reader's lock */
 	P(&ptr->mutex);
@@ -156,8 +154,11 @@ static void print_rio(item_t *ptr, int connfd) {
 	V(&ptr->mutex);
 
 	/* $begin critical section */
-	sprintf(list, "%d %d %d\n", ptr->id, ptr->quantity, ptr->price);
-	Rio_writen(connfd, list, MAXLINE);
+	while (fgets(tmp, MAXLINE, fp) != NULL) {
+		strcat(line + len, tmp);
+		len += strlen(tmp);
+		memset(tmp, 0, MAXLINE);
+	}
 	/* $end critical section */
 
 	/* Reader's unlock */
@@ -167,14 +168,10 @@ static void print_rio(item_t *ptr, int connfd) {
 		V(&ptr->writer);
 	V(&ptr->mutex);
 
-	print_rio(ptr->right, connfd);
-}
-
-static void show(int connfd) {
-
-	char list[MAXLINE];
-	memset(list, 0, MAXLINE);
-	print_rio(root, connfd);
+	fclose(fp);
+	Rio_writen(connfd, line, MAXLINE);
+	free(tmp);
+	free(line);
 }
 
 static void buy(int connfd, int id, int count) {
@@ -201,7 +198,7 @@ static void buy(int connfd, int id, int count) {
 		Rio_writen(connfd, tmp, MAXLINE);
 		free(tmp);
 	}
-	else { /* If there is not enough stock, return */
+	else { /* If found, but there is not enough stock, return */
 		strcpy(tmp, "Not enough left stock\n");
 		Rio_writen(connfd, tmp, MAXLINE);
 		free(tmp);
@@ -255,7 +252,7 @@ void execute_command(int connfd, char *buf) {
 	}
 	sscanf(buf, "%s %d %d", command, &id, &count);
 	if (!strcmp(command, "show"))
-		show(connfd);
+		show(root, connfd);
 	else if (!strcmp(command, "buy")) {
 		buy(connfd, id, count);
 		update_textfile();

@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
 			add_client(connfd, &pool);
 		}
 		/* If the descriptor is ready, execute the command */
-		check_clients(&pool); //TODO: clientrio에 명령어가 계속 남아있음, 버퍼를 비워줘야함
+		check_clients(&pool);
 	}
 	exit(0);
 }

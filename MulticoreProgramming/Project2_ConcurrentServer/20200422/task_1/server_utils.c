@@ -78,80 +78,70 @@ void check_clients(pool_t *pool) {
 	}
 }
 
-// static void print_rio(item_t *ptr, int connfd) {
-
-// 	if (ptr == NULL)
-// 		return;
-
-// 	char list[MAXLINE];
-// 	print_rio(ptr->left, connfd);
-// 	sprintf(list, "%d %d %d\n", ptr->id, ptr->quantity, ptr->price);
-// 	Rio_writen(connfd, list, strlen(list));
-// 	memset(list, 0, MAXLINE);
-// 	print_rio(ptr->right, connfd);
-// }
-
-// static void show(int connfd) {
-
-// 	char list[MAXLINE];
-
-// 	memset(list, 0, MAXLINE);
-// 	print_rio(root, connfd);
-// }
-
-static void make_list(item_t *ptr, char *list) {
-
-	if (ptr == NULL)
-		return;
-	char tmp[MAXLINE];
-	memset(tmp, 0, MAXLINE);
-	make_list(ptr->left, list);
-	sprintf(tmp, "%d %d %d\n", ptr->id, ptr->quantity, ptr->price);
-	strcat(list, tmp);
-	make_list(ptr->right, list);
-}
-
 static void show(int connfd) {
 
-	char list[MAXLINE];
-	memset(list, 0, MAXLINE);
-	make_list(root, list);
-	Rio_writen(connfd, list, strlen(list));
+	FILE *fp = fopen("stock.txt", "r");
+	char *tmp = (char *)Calloc(MAXLINE, sizeof(char));
+	char *line = (char *)Calloc(MAXLINE, sizeof(char));
+	int len = 0;
+
+	while (fgets(tmp, MAXLINE, fp) != NULL) {
+		strcat(line + len, tmp);
+		len += strlen(tmp);
+		memset(tmp, 0, MAXLINE);
+	}
+	fclose(fp);
+	Rio_writen(connfd, line, MAXLINE);
+	free(tmp);
+	free(line);
 }
 
 static void buy(int connfd, int id, int count) {
 
 	/* Find the given id in tree */
 	item_t *ptr = find(id);
+	char *tmp = (char *)Calloc(MAXLINE, sizeof(char));
 
 	/* If the node is not found, return */
 	if (ptr == NULL) {
-		Rio_writen(connfd, "Invalid ID\n", 11);
+		strcpy(tmp, "Invalid ID\n");
+		Rio_writen(connfd, tmp, MAXLINE);
+		free(tmp);
 		return;
 	}
 
 	/* If the node is found, update the stock */
 	if (ptr->quantity >= count) {
 		ptr->quantity -= count;
-		Rio_writen(connfd, "[buy] success\n", 14);
+		strcpy(tmp, "[buy] success\n");
+		Rio_writen(connfd, tmp, MAXLINE);
+		free(tmp);
 	}
-	else /* If there is not enough stock, return */
-		Rio_writen(connfd, "Not enough left stock\n", 22);
+	else { /* If found, but there is not enough stock */
+		strcpy(tmp, "Not enough left stock\n");
+		Rio_writen(connfd, tmp, MAXLINE);
+		free(tmp);
+	}
 }
 
 static void sell(int connfd, int id, int count) {
 
 	/* Find the node with the given id */
 	item_t *ptr = find(id);
+	char *tmp = (char *)Calloc(MAXLINE, sizeof(char));
 
 	/* If not found, return */
 	if (ptr == NULL) {
-		Rio_writen(connfd, "Invalid ID\n", 11);
+		strcpy(tmp, "Invalid ID\n");
+		Rio_writen(connfd, tmp, MAXLINE);
+		free(tmp);
 		return;
 	}
 	/* If found, update the stock */
 	ptr->quantity += count;
-	Rio_writen(connfd, "[sell] success\n", 15);
+	strcpy(tmp, "[sell] success\n");
+	Rio_writen(connfd, tmp, MAXLINE);
+	free(tmp);
 }
 
 void execute_command(int i, int connfd, int buflen, char *buf, pool_t *pool) {
@@ -177,6 +167,10 @@ void execute_command(int i, int connfd, int buflen, char *buf, pool_t *pool) {
 		sell(connfd, id, count);
 		update_textfile();
 	}
-	else 
-		Rio_writen(connfd, "Invalid command\n", 16);
+	else {
+		char *tmp = (char *)Calloc(MAXLINE, sizeof(char));
+		strcpy(tmp, "Invalid command\n");
+		Rio_writen(connfd, tmp, MAXLINE);
+		free(tmp);
+	}
 }
