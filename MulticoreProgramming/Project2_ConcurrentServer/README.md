@@ -2,122 +2,140 @@
 
 buy, sell만 요청
 ```bash
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1
-elapsed time: 0.000175 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1
-elapsed time: 0.000121 seconds
+task_1$ ./multiclient 172.30.10.10 1111 1
+elapsed time: 0.000165 seconds
+task_2$ ./multiclient 172.30.10.10 1111 1
+elapsed time: 0.000168 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 5
-elapsed time: 0.000561 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 5
-elapsed time: 0.000619 seconds
+task_1$ ./multiclient 172.30.10.10 1111 5
+elapsed time: 0.000527 seconds
+task_2$ ./multiclient 172.30.10.10 1111 5
+elapsed time: 0.000658 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 10
+task_1$ ./multiclient 172.30.10.10 1111 10
 elapsed time: 0.001336 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 10
-elapsed time: 0.001132 seconds
+task_2$ ./multiclient 172.30.10.10 1111 10
+elapsed time: 0.001166 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 50
-elapsed time: 0.006542 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 50
-elapsed time: 0.006069 seconds
+task_1$ ./multiclient 172.30.10.10 1111 50
+elapsed time: 0.006651 seconds
+task_2$ ./multiclient 172.30.10.10 1111 50
+elapsed time: 0.006964 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 100
-elapsed time: 0.012980 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 100
-elapsed time: 0.013170 seconds
+task_1$ ./multiclient 172.30.10.10 1111 100
+elapsed time: 0.013466 seconds
+task_2$ ./multiclient 172.30.10.10 1111 100
+elapsed time: 0.013071 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 500
+task_1$ ./multiclient 172.30.10.10 1111 300
+elapsed time: 0.033228 seconds
+task_2$ ./multiclient 172.30.10.10 1111 300
+elapsed time: 0.030823 seconds
+
+task_1$ ./multiclient 172.30.10.10 1111 500
 elapsed time: 0.049395 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 500
+task_2$ ./multiclient 172.30.10.10 1111 500
 elapsed time: 0.046285 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1000
-elapsed time: 0.097789 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1000
-elapsed time: 0.111961 seconds
+task_1$ ./multiclient 172.30.10.10 1111 800
+elapsed time: 0.078568 seconds
+task_2$ ./multiclient 172.30.10.10 1111 800
+elapsed time: 0.069574 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 2000
-elapsed time: 0.198911 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 2000
-
+task_1$ ./multiclient 172.30.10.10 1111 1000
+elapsed time: 0.107371 seconds
+task_2$ ./multiclient 172.30.10.10 1111 1000
+elapsed time: 0.089201 seconds
 ```
 
 show만 요청
 ```bash
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1
+task_1$ ./multiclient 172.30.10.10 1111 1
 elapsed time: 0.000157 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1
+task_2$ ./multiclient 172.30.10.10 1111 1
+elapsed time: 0.000183 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 5
+task_1$ ./multiclient 172.30.10.10 1111 5
 elapsed time: 0.000545 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 5
+task_2$ ./multiclient 172.30.10.10 1111 5
+elapsed time: 0.000642 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 10
+task_1$ ./multiclient 172.30.10.10 1111 10
 elapsed time: 0.001134 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 10
+task_2$ ./multiclient 172.30.10.10 1111 10
+elapsed time: 0.001247 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 50
+task_1$ ./multiclient 172.30.10.10 1111 50
 elapsed time: 0.006017 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 50
+task_2$ ./multiclient 172.30.10.10 1111 50
+elapsed time: 0.006976 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 100
-elapsed time: 0.012355 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 100
+task_1$ ./multiclient 172.30.10.10 1111 100
+elapsed time: 0.012608 seconds
+task_2$ ./multiclient 172.30.10.10 1111 100
+elapsed time: 0.012835 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 500
+task_1$ ./multiclient 172.30.10.10 1111 300
+elapsed time: 0.029221 seconds
+task_2$ ./multiclient 172.30.10.10 1111 300
+elapsed time: 0.030927 seconds
+
+task_1$ ./multiclient 172.30.10.10 1111 500
 elapsed time: 0.046356 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 500
+task_2$ ./multiclient 172.30.10.10 1111 500
+elapsed time: 0.059034 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1000
-elapsed time: 0.093159 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1000
+task_1$ ./multiclient 172.30.10.10 1111 800
+elapsed time: 0.075922 seconds
+task_2$ ./multiclient 172.30.10.10 1111 800
+elapsed time: 0.087436 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 2000
-elapsed time: 0.150788 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 2000
+task_1$ ./multiclient 172.30.10.10 1111 1000
+elapsed time: 0.080025 seconds
+task_2$ ./multiclient 172.30.10.10 1111 1000
+elapsed time: 0.102081 seconds
 ```
 
 buy, sell, show 섞어서 요청
 ```bash
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1
+task_1$ ./multiclient 172.30.10.10 1111 1
 elapsed time: 0.000124 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1
+task_2$ ./multiclient 172.30.10.10 1111 1
 elapsed time: 0.000146 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 5
+task_1$ ./multiclient 172.30.10.10 1111 5
 elapsed time: 0.000547 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 5
+task_2$ ./multiclient 172.30.10.10 1111 5
 elapsed time: 0.000533 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 10
+task_1$ ./multiclient 172.30.10.10 1111 10
 elapsed time: 0.001315 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 10
+task_2$ ./multiclient 172.30.10.10 1111 10
 elapsed time: 0.001283 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 50
+task_1$ ./multiclient 172.30.10.10 1111 50
 elapsed time: 0.006429 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 50
+task_2$ ./multiclient 172.30.10.10 1111 50
 elapsed time: 0.006185 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 100
+task_1$ ./multiclient 172.30.10.10 1111 100
 elapsed time: 0.012040 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 100
+task_2$ ./multiclient 172.30.10.10 1111 100
 elapsed time: 0.011703 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 500
+task_1$ ./multiclient 172.30.10.10 1111 500
 elapsed time: 0.044736 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 500
+task_2$ ./multiclient 172.30.10.10 1111 500
 elapsed time: 0.049257 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 1000
+task_1$ ./multiclient 172.30.10.10 1111 1000
 elapsed time: 0.094493 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 1000
+task_2$ ./multiclient 172.30.10.10 1111 1000
 elapsed time: 0.114475 seconds
 
-cse20200422@cspro10:~/20200422/task_1$ ./multiclient 172.30.10.10 1111 2000
+task_1$ ./multiclient 172.30.10.10 1111 2000
 elapsed time: 0.173487 seconds
-cse20200422@cspro10:~/20200422/task_2$ ./multiclient 172.30.10.10 1111 2000
+task_2$ ./multiclient 172.30.10.10 1111 2000
 elapsed time: 0.205187 seconds
 ```
 
