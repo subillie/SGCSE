@@ -32,7 +32,7 @@ int nstock;			/* Number of stock */
 sem_t file_mutex;	/* Protects accesses to stock.txt */
 sbuf_t sbuf;		/* Shared buffer of connected descriptors */
 
-/* function prototypes - server_sp.c */
+/* function prototypes - server_utils.c */
 void *thread(void *vargp);
 void sbuf_init(sbuf_t *sp, int n);
 void sbuf_deinit(sbuf_t *sp);
@@ -40,7 +40,7 @@ void sbuf_insert(sbuf_t *sp, int connfd);
 int sbuf_remove(sbuf_t *sp);
 void execute_command(int connfd, char *buf);
 
-/* function prototypes - server_item.c */
+/* function prototypes - server_bst.c */
 void update_textfile();
 void add_item(item_t **ptr, int id, int quantity, int price);
 void init_items();

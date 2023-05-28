@@ -3,97 +3,97 @@
 buy, sell만 요청
 ```bash
 task_1$ ./multiclient 172.30.10.10 1111 1
-elapsed time: 0.000165 seconds
-task_2$ ./multiclient 172.30.10.10 1111 1
 elapsed time: 0.000168 seconds
+task_2$ ./multiclient 172.30.10.10 1111 1
+elapsed time: 0.000165 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 5
-elapsed time: 0.000527 seconds
-task_2$ ./multiclient 172.30.10.10 1111 5
 elapsed time: 0.000658 seconds
+task_2$ ./multiclient 172.30.10.10 1111 5
+elapsed time: 0.000527 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 10
-elapsed time: 0.001336 seconds
-task_2$ ./multiclient 172.30.10.10 1111 10
 elapsed time: 0.001166 seconds
+task_2$ ./multiclient 172.30.10.10 1111 10
+elapsed time: 0.001336 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 50
-elapsed time: 0.006651 seconds
-task_2$ ./multiclient 172.30.10.10 1111 50
 elapsed time: 0.006964 seconds
+task_2$ ./multiclient 172.30.10.10 1111 50
+elapsed time: 0.006651 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 100
-elapsed time: 0.013466 seconds
-task_2$ ./multiclient 172.30.10.10 1111 100
 elapsed time: 0.013071 seconds
+task_2$ ./multiclient 172.30.10.10 1111 100
+elapsed time: 0.013466 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 300
-elapsed time: 0.033228 seconds
-task_2$ ./multiclient 172.30.10.10 1111 300
 elapsed time: 0.030823 seconds
+task_2$ ./multiclient 172.30.10.10 1111 300
+elapsed time: 0.033228 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 500
-elapsed time: 0.049395 seconds
-task_2$ ./multiclient 172.30.10.10 1111 500
 elapsed time: 0.046285 seconds
+task_2$ ./multiclient 172.30.10.10 1111 500
+elapsed time: 0.049395 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 800
-elapsed time: 0.078568 seconds
-task_2$ ./multiclient 172.30.10.10 1111 800
 elapsed time: 0.069574 seconds
+task_2$ ./multiclient 172.30.10.10 1111 800
+elapsed time: 0.078568 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 1000
-elapsed time: 0.107371 seconds
-task_2$ ./multiclient 172.30.10.10 1111 1000
 elapsed time: 0.089201 seconds
+task_2$ ./multiclient 172.30.10.10 1111 1000
+elapsed time: 0.107371 seconds
 ```
 
 show만 요청
 ```bash
 task_1$ ./multiclient 172.30.10.10 1111 1
-elapsed time: 0.000157 seconds
-task_2$ ./multiclient 172.30.10.10 1111 1
 elapsed time: 0.000183 seconds
+task_2$ ./multiclient 172.30.10.10 1111 1
+elapsed time: 0.000157 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 5
-elapsed time: 0.000545 seconds
-task_2$ ./multiclient 172.30.10.10 1111 5
 elapsed time: 0.000642 seconds
+task_2$ ./multiclient 172.30.10.10 1111 5
+elapsed time: 0.000545 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 10
-elapsed time: 0.001134 seconds
-task_2$ ./multiclient 172.30.10.10 1111 10
 elapsed time: 0.001247 seconds
+task_2$ ./multiclient 172.30.10.10 1111 10
+elapsed time: 0.001134 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 50
-elapsed time: 0.006017 seconds
-task_2$ ./multiclient 172.30.10.10 1111 50
 elapsed time: 0.006976 seconds
+task_2$ ./multiclient 172.30.10.10 1111 50
+elapsed time: 0.006017 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 100
-elapsed time: 0.012608 seconds
-task_2$ ./multiclient 172.30.10.10 1111 100
 elapsed time: 0.012835 seconds
+task_2$ ./multiclient 172.30.10.10 1111 100
+elapsed time: 0.012608 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 300
-elapsed time: 0.029221 seconds
-task_2$ ./multiclient 172.30.10.10 1111 300
 elapsed time: 0.030927 seconds
+task_2$ ./multiclient 172.30.10.10 1111 300
+elapsed time: 0.029221 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 500
-elapsed time: 0.046356 seconds
-task_2$ ./multiclient 172.30.10.10 1111 500
 elapsed time: 0.059034 seconds
+task_2$ ./multiclient 172.30.10.10 1111 500
+elapsed time: 0.046356 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 800
-elapsed time: 0.075922 seconds
-task_2$ ./multiclient 172.30.10.10 1111 800
 elapsed time: 0.087436 seconds
+task_2$ ./multiclient 172.30.10.10 1111 800
+elapsed time: 0.075922 seconds
 
 task_1$ ./multiclient 172.30.10.10 1111 1000
-elapsed time: 0.080025 seconds
-task_2$ ./multiclient 172.30.10.10 1111 1000
 elapsed time: 0.102081 seconds
+task_2$ ./multiclient 172.30.10.10 1111 1000
+elapsed time: 0.080025 seconds
 ```
 
 buy, sell, show 섞어서 요청
@@ -139,7 +139,7 @@ task_2$ ./multiclient 172.30.10.10 1111 2000
 elapsed time: 0.205187 seconds
 ```
 
-## Event-based Approach
+## Event-driven Approach
 
 [[Reference] System Programming](https://velog.io/@tonyhan18/%EC%8B%9C%EC%8A%A4%ED%85%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-13-1-Concurrent-Programming)  
 

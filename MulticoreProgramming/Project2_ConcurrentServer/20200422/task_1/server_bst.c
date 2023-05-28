@@ -1,5 +1,5 @@
 /* 
-* server_bst.c - Utility functions for dealing with the data structure tree 
+* server_bst.c - Utility functions for binary search tree 
 */ 
 #include "csapp.h"
 #include "stockserver.h"

@@ -27,13 +27,13 @@ typedef struct pool_s {
 
 int nstock;	/* Number of stock */
 
-/* function prototypes - server_pool.c */
+/* function prototypes - server_utils.c */
 void init_pool(int listenfd, pool_t *pool);
 void add_client(int connfd, pool_t *pool);
 void check_clients(pool_t *pool);
 void execute_command(int i, int connfd, int buflen, char *buf, pool_t *pool);
 
-/* function prototypes - server_item.c */
+/* function prototypes - server_bst.c */
 void update_textfile();
 void add_item(item_t **ptr, int id, int quantity, int price);
 void init_items();
