@@ -57,7 +57,7 @@ void check_clients(pool_t *pool) {
 		connfd = pool->clientfd[i];
 		rio = pool->clientrio[i];
 
-		/* If the descriptor is ready, echo a text line from it */
+		/* If the descriptor is ready, execute the command */
 		if ((connfd > 0) && (FD_ISSET(connfd, &pool->ready_set))) {
 			pool->nready--;
 			if (Rio_readnb(&rio, buf, 1) != 0) {
