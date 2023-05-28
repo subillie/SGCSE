@@ -34,11 +34,11 @@ void *thread(void *vargp) {
 void sbuf_init(sbuf_t *sp, int n) {
 
 	sp->buf = Calloc(n, sizeof(int));
-	sp->n = n;					/* Buffer holds max of n items */
+	sp->n = n;					/* Buffer holds max of n clients */
 	sp->front = sp->rear = 0;	/* Empty buffer iff front == rear */
 	Sem_init(&sp->mutex, 0, 1); /* Binary semaphore for locking */
 	Sem_init(&sp->slots, 0, n); /* Initially, buf has n empty slots */
-	Sem_init(&sp->items, 0, 0); /* Initially, buf has zero data items */
+	Sem_init(&sp->clients, 0, 0); /* Initially, buf has zero data clients */
 }
 
 /* Clean up buffer sp */
@@ -53,12 +53,12 @@ void sbuf_insert(sbuf_t *sp, int connfd) {
 	P(&sp->mutex);
 	sp->buf[(++sp->rear) % (sp->n)] = connfd;
 	V(&sp->mutex);
-	V(&sp->items);
+	V(&sp->clients);
 }
 
 int sbuf_remove(sbuf_t *sp) {
 
-	P(&sp->items);
+	P(&sp->clients);
 	P(&sp->mutex);
 	int connfd = sp->buf[(++sp->front) % (sp->n)];
 	V(&sp->mutex);

@@ -19,13 +19,13 @@ typedef struct item_s {
 item_t *root;
 
 typedef struct {
-	int *buf;	 /* Buffer array */
-	int n;		 /* Maximum number of slots */
-	int front;	 /* buf[(front+1)%n] is first item */
-	int rear;	 /* buf[rear%n] is last item */
-	sem_t mutex; /* Protects accesses to buf */
-	sem_t slots; /* Counts available slots */
-	sem_t items; /* Counts available items */
+	int *buf;		/* Buffer array */
+	int n;			/* Maximum number of slots */
+	int front;		/* buf[(front+1)%n] is first client */
+	int rear;		/* buf[rear%n] is last client */
+	sem_t mutex;	/* Protects accesses to buf */
+	sem_t slots;	/* Counts available slots */
+	sem_t clients;	/* Counts available clients */
 }	sbuf_t;
 
 int nstock;			/* Number of stock */
