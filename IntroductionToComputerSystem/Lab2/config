@@ -1,0 +1,5 @@
+2-1 exploit-myecho.py 1 20
+2-2 exploit-strtest.py 1 20
+2-3 exploit-array.py 1 20
+2-4 exploit-saferead.py 1 20
+2-5 exploit-manage.py 1 20
