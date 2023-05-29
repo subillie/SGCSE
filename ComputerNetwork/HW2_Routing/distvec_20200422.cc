@@ -16,6 +16,15 @@ int main(int ac, char *av[]) {
 		cout << "Error: open input file." << endl;
 		return 1;
 	}
+	while (!topologyfile.eof()) {
+		string line;
+		getline(topologyfile, line);
+		cout << line << endl;
+	}
+
+	togpologyfile.close();
+	messagesfile.close();
+	changesfile.close();
 
 	// Distance vector program successed
 	cout << "Complete. Output file written to output_dv.txt." << endl;
