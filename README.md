@@ -10,7 +10,6 @@
 |과목명|학점|한줄평|
 |:---:|:---:|:---:|
 |Computer Network|||
-|Computer Science Experiment|||
 |Data Structures|||
 |Introduction To Computer System|||
 |Multicore Programming|||
@@ -20,11 +19,6 @@
 ## 세부사항
 
 ### Computer Network
-
-- 학점:
-- 내용:
-
-### Computer Science Experiment
 
 - 학점:
 - 내용:
