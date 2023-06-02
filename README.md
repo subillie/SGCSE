@@ -5,31 +5,49 @@
 - 목표 학점: 4.0/4.3
 - 목표 학점 실패 시, 마이코한테 커피 쏨
 
+## 현황표
+
+|과목명|학점|한줄평|
+|:---:|:---:|:---:|
+|Computer Network|||
+|Computer Science Experiment|||
+|Data Structures|||
+|Introduction To Computer System|||
+|Multicore Programming|||
+|Psychology Of Group Behavior|||
+|Software Engineering|||
+
 ## Computer Network
 
-- 내용써라
+- 학점:
+- 내용:
 
 ## Computer Science Experiment
 
-- 내용 좀
+- 학점:
+- 내용:
 
 ## Data Structures
 
-- 뭔데
+- 학점:
+- 내용:
 
 ## Introduction To Computer System
 
-- ??
+- 학점:
+- 내용:
 
 ## Multicore Programming
 
-- asjdljaskljaksej
+- 학점:
+- 내용:
 
 ## Psychology Of Group Behavior
 
-- 심리학은 교양인가?
+- 학점:
+- 내용:
 
 ## Software Engineering
 
-- 하하
-
+- 학점:
+- 내용:
