@@ -17,37 +17,39 @@
 |Psychology Of Group Behavior|||
 |Software Engineering|||
 
-## Computer Network
+## 세부사항
+
+### Computer Network
 
 - 학점:
 - 내용:
 
-## Computer Science Experiment
+### Computer Science Experiment
 
 - 학점:
 - 내용:
 
-## Data Structures
+### Data Structures
 
 - 학점:
 - 내용:
 
-## Introduction To Computer System
+### Introduction To Computer System
 
 - 학점:
 - 내용:
 
-## Multicore Programming
+### Multicore Programming
 
 - 학점:
 - 내용:
 
-## Psychology Of Group Behavior
+### Psychology Of Group Behavior
 
 - 학점:
 - 내용:
 
-## Software Engineering
+### Software Engineering
 
 - 학점:
 - 내용:
