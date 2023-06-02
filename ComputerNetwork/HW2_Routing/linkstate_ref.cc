@@ -1,81 +1,92 @@
-// linkstate.cc - Link State Routing Algorithm
+// linkstate.cc
 
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <set>
 
 using namespace std;
 
-const int INF = numeric_limits<int>::max();
+struct LinkState {
+	int nodeCount;
+	vector<vector<int> > costMatrix;
+	vector<int> distance;
+	vector<int> parent;
+	set<int> unvisited;
 
-class LinkStateRouter {
-private:
-	int numNodes;
-	vector<vector<int>> graph;
+	LinkState(int n) : nodeCount(n) {
+		costMatrix.resize(n, vector<int>(n, numeric_limits<int>::max()));
+		distance.resize(n, numeric_limits<int>::max());
+		parent.resize(n, -1);
+		for (int i = 0; i < n; ++i)
+			costMatrix[i][i] = 0;
 
-public:
-	LinkStateRouter(int n) : numNodes(n) {
-		graph.resize(numNodes, vector<int>(numNodes, INF));
-		for (int i = 0; i < numNodes; ++i) {
-			graph[i][i] = 0;
-		}
+		for (int i = 0; i < n; ++i)
+			unvisited.insert(i);
 	}
 
-	void addLink(int node1, int node2, int cost) {
-		graph[node1][node2] = cost;
-		graph[node2][node1] = cost;
+	void updateCost(int from, int to, int cost) {
+		costMatrix[from][to] = cost;
+		costMatrix[to][from] = cost;
 	}
 
-	void updateShortestPaths() {
-		vector<bool> visited(numNodes, false);
-		vector<int> distance(numNodes, INF);
+	void printRoutingTable() {
+		cout << "Routing Table:\n";
+		for (int i = 0; i < nodeCount; ++i) {
+			cout << "Node " << i << ": ";
+			cout << "Distance = " << distance[i] << ", Parent = " << parent[i] << "\n";
+		}
+		cout << "\n";
+	}
 
-		distance[0] = 0;
-
-		for (int i = 0; i < numNodes - 1; ++i) {
-			int minDist = INF;
-			int minIndex = -1;
-
-			// Find the node with the minimum distance
-			for (int j = 0; j < numNodes; ++j) {
-				if (!visited[j] && distance[j] < minDist) {
-					minDist = distance[j];
-					minIndex = j;
-				}
-			}
-
-			// Mark the node as visited
-			visited[minIndex] = true;
-
-			// Update the distances of adjacent nodes
-			for (int j = 0; j < numNodes; ++j) {
-				if (!visited[j] && graph[minIndex][j] != INF && distance[minIndex] + graph[minIndex][j] < distance[j]) {
-					distance[j] = distance[minIndex] + graph[minIndex][j];
-				}
+	int getMinDistanceNode() {
+		int minDistance = numeric_limits<int>::max();
+		int minNode = -1;
+		for (int node : unvisited) {
+			if (distance[node] < minDistance) {
+				minDistance = distance[node];
+				minNode = node;
 			}
 		}
+		return minNode;
+	}
 
-		// Print the shortest paths
-		cout << "Shortest Paths:\n";
-		for (int i = 0; i < numNodes; ++i) {
-			cout << "Node " << i << ": " << distance[i] << "\n";
+	void calculateLinkState(int sourceNode) {
+		distance[sourceNode] = 0;
+
+		while (!unvisited.empty()) {
+			int currentNode = getMinDistanceNode();
+			if (currentNode == -1)
+				break;
+
+			unvisited.erase(currentNode);
+
+			for (int i = 0; i < nodeCount; ++i) {
+				if (unvisited.find(i) != unvisited.end() && costMatrix[currentNode][i] != numeric_limits<int>::max()) {
+					int newDistance = distance[currentNode] + costMatrix[currentNode][i];
+					if (newDistance < distance[i]) {
+						distance[i] = newDistance;
+						parent[i] = currentNode;
+					}
+				}
+			}
 		}
 	}
 };
 
 int main() {
-	int numNodes = 4;
-	LinkStateRouter router(numNodes);
+	int nodeCount = 4;
+	LinkState ls(nodeCount);
 
-	// Adding links and their costs
-	router.addLink(0, 1, 1);
-	router.addLink(0, 2, 5);
-	router.addLink(1, 2, 2);
-	router.addLink(1, 3, 3);
-	router.addLink(2, 3, 1);
+	ls.updateCost(0, 1, 2);
+	ls.updateCost(0, 2, 5);
+	ls.updateCost(1, 2, 1);
+	ls.updateCost(1, 3, 7);
+	ls.updateCost(2, 3, 3);
 
-	// Updating the shortest paths
-	router.updateShortestPaths();
+	int sourceNode = 0;
+	ls.calculateLinkState(sourceNode);
+	ls.printRoutingTable();
 
 	return 0;
 }
