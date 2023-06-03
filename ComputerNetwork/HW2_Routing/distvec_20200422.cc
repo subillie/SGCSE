@@ -6,66 +6,93 @@
 
 using namespace std;
 
+const int UNLINKED = -999;
 const int INF = numeric_limits<int>::max();
 
-class DistanceVector {
+class costVector {
 private:
 	int nodeNum;
-	vector<vector<int> > table;
-	vector<int> distance;
-	vector<int> nextHop;
+	struct Node {
+		vector<int> cost;
+		vector<int> nextHop;
+		Node(int node, int c, int h) : cost(node, c), nextHop(node, h) {}
+		int operator[](int i) { return cost[i]; }
+		int operator()(int i) { return nextHop[i]; }
+		void update(int dest, int c, int h) {
+			cost[dest] = c;
+			nextHop[dest] = h;
+		}
+	};
+	vector<Node> table;
 
 public:
-	DistanceVector(int n) : nodeNum(n) {
-		table.resize(n, vector<int>(n, INF));
-		distance.resize(n, INF);
-		nextHop.resize(n, -1);
-		for (int i = 0; i < n; ++i) table[i][i] = 0;
+	costVector(int n) : nodeNum(n) {
+		// Initialize routing table
+		table.resize(n, Node(n, UNLINKED, -1));
+		// Initialize cost and nextHop of the node itself
+		for (int i = 0; i < n; ++i)
+			table[i].update(i, 0, i);
 	}
 
-	void parseTopology(ifstream &topologyfile) {
-		while (!topologyfile.eof()) {
-			// Get one line from topologyfile
-			string line;
-			getline(topologyfile, line);
-
+	void parseTopology(ifstream& topologyfile) {
+		// Get each line from topologyfile
+		string line;
+		while (getline(topologyfile, line)) {
+			if (line.empty()) break;
 			// Parse the line in router table
 			int pos, curPos = 0, val[3];
 			for (int i = 0; (pos = line.find(" ", curPos)) != string::npos; i++) {
 				val[i] = stoi(line.substr(curPos, pos - curPos));
 				curPos = pos + 1;
 			}
-			table[val[0]][val[1]] = val[2];
-			table[val[1]][val[0]] = val[2];
+			table[val[0]].update(val[1], val[2], val[1]);
+			table[val[1]].update(val[0], val[2], val[0]);
+		}
+	}
+
+	void printRoutes(ofstream &outfile) {
+		for (int node = 0; node < nodeNum; ++node) {
+			for (int dest = 0; dest < nodeNum; ++dest)
+				if (table[node][dest] != UNLINKED)
+					outfile << dest << " " << table[node][dest] << " " << table[node](dest) << endl;
+			outfile << endl;
 		}
 	}
 
 	void updateTable() {
 		bool updated = false;
-		while(!updated) {
-			updated = false;
+		while (!updated) {
+			updated = true;
+			// For each node, update the cost and nextHop to each destination
 			for (int node = 0; node < nodeNum; ++node) {
 				for (int dest = 0; dest < nodeNum; ++dest) {
+					// Skip the node itself
 					if (node == dest) continue;
-					int minDistance = INF, minHop = -1;
+
+					// Find the minimum cost and nextHop to the destination
+					int minCost = INF;
+					int minHop = UNLINKED;
+					// Iterate through all neighbors of the node
 					for (int neighbor = 0; neighbor < nodeNum; ++neighbor) {
-						if (table[node][neighbor] != INF && distance[neighbor] + table[node][neighbor] < minDistance) {
-							minDistance = distance[neighbor] + table[node][neighbor];
+						if (table[neighbor].cost[neighbor] == UNLINKED) continue;
+						int cost = table[node].cost[neighbor] + table[neighbor].cost[dest];
+						if (cost < minCost) {
+							minCost = cost;
 							minHop = neighbor;
 						}
 					}
-					if (minDistance < distance[dest]) {
-						distance[dest] = minDistance;
-						nextHop[dest] = minHop;
-						updated = true;
+
+					// Update the routing table if necessary
+					if (minCost < table[node].cost[dest]) {
+						table[node].update(dest, minCost, minHop);
+						updated = false;
 					}
 				}
 			}
 		}
 	}
 
-	void writeMessages(ifstream &messagesfile) {
-		ofstream outfile("output_dv.txt");
+	void printOutputs(ifstream &messagesfile, ofstream &outfile) {
 		string line;
 		while (getline(messagesfile, line)) {
 			// Write src and dest on outfile
@@ -74,13 +101,20 @@ public:
 			outfile << "from " << src << " to " << dest;
 			
 			// Write cost and hops on outfile
-			// if (distance[dest] == INF || nextHop[dest] == -1)
-			// 	outfile << " cost infinite hops unreachable ";
-			// else {
-			// 	outfile << " cost " << table[src][dest] << " hops ";
-			// 	for (int node = src; node != dest; node = nextHop[node])
-			// 		outfile << node << " ";
-			// }
+			if (table[src].cost[dest] == UNLINKED || table[src].nextHop[dest] == -1)
+				outfile << " cost infinite hops unreachable ";
+			else {
+				outfile << " cost " << table[src].cost[dest] << " hops ";
+				vector<int> path;
+				int node = src;
+				while (node != dest) {
+					path.push_back(node);
+					node = table[node].nextHop[dest];
+				}
+				path.push_back(dest);
+				for (int i = 0; i < path.size(); ++i)
+					outfile << path[i] << " ";
+			}
 
 			// Write message on outfile
 			int pos, curPos = 0;
@@ -88,7 +122,7 @@ public:
 				pos = line.find(" ", curPos);
 				curPos = pos + 1;
 			}
-			outfile << "message " << line.substr(curPos, pos - curPos) << endl;
+			outfile << "message " << line.substr(curPos) << endl;
 		}
 	}
 };
@@ -106,17 +140,23 @@ int main(int ac, char* av[]) {
 		cout << "Error: open input file." << endl;
 		return 1;
 	}
+	ofstream outfile("output_dv.txt");
+	if (!outfile.is_open()) {
+		cout << "Error: open output file." << endl;
+		return 1;
+	}
 
 	// Initialize variables
 	int nodeNum = 0;
 	string line;
 	if (getline(topologyfile, line)) nodeNum = stoi(line);
-	DistanceVector router(nodeNum);
+	costVector router(nodeNum);
 
-	// Process distance vector program
-	router.parseTopology(topologyfile);	// Set up network
-	router.updateTable();				// Update routing table
-	router.writeMessages(messagesfile); // Write messages on outfile
+	// Execute cost vector program
+	router.parseTopology(topologyfile); // Set up network
+	router.printRoutes(outfile); // Print routing table
+	router.updateTable(); // Update routing table
+	router.printOutputs(messagesfile, outfile); // Write messages on outfile
 
 	// The end
 	topologyfile.close();
