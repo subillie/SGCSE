@@ -9,7 +9,7 @@ using namespace std;
 const int UNLINKED = -999;
 const int INF = numeric_limits<int>::max();
 
-class costVector {
+class distanceVector {
 private:
 	int nodeNum;
 	struct Node {
@@ -26,7 +26,7 @@ private:
 	vector<Node> table;
 
 public:
-	costVector(int n) : nodeNum(n) {
+	distanceVector(int n) : nodeNum(n) {
 		// Initialize routing table
 		table.resize(n, Node(n, UNLINKED, -1));
 		// Initialize cost and nextHop of the node itself
@@ -53,16 +53,16 @@ public:
 	void printRoutes(ofstream &outfile) {
 		for (int node = 0; node < nodeNum; ++node) {
 			for (int dest = 0; dest < nodeNum; ++dest)
-				if (table[node][dest] != UNLINKED)
+				// if (table[node][dest] != UNLINKED)
 					outfile << dest << " " << table[node][dest] << " " << table[node](dest) << endl;
 			outfile << endl;
 		}
 	}
 
 	void updateTable() {
-		bool updated = false;
-		while (!updated) {
-			updated = true;
+		bool updated = true; // Set to true to enter the loop initially
+		while (updated) {
+			updated = false;
 			// For each node, update the cost and nextHop to each destination
 			for (int node = 0; node < nodeNum; ++node) {
 				for (int dest = 0; dest < nodeNum; ++dest) {
@@ -70,22 +70,27 @@ public:
 					if (node == dest) continue;
 
 					// Find the minimum cost and nextHop to the destination
-					int minCost = INF;
-					int minHop = UNLINKED;
+					int minCost = table[node][dest];
+					int minHop = table[node](dest);
+
+					// cout << "\n" << node << endl;
 					// Iterate through all neighbors of the node
 					for (int neighbor = 0; neighbor < nodeNum; ++neighbor) {
-						if (table[neighbor].cost[neighbor] == UNLINKED) continue;
-						int cost = table[node].cost[neighbor] + table[neighbor].cost[dest];
-						if (cost < minCost) {
-							minCost = cost;
-							minHop = neighbor;
+						if (table[node][neighbor] != UNLINKED || neighbor == dest) {
+							int cost = table[node][neighbor] + table[neighbor][dest];
+							// cout << "cost " << cost << " neighbor " << table[node][neighbor] << " dest " << table[neighbor][dest] << endl;
+							if (cost < minCost) {
+								minCost = cost;
+								minHop = neighbor;
+							}
 						}
 					}
 
 					// Update the routing table if necessary
-					if (minCost < table[node].cost[dest]) {
+					if (minCost < table[node][dest]) {
 						table[node].update(dest, minCost, minHop);
-						updated = false;
+						cout << "Node " << node << " to " << dest << " updates cost to " << minCost << endl;
+						updated = true;
 					}
 				}
 			}
@@ -150,7 +155,7 @@ int main(int ac, char* av[]) {
 	int nodeNum = 0;
 	string line;
 	if (getline(topologyfile, line)) nodeNum = stoi(line);
-	costVector router(nodeNum);
+	distanceVector router(nodeNum);
 
 	// Execute cost vector program
 	router.parseTopology(topologyfile); // Set up network
