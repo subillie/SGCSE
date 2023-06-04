@@ -7,14 +7,14 @@
 
 ## 현황표
 
-|과목명|학점|한줄평|
-|:---:|:---:|:---:|
-|Computer Network|||
-|Data Structures|||
-|Introduction To Computer System|||
-|Multicore Programming|||
-|Psychology Of Group Behavior|||
-|Software Engineering|||
+|과목명|과목코드|교수|학점|한줄평|
+|:---:|:---:|:---:|:---:|:---:|
+|Computer Network|CSE4175|소정민|||
+|Data Structures|CSE3080|소정민|||
+|Introduction To Computer System|CSE3030|문의현|||
+|Multicore Programming|CSE4100|박성용|||
+|Psychology Of Group Behavior|PSY4009|남상희|||
+|Software Engineering|CSE4115|박수용|||
 
 ## 세부사항
 
