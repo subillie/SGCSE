@@ -9,7 +9,7 @@ using namespace std;
 const int UNLINKED = -999;
 const int INF = numeric_limits<int>::max();
 
-class distanceVector {
+class DistanceVector {
 private:
 	int nodeNum;
 	struct Node {
@@ -26,7 +26,7 @@ private:
 	vector<Node> table;
 
 public:
-	distanceVector(int n) : nodeNum(n) {
+	DistanceVector(int n) : nodeNum(n) {
 		// Initialize routing table
 		table.resize(n, Node(n, UNLINKED, -1));
 		// Initialize cost and nextHop of the node itself
@@ -155,7 +155,7 @@ int main(int ac, char* av[]) {
 	int nodeNum = 0;
 	string line;
 	if (getline(topologyfile, line)) nodeNum = stoi(line);
-	distanceVector router(nodeNum);
+	DistanceVector router(nodeNum);
 
 	// Execute cost vector program
 	router.parseTopology(topologyfile); // Set up network
