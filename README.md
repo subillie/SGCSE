@@ -15,35 +15,3 @@
 |Multicore Programming|CSE4100|박성용||운영체제 입문 수업<br>내용이랑 과제가 제일 재밌고 제일 어려웠음|
 |Psychology Of Group Behavior|PSY4009|남상희||사회심리학은 이제 그만^^|
 |Software Engineering|CSE4115|박수용||매주 팀플의 늪, 얻어가는 건 팀플 친구가 전부..|
-
-## 세부사항
-
-### Computer Network
-
-- 학점:
-- 내용:
-
-### Data Structures
-
-- 학점:
-- 내용:
-
-### Introduction To Computer System
-
-- 학점:
-- 내용:
-
-### Multicore Programming
-
-- 학점:
-- 내용:
-
-### Psychology Of Group Behavior
-
-- 학점:
-- 내용:
-
-### Software Engineering
-
-- 학점:
-- 내용:
