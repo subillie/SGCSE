@@ -4,7 +4,13 @@
 
 all:
 	g++ -Wall distvec_20200422.cc -o distvec_20200422
-#	g++ -Wall -std=c++11 linkstate_ref.cc -o linkstate
+	g++ -Wall distvec_20200422.cc -o distvec_20200422
+
+dv :
+	g++ -Wall distvec_20200422.cc -o distvec_20200422
+
+ls:
+	g++ -Wall linkstate_20200422.cc -o linkstate_20200422
 
 clean:
 	rm -f distvec_20200422 linkstate_20200422

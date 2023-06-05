@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <limits>
 
 using namespace std;
 
@@ -106,15 +105,15 @@ public:
 			outfile << "from " << src << " to " << dest;
 			
 			// Write cost and hops on outfile
-			if (table[src].cost[dest] == UNLINKED || table[src].nextHop[dest] == -1)
+			if (table[src][dest] == UNLINKED || table[src](dest) == -1)
 				outfile << " cost infinite hops unreachable ";
 			else {
-				outfile << " cost " << table[src].cost[dest] << " hops ";
+				outfile << " cost " << table[src][dest] << " hops ";
 				vector<int> path;
 				int node = src;
 				while (node != dest) {
 					path.push_back(node);
-					node = table[node].nextHop[dest];
+					node = table[node](dest);
 				}
 				path.push_back(dest);
 				for (int i = 0; i < path.size(); ++i)
@@ -164,10 +163,10 @@ int main(int ac, char* av[]) {
 	router.printOutputs(messagesfile, outfile); // Write messages on outfile
 
 	// The end
+	cout << "Complete. Output file written to output_dv.txt." << endl;
 	topologyfile.close();
 	messagesfile.close();
 	changesfile.close();
-	cout << "Complete. Output file written to output_dv.txt." << endl;
 
 	return 0;
 }

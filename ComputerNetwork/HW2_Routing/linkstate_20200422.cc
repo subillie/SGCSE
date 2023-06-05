@@ -1,32 +1,50 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
-using namespace std;
+#include <vector>
 
 #define MAX_VERTICES 10000
-#define INF 999999999
 #define TRUE 1
 #define FALSE 0
 
-int verticesNum;
-int edgesNum;
-int distance[MAX_VERTICES];
-int parent[MAX_VERTICES];
-int path[MAX_VERTICES];
+using namespace std;
+
+int vertice;
+const int INF = numeric_limits<int>::max();
 
 class LinkState {
 private:
-	int cost[MAX_VERTICES][MAX_VERTICES];
-	int found[MAX_VERTICES];
+	int verticesNum;
+	// int edgesNum;
+	vector<int> found;
+	vector<int> dist;
+	vector<int> parent;
+	vector<int> path;
+	vector<vector<int> > cost;
+
+	int choose(int verticesNum) {
+		// find the smallest dist not yet checked
+		int minDist = INF, minPos = -1;
+		
+		for (int i = 0; i < verticesNum; i++) {
+			if (dist[i] < minDist && !found[i]) {
+				minDist = dist[i];
+				minPos = i;
+			}
+		}
+		return minPos;
+	}
 
 public:
-	void createGraph(ifstream &topologyfile) {
-		// cost adjacency matrix
-		for(int i = 0; i < verticesNum; i++)
-			for(int j = 0; j < verticesNum; j++)
-				cost[i][j] = INF;
+	LinkState(int v) : verticesNum(v) {
+		cost.resize(v, vector<int>(v, INF));
+		found.resize(v);
+		dist.resize(v, INF);
+		parent.resize(v, -1);
+		path.resize(v);
+	}
 
+	void createGraph(ifstream &topologyfile) {
 		// Get each line from topologyfile
 		string line;
 		while (getline(topologyfile, line)) {
@@ -41,42 +59,81 @@ public:
 		}
 	}
 
-	int choose() {
-		/* find the smallest distance not yet checked */
-		int min = INF, minpos = -1;
-		
-		for (int i = 0; i < verticesNum; i++) {
-			if (distance[i] < min && !found[i]) {
-				min = distance[i];
-				minpos = i;
-			}
-		}
-		return minpos;
-	}
-
 	void shortestPath() {
-		int vertice = 0;
-
 		for (int i = 0; i < verticesNum; i++) {
 			found[i] = FALSE;
-			distance[i] = cost[vertice][i];
-			if (distance[i] < INF) parent[i] = vertice;
+			dist[i] = cost[vertice][i];
+			if (dist[i] < INF) parent[i] = vertice;
 		}
 
 		found[vertice] = TRUE;
-		distance[vertice] = 0;
+		dist[vertice] = 0;
 		for (int i = 0; i < verticesNum - 2; i++) {
-			int chosen = choose();
+			int chosen = choose(verticesNum);
 			if (chosen == -1) break;
 			found[chosen] = TRUE;
 			for (int j = 0; j < verticesNum; j++) {
 				if (!found[j] && (chosen != j)) {
-					if (distance[chosen] + cost[chosen][j] < distance[j]) {
-						distance[j] = distance[chosen] + cost[chosen][j];
+					if (dist[chosen] + cost[chosen][j] < dist[j]) {
+						dist[j] = dist[chosen] + cost[chosen][j];
 						parent[j] = chosen;
 					}
 				}
 			}
+		}
+	}
+
+	void printOutputs(ifstream &messagesfile, ofstream &outfile) {
+		// int i, j, pathCurr, pathCount;
+		// for (i = 0; i < verticesNum; i++) {
+		// 	if (dist[i] != INF) {
+		// 		cout << "SRC: " << vertice << ", DST: " << i << ", LENGTH: " << dist[i] << ", PATH: " << vertice;
+				
+		// 		// Print path
+		// 		pathCurr = i;
+		// 		pathCount = 0;
+		// 		while (parent[pathCurr] > -1) {
+		// 			path[pathCount++] = pathCurr;
+		// 			pathCurr = parent[pathCurr];
+		// 		}
+		// 		for (j = pathCount - 1; j >= 0; j--)
+		// 			cout << " " << path[j];
+		// 		cout << endl;
+		// 	}
+		// 	else
+		// 		cout << "SRC: " << vertice << ", DST: " << i << ", LENGTH: ---, PATH: -" << endl;
+		// }
+
+		int i = 0, j, pathCurr, pathCount;
+		string line;
+		while (getline(messagesfile, line)) {
+			// Write src and dest on outfile
+			int src = stoi(line.substr(0, line.find(" ")));
+			int dest = stoi(line.substr(line.find(" ") + 1));
+			outfile << "from " << src << " to " << dest;
+			
+			// Write cost and hops on outfile
+			if (dist[i] == INF)
+				outfile << " cost infinite hops unreachable ";
+			else {
+				outfile << " cost " << i << " hops ";
+				pathCurr = i;
+				pathCount = 0;
+				while (parent[pathCurr] > -1) {
+					path[pathCount++] = pathCurr;
+					pathCurr = parent[pathCurr];
+				}
+				for (j = pathCount - 1; j >= 0; j--)
+					outfile << " " << path[j];
+			}
+
+			// Write message on outfile
+			int pos, curPos = 0;
+			for (int i = 0; i < 2; i++) {
+				pos = line.find(" ", curPos);
+				curPos = pos + 1;
+			}
+			outfile << "message " << line.substr(curPos) << endl;
 		}
 	}
 };
@@ -94,48 +151,33 @@ int main(int ac, char *av[]) {
 		cout << "Error: open input file." << endl;
 		return 1;
 	}
-
-	// Initialize variables
-	int i, j, path_curr, path_count, nodeNum = 0;
-	string line;
-	if (getline(topologyfile, line)) nodeNum = stoi(line);
-	LinkState router;
-
-	ifstream tmpfile(av[1]);
-	if (!tmpfile.is_open())	{
-		cout << "Error: open file." << endl;
+	ofstream outfile("output_ls.txt");
+	if (!outfile.is_open()) {
+		cout << "Error: open output file." << endl;
 		return 1;
 	}
-	int count = 0;
-	while (getline(tmpfile, line)) ++count;
-	verticesNum = count - 1;
 
-	router.createGraph(topologyfile);
-	for (i = 0; i < verticesNum; i++) {
-		distance[i] = INF;
-		parent[i] = -1;
-	}
-	router.shortestPath();
+	// ifstream tmpfile(av[1]);
+	// if (!tmpfile.is_open())	{
+	// 	cout << "Error: open file." << endl;
+	// 	return 1;
+	// }
 
-	for (i = 0; i < verticesNum; i++) {
-		if(distance[i] != INF) {
-			// printf("SRC: %d, DST: %d, LENGTH: %3d, PATH: %d", v, i, distance[i], v);
-			
-			/* print path */
-			path_curr = i;
-			path_count = 0;
-			while (parent[path_curr] > -1) {
-				path[path_count++] = path_curr;
-				path_curr = parent[path_curr];
-			}
-			// for (j = path_count - 1; j >= 0; j--)
-				// printf(" %d", path[j]);
-			// printf("\n");
-		}
-		// else
-		// 	printf("SRC: %d, DST: %d, LENGTH: ---, PATH: -\n", v, i);
+	// Initialize variables
+	string line;
+	int verticesNum = 0;
+	// int edgesNum = -1;
+	// while (getline(tmpfile, line)) ++edgesNum;
+	if (getline(topologyfile, line)) verticesNum = stoi(line);
+
+	for (vertice = 0; vertice < verticesNum; ++vertice) {
+		LinkState router(verticesNum);
+		router.createGraph(topologyfile);
+		router.shortestPath();
+		router.printOutputs(messagesfile, outfile);
 	}
 
-	// Distance vector program successed
+	// Link state program successed
 	cout << "Complete. Output file written to output_ls.txt." << endl;
+	return 0;
 }
