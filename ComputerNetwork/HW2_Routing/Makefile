@@ -4,7 +4,7 @@
 
 all:
 	g++ -Wall distvec_20200422.cc -o distvec_20200422
-	g++ -Wall distvec_20200422.cc -o distvec_20200422
+	g++ -Wall linkstate_20200422.cc -o linkstate_20200422
 
 dv :
 	g++ -Wall distvec_20200422.cc -o distvec_20200422

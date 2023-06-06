@@ -13,6 +13,7 @@ const int INF = numeric_limits<int>::max();
 class LinkState {
 private:
 	int verticesNum;
+	// int edgesNum;
 	vector<int> found;
 	vector<int> dist;
 	vector<int> parent;
@@ -163,9 +164,17 @@ int main(int ac, char *av[]) {
 		return 1;
 	}
 
+	// ifstream tmpfile(av[1]);
+	// if (!tmpfile.is_open())	{
+	// 	cout << "Error: open file." << endl;
+	// 	return 1;
+	// }
+
 	// Initialize variables
 	string line;
 	int verticesNum = 0;
+	// int edgesNum = -1;
+	// while (getline(tmpfile, line)) ++edgesNum;
 	if (getline(topologyfile, line)) verticesNum = stoi(line);
 
 	for (int vertice = 0; vertice < verticesNum; ++vertice) {
