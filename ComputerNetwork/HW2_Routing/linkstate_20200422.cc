@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <limits>
 
 #define TRUE 1
 #define FALSE 0
@@ -65,7 +66,7 @@ public:
 
 		found[vertice] = TRUE;
 		dist[vertice] = 0;
-		for (int i = 0; i < verticesNum - 2; i++) {
+		for (int i = 0; i < verticesNum - 1; i++) {
 			int chosen = choose(verticesNum);
 			if (chosen == -1) break;
 			found[chosen] = TRUE;
@@ -80,11 +81,31 @@ public:
 		}
 	}
 
-	void printRoutes(ofstream &outfile) {
+	// void printRoutes(ofstream &outfile) {
+	// 	for (int v = 0; v < verticesNum; ++v) {
+	// 		for (int dest = 0; dest < verticesNum; ++dest)
+	// 			// if (dist[dest] != INF)
+	// 				outfile << dest << " " << dist[dest] << " " << dest << endl;
+	// 		outfile << endl;
+	// 	}
+	// }
+
+	void printRoutes(ofstream& outfile) {
 		for (int v = 0; v < verticesNum; ++v) {
-			for (int dest = 0; dest < verticesNum; ++dest)
-				// if (dist[dest] != INF)
-					outfile << dest << " " << dist[dest] << " " << dest << endl;
+			for (int dest = 0; dest < verticesNum; ++dest) {
+				if (v != dest) {
+					outfile << v << " " << dest << " " << dist[dest] << " " << v;
+					int pathCurr = dest;
+					int pathCount = 0;
+					while (parent[pathCurr] > -1) {
+						path[pathCount++] = pathCurr;
+						pathCurr = parent[pathCurr];
+					}
+					for (int j = pathCount - 1; j >= 0; j--)
+						outfile << " " << path[j];
+					outfile << endl;
+				}
+			}
 			outfile << endl;
 		}
 	}
@@ -122,8 +143,8 @@ public:
 			if (dist[i] == INF)
 				outfile << " cost infinite hops unreachable ";
 			else {
-				outfile << " cost " << i << " hops ";
-				pathCurr = i;
+				outfile << " cost " << dist[dest] << " hops ";
+				pathCurr = dest;
 				pathCount = 0;
 				while (parent[pathCurr] > -1) {
 					path[pathCount++] = pathCurr;
@@ -176,7 +197,11 @@ int main(int ac, char *av[]) {
 		router.printOutputs(messagesfile, outfile);
 	}
 
-	// Link state program successed
+	// The end
+	topologyfile.close();
+	messagesfile.close();
+	changesfile.close();
+	outfile.close();
 	cout << "Complete. Output file written to output_ls.txt." << endl;
 	return 0;
 }
