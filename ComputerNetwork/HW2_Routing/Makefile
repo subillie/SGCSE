@@ -3,14 +3,14 @@
 # 	g++ -o -Wall linkstate_20200422 linkstate_20200422.cc
 
 all:
-	g++ -Wall distvec_20200422.cc -o distvec_20200422
-	g++ -Wall linkstate_20200422.cc -o linkstate_20200422
+	g++ -Wall -o distvec_20200422 distvec_20200422.cc
+	g++ -Wall -o linkstate_20200422 linkstate_20200422.cc
 
 dv :
-	g++ -Wall distvec_20200422.cc -o distvec_20200422
+	g++ -Wall -o distvec_20200422 distvec_20200422.cc
 
 ls:
-	g++ -Wall linkstate_20200422.cc -o linkstate_20200422
+	g++ -Wall -o linkstate_20200422 linkstate_20200422.cc
 
 clean:
 	rm -f distvec_20200422 linkstate_20200422

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 #include <vector>
 #include <climits>
 #include <sstream>
@@ -85,7 +86,7 @@ private:
 	Graph graph;
 
 public:
-	LinkStateRouter(char* av[]) : graph(0) {
+	LinkStateRouter(char *av[]) : graph(0) {
 		topologyfile.open(av[1]);
 		messagesfile.open(av[2]);
 		changesfile.open(av[3]);
@@ -113,9 +114,8 @@ public:
 		while (getline(topologyfile, line)) {
 			stringstream ss(line);
 			int u, v, w;
-			if (ss >> u >> v >> w) {
+			if (ss >> u >> v >> w)
 				graph.addEdge(u, v, w);
-			}
 		}
 		topologyfile.close();
 		return graph;
@@ -222,9 +222,9 @@ public:
 	}
 };
 
-int main(int ac, char* av[]) {
+int main(int ac, char *av[]) {
 	// Initialize with the input arguments
-	if (ac < 4) {
+	if (ac != 4) {
 		cout << "Usage: ./linkstate_20200422 topology.txt messages.txt changes.txt" << endl;
 		return 1;
 	}
