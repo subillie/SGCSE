@@ -70,6 +70,7 @@ public:
 
 class LinkStateRouter {
 private:
+	int verticesNum;
 	ifstream topologyfile;
 	ifstream messagesfile;
 	ifstream changesfile;
@@ -77,10 +78,12 @@ private:
 	vector<string> msg;
 	vector<vector<int> > messages;
 	Graph graph;
-	int verticesNum;
 
 public:
-	LinkStateRouter(char* t, char* m, char* c) : topologyfile(t), messagesfile(m), changesfile(c), graph(0) {
+	LinkStateRouter(char* av[]) : graph(0) {
+		topologyfile.open(av[1]);
+		messagesfile.open(av[2]);
+		changesfile.open(av[3]);
 		if (!topologyfile.is_open() || !messagesfile.is_open() || !changesfile.is_open()) {
 			cout << "Error: open input file." << endl;
 			exit(1);
@@ -162,16 +165,16 @@ public:
 
 	void printRoutes() {
 		for (int i = 0; i < verticesNum; i++) {
-			outfile << "least cost path to node " << i << ": ";
-			vector<int> path = graph.dijkstra(0, i);
-			int cost = path.empty() ? INT_MAX : path.size() - 1;
-			if (cost == INT_MAX)
-				outfile << "infinite hops unreachable" << endl;
-			else {
-				outfile << cost << " hops ";
-				for (size_t k = 0; k < path.size(); ++k)
-					outfile << path[k] << " ";
-				outfile << endl;
+			for (int j = 0; j < verticesNum; j++) {
+				vector<int> path = graph.dijkstra(0, i);
+				int cost = path.empty() ? INT_MAX : path.size() - 1;
+				if (cost != INT_MAX) {
+					outfile << i << " " << j << " " << cost;
+					outfile << " (hops ";
+					for (size_t k = 0; k < path.size(); ++k)
+						outfile << path[k] << " ";
+					outfile << ")" << endl;
+				}
 			}
 		}
 		outfile << endl;
@@ -213,12 +216,13 @@ int main(int ac, char* av[]) {
 		cout << "Usage: ./linkstate_20200422 topology.txt messages.txt changes.txt" << endl;
 		return 1;
 	}
-	LinkStateRouter router(av[1], av[2], av[3]);
+	LinkStateRouter router(av);
 	vector<vector<int> > changes = router.readChangesFile();
 
 	// Run link state algorithm
 	for (size_t i = 0; i < changes.size(); i++) {
 		router.applyChanges(changes);
+		router.printRoutes();
 		router.printOutputs();
 	}
 	cout << "Complete. Output file written to output_ls.txt." << endl;
