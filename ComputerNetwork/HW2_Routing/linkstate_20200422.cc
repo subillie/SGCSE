@@ -8,6 +8,7 @@ using namespace std;
 
 class Graph {
 	int verticesNum;
+	vector<int> dist;
 	vector<vector<int> > graph;
 
 public:
@@ -21,7 +22,7 @@ public:
 		graph[v][u] = w;
 	}
 
-	int findMinDistance(vector<int>& dist, vector<bool>& visited) {
+	int findMinDistance(vector<int> &dist, vector<bool> &visited) {
 		int minDist = INT_MAX;
 		int minIndex = -1;
 
@@ -34,13 +35,17 @@ public:
 		return minIndex;
 	}
 
-	vector<int> getShortestPath(vector<int>& parent, int v) {
+	vector<int> getShortestPath(vector<int> &parent, int v) {
 		vector<int> path;
 		while (v != -1) {
 			path.insert(path.begin(), v);
 			v = parent[v];
 		}
 		return path;
+	}
+
+	int getWeight(int u, int v) {
+		return graph[u][v];
 	}
 
 	vector<int> dijkstra(int src, int dest) {
@@ -155,18 +160,25 @@ public:
 	}
 
 	void applyChanges(vector<int> &changes) {
-			int u = changes[0];
-			int v = changes[1];
-			int w = changes[2];
-			graph.addEdge(u, v, w);
+		int u = changes[0];
+		int v = changes[1];
+		int w = (changes[2] == -999) ? INT_MAX : changes[2];
+		graph.addEdge(u, v, w);
 	}
 
 
 	void printRoutes() {
 		for (int src = 0; src < verticesNum; src++) {
 			for (int dest = 0; dest < verticesNum; dest++) {
+				// Get the shortest path from src to dest
 				vector<int> path = graph.dijkstra(src, dest);
-				int cost = path.empty() ? INT_MAX : path.size() - 1;
+				// Calculate the cost of the path
+				int cost = 0;
+				if (path.empty()) cost = INT_MAX;
+				else
+					for (size_t j = 0; j < path.size() - 1; ++j)
+						cost += graph.getWeight(path[j], path[j + 1]);
+				// Print the path
 				if (cost < INT_MAX) {
 					if (src == dest)
 						outfile << src << " " << src << " " << 0 << endl;
@@ -183,22 +195,24 @@ public:
 			int src = messages[i][0];
 			int dest = messages[i][1];
 			vector<int> path = graph.dijkstra(src, dest);
-			int cost = path.empty() ? INT_MAX : path.size() - 1;
 
 			// Print the path
 			outfile << "from " << src << " to " << dest;
-			if (cost == INT_MAX)
+			if (path.empty())
 				outfile << " cost infinite hops unreachable" << endl;
 			else {
+				int cost = 0;
+				for (size_t j = 0; j < path.size() - 1; ++j)
+					cost += graph.getWeight(path[j], path[j + 1]);
 				outfile << " cost " << cost << " hops ";
-				for (size_t k = 0; k < path.size(); ++k)
+				for (size_t k = 0; k < path.size() - 1; ++k)
 					outfile << path[k] << " ";
 			}
 
 			// Print the message
 			size_t pos, curPos = 0;
 			string line = msg[i];
-			for (int j = 0; j < 2; j++) {
+			for (size_t j = 0; j < 2; j++) {
 				pos = line.find(" ", curPos);
 				curPos = pos + 1;
 			}
@@ -209,7 +223,7 @@ public:
 };
 
 int main(int ac, char* av[]) {
-	// Deal with the input arguments
+	// Initialize with the input arguments
 	if (ac < 4) {
 		cout << "Usage: ./linkstate_20200422 topology.txt messages.txt changes.txt" << endl;
 		return 1;
@@ -217,12 +231,17 @@ int main(int ac, char* av[]) {
 	LinkStateRouter router(av);
 	vector<vector<int> > changes = router.readChangesFile();
 
-	// Run link state algorithm
+	// Print the initial routing table
+	router.printRoutes();
+	router.printOutputs();
+
+	// Apply changes
 	for (size_t i = 0; i < changes.size(); i++) {
 		router.applyChanges(changes[i]);
 		router.printRoutes();
 		router.printOutputs();
 	}
+
 	cout << "Complete. Output file written to output_ls.txt." << endl;
 	return 0;
 }
