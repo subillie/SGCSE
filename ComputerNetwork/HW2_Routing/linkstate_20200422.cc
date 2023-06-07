@@ -59,10 +59,9 @@ public:
 			// Find the vertex with the minimum distance
 			int minDist = findMinDistance(dist, visited);
 			if (minDist >= 0) visited[minDist] = true;
-			else return vector<int>();
 			// Update the distance of the adjacent vertices of the picked vertex
 			for (int v = 0; v < verticesNum; v++) {
-				if (!visited[v] && graph[minDist][v] != INT_MAX && dist[minDist] + graph[minDist][v] < dist[v]) {
+				if (minDist >=0 && !visited[v] && graph[minDist][v] != INT_MAX && dist[minDist] + graph[minDist][v] < dist[v]) {
 					dist[v] = dist[minDist] + graph[minDist][v];
 					parent[v] = minDist;
 				}
@@ -174,17 +173,15 @@ public:
 				vector<int> path = graph.dijkstra(src, dest);
 				// Calculate the cost of the path
 				int cost = 0;
-				if (path.empty()) cost = INT_MAX;
+				if (path[1] < 0 || path[1] >= verticesNum) cost = INT_MAX;
 				else
 					for (size_t j = 0; j < path.size() - 1; ++j)
 						cost += graph.getWeight(path[j], path[j + 1]);
 				// Print the path
-				if (cost < INT_MAX) {
-					if (src == dest)
-						outfile << src << " " << src << " " << 0 << endl;
-					else
+				if (src == dest)
+					outfile << src << " " << src << " " << 0 << endl;
+				else if (cost < INT_MAX)
 						outfile << dest << " " << path[1] << " " << cost << endl;
-				}
 			}
 			outfile << endl;
 		}
@@ -198,8 +195,8 @@ public:
 
 			// Print the path
 			outfile << "from " << src << " to " << dest;
-			if (path.empty())
-				outfile << " cost infinite hops unreachable" << endl;
+			if (path[1] < 0 || path[1] >= verticesNum)
+				outfile << " cost infinite hops unreachable ";
 			else {
 				int cost = 0;
 				for (size_t j = 0; j < path.size() - 1; ++j)

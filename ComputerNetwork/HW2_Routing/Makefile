@@ -1,7 +1,3 @@
-# all:
-# 	g++ -o -Wall distvec_20200422 distvec_20200422.cc 
-# 	g++ -o -Wall linkstate_20200422 linkstate_20200422.cc
-
 all:
 	g++ -Wall -o distvec_20200422 distvec_20200422.cc
 	g++ -Wall -o linkstate_20200422 linkstate_20200422.cc
