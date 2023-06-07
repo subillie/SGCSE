@@ -1,160 +1,204 @@
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <vector>
-#include <limits>
-
-#define TRUE 1
-#define FALSE 0
+#include <climits>
+#include <sstream>
 
 using namespace std;
 
-const int INF = numeric_limits<int>::max();
-
-class LinkState {
-private:
+class Graph {
 	int verticesNum;
-	vector<int> found;
-	vector<int> dist;
-	vector<int> parent;
-	vector<int> path;
-	vector< vector<int> > cost;
-
-	int choose(int verticesNum) {
-		// find the smallest dist not yet checked
-		int minDist = INF, minPos = -1;
-		
-		for (int i = 0; i < verticesNum; i++) {
-			if (dist[i] < minDist && !found[i]) {
-				minDist = dist[i];
-				minPos = i;
-			}
-		}
-		return minPos;
-	}
+	vector<vector<int> > graph;
 
 public:
-	LinkState(int v) : verticesNum(v) {
-		cost.resize(v, vector<int>(v, INF));
-		found.resize(v);
-		dist.resize(v, INF);
-		parent.resize(v, -1);
-		path.resize(v);
+	Graph(int vertices) {
+		verticesNum = vertices;
+		graph.resize(verticesNum, vector<int>(verticesNum, INT_MAX));
 	}
 
-	void createGraph(ifstream &topologyfile) {
-		// Get each line from topologyfile
-		string line;
-		while (getline(topologyfile, line)) {
-			if (line.empty()) break;
-			// Parse the line in router table
-			int pos, curPos = 0, val[3];
-			for (int i = 0; (pos = line.find(" ", curPos)) != string::npos; i++) {
-				val[i] = stoi(line.substr(curPos, pos - curPos));
-				curPos = pos + 1;
+	void addEdge(int u, int v, int w) {
+		graph[u][v] = w;
+		graph[v][u] = w;
+	}
+
+	int findMinDistance(vector<int>& dist, vector<bool>& visited) {
+		int minDist = INT_MAX;
+		int minIndex = -1;
+
+		for (int v = 0; v < verticesNum; v++) {
+			if (dist[v] < minDist && !visited[v]) {
+				minDist = dist[v];
+				minIndex = v;
 			}
-			cost[val[0]][val[1]] = val[2];
 		}
+		return minIndex;
 	}
 
-	void shortestPath(int vertice) {
-		for (int i = 0; i < verticesNum; i++) {
-			found[i] = FALSE;
-			dist[i] = cost[vertice][i];
-			if (dist[i] < INF) parent[i] = vertice;
+	vector<int> getShortestPath(vector<int>& parent, int v) {
+		vector<int> path;
+		while (v != -1) {
+			path.insert(path.begin(), v);
+			v = parent[v];
 		}
+		return path;
+	}
 
-		found[vertice] = TRUE;
-		dist[vertice] = 0;
-		for (int i = 0; i < verticesNum - 1; i++) {
-			int chosen = choose(verticesNum);
-			if (chosen == -1) break;
-			found[chosen] = TRUE;
-			for (int j = 0; j < verticesNum; j++) {
-				if (!found[j] && (chosen != j)) {
-					if (dist[chosen] + cost[chosen][j] < dist[j]) {
-						dist[j] = dist[chosen] + cost[chosen][j];
-						parent[j] = chosen;
-					}
+	vector<int> dijkstra(int src, int dest) {
+		vector<int> dist(verticesNum, INT_MAX);
+		vector<bool> visited(verticesNum, false);
+		vector<int> parent(verticesNum, -1);
+
+		dist[src] = 0;
+		for (int i = 0; i < verticesNum; i++) {
+			// Find the vertex with the minimum distance
+			int minDist = findMinDistance(dist, visited);
+			visited[minDist] = true;
+
+			// Update the distance of the adjacent vertices of the picked vertex
+			for (int v = 0; v < verticesNum; v++) {
+				if (!visited[v] && graph[minDist][v] != INT_MAX && dist[minDist] + graph[minDist][v] < dist[v]) {
+					dist[v] = dist[minDist] + graph[minDist][v];
+					parent[v] = minDist;
 				}
 			}
 		}
+		// Get the shortest path from src to dest
+		vector<int> path = getShortestPath(parent, dest);
+		return path;
+	}
+};
+
+class LinkStateRouter {
+private:
+	int verticesNum;
+	ifstream topologyfile;
+	ifstream messagesfile;
+	ifstream changesfile;
+	ofstream outfile;
+	vector<string> msg;
+	vector<vector<int> > messages;
+	Graph graph;
+
+public:
+	LinkStateRouter(char* av[]) : graph(0) {
+		topologyfile.open(av[1]);
+		messagesfile.open(av[2]);
+		changesfile.open(av[3]);
+		if (!topologyfile.is_open() || !messagesfile.is_open() || !changesfile.is_open()) {
+			cout << "Error: open input file." << endl;
+			exit(1);
+		}
+		outfile.open("output_ls.txt");
+		if (!outfile.is_open()) {
+			cout << "Error: open output file." << endl;
+			exit(1);
+		}
+
+		verticesNum = 0;
+		graph = readTopologyFile();
+		messages = readMessagesFile();
 	}
 
-	// void printRoutes(ofstream &outfile) {
-	// 	for (int v = 0; v < verticesNum; ++v) {
-	// 		for (int dest = 0; dest < verticesNum; ++dest)
-	// 			// if (dist[dest] != INF)
-	// 				outfile << dest << " " << dist[dest] << " " << dest << endl;
-	// 		outfile << endl;
-	// 	}
-	// }
+	Graph readTopologyFile() {
+		string line;
+		getline(topologyfile, line);
+		stringstream(line) >> verticesNum;
+		Graph graph(verticesNum);
 
-	void printRoutes(ofstream& outfile) {
-		for (int v = 0; v < verticesNum; ++v) {
-			for (int dest = 0; dest < verticesNum; ++dest) {
-				if (v != dest) {
-					outfile << v << " " << dest << " " << dist[dest];
-					int pathCurr = dest;
-					int pathCount = 0;
-					while (parent[pathCurr] > -1) {
-						path[pathCount++] = pathCurr;
-						pathCurr = parent[pathCurr];
-					}
-					outfile << endl;
+		while (getline(topologyfile, line)) {
+			stringstream ss(line);
+			int u, v, w;
+			if (ss >> u >> v >> w) {
+				graph.addEdge(u, v, w);
+			}
+		}
+		topologyfile.close();
+		return graph;
+	}
+
+	vector<vector<int> > readMessagesFile() {
+		vector<vector<int> > messages;
+		string line;
+
+		while (getline(messagesfile, line)) {
+			stringstream ss(line);
+			int src, dest;
+			if (ss >> src >> dest) {
+				vector<int> message;
+				message.push_back(src);
+				message.push_back(dest);
+				msg.push_back(line);
+				messages.push_back(message);
+			}
+		}
+		messagesfile.close();
+		return messages;
+	}
+
+	vector<vector<int> > readChangesFile() {
+		vector<vector<int> > changes;
+		string line;
+
+		while (getline(changesfile, line)) {
+			stringstream ss(line);
+			int u, v, w;
+			if (ss >> u >> v >> w) {
+				vector<int> change;
+				change.push_back(u);
+				change.push_back(v);
+				change.push_back(w);
+				changes.push_back(change);
+			}
+		}
+		changesfile.close();
+		return changes;
+	}
+
+	void applyChanges(vector<int> &changes) {
+			int u = changes[0];
+			int v = changes[1];
+			int w = changes[2];
+			graph.addEdge(u, v, w);
+	}
+
+
+	void printRoutes() {
+		for (int src = 0; src < verticesNum; src++) {
+			for (int dest = 0; dest < verticesNum; dest++) {
+				vector<int> path = graph.dijkstra(src, dest);
+				int cost = path.empty() ? INT_MAX : path.size() - 1;
+				if (cost < INT_MAX) {
+					if (src == dest)
+						outfile << src << " " << src << " " << 0 << endl;
+					else
+						outfile << dest << " " << path[1] << " " << cost << endl;
 				}
 			}
 			outfile << endl;
 		}
 	}
 
-	void printOutputs(ifstream &messagesfile, ofstream &outfile) {
-		// int i, j, pathCurr, pathCount;
-		// for (i = 0; i < verticesNum; i++) {
-		// 	if (dist[i] != INF) {
-		// 		cout << "SRC: " << vertice << ", DST: " << i << ", LENGTH: " << dist[i] << ", PATH: " << vertice;
-				
-		// 		// Print path
-		// 		pathCurr = i;
-		// 		pathCount = 0;
-		// 		while (parent[pathCurr] > -1) {
-		// 			path[pathCount++] = pathCurr;
-		// 			pathCurr = parent[pathCurr];
-		// 		}
-		// 		for (j = pathCount - 1; j >= 0; j--)
-		// 			cout << " " << path[j];
-		// 		cout << endl;
-		// 	}
-		// 	else
-		// 		cout << "SRC: " << vertice << ", DST: " << i << ", LENGTH: ---, PATH: -" << endl;
-		// }
+	void printOutputs() {
+		for (size_t i = 0; i < messages.size(); i++) {
+			int src = messages[i][0];
+			int dest = messages[i][1];
+			vector<int> path = graph.dijkstra(src, dest);
+			int cost = path.empty() ? INT_MAX : path.size() - 1;
 
-		int i = 0, j, pathCurr, pathCount;
-		string line;
-		while (getline(messagesfile, line)) {
-			// Write src and dest on outfile
-			int src = stoi(line.substr(0, line.find(" ")));
-			int dest = stoi(line.substr(line.find(" ") + 1));
+			// Print the path
 			outfile << "from " << src << " to " << dest;
-			
-			// Write cost and hops on outfile
-			if (dist[i] == INF)
-				outfile << " cost infinite hops unreachable ";
+			if (cost == INT_MAX)
+				outfile << " cost infinite hops unreachable" << endl;
 			else {
-				outfile << " cost " << dist[dest] << " hops ";
-				pathCurr = dest;
-				pathCount = 0;
-				while (parent[pathCurr] > -1) {
-					path[pathCount++] = pathCurr;
-					pathCurr = parent[pathCurr];
-				}
-				for (j = pathCount - 1; j >= 0; j--)
-					outfile << " " << path[j];
+				outfile << " cost " << cost << " hops ";
+				for (size_t k = 0; k < path.size(); ++k)
+					outfile << path[k] << " ";
 			}
 
-			// Write message on outfile
-			int pos, curPos = 0;
-			for (int i = 0; i < 2; i++) {
+			// Print the message
+			size_t pos, curPos = 0;
+			string line = msg[i];
+			for (int j = 0; j < 2; j++) {
 				pos = line.find(" ", curPos);
 				curPos = pos + 1;
 			}
@@ -164,43 +208,21 @@ public:
 	}
 };
 
-int main(int ac, char *av[]) {
+int main(int ac, char* av[]) {
 	// Deal with the input arguments
-	if (ac != 4) {
-		cout << "usage: linkstate topologyfile messagesfile changesfile" << endl;
+	if (ac < 4) {
+		cout << "Usage: ./linkstate_20200422 topology.txt messages.txt changes.txt" << endl;
 		return 1;
 	}
-	ifstream topologyfile(av[1]);
-	ifstream messagesfile(av[2]);
-	ifstream changesfile(av[3]);
-	if (!topologyfile.is_open() || !messagesfile.is_open() || !changesfile.is_open()) {
-		cout << "Error: open input file." << endl;
-		return 1;
-	}
-	ofstream outfile("output_ls.txt");
-	if (!outfile.is_open()) {
-		cout << "Error: open output file." << endl;
-		return 1;
-	}
+	LinkStateRouter router(av);
+	vector<vector<int> > changes = router.readChangesFile();
 
-	// Initialize variables
-	string line;
-	int verticesNum = 0;
-	if (getline(topologyfile, line)) verticesNum = stoi(line);
-
-	for (int vertice = 0; vertice < verticesNum; ++vertice) {
-		LinkState router(verticesNum);
-		router.createGraph(topologyfile);
-		router.shortestPath(vertice);
-		router.printRoutes(outfile);
-		router.printOutputs(messagesfile, outfile);
+	// Run link state algorithm
+	for (size_t i = 0; i < changes.size(); i++) {
+		router.applyChanges(changes[i]);
+		router.printRoutes();
+		router.printOutputs();
 	}
-
-	// The end
-	topologyfile.close();
-	messagesfile.close();
-	changesfile.close();
-	outfile.close();
 	cout << "Complete. Output file written to output_ls.txt." << endl;
 	return 0;
 }
