@@ -77,6 +77,7 @@ private:
 	vector<string> msg;
 	vector<vector<int> > messages;
 	Graph graph;
+	int verticesNum;
 
 public:
 	LinkStateRouter(char* t, char* m, char* c) : topologyfile(t), messagesfile(m), changesfile(c), graph(0) {
@@ -90,6 +91,7 @@ public:
 			exit(1);
 		}
 
+		verticesNum = 0;
 		graph = readTopologyFile();
 		messages = readMessagesFile();
 	}
@@ -97,9 +99,8 @@ public:
 	Graph readTopologyFile() {
 		string line;
 		getline(topologyfile, line);
-		int numNodes = 0;
-		stringstream(line) >> numNodes;
-		Graph graph(numNodes);
+		stringstream(line) >> verticesNum;
+		Graph graph(verticesNum);
 
 		while (getline(topologyfile, line)) {
 			stringstream ss(line);
@@ -157,6 +158,23 @@ public:
 			int w = changes[i][2];
 			graph.addEdge(u, v, w);
 		}
+	}
+
+	void printRoutes() {
+		for (int i = 0; i < verticesNum; i++) {
+			outfile << "least cost path to node " << i << ": ";
+			vector<int> path = graph.dijkstra(0, i);
+			int cost = path.empty() ? INT_MAX : path.size() - 1;
+			if (cost == INT_MAX)
+				outfile << "infinite hops unreachable" << endl;
+			else {
+				outfile << cost << " hops ";
+				for (size_t k = 0; k < path.size(); ++k)
+					outfile << path[k] << " ";
+				outfile << endl;
+			}
+		}
+		outfile << endl;
 	}
 
 	void printOutputs() {

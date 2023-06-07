@@ -94,15 +94,13 @@ public:
 		for (int v = 0; v < verticesNum; ++v) {
 			for (int dest = 0; dest < verticesNum; ++dest) {
 				if (v != dest) {
-					outfile << v << " " << dest << " " << dist[dest] << " " << v;
+					outfile << v << " " << dest << " " << dist[dest];
 					int pathCurr = dest;
 					int pathCount = 0;
 					while (parent[pathCurr] > -1) {
 						path[pathCount++] = pathCurr;
 						pathCurr = parent[pathCurr];
 					}
-					for (int j = pathCount - 1; j >= 0; j--)
-						outfile << " " << path[j];
 					outfile << endl;
 				}
 			}
@@ -160,8 +158,9 @@ public:
 				pos = line.find(" ", curPos);
 				curPos = pos + 1;
 			}
-			outfile << "message " << line.substr(curPos) << "\n" << endl;
+			outfile << "message " << line.substr(curPos) << endl;
 		}
+		outfile << endl;
 	}
 };
 
