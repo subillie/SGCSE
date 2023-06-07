@@ -58,8 +58,8 @@ public:
 		for (int i = 0; i < verticesNum; i++) {
 			// Find the vertex with the minimum distance
 			int minDist = findMinDistance(dist, visited);
-			visited[minDist] = true;
-
+			if (minDist >= 0) visited[minDist] = true;
+			else return vector<int>();
 			// Update the distance of the adjacent vertices of the picked vertex
 			for (int v = 0; v < verticesNum; v++) {
 				if (!visited[v] && graph[minDist][v] != INT_MAX && dist[minDist] + graph[minDist][v] < dist[v]) {
@@ -223,11 +223,11 @@ public:
 };
 
 int main(int ac, char *av[]) {
-	// Initialize with the input arguments
 	if (ac != 4) {
 		cout << "Usage: ./linkstate_20200422 topology.txt messages.txt changes.txt" << endl;
 		return 1;
 	}
+	// Initialize with the input arguments
 	LinkStateRouter router(av);
 	vector<vector<int> > changes = router.readChangesFile();
 
