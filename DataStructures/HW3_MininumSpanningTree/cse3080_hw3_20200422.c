@@ -14,6 +14,7 @@ int main(int ac, char *av[]) {
 	clock_t start = clock();
 	// TODO: implement code
 	clock_t end = clock();
+	
 	printf("running time: %.6lf\n", ((double)(end - start)) / CLOCKS_PER_SEC);
 
 	fclose(infile);
