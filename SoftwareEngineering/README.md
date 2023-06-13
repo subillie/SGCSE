@@ -9,10 +9,14 @@
 - `Spiral` : risk management and verification
 - `USDP` : complex, object-oriented
 - `XP` : light-weight, small, quick
-### 03 [UMLoverview](./03_UML_Overview.md)
-### 04 [OOSLC](./04_OOSLC.md)
-### 04 [UCM](./04_UCM.md)
-### 05 [SM](./05_SM.md)
-### TA [Blockchain](./TA_Blockchain.md)  
+### 03-05 [Midterm](Midterm.md)
+- 03 UML overview
+- 04.1 OOSLC
+- 04.2 UCM
+- 05 SM
 
 ## FINAL
+### 07 [Object Structuring](./07_ObjectStructuring.md)
+### 08 [Dynamic Modeling](./08_DynamicModeling.md)
+### 09 [Software architecture](./09_SoftwareArchitecture.md)
+### CSW6-7 [Software Testing](./10_SoftwareTesting.md)
