@@ -1,6 +1,6 @@
 # Object Structuring Class Diagram
 
-- 시스템 속의 Object들을 정의  
+시스템 내의 Object들을 정의  
 
 <img width="400" src="./img/06_1.png">  
 

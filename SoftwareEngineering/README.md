@@ -17,6 +17,18 @@
 
 ## FINAL
 ### 07 [Object Structuring](./07_ObjectStructuring.md)
+- Interface Objects
+- Entity Objects
+- Control Objects
+- Timer Objects
+- Application Logic Objects
 ### 08 [Dynamic Modeling](./08_DynamicModeling.md)
+- Collaboration Diagram
+- Sequence Diagram
+	- Dewey Classification System
+	- Interactive System
+- Dynamic Analysis
+	- Non-state dependent dynamic analysis
+	- State dependent dynamic analysis
 ### 09 [Software architecture](./09_SoftwareArchitecture.md)
-### CSW6-7 [Software Testing](./10_SoftwareTesting.md)
+### 10 [Software Testing](./10_SoftwareTesting.md)
