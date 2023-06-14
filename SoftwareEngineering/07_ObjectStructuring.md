@@ -2,7 +2,7 @@
 
 시스템 내의 Object들을 정의  
 
-<img width="400" src="./img/06_1.png">  
+<img width="400" src="./img/07_1.png">  
 
 ## Object Structuring Criteria
 ### Interface Objects  
@@ -40,3 +40,26 @@ activated periodically
 		- encapsulte = 캡슐화 (객체의 속성과 행위를 하나로 묶고, 실제 구현 내용 일부를 내부에 감추어 은닉함)
 - `Service object`
 	- 다른 objects들의 서비스를 제공하는 object  
+
+# Static Modeling
+
+<img width="350" src="./img/07_2.png">  
+
+- class 간 구조적 관계를 정의
+- class diagram으로 class와 그 관계를 묘사
+
+## System context class diagram
+
+- 시스템과 외부 환경 간의 경계를 정의
+- `System`
+	- 하나의 aggregate << system >> class
+- `External environment`
+	- external classes that system interfaces to
+- `Categories of external classes`
+	- external I/O device
+	- external user
+	- external system
+	- external timer
+- 관계 type : 일대일, 일대다, 다대다
+
+<img width="350" src="./img/07_3.png">  

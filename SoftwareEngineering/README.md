@@ -22,6 +22,7 @@
 - Control Objects
 - Timer Objects
 - Application Logic Objects
+- (+) `Static Modeling`
 ### 08 [Dynamic Modeling](./08_DynamicModeling.md)
 - Collaboration Diagram
 - Sequence Diagram

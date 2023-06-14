@@ -3,7 +3,7 @@ Use cases refined in Dynamic Model
 - show objects participating in each use case
 - use `object structuring criteria` to determine objects
 
-<img width="400" src="./img/07_1.png">  
+<img width="400" src="./img/08_1.png">  
 
 ## Collaboraion Diagram  
 
