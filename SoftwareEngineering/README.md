@@ -31,8 +31,9 @@
 - Dynamic Analysis
 	- Non-state dependent dynamic analysis
 	- State dependent dynamic analysis
+### 08.5 Task Structuring
 ### 09 [Software architecture](./09_SoftwareArchitecture.md)
 - Architecture란?
 - Architectural Styles
 - Benefits
-### 10 [Software Testing](./10_SoftwareTesting.md)
+### 09.5 Software Testing
