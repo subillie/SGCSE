@@ -118,7 +118,7 @@ dimensions of complexity
 ### Compiler Construction  
 <img width="300" src="./img/09_6.png">  
 
-## Benefit
+## Benefits
 ### System Integrity
 - 변화를 수용하는 동안 conceptual integrity 보장
     - new requirements

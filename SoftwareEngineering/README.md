@@ -32,4 +32,7 @@
 	- Non-state dependent dynamic analysis
 	- State dependent dynamic analysis
 ### 09 [Software architecture](./09_SoftwareArchitecture.md)
+- Architecture란?
+- Architectural Styles
+- Benefits
 ### 10 [Software Testing](./10_SoftwareTesting.md)
