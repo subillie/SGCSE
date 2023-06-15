@@ -21,8 +21,8 @@
 - Entity Objects
 - Control Objects
 - Timer Objects
-- Application Logic Objects
-- (+) `Static Modeling`
+- Application Logic Objects  
+(+) `Static Modeling`  
 ### 08 [Dynamic Modeling](./08_DM.md)
 - Collaboration Diagram
 - Sequence Diagram
