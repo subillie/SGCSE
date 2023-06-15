@@ -124,11 +124,13 @@ Top-down과 Bottom-up의 조합
 - checklist-based testing: checklist를 만들어 test
 - defect-based test Technique : 시장에서 이미 알려진 결함에 대한 test
 
-`Script Testing` – 사전에 설계, 문서화된 테스트 수행  
+4. `Script Testing`
+– 사전에 설계, 문서화된 테스트 수행  
 
-`Exploratory Testing` – 정의된 테스트 목적에 대해, 시스템에 대한 학습, 테스트 설계, 테스트 수행이 동시에 이루어짐  
+5. `Exploratory Testing`
+– 정의된 테스트 목적에 대해, 시스템에 대한 학습, 테스트 설계, 테스트 수행이 동시에 이루어짐  
 
-`Risk-Based Testing`
+6. `Risk-Based Testing`
 - risk가 큰 것에 대해 빨리 testing 진행
 - risk exposure = Technical risk * Business risk 
     - Technical risk : 발생 가능성 (likelihood) 
