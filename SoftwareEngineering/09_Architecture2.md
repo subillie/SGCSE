@@ -4,12 +4,11 @@
 Architecture 설계 : Overall 설계, 큰 틀에서의 설계  
 COMET method 설계 : Detail한 부분을 설계
 
-큰 틀의 생각없이 설계 -> 피사의 사탑
+- 큰 틀의 생각없이 설계 -> 피사의 사탑
 - 전체 구조의 틀을 잡는 작업 필요  
 e.g. 개집, 집, 빌딩을 설계하는 것은 차원이 다른 이슈, 기술, 경험 필요  
-
-해당 설계에 맞는 skill, 공부 필요  
-복잡하고 대형 소프트웨어일수록 전체 architecture, 구조를 잡는 기술이 가장 중요  
+- 해당 설계에 맞는 skill, 공부 필요  
+- 복잡하고 대형 소프트웨어일수록 전체 architecture, 구조를 잡는 기술이 가장 중요  
 
 ## Architecture란?
 - 아키텍처는 정책이다 (high level에서의 decision이 들어가 있기 때문)
@@ -80,7 +79,7 @@ Software에서 예상되는 문제를 architecture 단에서 미리 예측할 �
 4. Testability  
 System의 어느 부분을 testing 해야 하는지
 5. Reuse  
-module등의 재사용성
+module 등의 재사용성
 6. Communication  
 개발자와 고객 간의 communication을 용이하게 함
 7. Organization and project management  
