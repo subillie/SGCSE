@@ -70,17 +70,18 @@ Component, Connectors, Constraint로 구성됨
 - 같은 기능을 하는 software를 다른 architecture로 구현이 가능
 
 ## Software Architecture의 이점
-1. System integrity
-- 전체 틀을 잡으면 software의 원 모습을 유지할 수 있음 (순수성)
-2. Control of complexity
-- System을 module단위로 분할
-3. Predictability
+
+1. System integrity  
+전체 틀을 잡으면 software의 원 모습을 유지할 수 있음 (순수성)
+2. Control of complexity  
+System을 module단위로 분할
+3. Predictability  
 Software에서 예상되는 문제를 architecture 단에서 미리 예측할 수 있음
-4. Testability
-- System의 어느 부분을 testing 해야 하는지
-5. Reuse
-- module등의 재사용성
-6. Communication
-- 개발자와 고객 간의 communication을 용이하게 함
-7. Organization and project management
-- 관리를 용이하게 함
+4. Testability  
+System의 어느 부분을 testing 해야 하는지
+5. Reuse  
+module등의 재사용성
+6. Communication  
+개발자와 고객 간의 communication을 용이하게 함
+7. Organization and project management  
+관리를 용이하게 함
