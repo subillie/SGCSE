@@ -125,10 +125,10 @@ Top-down과 Bottom-up의 조합
 - defect-based test Technique : 시장에서 이미 알려진 결함에 대한 test
 
 4. `Script Testing`
-– 사전에 설계, 문서화된 테스트 수행  
+- 사전에 설계, 문서화된 테스트 수행  
 
 5. `Exploratory Testing`
-– 정의된 테스트 목적에 대해, 시스템에 대한 학습, 테스트 설계, 테스트 수행이 동시에 이루어짐  
+- 정의된 테스트 목적에 대해, 시스템에 대한 학습, 테스트 설계, 테스트 수행이 동시에 이루어짐  
 
 6. `Risk-Based Testing`
 - risk가 큰 것에 대해 빨리 testing 진행
@@ -137,13 +137,13 @@ Top-down과 Bottom-up의 조합
     - Business risk : 영향 (impact)
 
 ### Software Testing Process 
-• Test planning 
-• Test monitoring and control 
-• Test analysis 
-• Test design 
-• Test implementation 
-• Test execution 
-• Test completion
+- Test planning 
+- Test monitoring and control 
+- Test analysis 
+- Test design 
+- Test implementation 
+- Test execution 
+- Test completion  
 
-### Test Design
+*Test Design  
 개발자에게 test를 맡기는 것을 지양 -> test 팀을 따로 운영
