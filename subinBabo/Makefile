@@ -10,7 +10,7 @@ all: $(HIS_NAME)
 
 $(HIS_NAME): $(JUN_OBJ)
 	@$(JUN) $(JUN_OBJ) $(JUNFLAG) $(JUN_STD_FLAG) -o $(HIS_NAME)
-	@printf "주...ㄱ...\n"
+	@printf "주...ㄴ...\n"
 
 clean:
 	@echo "지우고 싶지만 지울 수가 없어...\n그래도 지워볼게..."
