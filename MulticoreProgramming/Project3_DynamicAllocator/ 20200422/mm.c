@@ -24,11 +24,11 @@
  ********************************************************/
 team_t team = {
     /* Your student ID */
-    "20XXXXXX",
+    "20200422",
     /* Your full name*/
-    "Gildong Hong",
+    "Subin Lee",
     /* Your email address */
-    "example@sogang.ac.kr",
+    "leechlo71@sogang.ac.kr",
 };
 
 /* single word (4) or double word (8) alignment */
