@@ -34,7 +34,6 @@ team_t team = {
 /* Basic constants and macros: */
 #define WSIZE 4           /* Word and header/footer size (bytes) */
 #define DSIZE 8           /* Double word size (bytes) */
-#define BLKSIZE 16        /* Minimum block size (bytes) */
 #define CHUNKSIZE (1<<12) /* Extend heap by this amount (bytes) */
 
 #define MAX(x, y) ((x) > (y) ? (x) : (y))
@@ -109,7 +108,7 @@ void *mm_malloc(size_t size) {
 
 	// Adjust block size to include overhead and alignment reqs
 	if (size <= DSIZE)
-		adj_size = BLKSIZE;
+		adj_size = 2 * DSIZE;
 	else
 		adj_size = DSIZE * ((size + DSIZE + (DSIZE - 1)) / DSIZE);
 
@@ -125,7 +124,7 @@ void *mm_malloc(size_t size) {
 }
 
 /*
- * mm_free - Freeing a block does nothing.
+ * mm_free - Freeing a block
  */
 void mm_free(void *bp) {
 	if (bp == NULL)
@@ -139,7 +138,7 @@ void mm_free(void *bp) {
 }
 
 /*
- * mm_realloc - Implemented simply in terms of mm_malloc and mm_free
+ * mm_realloc - Reallocate a block
  */
 void *mm_realloc(void *ptr, size_t size) {
     void *newptr, *oldptr = ptr;
@@ -160,30 +159,10 @@ void *mm_realloc(void *ptr, size_t size) {
  * first_fit - Find a fit for a block with adj_size bytes
  */
 static void *first_fit(size_t adj_size) {
-	void *bp;
-	static int prev_size = 0, cnt = 0;
-
-    // If previous block size is same as current block size, extend heap
-	if (prev_size == (int)adj_size) {
-		if (cnt > 42) {
-			int ext_size = MAX(adj_size, BLKSIZE);
-			bp = extend_heap(ext_size / 4);
+	for (void *bp = free_listp; GET_ALLOC(HDRP(bp)) == 0; bp = GET_NEXT_PTR(bp))
+		if (adj_size <= (size_t)GET_SIZE(HDRP(bp)))
 			return bp;
-		} else
-			cnt++;
-	} else
-		cnt = 0;
-
-	// First-fit search
-	for (bp = free_listp; GET_ALLOC(HDRP(bp)) == 0; bp = GET_NEXT_PTR(bp)) {
-		if (adj_size <= (size_t)GET_SIZE(HDRP(bp))) {
-			prev_size = adj_size;
-			return bp;
-		}
-	}
-
-    // No fit
-	return NULL;
+	return NULL; // No fit
 }
 
 /* 
@@ -194,8 +173,8 @@ static void *extend_heap(size_t words) {
 	size_t size = (words % 2) ? (words + 1) * WSIZE : words * WSIZE;
 
 	// Allocate an even number of words to maintain alignment
-	if (size < BLKSIZE)
-		size = BLKSIZE;
+	if (size < 2 * DSIZE)
+		size = 2 * DSIZE;
 
 	// Call for more memory space
 	if ((long)(bp = mem_sbrk(size)) == -1)
@@ -255,7 +234,7 @@ static void allocate(void *bp, size_t adj_size) {
 	size_t cur_size = GET_SIZE(HDRP(bp)); // Size of free block
 
     // If the remainder is at least the minimum block size
-	if ((cur_size - adj_size) >= BLKSIZE) {
+	if ((cur_size - adj_size) >= 2 * DSIZE) {
 		PUT(HDRP(bp), PACK(adj_size, 1));
 		PUT(FTRP(bp), PACK(adj_size, 1));
 		delete(bp);        // Delete free block from free list
