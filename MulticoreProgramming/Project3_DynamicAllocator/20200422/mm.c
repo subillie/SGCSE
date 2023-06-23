@@ -1,14 +1,14 @@
 /*
- * mm-naive.c - The fastest, least memory-efficient malloc package.
- * 
- * In this naive approach, a block is allocated by simply incrementing
- * the brk pointer.  A block is pure payload. There are no headers or
- * footers.  Blocks are never coalesced or reused. Realloc is
- * implemented directly using mm_malloc and mm_free.
- *
- * NOTE TO STUDENTS: Reallocate this header comment with your own header
- * comment that gives a high level description of your solution.
- */
+* mm-naive.c - The fastest, least memory-efficient malloc package.
+* 
+* In this naive approach, a block is allocated by simply incrementing
+* the brk pointer.  A block is pure payload. There are no headers or
+* footers.  Blocks are never coalesced or reused. Realloc is
+* implemented directly using mm_malloc and mm_free.
+*
+* NOTE TO STUDENTS: Reallocate this header comment with your own header
+* comment that gives a high level description of your solution.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -23,17 +23,18 @@
  * provide your information in the following struct.
  ********************************************************/
 team_t team = {
-    /* Your student ID */
-    "20200422",
-    /* Your full name*/
-    "Subin Lee",
-    /* Your email address */
-    "leechlo71@sogang.ac.kr",
+	/* Your student ID */
+	"20200422",
+	/* Your full name*/
+	"Subin Lee",
+	/* Your email address */
+	"leechlo71@sogang.ac.kr",
 };
 
 /* Basic constants and macros: */
 #define WSIZE 4           /* Word and header/footer size (bytes) */
 #define DSIZE 8           /* Double word size (bytes) */
+#define BLKSIZE 16        /* Minimum block size (bytes) */
 #define CHUNKSIZE (1<<12) /* Extend heap by this amount (bytes) */
 
 #define MAX(x, y) ((x) > (y) ? (x) : (y))
@@ -42,7 +43,7 @@ team_t team = {
 #define PACK(size, alloc) ((size) | (alloc))
 
 /* Read and write a word at address p. */
-#define GET(p) (*(unsigned int *)(p))
+#define GET(p)      (*(unsigned int *)(p))
 #define PUT(p, val) (*(unsigned int *)(p) = (val))
 
 /* Read the size and allocated fields from address p */
@@ -74,14 +75,14 @@ static void insert(void *bp);
 static void delete(void *bp);
 
 /* 
- * mm_init - initialize the malloc package.
- */
+* mm_init - initialize the malloc package.
+*/
 int mm_init(void) {
 	// Create the initial empty heap.
 	if ((heap_listp = mem_sbrk(8 * WSIZE)) == (void *)-1)
 		return -1;
 
-	PUT(heap_listp, 0);							   // Alignment padding
+	PUT(heap_listp, 0);                            // Alignment padding
 	PUT(heap_listp + (1 * WSIZE), PACK(DSIZE, 1)); // Prologue header
 	PUT(heap_listp + (2 * WSIZE), PACK(DSIZE, 1)); // Prologue footer
 	PUT(heap_listp + (3 * WSIZE), PACK(0, 1));	   // Epilogue header
@@ -94,38 +95,38 @@ int mm_init(void) {
 }
 
 /* 
- * mm_malloc - Allocate a block by incrementing the brk pointer.
- *     Always allocate a block whose size is a multiple of the alignment.
- */
+* mm_malloc - Allocate a block by incrementing the brk pointer.
+*     Always allocate a block whose size is a multiple of the alignment.
+*/
 void *mm_malloc(size_t size) {
 	size_t adj_size; // Adjusted block size
 	size_t ext_size; // Amount to extend heap if no fit
 	void *bp;
 
-    // Ignore spurious requests
+	// Ignore spurious requests
 	if (size == 0)
 		return (NULL);
 
 	// Adjust block size to include overhead and alignment reqs
 	if (size <= DSIZE)
-		adj_size = 2 * DSIZE;
+		adj_size = BLKSIZE;
 	else
 		adj_size = DSIZE * ((size + DSIZE + (DSIZE - 1)) / DSIZE);
 
 	// Search the free list for a fit
-    if ((bp = first_fit(adj_size)) == NULL) {
-	    // If no fit found, get more memory and allocate the block
-        ext_size = MAX(adj_size, CHUNKSIZE);
-        if ((bp = extend_heap(ext_size / WSIZE)) == NULL)
-            return (NULL);
-    }
-    allocate(bp, adj_size);
+	if ((bp = first_fit(adj_size)) == NULL) {
+		// If no fit found, get more memory and allocate the block
+		ext_size = MAX(adj_size, CHUNKSIZE);
+		if ((bp = extend_heap(ext_size / WSIZE)) == NULL)
+			return (NULL);
+	}
+	allocate(bp, adj_size);
 	return (bp);
 }
 
 /*
- * mm_free - Freeing a block
- */
+* mm_free - Freeing a block
+*/
 void mm_free(void *bp) {
 	if (bp == NULL)
 		return;
@@ -138,26 +139,24 @@ void mm_free(void *bp) {
 }
 
 /*
- * mm_realloc - Reallocate a block
- */
+* mm_realloc - Reallocate a block
+*/
 void *mm_realloc(void *ptr, size_t size) {
-    void *newptr, *oldptr = ptr;
-    size_t copy_size;
-    
-    newptr = mm_malloc(size);
-    if (newptr == NULL)
-      return NULL;
-    copy_size = GET_SIZE(HDRP(oldptr));
-    if (size < copy_size)
-      copy_size = size;
-    memcpy(newptr, oldptr, copy_size);
-    mm_free(oldptr);
-    return newptr;
+	void *newptr, *oldptr = ptr;
+	
+	if ((newptr = mm_malloc(size)) == NULL)
+		return NULL;
+	size_t re_size = GET_SIZE(HDRP(oldptr));
+	if (size < re_size)
+		re_size = size;
+	memcpy(newptr, oldptr, re_size);
+	mm_free(oldptr);
+	return newptr;
 }
 
 /* 
- * first_fit - Find a fit for a block with adj_size bytes
- */
+* first_fit - Find a fit for a block with adj_size bytes
+*/
 static void *first_fit(size_t adj_size) {
 	for (void *bp = free_listp; GET_ALLOC(HDRP(bp)) == 0; bp = GET_NEXT_PTR(bp))
 		if (adj_size <= (size_t)GET_SIZE(HDRP(bp)))
@@ -166,15 +165,15 @@ static void *first_fit(size_t adj_size) {
 }
 
 /* 
- * extend_heap - Extend heap with free block and return its block pointer
- */
+* extend_heap - Extend heap with free block and return its block pointer
+*/
 static void *extend_heap(size_t words) {
 	char *bp;
 	size_t size = (words % 2) ? (words + 1) * WSIZE : words * WSIZE;
 
 	// Allocate an even number of words to maintain alignment
-	if (size < 2 * DSIZE)
-		size = 2 * DSIZE;
+	if (size < BLKSIZE)
+		size = BLKSIZE;
 
 	// Call for more memory space
 	if ((long)(bp = mem_sbrk(size)) == -1)
@@ -190,8 +189,8 @@ static void *extend_heap(size_t words) {
 }
 
 /* 
- * coalesce - Boundary tag coalescing. Return block pointer to coalesced block
- */
+* coalesce - Boundary tag coalescing. Return block pointer to coalesced block
+*/
 static void *coalesce(void *bp)  {
 	size_t NEXT_ALLOC = GET_ALLOC(HDRP(NEXT_BLK(bp))); // Previous block's header
 	size_t PREV_ALLOC = GET_ALLOC(FTRP(PREV_BLK(bp))) || PREV_BLK(bp) == bp; // Next block's footer
@@ -227,14 +226,14 @@ static void *coalesce(void *bp)  {
 }
 
 /* 
- * allocate - Place block of adj_size bytes at start of free block bp
- *         and split if remainder would be at least minimum block size
- */
+* allocate - Place block of adj_size bytes at start of free block bp
+*         and split if remainder would be at least minimum block size
+*/
 static void allocate(void *bp, size_t adj_size) {
 	size_t cur_size = GET_SIZE(HDRP(bp)); // Size of free block
 
-    // If the remainder is at least the minimum block size
-	if ((cur_size - adj_size) >= 2 * DSIZE) {
+	// If the remainder is at least the minimum block size
+	if ((cur_size - adj_size) >= BLKSIZE) {
 		PUT(HDRP(bp), PACK(adj_size, 1));
 		PUT(FTRP(bp), PACK(adj_size, 1));
 		delete(bp);        // Delete free block from free list
@@ -242,8 +241,8 @@ static void allocate(void *bp, size_t adj_size) {
 		PUT(HDRP(bp), PACK(cur_size - adj_size, 0));
 		PUT(FTRP(bp), PACK(cur_size - adj_size, 0));
 		coalesce(bp);
-    
-    // If the remainder is less than the minimum block size
+	
+	// If the remainder is less than the minimum block size
 	} else {
 		PUT(HDRP(bp), PACK(cur_size, 1)); // Set header
 		PUT(FTRP(bp), PACK(cur_size, 1)); // Set footer
@@ -252,27 +251,27 @@ static void allocate(void *bp, size_t adj_size) {
 }
 
 /* 
- * insert - Insert block into free list
- */
+* insert - Insert block into free list
+*/
 static void insert(void *bp) {
-    // Set next and previous free blocks
-    GET_NEXT_PTR(bp) = free_listp;
-    GET_PREV_PTR(free_listp) = bp;
-    GET_PREV_PTR(bp) = NULL;
+	// Set next and previous free blocks
+	GET_NEXT_PTR(bp) = free_listp;
+	GET_PREV_PTR(free_listp) = bp;
+	GET_PREV_PTR(bp) = NULL;
 	free_listp = bp;
 }
 
 /* 
- * delete - Delete block from free list
- */
+* delete - Delete block from free list
+*/
 static void delete(void *bp) {
 	// If bp is not the first block
 	if (GET_PREV_PTR(bp))
-        GET_NEXT_PTR(GET_PREV_PTR(bp)) = GET_NEXT_PTR(bp);
+		GET_NEXT_PTR(GET_PREV_PTR(bp)) = GET_NEXT_PTR(bp);
 
 	// If bp is the first block
-    else
+	else
 		free_listp = GET_NEXT_PTR(bp);
 
-    GET_PREV_PTR(GET_NEXT_PTR(bp)) = GET_PREV_PTR(bp);
+	GET_PREV_PTR(GET_NEXT_PTR(bp)) = GET_PREV_PTR(bp);
 }
