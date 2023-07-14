@@ -1,0 +1,930 @@
+   Knowledge-based systems and operational hydrology    
+
+  Slobodan P. Simonovic
+
+   Knowledge-based systems were brought to the attention of hydrologists almost a decade ago.  The application of knowledge-based systems technology is natural and appropriate for the field of hydrology because it contains numerous procedures developed from theory, actual practice, and experience.  The emphasis of the present paper is on demystifying knowledge-based systems of artificial intelligence.  After a detailed review of the most important applications to the field of hydrology, the original concept for applying knowledge-based technology is presented.  The discussion ends with the list of possible benefits from the application of knowledge-based technology.  An expert system for the selection of a suitable method for flow measurement in open channels is used as a case study to illustrate the discussion in the paper.  The system has been designed for potential use in Environment Canada.
+ 
+ 
+
+   Les hydrologistes ont pris conscience de l'existence de systemes a base de connaissances il y a pres d'une dizaine d'annees  L'application de cette technologie est naturelle et convient au domaine de l'hydrologie parce qu'elle comporte de nornbreuses procedures elaborees a partir de la theorie, de la pratique et de l'experience  Cet article a pour principal objet de demystifier les systemes a base de connaissances  Apres un examen detaille des plus importantes applications dans le domaine de l'hydrologie, le concept original d'application de la technologie a base de connaissances est presente  La discussion se termine par une liste des avantages possibles de l'application de cette technologie A titre d'exemple, un systeme expert pour selectionner une methode appropriee de mesure de l'ecoulement a surface libre est utilisee comme etude de cas  Le systeme a ete concu en vue d'une utilisation possible par Environnement Canada.  
+   Mots cles: systeme expert, ressources hydraulique, mesures de l'ecoulement.  
+
+   Introduction   
+
+   Hydrology is the study of water in all its forms and from all its origins to all its destinations on the earth (Bras 1990).  The segments of the hydrology field this paper refers to are those pertinent to planning, design, and operation of engineering projects for the control and use of water, later called operational hydrology.  Some professional discussions indicate that a gap still exists between the basic scientific facts in hydrology and their application for solving water management problems.  A pertinent reason for this is the "scale difference" (Klemes 1983).  The hydrologic scale is largely outside the human direct sensory comprehension, making us incapable of creating meaningful conceptualization.  Another major reason is the very strong perception that hydrology is an appendage to hydraulics and hydraulic engineering (Yevjevich 1968). 
+   The major objective of this paper is to bring to the attention of hydrologists the research within the field of artificial intelligence (AI).  This is not because of the lack of "natural" intelligence, but with the honest belief that some of the principles of artificial intelligence may help in the application of existing hydrological concepts and act as an inspiration for development and new discoveries. 
+   When an engineering problem is complex with much scientific uncertainty and high demand for judgement, AI seems to have something to offer.  Knowledge-based engineering, called also expert systems or production systems, is a way to successfully build human expertise and some degree of intelligent judgement into decision-supporting software.  Knowledge-based engineering is concerned with the representation of knowledge and with symbolic reasoning (Rolston 1988).  One of the most distinguished characteristics of expert systems is their potential to deal with challenging real-world problems through the application of processes that try to mimic human judgement and scientific intuition.  The most general definition of an expert system is that an expert system is a computer application for solving problems that would require extensive human expertise (Rolston 1988).  To perform this task, expert system simulates the reasoning process by combining knowledge and search techniques (usually referred to as inferences).  Rolston (1988) characterizes an ideal expert system as one that includes the following: (i) extensive specific knowledge from the field of interest; (ii) the application of search techniques; (iii) support for heuristic analysis; (iv) a limited capacity to infer "new knowledge" from existing knowledge; (v) symbolic processing; and (vi) an ability to explain its own reasoning. 
+   Knowledge-based systems are finding their place in the field of water resources engineering with all the dangers of being oversold or misused.  Recent publications by Ortolano and Steinemann (1987) and Simonovic and Savic (1989) present a survey of expert systems in environmental and water resources engineering, respectively.  The following paragraph briefly summarizes the review of Simonovic and Savic (1989) because of its relevance to this paper. 
+   The roles of water resources engineering and the science of hydrology have expanded beyond the traditional concepts of design and synthesis to a large multidisciplinary function serving a broad social environment.  Development, in time, of these fields follows three basic phases: (i) construction (emphasis on the design and construction); (ii) planning (emphasis on the examination of wider range of alternatives); and (iii) operation and maintenance (emphasis on the careful management of existing projects).  This has created a pressing need for an overall review of engineering education with the main accent on its increased multidisciplinary character, supported by the available knowledge base and experience (Simonovic 1989b). 
+   Since their first introduction to the field of water resources in the early 1980's, expert systems have been used in design, planning, and operation.  The following contributions have been made to water resources design.  HYSIZE and its simple modification HYSTOR are expert systems for determining the optimum layout for a particular hydroelectric site.  These systems are able to rank alternatives in order of economic priority and to test the sensitivity of assumed variables (Dotan and Willer 1986).  SISES is an expert system used for selecting an appropriate site for a specific use (Findikaki 1986).  DMWW is an expert system for designing a municipal water well (K. Strzepek, University of Colorado, personal communication, 1988).  The design process can be very complex and require much information on procedures and related knowledge (Russell 1989).  The design is created in the first phase, and then modified in the second phase until the user feels comfortable.  Experience and judgement play important roles in both phases, and this is why expert systems by exploiting experience may help, thereby, enhancing the design process. 
+   Planning a water resources system is another field of expert systems application.  RAISON is a system developed for the analysis of acid rain data.  It is designed to examine the relationship between the terrain sensitivity index, which assesses susceptibility to acid rain deposition and possible deposition levels (Swayne and Fraser 1986).  WATQUAS is an expert system for extracting knowledge from a large quantity of available historical water quality data and interpreting it in a useful form (Allen 1986).  ARIANE is an intelligent decision-support tool for guiding the user through the multi-annual operation planning process in Hydro-Quebec (M. Hanscom, Hydro-Quebec, personal communication, 1988).  RRA is an expert system for the administration of the acreage-limitation provision of the US Reclamation Reform Act of 1982.  It provides a means for determining the status of the landholder, as well as the number of acres on which subsidized reclamation water can be received (K. Strzepek, University of Colorado, personal communication, 1988).  SID, Seattle Water Department's integrated drought management expert system, is an expert system designed to evaluate and display information for drought-management planning.  A linear programming model is used to generate optimal operating policies as a function of numerous past drought experiences.  These policies are incorporated into an expert system and the user is required to identify the degree to which the current drought situation is similar to past events (Palmer and Tull 1987; Palmer and Holmes 1988). 
+   For the operation of water resources systems, expert systems are slowly taking their place in practice.  SID, an expert system already mentioned, is used for planning and operation of Seattle water distribution system during the drought.  JOE is an expert system designed to aid in operations of the Jenpeg generating station in Manitoba.  Manitoba Hydro's Jenpeg generating station is located near the outlet of Lake Winnipeg into the Nelson River system.  The operation of Jenpeg during the freeze-up period is very complex, involving many judgemental calls, and has a major impact on the hydro power generation downstream (Raban 1989).  EMMAES is an expert system built around the EMMA model used within Manitoba Hydro to plan the integrated operation of hydro and thermal power generation and tielines, as well as with maintenance considerations.  The system is being designed for three purposes: (i) preparation of an annual budget; (ii) preparation of weekly schedules for releases, thermal and hydro power generation, and imports and exports of energy; and (iii) long-term planning that includes such tasks as evaluation of benefits from installing additional capacity and examining particular operational conditions that may occur in the system (Nagy et al.  1989; Grahovac and Simonovic 1990). 
+   The relative importance of expert systems to improvements in water resources projects has not yet been established, but some practical experience has already been documented (Nagy et al.  1989; Raban 1989; Palmer and Holmes 1988). 
+   The following sections present definitions and approaches appropriate for the application of expert systems in the field of hydrology.  These are followed by an review of present research.  To illustrate their development, a case study of the use of an expert system for the selection of a suitable method for flow measurement in open channels is presented. 
+
+   Knowledge-based systems and operational hydrology  
+
+   Introduction to expert systems  
+   Expert systems have been identified, by a number of authors, as a way to successfully apply AI techniques  Through the application of AI techniques, expert systems capture the basic knowledge required to assist an individual dealing with problems of varying complexity (Rolston 1988).  Expert systems function as an assistant to an expert; a partner to an expert, or a replacement for part of an expert's knowledge.  The following definition, derived by the author, seems appropriate for the field of water resources.  A water resources expert system is a computer application that assists in solving complicated water resources problems by incorporating engineering knowledge, principles of systems analysis, and experience, to provide aid in making engineering judgements and including intuition in the solution procedure (Simonovic 1990; Simonovic and Savic 1989).
+ 
+   An expert system is a computer model composed of the following components: user interface; explanation subsystem; knowledge acquisition subsystem; knowledge base; and inference engine.  Figure 1 illustrates the basic structure of an expert system.  The user interface is responsible for requesting and translating user input, and presenting generated results to the user.  The explanation subsystem is a very important part of an expert system, as it is responsible for explaining the reasoning behind any conclusion the system reaches.  The knowledge acquisition subsystem is used to perform modifications to the knowledge base.  The knowledge base contains the facts and rules associated with the application field.  These rules can vary from being strictly procedural (well-defined and invariant) to heuristic (practices and procedures that are valuable but are incapable of proof and are gathered through experience).  The inference engine controls the execution of the system and determines how to solve a particular problem.  It uses the knowledge base to modify and expand the contents of working memory.  In simple words, the inference engine is a search mechanism.  Most expert systems are based on backward or forward search techniques.  In backward chaining, the system begins with the desired goal and works towards the requisite conditions to satisfy this goal; whereas forward chaining uses the known conditions and works towards the desired goal of the consultation. 
+   Knowledge is the main source of an expert's ability to perform.  Therefore, expert systems use a collection of the rules and facts to mimic expert behaviour related to problem solving.  In an expert system, knowledge can be represented in the form of the rules, semantic nets, or frames.  Rules are the simplest and most popular knowledge representation scheme.  They are most appropriate when the domain knowledge results from associations between facts that have evolved through years of problem solving.  Another approach is to represent domain knowledge through a network of nodes and arcs, known as a semantic net.  The nodes represent the objects, concepts, or events; and the arcs represent the relationships between the nodes.  Finally, the term frame refers to a special way of representing concepts and situations  Essentially, it is the same as a semantic net, in that it consists of a system of nodes and arcs.  However, in the case of a frame representation all the properties of an object or concept are collected together at a node in a package.  Frames and semantic nets are most helpful in grouping and structuring a large number of rules. 
+   The tools for developing an expert system can be divided into three main classes; (i) general purpose languages; (ii) representational languages; and (iii) expert system building shells and environments.  At the base level, an expert system can be written in any program language, such as FORTRAN, C, or PASCAL  Using these languages, the developer has complete flexibility, but the entire expert system structure must be developed and this is very costly in time and required resources.  General purpose representation languages, such as PROLOG, SRL, or OPS5, require only organization and expression of the domain knowledge.  As with the programming languages, a significant portion of the code necessary to produce an expert system must be written by the developer.  Expert system building shells and environments are packages that aid in the rapid prototyping of application expert systems.  They usually provide one or more knowledge representations and reference mechanisms.  Using these tools, the level of effort that must be applied to developing expert systems is greatly reduced, allowing the developer to focus on acquiring knowledge and refining the system behaviour.     Seismic response of concentrically braced steel frames  
+  Richard G. Redwood AND Feng Lu
+  Gilles Bouchard and Patrick Paultre
+
+   Braced frame structures designed according to the 1990 edition of the National Building Code of Canada and the CSA standard for steel structures (CAN/CSA-S16.1-M89) are analyzed under a number of different earthquake motions.  The nonlinear response is studied in the light of the design philosophy, and the validity of a number of design assumptions is examined.  The study is limited to a group of eight-storey frames, located either in Victoria, British Columbia, or Montreal, Quebec, all with the same bracing configuration.  A 20-storey frame in Montreal is also considered.  The results suggest a number of areas in which improved design provisions could be made. 
+ 
+
+   Les constructions avec charpente a elements entretoises concues selon les exigences de l'edition 1990 du Code national du batiment du Canada et de la norme CAN/CSA-S16.1-M89 sont analysees en fonction de differents mouvements du sol  Le comportement non-lineaire est etudie a la lumiere de la philosophie de conception et la validite d'un certain nombre d'hypotheses de conception est examinee  L'etude est limitee a un groupe de charpentes de huit etages erigees soit a Victoria, Colombie-Britannique, ou a Montreal, Quebec, presentant la meme configuration de contreventement  Une charpente de 20 etages a egalement ete prise en consideration a Montreal  Les resultats permettent d'identifier un certain nombre de domaines ou des ameliorations pourraient etre apportees.  
+    Mots cles: analyse, conception, genie des structures, acier, tremblements de terre, charpente a elements entretoises.   
+
+   Introduction  
+
+   Detailing requirements for steel concentrically braced frames subjected to seismic design loads are incorporated in the 1989 edition of the CSA standard for limit states design of steel structures, CAN/CSA-S16.1-M89 (CSA 1989).  These provisions are coupled to those of the 1990 edition of the National Building Code of Canada (NRC 1990), which identifies three categories of concentrically braced frame: ductile braced frames, braced frames with nominal ductility, and frames for which no special provision is made to ensure ductile behaviour. 
+   The anticipated behaviour of these three categories is as follows: 
+  (i) Ductile braced frame (DBF): inelasticity will be largely confined to the braces, with beams also capable of some inelastic action  Large ductile deformations in the braces are provided for.  Columns are expected to remain essentially elastic under the loads induced by yielding braces.  The braces may yield in tension and compression.  Design provisions are directed at (a) limiting framing configurations to those that can maintain stability when some inelasticity occurs in the braces, (b) providing some redundancy, (c) ensuring brace ductility by controlling overall and local buckling, and by providing for adequate connection resistance, and (d) ensuring adequate resistances of beams and columns and their connections when braces yield. 
+  (ii) Braced frames with nominal ductility (NDBF): yielding of braces may occur, but large ductility demands need not be provided for  No significant yield is anticipated elsewhere in the frame.  Ductility design requirements are directed at provision of brace sections that can undergo limited amounts of inelastic straining in compression or develop the yield load in tension, and at corresponding connection design.  Beams and columns and their connections must provide resistances adequate to support the brace-induced loads. 
+  (iii) Braced frames with no special provision for ductility (SBF): principally elastic response is anticipated.  Local inelasticity may occur, but complete cross-section yielding is unlikely.  The design of these frames is based on traditional requirements for strength and stiffness.  Since these requirements do not exclude brittle details, for example, in brace connections or in column splices, the specified loading (NRC 1990) is quite severe.  By eliminating the possibility of such details by complying with case (ii), a significantly lower design load is decreed. 
+   Three eight-storey braced frames, each corresponding to one of these categories, have been designed according to S16.1-M89 and the 1990 National Building Code, and are described in some detail by Redwood and Channagiri (1991).  These and other designs are examined in this paper.  The structures are subjected to a number of earthquake ground motion records, and the resulting responses are analyzed and compared with the expected behaviour. 
+
+   Design procedures  
+
+   The example building structure comprises two exterior moment resisting frames in one direction, and two braced bays in the other, these being located in the core area.  The building layout is shown in Figure 1 and is based on a study by Chien (1987) of a building not subjected to earthquake loads.  The design procedures for seismic loading are outlined in detail by Redwood and Channagiri (1991). 
+   The ductile braced frame design, corresponding to category (i), will be considered first and is shown in Figure 2a.  Seismic loading corresponds to that for Victoria, B.C.  The frame was first designed for strength and stiffness in the usual way and was then modified to satisfy the requirements for ductile braced frames given in Clause 27.2 of CSA (1989).  In carrying out the design, a number of assumptions were made which will be examined in the light of the analytical results presented herein.  These assumptions were as follows: 
+  (a) Brace connections will usually be designed to carry the full tensile yield load of a brace; however, CSA (1989) permits lower loads in some cases.  These are intended to deal with overstrength members, selected to satisfy stiffness requirements, for example.  Thus, for a ductile braced frame, when twice the seismic load, plus the specified gravity load, is less than the brace yield load, the lower load may be used for design.  This load is approximately equal to the load that the brace would carry if the frame was being designed as the third category of structure, that is, without special provisions for ductility.  For the braced frame with nominal ductility, the load is 1.33 times the seismic load, plus the gravity load, which also brings the load to approximately the same level as for the third category of structure. 
+   In view of the importance of these connections for the structure to perform as assumed, there may be some reluctance to design the connections for less than the brace yield load.  The brace connections for the frame shown in Figure 2 a  were assumed to resist the full brace yield load.  The effect of using loads less than the tensile yield load will be examined in the light of the analytical results for another braced frame in which connection resistance less than the full yield load was assumed. 
+  (b) Axial loads induced in the columns by the yielding of overloaded braces must be added to the specified gravity loads to obtain the design loads for columns under the severe seismic load condition.  Because of the low probability of all braces being overloaded simultaneously, a column in a lower floor need not be designed to carry the sum of the maximum brace loads induced at each higher floor.  For the subject designs, the loads in any column due to braces were taken as the maximum loads induced at any level above the column considered, plus the square root of the sum of the squares of all other brace-induced loads above that level.  The validity of this combination rule will be examined herein. 
+  (c) Yielding of braces leads to redistribution of the horizontal shear carried by the braces, which then leads to a change in load carried by beams forming part of the lateral load resisting system.  Depending on the bracing configuration, some beams have no axial forces induced under lateral load until brace yielding occurs.  The assumptions used to estimate these loads for the beam design will also be examined.  These assumptions significantly influence the design of the short beams, i.e., those supported at their centre by the intersecting braces, and are described in detail by Redwood and Channagiri (1991).  
+ 
+
+ 
+
+   For comparative purposes, in addition to the DBF design shown in Figure 2a, other designs were produced for the same structural configuration and also for the Victoria, B.C., location (Channagiri 1990).  A braced frame with nominal ductility, NDBF, corresponding to category (ii) and designed according to Clause 27.5 of CSA (1989) is shown in Figure 2b.  Again, it is assumed that brace yield loads are transmitted to the other members. 
+   Figure 2 c  shows a design based on category (iii), that is, one for which no consideration of ductility has been given.  It should be recognized that, by virtue of Sentence 4.1.9.3(1) of NRC (1990), the latter design would not in fact be permitted in Victoria, B.C.; nevertheless, it provides a useful comparison, since it should correspond to very limited ductile behaviour. 
+   Parallel to these designs, three braced frame designs were also generated for the location of Montreal, thus incorporating the effects of a significantly lower seismic-to-gravity load ratio.  These designs are shown in Figure 3. 
+
+   Analysis  
+
+   Program and modelling  
+   The dynamic analysis was performed using the program DRAIN-2D (Kannan and Powell 1973), modified to include bracing elements (Jain and Goel 1978).  Assumptions made for the analysis corresponded to those on which the design was based, and may be summarized as follows: - columns and braces are pin-ended, and are without lateral support between floors;
+- effective length factors of 1.0 are used for all columns and braces;
+- beams are simply connected to the columns, and in those floors where they intersect the braces, the beam is continuous through the intersection point; beams are laterally supported. 
+
+   Gravity loading equal to the specified dead and live loads was applied to the structures throughout the imposed earthquake excitation histories.  These loads impose initial compressions in columns and braces and tensions in some beams.  Specifics of the gravity loads are given by Redwood and Channagiri (1991). 
+   The DRAIN-2D program carries out nonlinear time-history analysis of two-dimensional frame structures.  Mass is lumped at nodes; viscous damping with both mass and stiffness dependence was incorporated, and was assumed to be 5% of critical for the highest and lowest modes.  Constant acceleration is assumed in each time-step, and equilibrium corrections are made by applying corrective loads in the succeeding time-step.  Fundamental periods of the structures analyzed lie in the range 1-1.7s (the structure of Figure 2a  had periods of 1.47, 0.51 0.37, 0.28, and 0.22s for the first five modes), and an integration time-step of 0.02s was therefore assumed.  The total integration time used in the analysis was 30 s for each earthquake record.  P-effects were approximated by including a geometric stiffness based on the element axial force under static load (Kannan and Powell 1973). 
+   A primary purpose of the analysis was to determine if the structures could be expected to perform as assumed in their design.  For the DBF, the primary interest was to determine if the beams and columns would indeed remain elastic if the braces yielded.  Thus for this structure, beams and columns were modelled as elastic elements, and only braces were modelled as yielding elements.  If beams or columns then proved to be overloaded, the extent of overload would provide a guide to selection of a section with the necessary increased capacity.  The same modelling is appropriate for the NDBF, whereas for the SBF, a fully elastic model would be adequate if the basic design assumptions were valid.  However, the braces were modelled to exhibit nonlinear hysteretic behaviour for this structure also. 
+   The resistance of yielding elements used in the analysis and the resistances of members used to compare with the analytical results were based on their most probable values, i.e., the nominal values with the resistance factor  = 1.0. 
+   The brace members were modelled as "buckling elements," denoted EL9 by Jain and Goel (1978).  This is a multi-linear hysteretic model which may yield in tension or buckle in compression.  An example of the hysteretic behaviour modelled by this element is illustrated in Figure 4.  The buckling load in the first cycle, C, is equal to the unfactored axial compressive resistance of CSA (1989).  In subsequent cycles, a reduced compression resistance, C|u, applies, the amount of reduction being based on empirical data (Jain 1978).  The load versus deflection path followed as the brace compression is reduced and loading becomes tensile is a function of loading history, and is based on empirical results.  The point A (Fig. 4) is determined by C|u and the compressive displacement occurring since the last load reversal.  Point B indicates the degree of pinching and is related to the slenderness ratio, and point C is a function of residual displacements.  The element does not model local buckling, and thus the deformations predicted by the analysis must be critically examined in relation to the section width-to-thickness ratios provided. 
+   Columns were modelled as elastic truss elements, and beams as elastic beam - column elements, in view of the large axial forces expected when braces yield  Because beams were considered to be laterally supported by floor slabs, only their yield behaviour, and not buckling, is modelled.  Contribution of the slab in resisting axial or bending loads was ignored. 
+
+   Earthquake records  
+   For the structure located in Victoria, earthquake records from the western U.S.A. were used as input to the analysis Ten components of six recorded earthquakes were considered, as listed in Table 1.  Some of these same records were used for the Montreal structures, in view of the lack of strong motion records for eastern Canada, and, in addition, the Saguenay earthquake of 1988 was also considered.  
+
+    CHANGE DETECTION USING PRINCIPAL COMPONENT ANALYSIS AND FUZZY SET THEORY   
+
+  by 
+ P. GONG
+
+     RESUME    
+
+    Cet article presente deux nouvelles methodes permettant de faire un meilleur usage de l'information multibande obtenue a partir de donnees de teledetection pour la detection des changements  Au lieu d'effectuer une analyse des composantes principales sur une combinaison d'images multibandes initiales, celle-ci a ete effectuee sur des donnees resultant de differences d'images  Ainsi, la plupart des informations relatives aux changements ont ete conservees sur les premieres composantes principales  Des operations fondees sur la theorie des ensembles flous ont ete proposees en vue de combiner les informations sur les changements provenant des differents canaux en une seule image  Les zones ayant subi des changements peuvent alors etre extraites de cette derniere image  Des images de Kitchener-Waterloo, en Ontario, acquises par le capteur thematique de Landsat pendant deux annees successives sont utilisees pour illustrer ces methodes  Un certain nombre de strategies sur l'utilisation des operations fondees sur la theorie des ensembles flous sont egalement presentees.    
+
+    SUMMARY   
+
+   In this paper two procedures that were developed to make better use of multispectral information from remotely sensed data for change detection are discussed.  Instead of applying principal component analysis (PCA) to a combined data set of original multispectral images, PCA was applied to difference images.  Thus, most change information was preserved in the first few principal component images.  Operations based on fuzzy set theory were proposed to combine change information from different image channels into a single-image channel.  Changed areas could then be extracted from this single image.  Landsat Thematic Mapper (TM) images acquired in two successive year over Kitchener-Waterloo, Ontario, are used to illustrate these methods.  Some strategies on the use of fuzzy set operations are discussed.  
+
+   INTRODUCTION  
+
+   In remote sensing, changes can be determined by comparing the spectral response differences at the same spatial location among a set of two or more multispectral images acquired at different times.  These images are first spatially registered.  A commonly used change detection procedure then follows in which changes are identified via thresholding a difference image that has been obtained by subtracting one band of image on one date from the same band of image on another date.  However, it is usually not possible to detect changes occurring in a region using only one spectral band because different types of changes may be captured in different bands.  Therefore, changes have to be enhanced and extracted from multispectral imagery. 
+   Two types of procedures for using multispectral data in change component enhancement are commonly used.  The first type involves simple image arithmetic between images of the same spectral band for two dates.  For convenience, we define the two images obtained for two different dates of the same spectral band as band-pair images.  Image arithmetic includes rationing and differencing band-pair images.  Images so generated are referred to as change component images.  To locate and identify change automatically, change component images are thesholded or classified (Jensen, 1986; Fung and LeDrew, 1988; Pilon et al., 1988; Singh, 1989).  To detect changes visually, rationed or differenced band-pair images can be analyzed based on their colour displays on a video monitor or photographic products (Howarth and Wickware, 1981; Howarth and Boassan, 1983).  Although logically straightforward due to increased data redundancy and display difficulties, this type of procedure becomes inefficient to use when the image dimension (that is, the number of spectral bands) exceeds three. 
+   To overcome these difficulties, a second type of change component enhancement procedure employs image transformation methods.  Transformation methods include vegetation indexing (VI) (Tucker, 1979), tasseled cap analysis (KT-Transform) (Kauth and Thomas, 1976), change vector analysis (CVA) (Malila, 1980), and principal component analysis (PCA) (Lodwick, 1979; Byrne et al., 1980; Ingebristen et al., 1985; Fung and LeDrew, 1987).  By image transformation, the change information recorded in original multispectral data can be preserved in a relatively small number of components.  Rather than serving as general enhancement tools, the VI and KT-Transform methods were developed specifically for such purposes as enhancing the vegetation or the soil component.  While CVA has the potential of summarizing various types of change components and their magnitudes into separate image channels, it has rarely been applied since its introduction.  Among these transformation techniques, the PCA method has been most commonly used.  Researchers using PCA for change detection have reported that the minor component images are likely to contain most of the change information when multispectral images that have been obtained on two dates are applied as an integrated data set.  The amount of change information contained in each principal component image, however, may vary from image to image.  It may not be an easy task to determine which principal component image to work with.  In addition, the use of PCA in such a manner is subject to the condition that the areas of changes have to be a small proportion of the entire study area (Richards, 1984; Fung and LeDrew, 1987). 
+   It would be desirable to deal with only one image channel and to extract most, if not all, change information from this channel of image.  In this paper, a method is presented for transforming change information into one image channel from images of different spectral bands.  The main objectives are: 
+ 	to introduce an alternative method on the use of PCA for change component enhancement with which change information is guaranteed to be preserved in the major component images regardless the proportion of changed area in a study area; and
+
+ 	to demonstrate the effectiveness of fuzzy set theory in combining change information from different image channels into a single-image channel. 
+
+   METHOD  
+
+   The change detection procedure proposed in this study can be divided into six steps: 
+ 	spatially register images from two different dates;
+
+ 	undertake a band-pair image differencing for each spectral band and reduce registration noise;
+
+ 	apply PCA transformation to the multispectral difference image;
+
+ 	determine change membership functions for a number of selected change component images;
+
+ 	apply fuzzy operations to combine change information in different change component images into a single image;
+
+ 	determine changed areas based on the image generated at step five. 
+
+   At step one, two images from different dates can be registered using a geometric correction program.  After the image-to-image registration, two images with the same coordinate system are obtained: X = {x i| i = 1, 2, , n}  of date one and Y = {y i| i = 1, 2, , n} of date two, where x i ' = [x i1, x i2, , x ip] and y i' = [y i1, y i2, , y ip].  The parameter - denotes the number of pixels in an image and p the number of spectral bands. 
+   At the second step, a difference image, DIF j, for each spectral band j, can be created, where DIF j = { ij   =(x ij-y ij) | i = 1, 2, , -} and j = 1, 2, p.  A grey-scale mapping can then be applied to every difference image, DIF j, j = 1, 2, p.  This further reduces registration noise in each difference image (Gong et al., 1992). 
+   In traditional change detection, one difference image of a specific spectral band is selected among these difference images.  This difference image should contain more change information than the other difference images for a particular application.  An image thresholding technique is then applied to detect changes using the selected difference image (Jensen, 1986; Fung and LeDrew, 1988).  For example, DIF 2, the red spectral band difference image of Landsat multispectral scanner (MSS) data is usually considered to contain more information on rural to urban land-cover changes than the other three MSS bands.  Thresholds T 1 and T 2 can be determined on the histogram of DIF 2 using the mean (ave) and standard deviation (std) (Figure 1).  Deciding whether a pixel has changed is simply a matter of testing whether  ij   falls outside of range [T 1, T 2]. 
+
+ 
+
+ 
+
+   Two problems are associated with the above-mentioned traditional method, and they will be overcome by subsequent steps three to five.  As mentioned in the introduction, the first problem is that different types of change information are contained in different spectral bands; thus, the use of one spectral band usually does not allow every type of changes to be detected.  The second problem is that once thresholding is applied to a difference image, change information occurring at smaller magnitudes (that is, within range [T 1, T 2]) will be lost.  Also, noise could be included as change if its magnitude falls outside range [T 1, T 2] . 
+   At step three, the difference images are used to generate a variance-covariance matrix.  This is used to find a new set of axes according to the eigen structure of the feature space.  With the variance-covariance matrix, PCA can be applied to the difference images.  The resultant principal component images are called principal component difference images, denoted by PCD j = {  eij | i = 1, 2, , -}  where j = 1, 2, , p ;  eij is a pixel value for pixel i in the jth principal component which results from a linear transformation of the difference images with the transformation coefficients determined with PCA.  PCD images are obtained from a p-dimensional data set {x i-y i | i = 1, 2, , -} instead of the traditional application of PCA in change detection where a combined two-date data set,{(x i ' y  i'  ')'| i = 1, 2, , -} of two p dimensions, is used.  Because the variance in a difference image represents primarily change information and the purpose of PCA is to preserve most variances into the first few principal components, the application of PCA to difference images will result in most change information preserved in the first few PCD images. 
+   At step four, the first two or three PCD images containing change information are selected.  The exact number of PCDs is determined according to the eigenvalues and the correlation matrix of difference images.  Each selected PCD image and its histogram are analyzed, and a fuzzy membership function of change is empirically defined based on the analysis results.  From Figure 1, it is reasonable to assume that the more distant a pixel value is from the average, ave, the more likely is that pixel to fall into the change class.  Based on the shape of the histogram of a PCD image, parameters of a fuzzy membership function of change can be determined.  While a fuzzy membership function may take a variety of forms (Zadeh, 1978), in the case of Figure 1 an inverse triangular-shaped function may be suitable.  A more sophisticated change membership function may be determined based on the knowledge of the various types of change in the study area.  For example, statistics on various change types can be estimated from selected training samples. 
+   A fuzzy membership function of change, cj(e), can be defined as: 
+  
+
+where   cj(e) represents the degree of pixel value   e in image PCD j belonging to a fuzzy set of change, C.  L  , ave, and H are the three parameters defining the inverse triangular-shaped function.  L and H can be determined empirically by examining the histogram distribution of image PCD j, and ave is the average pixel value in image PCD j.  A graphical form of   cj(e) is shown in Figure 2.  After applying a fuzzy membership function, cj(e), to an image, PCD j a change membership (CM) image, CM j = {  cj(ei) | i = 1, 2, , -}, is obtained. 
+
+   At the fifth step, various change information from different CM images can be combined into one image, CCM, by applying the fuzzy set theory (Zadeh, 1965).  Most operations based on the fuzzy set theory can be realized by using three basic types of fuzzy set operator: fuzzy union (square-root), fuzzy intersection (), and fuzzy complement ().  While there are a number of definitions for fuzzy union and fuzzy intersection, the maximum and minimum rule are used in this study.  Therefore, fuzzy union of   1 and   2 is equivalent to max (1 , 2), and their fuzzy intersection is min(1, 2).  A fuzzy complement of   1 is 1 -   1.  For example, if one wishes to combine change information in three CM images in such a manner that both the subtle changes in CM 3 and changes in either CM 1 or CM 2 are included in the final resultant image, CCM = { (i) | i = 1, 2, , -}, the following operation can be used: 
+ 
+where 1 -  c 3(i) represents the complement of   c3(i) because subtle changes have lower degrees of change membership in image CM 3.  Fuzzy set operations should be defined according to the characteristics of changes. 
+
+ In most cases, successful change information extraction requires that knowledge about the study area and expert knowledge on various change types be properly represented with fuzzy membership functions and fuzzy set operations. 
+
+   Once the desirable change information from different image channels has been combined into one image CCM, at the final step, the CCM itself can be stored in a database to represent change information.  One can also apply the thresholding or classification technique to determine and identify areas of change and to make a change map. 
+
+   TEST AND RESULTS  
+
+   In this section, steps one to five on the use of PCA and fuzzy set theory in change detection in the previous section are illustrated using an example.  However, no attempt was made for step six to undertake a thorough change detection of the study area.  Instead, the purpose is to combine change information from different image channels into a newly created image channel. 
+   The principal component analysis module, PCA, image arithmetic, ARI, and image display programs in the EASI/PACE image analysis software package (PCI Inc., 1991) were used in this study.  Programs implementing the grey-scale mapping, the fuzzy membership functions, and the fuzzy set operations have been developed by the author as additional EASI/PACE modules. 
+
+  The Study Area and Data Preparation  </I
+   The study area consists of a large sector of the twin cities of Kitchener-Waterloo, Ontario, and a small part of their surrounding rural area.  A number of change detection studies have been carried out for this area with both Landsat Multispectral Scanner and Thematic Mapper data (Fung and LeDrew, 1987, 1988; Fung, 1990).  
+   WIND TUNNEL INVESTIGATION OF A WING-PROPELLER MODEL PERFORMANCE DEGRADATION DUE TO DISTRIBUTED UPPER-SURFACE ROUGHNESS AND LEADING EDGE SHAPE MODIFICATION  
+
+  R.H. Wickens Guest worker Applied Aerodynamics Laboratory
+
+   ABSTRACT  
+
+   A wind tunnel investigation has assessed the effects of distributed upper-surface roughness, and leading-edge ice formation on a powered wing propeller model.  
+
+   In the unpowered state, it was found that roughness reduces the lift slope, and maximum lift by 30 to 50 percent, depending upon particle size and Reynolds number.  The leading edge region is especially sensitive to these disturbances; however, removal of the roughness over a small portion of the nose restored the wing to close to its original performance.  
+
+   The application of power to the wing, with an increase of slipstream dynamic pressure, increases the lift slope and maximum lift; however, this benefit is lost if the wing is roughened.  Subtraction of the propeller reactions indicated that the slipstream interaction accounted for half the lift increase and also resulted in reduced drag for the clean surface.  This drag reduction was removed when the wing was roughened, indicating that the degradation of wing performance due to roughening is relatively greater when a slipstream is present, compared with the unpowered wing.  
+
+   Leading-edge ice accretion causes similar large losses in lift and increases of form drag although a comparison of the two types of contamination showed that leading-edge ice produces a smaller reduction of lift slope prior to flow separation.  In both types of contamination, Reynolds number is important, and emphasizes the necessity of testing under near full-scale conditions.  
+
+   NOMENCLATURE  
+
+   INTRODUCTION  
+
+   Recent flying accidents resulting from adverse weather conditions in the form of freezing rain or snow, have focused attention, on the degradation of aerodynamic surfaces.  One of the most recent accidents, involving a Fokker F-28, mk 1000 jet aircraft, and the subject of a Commission of Inquiry in Canada, dealt specifically with the degradation of such surfaces due to ice and snow contaminants on the wings.  The information contained in this paper stems in part from the investigation conducted for the Commission of Inquiry into the Air Ontario Crash at Dryden, Ontario, March 10, 1989.  (Reference 10)  Investigations of the effects of uniform roughness on airfoils shows clearly that stalling is premature, loss of maximum lift can range from 30 to 50%, (depending on Reynolds number) and form drag reaches very high levels at angles of attack below normal clean wing stall. 
+
+   The effect of upper surface roughness on complete aircraft configurations is less well known; however, there is a long history of aircraft accidents related to flight in icing conditions and several recent accidents, including the Air Ontario F-28 accident, involving swept-wing jet aircraft have highlighted the problem.  In these situations it has been observed that early flow separation and stalling was a characteristic result of ice and snow contaminants on the wing   Flow breakdown was accompanied not only by a loss of lift and an increase of drag, but also wing-dropping as a result of outer panel flow separation and wing tip stall prior to inboard wing stall.  Experimental data on simulated upper surface contamination on a swept-wing model of a typical jet-commuter aircraft have confirmed what was suspected from flight experience and have also demonstrated that large changes of trim will occur on the full-scale aircraft. 
+
+   Propeller-driven aircraft, where the slipstream passes over the wing surface, are thought to be less sensitive to the effects of upper surface contamination compared with the typical swept-wing configuration.  This is attributable in part to the effects of sweep that reduce the wing lift-slope, compared with a straight wing; and the effects of slipstream interaction that augment span loading locally, increase wing lift slope, and also delay flow separation at high angles of attack.  Thus the rotation angle on take off of a straight wing propeller-driven aircraft is likely to be less than that for an equivalent swept-wing aircraft with no slipstream interaction, and the likelihood of a premature stall may not arise. 
+
+   Notwithstanding this apparent beneficial comparison, the propeller-driven aircraft may still experience significant losses of lift and large increases of drag if premature flow separation occurs when the wing upper surface is contaminated.  Figure 1b from Reference 1 for the Fokker F-27 turboprop transport wind tunnel model indicates, however, that smaller losses in maximum lift may be expected from a contaminated wing, compared with the airfoil test results of Figure 1a.  The corresponding reduction in critical angle of attack is also small and, in some cases, positive and was attributed to a significant change in the wing-slipstream stall pattern.  The extent to which the slipstream may remain attached to the wing surface is unknown but its influence may affect the overall stall pattern even when roughened by ice. 
+
+   In view of the unknown nature of the complex interactions of wing boundary layer, propeller slipstream and distributed roughness, and the lack of experimental data, it was decided to use the half-wing propeller model of Reference 3 to obtain some preliminary data on the effects of upper surface roughness in a slipstream and also the effects of typical in-flight ice accretion shapes on the leading edge. 
+
+ The utility of the data to aircraft design or performance estimation will be limited; the model configuration is not typical of current propeller transport configurations and the test Reynolds number was low (Re = 1.3 million). 
+
+   MODEL  
+
+   The general arrangement of the rectangular, unswept half-wing model is shown in Figure 2.  The wing, having a NACA 4415 airfoil section, was untwisted and was equipped with a 30 percent chord plain flap extending along the semi-span.  The aspect ratio was 4.85.  A nacelle containing a 20hp water-cooled induction motor was underslung on the wing approximately one chord length above the floor.  The four-bladed propeller was located at 70% chord in front on the leading edge and was equipped with an adjustable pitch-setting mechanism.  The propeller/wing chord ratio was 1.33. 
+
+   EXPERIMENTAL PROCEDURE  
+
+   The wing was pitched through an angle-of-attack range up to and beyond stall.  A complete stall and flow breakdown was not achieved with this model due probably to the effects of the low aspect ratio, Reynolds number and the half-model configuration. 
+ 
+
+ 
+
+  Maximum lift was achieved however, and this was used as a basis of comparison for the effects of roughness.  Model lift, drag and pitching moment were measured on the wind tunnel balance.  Pitching moment was taken about the 30% chord location.  The measured forces include the propeller reaction, comprised of thrust, normal force and pitching moment.  The test Reynolds number was 1.3 million (2.3 million for the unpowered wing only). 
+
+   At the desired test conditions, thrust coefficient CTp was varied by adjusting the blade pitch settings to a value of 0.115.  This corresponded approximately to the take-off thrust coefficient of a typical turbo-prop aircraft  Thrust coefficient was estimated from the isolated propeller data of Reference 5. 
+
+   SIMULATED ROUGHNESS  
+
+   Roughness, in the form of a uniform distribution of carborundum grit was applied over various portions of the chord.  Three grades of standard grit were used: 150 (.0041"), 80 (.0083"), 46 (.0165").  These correspond approximately to average roughness heights of .03", .06", and .11" respectively on a full-scale wing of 10 feet chord giving roughness height/chord ratios of 0.000227, .000461 and .000916 respectively.  In addition, a heavy grade (50 grit) of commercial sandpaper was applied to the wing surface.  The roughness height and concentration of this application was considered to be significantly greater than the standard grit particles applied manually to the wing surface. 
+
+   The Carborundum grit was applied initially to the upper surface from the lower leading edge stagnation region to the flap hinge line.  Since only the forward portion of the chord was found to be sensitive however, most of the investigation was performed with only the first 25-30% of the chord roughened and the results presented in this report are for 30% coverage.
+
+  The density of application was not varied or determined precisely, and in the case of sandpaper application, the transition was abrupt. 
+
+   In addition to distributed roughness application, shapes representing rime and glaze ice accretions were applied to the wing leading edge.  The shapes were similar to those of Reference 6 and are shown in Figure 2c. 
+
+   PRESENTATION OF RESULTS  
+
+   Effects of Roughness - Powered Wing  
+
+   With the application of power on the clean wing, the resulting slipstream interaction produces an increase in both lift slope and maximum lift by about 25%, and an increase of stalling angle of about 4 degrees.  Roughly half of this lift increment comes from the propeller thrust and normal force reactions; the other half is attributed to the interaction of the slipstream with the wing (Figure 3a). 
+
+   The wing drag polar, as seen in Figure 3b, is shifted by an amount that corresponds to the thrust force plus a leading edge thrust on the wing due to increased leading edge suction.  The drag equivalent of the estimated propeller thrust has a value of about 0.085, which, when subtracted from the total wing force at zero lift apparently produces a negative drag or thrust on the wing.  This effect, known as the'squire Effect', has been alluded to before and is attributed the effects of increased pressure and flow rotation in the slipstream.  
+
+   With roughness applied to the wing upper surface there appears to be a loss of lift slope and maximum lift of about 25 to 35% depending upon roughness element size (Figure 4a). In effect, the benefits of powered lift, resulting from slipstream interaction, is significantly reduced.  Drag also increases as the flow separates prematurely, and there also is an increase in the parasite drag at zero lift due to roughness, and increased dynamic pressure in the slipstream.  The effect of roughness on wing pitching moment is small at angles of attack below stall, (
+
+   The application of the heavy sandpaper roughness further deteriorated the wing performance under power at the Reynolds number of 1.3 million.  Maximum lift decreased slightly, as did the lift slope; although the stall was not sharply defined.  Drag also increased near zero lift but the pitching moment did not change significantly, although the tendency continued to be nose-down. 
+
+   A comparison between the powered and unpowered wing drag polars shows the relative effects of roughness with and without power (Figure 6).  It is clear from these graphs that roughness, especially when it reaches the heavy proportions of sandpaper coverage, has a much more adverse effect on drag of the powered wing near maximum lift than for the unpowered wing in uniform flow.  At lift coefficients below stall however, drag increases between powered and unpowered wings are similar.  The lift curves exhibit about the same degree of degradation of performance between powered and unpowered configurations.  The pitching moment change appears to be smaller when the wing is powered and is accompanied by an increase in slope (Cm versus to alpha) and a small change in the nose-up direction (Figure 5c). 
+
+   In order to simulate the scrubbing action of the slipstream, a portion of the roughness was removed at the propeller location.  This resulted in a modest improvement of performance (Figure 5a). 
+
+   Wing-Slipstream Characteristics  
+
+   In order to separate the propeller reactions from the total wing forces, and to compare unpowered wing characteristics with those with the wing immersed in the slipstream, the isolated propeller thrust, normal force and pitching moment were estimated from Reference 5 and were removed from the measured wing force and moment data.  No attempt was made to correct the propeller data for the blockage and upwash events of the wing; however the comments of Reference 8 and the experimental data of Reference 4 suggest that these interactions may be small.  See Figure A. 
+
+   Typical wing characteristics with the propeller reactions removed are shown in Figure 6.  The increase in CLmax for the clean wing (Figure 6a) is roughly half the total powered lift increments.  The loss of lift due to roughness increases with roughness scale and is apparently greater for the unpowered wing than for the powered wing.  Lift slope diminishes with roughness size in both cases.  
+  Pattern classification and recognition based on morphology and neural networks 
+   Classification et reconnaissance de formes basees sur la morphologie et les reseaux neuroniques   
+
+  P. Yu, V. Anastassopoulos and A.N. Venetsanopoulos
+
+   Morphological transformations are an efficient method for shape analysis and representation.  In this work the pecstrum (pattern spectrum), which is a morphological shape descriptor, is used for object representation.  Neural networks are then employed, instead of conventional classification techniques, for object recognition and classification.  Various coding schemes and training procedures have been examined in order to achieve a high classification performance.  A complete classification and recognition scheme is proposed, which is shown to work satisfactorily even for small objects, where the quantization noise has significantly distorted their shape.  The classification results are compared with those obtained using conventional methods, as well as with the results obtained using other shape descriptors.
+
+   Les transformations morphologiques sont des methodes efficaces pour l'analyse et la representation de formes.  Dans cette etude, le pecstrum (pattern spectrum), un descripteur morphologique, est utilise pour representer un objet.  Au lieu de techniques de classification conventionnelles, on utilise les reseaux neuroniques pour la reconnaissance et la classification des objets.  Plusieurs strategies de codage et d'apprentissage ont ete etudiees afin d'assurer une performance superieure pour la classification.  On propose ici une strategie complete de classification et de reconnaissance fonctionnant meme pour de petits objets pour lesquels la forme est distorsionnee de facon appreciable par le bruit de quantification.  Les resultats de classification obtenus sont compares a ceux issus des methodes.   
+
+   I. Introduction    
+
+   Pattern classification and recognition techniques constitute the basis of computer-based decision systems and find applications in many important areas, such as medicine, space exploration, geophysics and defense.  Pattern recognition and classification are the links between low-level and high-level computer vision techniques.  They can also be characterized as internal or external, depending on whether they describe information of the whole area of the object or just of its boundary.  The shape descriptor considered in this work is an information-nonpreserving, internal, morphological vector descriptor called the pecstrum (pattern spectrum). 
+
+   Morphological transformations [4]-[5] have been proven to be powerful in extracting shape information  These transformations are defined as combinations of set operations, the simplest of which are the morphological operations of erosion and dilation.  Their realization requires the binary object (set), which will be transformed, and a probing element used to extract the shape information, called the structuring element (SE).  The pecstrum is the simplest morphological shape descriptor which has been analyzed extensively [6]-[9].  The statistics of the pecstrum are unknown and, in addition, the way that these statistics change with the size (area) of the object is difficult to determine.  These two observations are the main reasons that conventional classification methods were not considered.  Neural networks were used instead to achieve the same objective.  In this work these difficulties were overcome using neural networks. 
+
+   Artificial neural networks have been studied in an attempt to achieve biological-like performance.  Even though the best performance of the neural networks studied so far is still far from that of biological creatures, neural networks have already shown a great potential in areas where many hypotheses are pursued in parallel, and where high computation rates are required.  Studies on neural networks began more than 40 years ago with an attempt to develop detailed mathematical models, and a variety of neural networks were introduced for different classification purposes [11]-[12].  Various learning algorithms related to the previous network structures and network behaviours have been considered, and many successful applications have been developed. 
+
+   Neural networks provide a great degree of robustness and fault tolerance to local damages, and high computation rates because of massive parallelism.  Neural networks with hidden layers can achieve better classification results. 
+
+   The neural networks adopted in this paper are the feedforward networks trained with recursive least square learning algorithms [13]-[14].  A group of templates, considered to be the key input patterns, and their associative output patterns are employed to train the neural networks to obtain a set of optimal synaptic weights by successive iteration.  If the training is successful, when the input is a noisy or incomplete version of a key pattern, the network can recall the associated pattern.  If the network employed is on a binary basis, a suitable coding scheme has to be found to convert the morphological shape descriptors, which are represented by a set of continuous vectors, to a set of binary codes. 
+
+   In this paper, the basic morphological operation, the pecstrum, is presented in section II.  Section III gives a description of neural networks and their application in morphological pattern classification and recognition.  Experiments and the results are shown in section IV, which also includes comparisons with the results obtained through conventional classification techniques.  Finally, conclusions are drawn in section V. 
+
+   II. Mathematical morphology and the pecstrum  
+
+   In this section we describe the pecstrum, which is a means of quantifying the geometrical structure of a continuous or discrete multidimensional signal.  Its origins and foundations lie in the principles of mathematical morphology [4]   Erosion () is a shrinking morphological operation which can be defined as
+
+ ,(1)  
+
+where X  is translated by every element of Bs  (B s  = { -b : b    B }), and then the intersection is taken.  Dilation () is an expanding morphological operation: 
+
+ ,(2)  
+
+where X  is translated by every element of B , and then the union is taken.  The erosion and dilation on a set X  by an SEB  are illustrated in Figure 1. 
+
+   Opening () is defined as an erosion followed by a dilation with the same SEB ; i.e., 
+ ,(3)  
+	
+where B  is the SE  The opening of a set X  by an SEB  can be seen as the union of all translations of B  which fit well in X : 
+ (4)  .
+
+  As a result, the difference between X B and X consists of all those parts of X  which are smaller than B  or, in other words, into which B  does not fit.  It is obvious that opening has low-pass filtering characteristics, because it removes from the object X , details which are smaller than B  and can be considered as high-frequency components.  The difference X  - (XB) denotes all the shape information which was extracted by the structuring element B . 
+
+   We can continue the opening process on the opened set (XB), increasing each time the radius of the SEB , until the whole object X  disappears, as shown in Figure 2.  The differences which can be formed from two successive openings, i.e., 
+ ,  where , 
+denote the shape information that can be extracted by the structuring element ( - +1) B.  These differences are used to form the vector called the pecstrum in the following way  Each component, p(n), of the pecstrum, p, is defined as ,(5)  
+where Mes (.) denotes the size of the set included in pixels.  If X it nB is empty for all -  It is obvious that each pecstral component, p (-), contains the shape information extracted by the SE (- + 1)  B .  Its value is equal to the size rejected normalized to the whole size of the object  Accordingly, all these components add up to unity: 
+ . (6)  
+
+   A shape descriptor must be translation-, rotation- and scale-invariant in order to be appropriate for many recognition and classification tasks.  The vector describing the pecstrum is translation-invariant, since its formation is based on morphological opening, which is a translation-invariant transformation [4]-[5] results in a pecstrum which is scale-invariant, while the maximum dimension, k, of the pecstral space is fixed and expressed from the relation between As and Mes (B) as the minimum integer given by
+
+ (7)    
+
+  Therefore, the number of the nonzero components in each pecstrum is less than k.  On the other hand, the pecstral space can be seen as a k-D orthonormal space in which all vectors, p, have components satisfying (6).  This equation determines a plane in the pecstral space with dimensionality k  - 1. 
+
+   Extensive work on the properties of the pecstrum has been discussed so far, which provides an efficient tool for pattern classification and recognition.  The use of the pecstrum in classification and recognition tasks is attractive, mainly due to the high-speed execution of morphological operations and the fact that it is represented by a vector with only a few components.  It was shown in [7] that the number of the vector components extracted from a fixed standard size, A, is directly related to the size of the basic SE.  The size has to be properly selected to obtain a balance between simplicity of the vector and description of the shape characteristics  In this case, the classification procedure can be considered to consist of two modes.  In the learning mode, the pecstra p(i) (i is an index characterizing the i-th of L different binary objects) of the binary objects are evaluated, given that the objects are known and their size equals the standard size A s, and are stored.  In the recognition mode, the pecstrum of an observed image is evaluated and and the presence of the ith object is declared when the Euclidean distance, 
+
+ ,(8)  
+is minimum.  The coefficients c - were proposed to stress more or less the degree of participation of some of the components of the pecstrum in the decision making.  A good selection could be the one which gives small values of c - for the components of the pecstrum that are rather sensitive to various kinds of quantization noise.  In [7], the value of 1 was used for all c -.  
+
+   In [9], the classification properties of the pecstrum and the pecstral space were examined extensively  
+
+   III. Classification using neural networks  
+
+   The structure of neural networks is based on our present understanding of biological nervous systems which are composed of neurons and synapses.  The neurons are considered to be processing elements, and the synapses to be variable resistors carrying weighted inputs that represent data or the sums of weights of still other processing elements.  Neurons can interact in many ways by virtue of the manner in which they are interconnected.  They can be either only feedforward, or they may have feedback loops.  Figure 3 is a typical single-layer feedforward neural system which can be described as
+
+ ,(9)  
+
+where y (j), j  = 1, 2, , - 0 , is the output neuron, and x (i), i  = 1, 2, , - i , is the input neuron of this layer; w ij is the synaptic weight of the network connecting nodes x (i) and y (j); (j), j  = 1, 2, , - 0 , is the threshold; and (.) is a nonlinear function.  More layers can be added, and each output neuron in the lower layer can be the input of the adjacent higher-layer structure. 
+
+   The whole procedure of classification using neural networks can be seen as consisting of the following four steps:  
+ 1) Choose an architecture of the network structure, which means choosing a suitable number of bits for the input and output signals, hidden layer nodes, and the number of hidden layers involved in this network.
+  2) Determine a proper coding scheme to convert the pecstra, which are analogue figures, to a series of binary codes.
+  3) Use the key patterns and their associative patterns to train the neural network to obtain a set of optimal synaptic weights of the network.
+  4) Having designed a special network, test it with all vector codes available as input patterns to evaluate its performance.  </I
+   A heuristic algorithm for power-network clustering 
+   Un algorithme heuristique applique au probleme de l'ilotage des reseaux de puissance   
+
+  Hesham K. Temraz and Victor H. Quintana 
+
+   An efficient heuristic algorithm for solving cluster problems associated with partitioning of power networks is presented in this paper.  The algorithm is divided into two stages.  The first stage creates an initial partition based on the electrical distance between system buses.  The second stage involves interchanging pairs of buses among the various clusters of the initial partition.  The first stage solves the placement problem of - connected buses in an r -dimensional Euclidean space; such a problem is reduced to finding r eigenvectors of a connectivity matrix, defined as the bus admittance matrix.  The second stage is based on a node interchange technique.  The node interchange is an iterative heuristic method that can be used to improve an initial partition.  The method moves one bus at a time, from one cluster of the initial partition to another, in an attempt to maximize the total electrical distance between clusters of the final partition.  Applications of the proposed algorithm to both small and medium-size power systems are illustrated in this paper. 
+
+   Cet article presente un algorithme heuristique efficace pour solutionner les problemes d'ilotage associes au fractionnement des reseaux de puissance  L'algorithme se divise en deux etapes  La premiere genere un fractionnement initial base sur la distance electrique entre les bus du reseau  La seconde etape implique l'echange de paires de bus entre les divers ilots obtenus au cours du fractionnement initial  La premiere etape solutionne le probleme de la disposition de - bus interconnectees dans un espace Euclidien a r  dimensions; un tel probleme se reduit a trouver r  vecteurs propres d'une matrice d'interconnexion definie comme la matrice admittance du bus  La seconde etape s'appuie une technique d'echange de noeuds  L'echange de noeuds est une methode heuristique iterative qui peut etre utilisee pour ameliorer le fractionnement initial  La methode se deplace sur un bus a la fois, d'un ilot du fractionnement initial a l'autre, de facon a maximiser la distance electrique totale entre les ilots du fractionnement final  Des applications de l'algorithme propose a des reseaux de puissance de petite et moyenne dimensions sont presentees dans l'articles.   
+
+   I. Introduction  
+
+   In dealing with large-scale networks, several decomposition algorithms have been proposed in various fields.  In circuit theory, for example, we have the Gomory-Hu cut tree representation, the graph-decomposition by-linear-transportation problem, the node-tearing nodal analysis, and the multistack layout placement. 
+
+   Partitioning of large power networks is important because, in general, only small portions of these networks are affected by a contingency, such as an outage of a transmission branch, failure of a reactive power compensator, etc.  During such contingencies, there are parts of the network that are left almost undisturbed.  The efficiency of many application programs in an energy control centre, such as load flow, optimal power flow and others, can be significantly improved if only the areas affected by the contingency are considered for the purpose of correcting the state of operation, as the calculation is then performed on smaller networks.  Smaller networks imply matrices of smaller dimension and, consequently, a smaller number of computer operations to be performed.  The use of smaller control networks can only be accomplished by partitioning a power network into clusters of buses, such that buses belonging to the same cluster are strongly connected electrically, while buses belonging to different clusters are weakly connected electrically. 
+
+   To date, all proposed algorithms in power network partitioning are based on either the minimization of the number edge cut or the total wire length, and only the physical connections are considered. 
+
+   The cluster partition problem belongs to a class of hard problems, the so-called NP-complete class, where no polynomial-bounded global solutions are likely to exist   In this method, each bus of a system is assigned a set of coordinates in a subspace r, where r is the number of clusters into which a system is to be partitioned.  The location of the buses on r is determined so as to minimize the electrical distance between system buses. 
+
+   This paper is divided into six sections.  In section II, an eigenvector technique for separating buses into local clusters is described.  The node interchange approach for an initial partition improvement is described in section III.  In section IV, a summary of the proposed algorithm is presented.  Numerical results on the application of the proposed algorithm to both small and medium-size systems are presented in section V.  In section VI, concluding remarks are given. 
+
+   II. Eigenvector partitioning  
+
+   Let N  = {  N , M } define an undirected graph having a set of nodes N  = {1, , - } and a set of links M.  The problem of placing the - nodes of the graph into a subspace r , where r- , is not new; it is called the node placement problem.  In such problems there are two basic objectives: 1) the minimization of total wire length connecting the nodes; and, 2) the minimization of the circuit board area. 
+
+   In power systems, however, the geographical placement of a bus cannot be changed by an electric utility company, since this is defined by the distribution of population and placement of energy sources.  Moreover, the wire length cannot be modified since the transmission lines only connect the various energy sources to the loads.  Nevertheless, it is extremely important to mathematically define a position on r  for each bus of the system.  By doing so, according to an electrical criterion, we make the bus position a part of the data required by this approach to partitioning of the power network. 
+
+   Let us assume that we are given a system with - buses and an - - symmetric connection matrix C  =  C We want to find the location of the - buses that minimizes the weighted sum of the squared distances between the buses.  If x i denotes the x coordinates of bus i, and S denotes the weighted sum of squared distances between the buses, then the one-dimensional problem is to find the row vector x  T  = (x 1, , x  -) which minimizes
+
+ ,(2.1)  
+
+where T  denotes vector transposition  To avoid the trivial solution x  i 1  = 0, for all i, the following quadratic constraint is imposed: 
+ .(2.2)   
+
+   Equation (2.1) can be rewritten as follows: 
+ (2.3)  
+
+  Since C  is symmetrical (i.e., C i  =  C j), 
+ (2.4)  .
+
+  Define a diagonal matrix D  = (d ij) such that 
+
+ (2.5)  .
+
+  Now define the following matrix: 
+ (2.6)   
+
+  In other words, the i th diagonal entry, b  Substituting (2.6) into (2.4) yields
+
+ .(2.7)   
+
+   The Lagrangian of the nonlinear optimization problem described by (2.7) and (2.2) is defined as
+ , 
+from which the necessary condition is given by
+
+ .(2.8)   
+
+   Equation (2.8) leads to a nontrivial solution of x  if and only if is an eigenvalue of B, and x  is the corresponding eigenvector.  Premultiplying (2.8) by x T and imposing (2.2), we obtain
+
+  Consequently, the value of the objective function described by (2.7) is the value of the eigenvalue of B.  The minimum of (2.7) is given by the smallest eigenvalue of B, and the solution, x, is the eigenvector associated with the smallest eigenvalue of B . 
+
+   For the r -dimensional problem, S is simply the sum of r  quadratic terms, one for each dimension, and the minimum of S  is given by the sum of the r smallest eigenvalues of B.  To illustrate the application of the node placement algorithm [9], consider a four-node graph; its connection matrix, C, and the weighted connectivity matrix, B, are described in Figure 1.  It is required that all four nodes be placed in one dimension in a certain order, such that the total wire length connecting the four nodes is a minimum.  The elements of the connectivity matrix C are formulated as follows: 
+ if nodes i  and j  are directly connected otherwise 
+
+  The four eigenvalues of matrix B and their associated eigenvectors El, E2, E3 and E4 are given in Figure 2.  A plot of the four nodes is also shown in Figure 2, where E2 has been used as the y  coordinate.  Any other combination of node placement ordering gives a larger total wire length. 
+
+   If the same placement procedures are used in power-network partitioning, only the physical connections of the network will be considered in a resulting partition; therefore, strongly connected buses may be assigned to different clusters.  A modification in the placement algorithm is required so that the technique can be sufficiently utilized in power-network partitioning; i.e., so that buses belonging to the same cluster are strongly connected electrically. 
+
+   Matrix B, as described above, is a weighted connectivity matrix that measures the distance among buses.  By defining each line connecting two buses of a system as a link, and the electrical distance between two such buses as the value of the link's transfer impedance, we can replace matrix B by the bus impedance matrix Z  bus  However, it is computationally impractical to calculate the smallest eigenvalue of Z bus and the corresponding eigenvector because, in general, Z bus is nonsparse.  Defining the weighted connectivity matrix B  as the bus admittance Y bus, which is very sparse, and maximizing S  in (2.7) is equivalent to minimizing the transfer impedance between buses within the same cluster.  The maximum of (2.7) is given by the largest eigenvalue of Y bus, and the solution is the eigenvector associated with the largest eigenvalue of Y bus  In most practical power systems the ratio X/R is large  Consequently, in many cases, it is possible to neglect the resistances.  By doing so, we can represent Y bus by its purely imaginary part, hereafter denoted as B  bus. 
+
+   The components of the eigenvectors associated with the r largest eigenvalues of B Now let us define the following transformation: 
+ ,(2.9)  
+
+where x  *   i   is the largest value of (-log 10|  x i |), for all i  = 1, 2, , - .  Applying (2.9) to each component of each eigenvector associated with the largest r  eigenvalues transfers the coordinates of the buses such that distances are measured with respect to the order of magnitude.  Moreover, the negative sign always keeps the data for these buses in a positive coordinate.  A power-network initial partition into r clusters is obtained by applying the leader algorithm [10] to the transformed coordinates of the buses. 
+
+   The leader algorithm constructs a number of clusters of buses, a leading bus (centroid), and a distance TH for each cluster, such that every bus in a cluster is within a distance TH from the leading bus.  The algorithm makes one pass through the transformed buses-coordinates, assigning each bus to the first cluster whose leader is close enough, and making a new cluster and a new leader for buses that are not close to any existing leaders.  The distance between bus i  and the leader of any cluster is defined as , 
+where x , y and   are the leader coordinates. 
+
+   The distance TH is selected such that it creates no more than the required number of clusters  As an example, suppose a three-dimensional placement of seven buses whose transformed coordinates are as follows: 
+
+  It is required that the previous seven-bus system be partitioned into three clusters.  Starting at bus 1 as the centroid of cluster 1, if TH=2, then three clusters are created.  If TH=4, only two clusters are created  By adjusting TH to 3, we ensure that three clusters are created, such that buses 1, 3 and 5 are placed in the first cluster, buses 2 and 7 are assigned to the second cluster, and buses 4 and 6 are located in the third cluster. 
+
+   III. Node interchange partitioning  
+
+   A popular class of algorithms for partitioning the nodes of a graph begins with a random partition and tries to improve it by interchanging nodes, one at a time, between pairs of clusters in the partition [11]-[12].  These types of algorithms are called node interchange algorithms. 
+
+   The main idea of the node interchange algorithm is as follows:  Given a partition (A,B) of a power network, the algorithm moves one bus at a time from one cluster of the partition to another cluster in an attempt to minimize the electrical distance and the number of link cuts between pairs of clusters in the final partition.  The bus to be moved (call it the base bus) is chosen on the basis of both the balance criterion (the cluster size) and the effect on the weight associated with the number of link cuts.  Let us define the gain, g(i), of bus i as the value by which the weight associated with the link cuts would decrease, were bus i moved from its current cluster to the complementary cluster.  During each move, we must keep in mind the balance criterion to prevent all buses from migrating to one cluster of the partition, for that would surely be the best partition, were balance to be ignored.  Thus the balance criterion is used to select the cluster from which a bus of highest gain is to be moved.  After all moves have been made, the best partition encountered during the pass is taken as the output of the pass.  
+  THEORY AND COMPUTATION OF TWO-METAL AND HIGHER ORDER PREDOMINANCE AREA DIAGRAMS 
+
+  CHRISTOPHER W. BALE 
+
+   Abstract  - Algorithms which calculate the classical one-metal predominance area or phase stability diagram are briefly reviewed.  The "Constrained Chemical Potential Method", which has been used to calculate one-metal predominance area diagrams, is adapted to calculate two-metal and higher order systems.  The topologies of the resulting diagrams are analyzed and general guidelines are proposed for constructing multi-metal predominance area diagrams.  Examples are presented for systems containing one metal, Fe-S-O, Ca-C-O-S-H, Cu-S-O, Zn-S-O, Al-S-O; two metals, Al-Zn-S-O, Al-Si-C-O, Cu-Fe-S-O ; and three metals, Al-Fe-Zn-S-O.  
+
+    Resume - Les algorithmes calculant les diagrammes de stabilite ou d'aires de predominance d'un metal sont presentes brievement.  La methode des potentials chimiques imposes, qui a ete utilisee pour calculer de tels diagrammes, a ete modifiee pour permettre le calcul de systemes ou plus d'un metal est present.  La topologie des diagrammes resultant est analysee et les principes de construction de tels diagrammes sont presentes.  Des exemples de diagrammes sont donnes pour des systemes contenant un metal, Fe-S-O, Ca-C-O-S-H, Cu-S-O, Zn-S-O, Al-S-O; deux metaux, Al-Zn-S-O, Al-Si-C-O, Cu-Fe-S-O; et trois metaux, Al-Fe-Zn-S-O.   
+
+   1. INTRODUCTION  
+
+   The predominance area or phase stability diagram provides a convenient means of assembling heterogeneous equilibria in various gaseous atmospheres.  For example, Figure 1 shows the classical one-metal predominance area diagram for the Fe-S-O system where the axes are log 10 P (SO 2) and log 10 P (O 2).  All the species are in their pure standard states and the diagram is calculated from the standard Gibbs energies of formation of these species.  Algorithms which calculate and plot this type of one-metal predominance diagram are well documented in the literature [1-19]. 
+   The diagram provides a researcher with a wealth of information on the stability and reactivity of the iron-bearing species in oxygen and sulphur atmospheres.  Figure 1 shows the effect of temperature in the range 800 to 1000 K  The diagram shows which species coexist and which species react.  For example, at 900 K the mixture of FeS-FeO-Fe 3 O 4 forms a stable invariant point.  On the other hand, the mixture Fe-FeS 2 is unstable and reacts to form FeS. 
+   The phases are assumed to have fixed stoichiometry.  Variable compositions due to solution phases (oxygen and sulfur dissolved in iron) or non-stoichiometry (Fe 1- x O) are generally not taken into account.  For those systems where there are non-stoichiometric compounds or stable solution phases, the predominance area diagram is not the true phase diagram but rather a map of the relative stabilities or "domains of predominance" of the one-component species. 
+   The predominance area diagram is not limited to one metal with two elements.  For example, Figure 2 shows a Ca-based system at 1100, 1150 and 1200 K with four elements: C, O, S and H.  The axes are log Each domain in Figure 2 contains one Ca-bearing species. 
+   If the system contains two metals, for example Cu and Fe, the result is a two-metal predominance area diagram (Figures 7b to 7e).  The chemical interactions become more complicated due to the formation of multi-metal compounds of the type Cu 5 FeS 4, Cu 2 O&dot;Fe 2 O 3 and CuO&dot;Fe 2 O 3.  Certain domains in the two-metal diagram do not obey the same rules of construction as the one-metal diagram and so the complete diagram can not be calculated in the same manner.  The two-metal predominance area diagram is different because each domain contains two species and the relative stabilities of these species are determined by the overall metal composition ratio Fe/Cu.  That is, a given two-metal system may have several predominance area diagrams, each corresponding to a particular metal composition range. 
+
+   In the literature, two-metal and higher order predominance area diagrams are not well documented.  Unlike the one-metal diagram which, in principle, can be produced with the aid of a hand calculator, the two-metal predominance diagram is generally not as easy to calculate.  Diagrams which are published have often been tediously generated and they may be limited to a single multi-metal compound.  It is possible to map all equilibria by means of sophisticated Gibbs energy minimization algorithms, but this is not a simple approach and requires access to powerful software.  There appears to be no general simple methodology to calculate the multi-metal diagram and explain the rules of construction. 
+   In this article, the "Constrained Chemical Potential Method"  for calculating one-metal predominance area diagrams is reviewed.  The algorithm is then extended to calculate two-metal and higher order predominance area diagrams   It will be shown that the algorithm offers a systematic method of computing multi-metal predominance area diagrams containing two or more ligands with the axes represented as logarithms of partial pressures (or activities) or ratios thereof.
+ 
+  The geometries of the resulting diagrams are analyzed and general guidelines are proposed for constructing multi-metal predominance area diagrams. 
+
+   2. CLASSICAL ONE-METAL PREDOMINANCE AREA DIAGRAM  
+
+  2.1.  Computing the one-metal predominance area diagram- standard algorithm  
+   Algorithms which calculate the one-metal predominance area diagrams are well documented in the literature [1-19]  
+   The standard algorithms for calculating a predominance area diagram generally consist of deriving expressions for the univariant lines of the diagram.  For example, in Figure 1 the FeS-Fe 3-O 4 univariant line is defined by the following equilibrium: 
+ (1)  
+
+ (2)  
+
+where K 1, is the equilibrium constant.  An invariant point among the three pure phases FeS-FeS 2-Fe 3 O 4, in Figure 1 is determined by writing a chemical reaction involving the three species: 
+ 
+
+ (3)  .
+
+  An analogous expression can be derived to express log 10 P (O 2).  
+   By systematically computing the univariant lines or invariant points, the complete predominance area diagram can be calculated.  If all the phases in the diagram are stable, the methodology is simple and in principle a diagram such as Figure 1 is within the reach of a hand-calculator. 
+   In cases where there are metastable equilibria (for example, in Figure 1 FeO is metastable at low temperatures), it is necessary to verify that each calculated equilibrium is the most stable.  In complex systems, where there may be several elements, this not a simple task and it may require the use of a mass-constrained Gibbs energy minimization algorithm such as SOLGASMIX.  
+
+  2.2.  Computing the one-metal predominance area diagram - the Constrained Chemical Potential Method  
+
+   In the previous publication, a new methodology was proposed which provides an efficient means of computing one-metal predominance area diagrams   The algorithm will be briefly presented here since the equations become the basis to treat two-metal and higher order systems. 
+   Fe is the "one metal" present in all the phases and we refer to Fe as the "base element" of the predominance area diagram.  The other elements (S and 0) may be referred to as ligands . The Gibbs energy of formation of each iron-bearing species from the standard state elements is expressed in terms of one mole of the pure base element (iron).  The general reaction is written as: 
+  4)  .
+
+  The stoichiometric factors j and k are greater than or equal to zero and z is always greater than zero.  Noting that the reactant Fe(s) is in its standard state, the Gibbs energy of reaction (4) is given by: 
+ (5)  
+
+where G 0 is the standard Gibbs energy change of equation (4) and where a(Fe z S j O k) is the activity (generally unity) of the iron-bearing species. 
+   The equilibrium partial pressures of the standard state elements S 2 and O 2 at any point (x , y) in Figure 1 are deduced from the equilibrium constant of the reaction:.(6)   
+
+   The Gibbs energy of any Fe-bearing species (equation (5)) can now be calculated at that point.  Since ln P (O 2) and ln P (SO 2) vary linearly across Figure 1, equation (5) can be simplified to: 
+ (7)  
+
+where X  and Y  are the coordinates (log 10 P (O 2), log 10 P (SO 2)) on the diagram and the constant coefficients a i , b i and c i are calculated from the linear dependence of the Gibbs energy.  For example, G (equation (5)) is calculated at any three arbitrary points on the diagram such as (X min, Y min), (X max, Y min) and (X max, Y max).  The coefficients a i , b i and c i are then calculated from the three simultaneous equations. 
+   Setting up the equations in this way enables us to directly identify the most stable species in any region of the diagram as well as to define the stable univariant lines and invariant points. 
+   The most stable species at any point (x, y) on the diagram is simply the one with the most negative Gibbs energy given by equation (7) at that point. 
+   The univariant equilibrium between the two iron-bearing species p and q occurs when G p  =  G q.  From equation (7) the equation of this univariant line in Figure 1 is given by:  .(8)   
+
+   An invariant point (x, y) exists among the three species p, q and r when G p=    G q=  G r.  Resolving the three equations leads to the following coordinates for the invariant point: 
+  9) . 10)    
+
+   The invariant point is stable if there are no other species with a more negative Gibbs energy (equation (7)) at that point.  A univariant line is drawn between two stable invariant points if at both points all the species but one are common.  This is the basis of the construction of Figure 1. 
+   The calculation of the equilibrium partial pressures of the elements S 2 and O 2 at three points on the diagram and the resulting linear equation (equation (7)) is an essential feature of the algorithm and can be generalized.  The axes can be ratios of activities and/or partial pressures of any elements or compounds with S and / or O. 
+   Additional (non-metallic) elements can be added to the system.  For example, Figure 2 shows the quinary system Ca-C-O-S-H calculated at 1100, 1150, and 1200 K.  The axes are log  In this system, the equilibrium partial pressures (or activities) of the elements C(s), O 2(g), S 2(g) and H 2(g) are calculated at three (corner) points on the diagram in order to determine the general equation (7). 
+   The algorithm offers a systematic method of computing one-metal predominance area diagrams containing two or more ligands with the axes represented as logarithms of partial pressures (or activities) or ratios thereof. 
+
+ It is a general method and is directly amenable to computer treatment and automatic data retrieval [20] .  
+  Let us now extend the algorithm to systems containing more than one metallic (base element) component.  We will first consider the situation where there are two metals in the predominance area diagram. 
+
+   3. TWO-METAL PREDOMINANCE AREA DIAGRAM  
+
+  3.1.  Algorithm for computing two-metal predominance area diagrams  
+
+   Figure 3 shows the Fe-Al-S-0 system at 800 K.  The axes are log 10 P (SO 2) and log 10 P (O 2).  The diagram was calculated by superimposing Figure 1 with the Al-S-O one-metal predominance area diagram.  Any possible two-metal compounds formed between Fe- and Al-bearing species do not appear.  In Figure 3 there are two "base elements", Fe and Al.  Each domain contains two species, one Fe-bearing and one Al-bearing. 
+   As with the one-metal diagram, there are " Y -type" invariant points formed by three intersecting univariant lines (for example point 'a' in Figure 3).  The invariant point consists of four coexisting species, three of which are interacting with respect to one of the metals (Fe:- FeS, FeS 2 and Fe 3 O 4) and the fourth non-reacting species from the other metal (Al:- Al 2 O 3). 
+   In Figure 3, there is a new type of invariant point formed by four domains (point 'b')  This represents a reaction involving two Fe-bearing (FeSO 4 and Fe 2(SO 4) 3) and two Al-bearing (Al 2(SO 4) 3 and Al 2 O 3).  The invariant point is produced by two intersecting univariant lines from each one-metal diagram.  The domains at the point form the shape of a letter 'X' with two straight lines. 
+   Figure 3 is a convenient way of combining and comparing two one-metal systems but it provides little new information.  
+   Let us introduce a two-metal compound into the system.  Figure 4 shows the FeO-Al 2 O 3 binary phase diagram    In the solid phases, FeO and Al 2 O 3 react to form an intermediate (two-metal) phase FeO Al 2 2 O 3: .(11)   
+
+   According to Figure 4, Al 2 O 3+FeO Al 2 2 O 3 coexist when the overall metallic fraction is 0.0 The range of R  is simply given by the metallic stoichiometry of the coexisting compounds.  Hence it follows that a two-metal predominance area diagram is a function of the atomic ratio of the two metals, the limits of which can be deduced from the chemical formulae of the species containing the base elements. 
+ 
+
+   In order to compute the true two-metal predominance area diagram, it is necessary to modify the strategy described in section 2.2 to include two base elements.  Each domain contains two stable species and from equation (5) general chemical reactions are formulated to produce the species from one mole of the pure base elements (Fe and Al): 
+ (12)  .(13)   
+
+   As before, the stoichiometric factors  n, m, j and k are greater than or equal to zero and z is always greater than zero.  Equations (12) and (13) represent the reactions to form Fe-bearing and Al-bearing species respectively, but now they include both metals.  For simple systems without intermediate multi-metal compounds, n and m are zero and the reactions reduce to two one-metal systems.  </I
+   A procedure for estimating the overall system worth associated with generating unit refurbishment  
+
+    Une methode pour estimer la valeur globale pour un systeme de la remise en service d'unites generatrices    
+
+  R. Billinton and L. Goel 
+
+   Quantitative reliability evaluation is an important element in power system planning and operation and the indices generated can be used to make a wide variety of planning decisions.  Quantitative reliability evaluation methodologies are now firmly established in the area of generating capacity adequacy assessment and are routinely used in planning new capacity additions.  Generating system adequacy is primarily governed by the unavailabilities of the units in the system and therefore one alternative to adding additional capacity is to consider improving the availabilities of existing units in the system. 
+
+   Generating unit availability can be improved by unit and plant refurbishment, i.e. by investing capital to reduce the unit forced outage rate (FOR).  Many electric power utilities are doing this rather than investing in new generation equipment.  Generating unit unavailability has a major impact in a number of overall system areas, most of which are not normally considered by power station designers, plant operators and managers responsible for actual power plant modifications.  This paper presents a comprehensive and basic approach to recognizing the impacts of generating unit unavailability on expected energy production costs, expected failure costs and capacity costs.  The procedure is energy-based and utilizes an interrupted energy assessment rate applicable to the consumers served by the system to incorporate the expected load curtailment costs.  The worth of generating unit refurbishment is assessed in terms of overall system costs.  The cost of any specific unit refurbishment can be compared with the resulting net benefits and used to make decisions.   
+
+   Une evaluation quantitative de la fiabilite est un element important dans la planification et l'operation d'un reseau electrique et les indicateurs obtenus peuvent etre utilises dans un large eventail de decisions associees a la planification.  Les approches quantitatives pour l'evaluation de la fiabilite de la capacite de production sont maintenant solidement etablies et sont utilisees de facon reguliere pour la planification des capacites additionnelles de production.  La capacite de production est regie principalement par la non-disponibilite d'unites dans le reseau et une facon alternative pour l'ajout d'une capacite additionnelle est d'ameliorer la disponibilite d'unites existantes dans le reseau.  
+   La capacite de production peut etre amelioree par la remise en service des unites generatrices et du reseau associe, i.e. en investissant les sommes requises pour reduire la mise hors-service forcee (MHSF) d'unites et plusieurs compagnies distributrices d'electricite font ceci plutot que d'investir dans des unites neuves.  La non-disponibilite d'unites generatrices a un impact majeur sur plusieurs secteurs du reseau et la majorite de ceux-ci ne sont normalement pas consideres par les concepteurs des sous-stations, les operateurs de ces stations et par les administrateurs responsables pour les modifications en cours dans les reseaux.  Cet article presente une approche simple et pratique pour determiner l'impact de la non-disponibilite d'une unite generatrice sur les couts de production esperes de l'energie, les couts des bris anticipes et les couts en capacite  La procedure, axee sur l'energie, utilise un taux intermittent d'allocation de l'energie applicable au consommateur desservi par le reseau qui incorpore les cout de repartitions de la charge.  La valeur associee a la remise en service d'unite generatrice est etablie en termes des couts globaux.  Le cout de remise en service d'une unite donnee peut etre compare avec les benefices nets escomptes et permet la prise de decision.   
+
+   Introduction  
+
+   An electrical power system serves the basic function of supplying all types of customers with electrical energy as economically as possible and with an acceptable degree of continuity and quality  Reliability has, in recent years, become an important utility design criterion.  It is a highly complex quantity which is dependent on a wide range of factors.  Power system reliability.  System adequacy is governed by the existence of sufficient facilities within the system to satisfy the load requirements.  Such facilities include generation, transmission and distribution.  Adequacy assessment is, therefore, concerned with static system conditions and does not include disturbances in the system.  System security is concerned with the perturbations arising within the system, such as local and/or widespread disturbances, loss of any major facility, etc.  This paper is restricted to adequacy assessment. 
+
+   Generating capacity adequacy assessment is an area in which extensive research has been done.  The basic system adequacy indices are the loss of load expectation (LOLE) and the loss of energy expectation (LOEE).
+ The calculated values are very dependent on the individual generating unit forced outage rate (FOR) values.  The system peak load carrying capability (PLCC), which is the peak load that a system can carry at a specified system risk index, is also very dependent on the generating unit FOR values.  In addition to the impacts on system reliability, generating unit forced outages have a substantial effect on system costs and therefore on the price consumers have to pay for electricity   
+
+   Many power utilities have recognized the implications of low unit availabilities and are actively engaged in unit refurbishment to improve these conditions.  The economic cost associated with a given unit FOR can be defined as the variation in the total system costs resulting from changing the unit FOR by an increment, while maintaining the same level of system reliability.  The total system costs include the three components of capacity cost, failure cost and production cost.  In this calculation, it is necessary to analyze the impact on the adequacy performance of the system of varying the FOR and to recognizing the variation in adequacy in terms of extra capacity. 
+
+   Additional capacity which is required to compensate for the decreased level of system adequacy resulting from increased unit FOR can be obtained by adding peaking units in the form of gas turbines.  The simple addition of gas turbines may not, however, be the most effective method of adding capacity to a system over the long term.  It may be more appropriate in a particular system study to consider the actual long range plans of the utility which include specific unit sizes, types and locations.  The objective is to determine the average cost associated with the addition of an increment of generating capacity.  In order to do this, a present-worth analysis was conducted for an expansion period of thirty years.  The average cost associated with a unit increase in peak load carrying capability (PLCC) was determined from these analyses.  Several sensitivity studies were conducted to study the impact on this capacity cost figure of load forecast uncertainty, unit size and type and annual load growth etc.  The worth of unit refurbishment is assessed using the capacity cost benefits due to increased system PLCC and the benefits/losses in the system production costs and failure costs.  The cost of refurbishment can be compared to its worth in order to make objective decisions.  The ability to accurately estimate the refurbishment worth associated with a given unit FOR is an important factor in deciding when to retire an old unit and to replace it with a new one.  The segmentation method has been used in these studies to estimate the refurbishment worth associated with a unit FOR in terms of the capacity costs, energy production costs and the system failure costs.  
+
+   Basic system parameters  
+
+   An adequacy index can be defined as a parameter that denotes a particular aspect of system reliability.  The main objective in generating capacity adequacy assessment is to estimate the necessary generating capacity to satisfy the system demand and to have sufficient capacity to perform corrective and preventive maintenance on the generation facilities.  The LOEE, which is a measure of the expected unsupplied energy due to the occasions when load demand exceeds the available generating capacity, is an intuitively appealing index as it relates directly to the system function of providing customers with electrical energy.  The LOEE is also known as the expected energy not supplied (EENS). 
+
+   Expected energy not supplied has been considered as the primary adequacy index in the studies described in this paper.  The determination of individual generating unit energy production is complicated by unit forced outages, maintenance requirements, the variability of hydro inflows, etc.  The earliest probabilistic production cost simulation which evaluated the expected energy generated by each unit and the EENS of the system was reported by Booth in the same year .  The evaluation of expected production costs, given that the expected energy output of each unit in the system has been predetermined, is a relatively straightforward task.  Under normal circumstances, a preferred synchronizing sequence or generating unit loading order is used to meet a specific load level.  The loading order of the units does not affect the system EENS provided that there are no energy-limited units in the system.  The loading order, however, can have a considerable impact on the system production costs.  In order to minimize the production costs, the units should be loaded in the order of their incremental variable costs, i.e. the generating unit with the lowest incremental variable cost should be loaded first as a base unit and the one with the highest variable cost loaded last or used as a peaking unit. 
+
+   A major aspect in the justification and optimization of a specific system expansion is the cost-benefit assessment of the resulting power system adequacy  Conceptually, the benefits of having increased levels of electric service reliability can be related to the costs of providing that service.  Actual or perceived costs of interruption can be used to determine the benefits of increased system reliability.  The most practical method to establish reliability worth is to survey electrical consumers, sector by sector, to determine the losses incurred by each customer class due to power interruptions.  The data produced by this method can in turn be used to generate a composite customer damage function for a particular service area.  The customer damage function is an attempt to define the total customer interruption costs for that service area as a function of the interruption duration.  In order to create a practical tool for assessing reliability worth, these customer interruption costs must be related to the calculated adequacy indices such as the LOLE and EENS used in system planning and operation.  The EENS has been used in conjunction with the customer cost function to obtain a factor relating customer losses to the worth of electric service reliability.  This factor has been designated as the interrupted energy assessment rate (IEAR). 
+
+   The segmentation method was used for performing all the system studies reported in this paper .  The various indices for the RTS are as follows:   Energy required = 15297.444 GWh
+  Energy supplied = 15296.268 GWh
+  Unsupplied energy = 1.176 GWh 
+  Expected production costs = $156.346 million
+  Expected failure costs = $5.91 million. 
+
+   Impacts of generating unit unavailability  
+
+   Given that the system contains a specific set of units with assigned forced outage rates and that there are no energy-limited units in the system, the system EENS and therefore the expected failure costs for a given load model are fixed.  In general, an increase in the FOR of a generating unit causes an increase in the system EENS, which in turn causes a corresponding increase in the expected failure costs.  The impacts of varying the unit FOR were studied using the IEEE-RTS.  The effect on the system EENS of changing the FOR of the 197 MW thermal units is shown in Figure 1.  The variation in the expected failure costs (using an IEAR of 5.02 $/KWh) is shown in Figure 2.  Figures 1 and 2 show that the system risk and failure costs respectively increase with an increase in the generating unit FOR (Figures 1 and 2 are directly related.  The difference in shape is due to the ordinate scales used in each case).  In a similar way, the impacts on the system risk of changing the FOR of all the 20 MW peaking units, the 400 MW nuclear units and the base loaded 50 MW hydro units are shown in Figure 3.  The 400 MW nuclear units have the highest FOR in the system and for this reason alone make a major contribution to the high system EENS and failure costs.  The 50 MW hydro units have the lowest FOR and therefore a large variation in their FOR does not affect the system risk index to a large extent.  The 20 MW thermal units are used for peaking purposes and hence do not contribute significantly towards the system inadequacy.  A large variation in their FOR, therefore, does not affect the system EENS as is evident from Figure 3.     Bound and resonant relativistic two-particle states in scalar quantum field theory  
+
+  Leo Di Leo and Jurij W. Darewych 
+
+   We derive relativistic particle-antiparticle wave equations for scalar particles, and , interacting via a massive or massless scalar field, (the Wick-Cutkosky model).  The variational method, within the Hamiltonian formalism of quantum field theory is used to derive equations with and without coupling of this quasi-bound   system to the decay channel.  Bound-state energies in the massless case are compared with the ladder Bethe-Salpeter and light-cone results.  In the case of coupling to the decay channel, the quasi-bound states are seen to arise as resonances in the scattering cross section.  Numerical results are presented for the massive and massless case. 
+
+   Nous demontrons une equation d'onde relativiste gouvernant des particules et antiparticules (et) qui interagissent via un champ scalaire avec ou sans masse (modele de Wick-Cutkosky)  Dans la formulation hamiltionienne de la theorie quantique des champs, la methode variationnelle nous permet de deduire des equations avec ou sans couplage du systeme quasi-lie avec le mode de desintegration   Les energies de liaison dans le cas sans masse sont comparees avec les resultats obtenus par la methode du cone du lumiere et par l'equation de Bethe-Salpeter avec diagrammes de type echelle  Dans le cas d'un couplage avec le mode de desintegration, les etats quasi-lies sont identifies a des resonances dans la section de diffusion   Des resultats numeriques sont presentes dans les cas de masse nulle et non-nulle pour.   
+
+   1. Introduction  
+
+   One of the outstanding problems in quantum field theory is the computation of the bound-state spectrum and wave functions of hadrons at strong coupling  Lattice gauge theory has been an important method for studying the lowest hadronic states of quantrum chromodynamics (QCD), but it is very difficult to get detailed information about the hadronic wave functions in this approach.  The Bethe-Salpeter formalism has been the traditional tool for analyzing relativistic bound states, but this approach is difficult to implement, and is all but intractable for systems of three or more particles.  Thus it is of interest to consider other, more tractable, approaches, such as the Hamiltonian method or light-cone quantization, and to test them on model strongly coupled theories. 
+   Scalar quantum field theory, in which massive spinless particles interact via another, massive or massless, scalar field has long been a favourite model for investigating methods of treating the relativistic bound-state problem.  See, for example, references and the citations contained therein.  In this approach, which in practice is perturbative, the relativistic two-particle system is described by a co-ordinate or momentum space equation in 3 + 1 dimensions.  The presence of a relative time coordinate in the resulting Bethe-Salpeter amplitude makes its direct interpretation as a Schrodinger-like wave function for the relative motion of the two-particle system somewhat problematic.  This situation does not arise in the Hamiltonian formalism of quantum field theory, in which the connection to the Schrodinger description is much more direct.  Recently, the variational method, within the Hamiltonian formalism of quantum electrodynamics has been shown to be effective in treating relativistic two-fermion states. 
+   In the present paper we derive relativistic integral equations for two massive scalar particles interacting via massive and massless scalar fields, using a two and later a three Fock-space-state variational Ansatz.  These equations are solved approximately in various ways: numerical integration, a variational method, and by perturbation theory.  We compare the results, where possible, to the ladder Bethe-Salpeter (3) results.  
+
+   2. Lagrangian, Hamiltonian, and variational method  
+
+   For a system of massive particles, interacting via a massive (or massless) scalar field , the Lagrangian density is
+
+[1]	 
+
+where () is a complex (two-component) scalar field and (x) is a real scalar field  Thus, the corresponding Hamiltonian density is
+
+[2]	 
+
+where
+
+[3]	 
+
+[4]	 
+
+and
+
+[5]	 
+
+where M0 and m0 are the (bare) masses and g,, v the coupling constants of the theory. 
+   As is well known, the free quantum field theory (g = = v = 0) is solved by the Fourier decomposition (we take t = 0 in the present Schrodinger representation): 
+[6]	 
+
+[7]	 
+
+where
+
+[8]	 
+
+[9]	 
+
+and all other commutators vanish.  Note that in [6] and [7], and henceforth, we use the notation 
+where, at this stage, m and M  are adjustable parameters, which we will later identify with the physical particle masses distinct from the bare masses, m0 and M 0, of the Lagrangian [1]. 
+   To describe the bound state of a scalar particle-antiparticle system, each of mass M, we consider the Ansatz
+
+[10]	 
+
+where p1 + p2 + p3 = 0 in the rest frame of the system.  In [10], |0 is the vacuum state annihilated by the operators b, a, and d, that is, it is our trial vacuum state.  The coefficients F(p) and F(p1, p2) are to be determined from the variational principle
+
+[11]	 
+
+which is satisfied by the exact solutions, |  and E, of the field theoretic Schrodinger equation
+
+[12]	 
+ 
+  Since we are not interested here in the vacuum state but only in the particle-state excitations above the vacuum state, we normal order the Hamiltonian in applying the principle [11], and thus obtain the following set of coupled integral equations for the coefficient functions F(q) and F(q, p): 
+[13]	 
+
+and
+
+[14]	 
+
+where =  g/(2)3/2 .  Note that at this level of approximation (i.e., with the Ansatz as given by [10]) the term v 4 of the Hamiltonian does not contribute to the equations. 
+   We decouple the integral equations [13] and [14] by taking E= +,=0, m0=m, and M=M0 in [14], which therefore yields
+
+[15]	 
+
+  Although this procedure may seem to be a rather drastic approximation, it must be borne in mind that the trial state [10], and so [13] and [14] are themselves severe truncations of the complete Fock-space expansion of the exact solution, which would contain an infinite number of terms in [10].  Indeed, the Ansatz [15] yields the exact result in the case where = (q2+M2)  1/2 is replaced, simply, by M in the Hamiltonian (i.e., fixed particles of mass M) in which case the  = v = 0 theory is diagonalizable (see, for example, Chapter 12 of).  
+   Substituting the Ansatz [15] into [13] yields, for the  =0 case, the equation
+
+[16]	 
+
+   At this stage we note that in order that M  be identified with the physical mass of the particle (or antiparticle), we must take
+
+[17]	 
+
+where, as usual, the divergent integrals are controlled by a suitable cutoff, say 0|p|(q), where is finite. 
+   The expression [17] is just a renormalization of the mass  Thus, if for a one-particle state we were to choose a trial state analogous to [10], 
+[18]	 
+ 
+and if we were to carry out the steps corresponding to those of [11]-[16], we would obtain, analogously to [16], the expression	
+[19]	 
+
+  This yields the correct expression for the one-particle energy, E=, provided that we choose the mass parameters in accordance with the condition [17].  Of course, this mass renormalization can also be handled in the conventional (and equivalent) way, by addition of suitable mass counter terms to the Hamiltonian. 
+   With the imposition of the condition [17], [16] becomes
+
+[20]	 
+
+where   =/2M2 is the effective coupling constant, and
+
+[21]	 
+
+where we have included in [21] the contribution of the term of the Hamiltonian ([3]) that arises if 0. 
+   We note, in passing, that the interaction kernel [21] of [20] can be identified with the on-shell invariant matrix element of the corresponding elementary Feynman diagrams for this theory.  Thus, for the one- "chion" (-particle) exchange diagram we note that, for  = 0, 	
+	 
+
+  The second term in the kernel [21] comes, similarly, from the invariant matrix element corresponding to the "contact" interaction . 
+   In the nonrelativistic limit, |   q  |   M , [20] becomes, when  = 0, 
+[22]	 
+
+where =  E- 2M .  This is just the momentum-space Schrodinger eigenvalue equation for the stationary states of the two-particle system with Coulombic (m=m0=0) or Yukawa (m0) interparticle interactions.  For the case where the coupling is via a massless scalar field, that is the Coulomb case with m=0, [22] has the well-known hydrogenic analytic solutions, with bound state eigenvalues where  -  = 1, 2, 3,.  The corresponding eigenfunctions F (p) are just the Fourier transforms of the usual hydrogenic bound-state wave functions (see, for example,. pages 36-39) .  The solutions of [22] in the Yukawa case with m0, as is well known, cannot be expressed in terms of elementary analytic functions. 
+   Equation [20] is a relativistic momentum-space Schrodinger-like integral eigenvalue equation for the stationary states of the two-particle system  Evidently the relativistic two-body kinematics is treated without approximation in this equation while the interaction, expressed by the kernel K (p, q) of [21], is described to within the limitations inherent in the Ansatze [10] and [15].  This kernel contains the one-chion-exchange contributions, which are dominant at low values of coupling constant, =  g2/16 M2. 
+   We might mention, at this stage, that the same equation [20] is obtained at this level of approximation for both the particle-antiparticle or two-particle (or two-antiparticle) systems. 
+
+   3. Approximate solution of the two-particle equation and bound states  
+
+   The relativistic two-particle equation [20] can be reduced to radial form by setting where   q =|q| and Y lm () are the usual spherical harmonics, and carrying out the angular integration.  The result is
+
+[23]	 
+
+with
+
+[24]	 
+
+where
+
+and Q1(z) is the Legendre function of the second kind. 
+   Since it is not evident that the solutions of the radial equation [23] can be expressed in terms of common analytic functions, we have solved this equation approximately for a number of cases in three ways: perturbatively, variationally, and numerically  As has been pointed out already, in the nonrelativistic limit [23] reduces to the momentum-space radial Schrodinger equation, whose solutions are the well-known hydrogenic functions in the massless (m=0) or "Coulomb" case, and which have been extensively studied numerically for the massive (m=m00) "Yukawa" case.  Thus, if E nl () are the eigenvalues in the nonrelativistic limit (for the Coulomb case), then the bound state eigenvalues E nl () of the relativistic equation will reduce to nl () when    1, since 
+   From the numerical study of integral equations similar to [23] (7, 8, 12) , as well as from the known spectrum of the radial Dirac and Klein-Gordon equations, we expect that the bound-state eigenvalue spectrum E nl () will start from 2M  at = 1 (1=0 in the Coulomb, m=0, case) then will follow the nonrelativistic values nl () downwards for 1 
+   The integral equation [23] results from the extremum principle
+
+[25]	 
+
+where the functional E [f(p)] is given by
+
+[26]	 
+
+  Thus, for the relativistic energy eigenvalue E nl(), the first-order perturbative correction (to its nonrelativistic approximation, nl ()) can be obtained by evaluating the functional E [f p)], with f(p) replaced by the nonrelativistic momentum-space wave-functions  nl(p).  In short, to first order in perturbation theory we have
+
+[27]	 
+
+  For the Coulomb case (m=0), the nonrelativistic wave functions  <nl(p) are known analytic functions, hence the perturbative approximation [27] can be expressed in closed form, yielding, when expanded to order 4, the result
+
+[28]	 
+
+where the kinetic energy correction is, as expected
+
+[29]	 
+
+while the correction to the potential energy is
+
+[30]	 
+
+  Note that except for the potential energy correction V This is not surprising since the relativistic kinetic energy corrections must be independent of the particle spin, and only the dynamical relativistic corrections would be affected. 
+   The present model in the massless (m=0) case and with = v = 0 has been solved in the ladder approximation of the Bethe-Salpeter formalism (this is the well known Wick-Cutkosky solution : 
+[31]	   
+
+  This is quite different from our result [28]-[30], since we do not obtain any 3ln or 3 terms in our approximation, but rather 4 corrections as in the quantum electrodynamics (QED) case. 
+   At first glance it may seem surprising that our results do not agree with the Wick-Cutkosky ones beyond 2  However, it has been pointed out previously (13, 14) that the ladder Bethe-Salpeter approximation is a different and not necessarily a better approximation to the exact results, than approximations such as the present.
+
+ In particular Gross (14) points out that the ladder Bethe-Salpeter approximation does not does not have the correct one-body limit   
+
+
+   CHAOTIC VIBRATIONS AND RESONANCES IN A FLEXIBLE-ARM ROBOT  
+
+  M.F. Golnaraghi
+
+  Faculty of Engineering
+ University of Waterloo
+ Waterloo, Ontario
+ N2L 3G1, Canada
+
+  Received May, 1990, accepted April, 1991 No. 90-CSME-15, EIC Accession No. 2242 
+
+   RESUME  
+
+   Vibrations et resonances chaotiques dan un bras robotise  
+
+   A partir du moment ou la notion de flexibilite est introduite dans le bras d'un robot, il faut d'attendre a ce que de serieux problemes concernent la precision et la stabilite viennent rendre son controle delicat.  Ces problemes ne peuvent etre elimines avec succes que si l'on prend en compte la dynamique non-lineaire du systeme.  Les bras flexible robotise qui nous interesse est a grande vitesse de deplacement, comporte deux degres de liberte et considere des non-linearites quadratiques dont les frequences naturelles sont definies comme etant 1 et 2.  Ce travail concerne l'etude du comportement de ce type de robot autour de la frequence de resonance interne .  Des simulations numeriques ainsi que des investigations analytiques ont ete faites sur un modele mathematique simplifie du systeme soumis a une excitation periodique.  L'utilisation de la methode des perturbations avec developpement a deux variables a permis de montrer l'existence d'un phenomene de saut et de "saturation" quand les resonance forcee et naturelle arrivent.  Les etudes numeriques montrent l'apparition de solution de type chaotique dans les regions de r&eacutesonance.  Les routes vers le chaos contiennent des bifurcations subharmoniques.   
+
+  SUMMARY 
+
+   Once flexibility is introduced into the arm of the robot, severe problems in the accuracy and stability are likely to occur which make control a critical issue.  These problems can successfully be eliminated only if the nonlinear dynamics associated with the flexible-arm is properly accounted for. 
+
+   In this paper we study the behaviour of a two degree of freedom high speed robot with a flexible-arm, having quadratic nonlinearities with natural frequencies defined as 1 and 2, at internal resonance.  We perform numerical simulations as well as analytical investigations on a simplified mathematical model of the system, subjected to periodic excitation.  The two variable expansion perturbation method is used to show the existence of jump phenomena and `saturation' when both forced resonance and internal resonance occur.  Numerical studies indicate the existence of chaotic solutions in the resonance regions.  The routes to chaos contain subharmonic bifurcations. 
+
+  INTRODUCTION 
+
+   Flexible structures have been the subject of numerous recent investigations [1-4].  Included therein are the contributions in the field of robotics [5-8].  Majority of the papers on robotics are, however, aimed at the control aspects without considering the dynamics of linkages.  In general, once flexibility is introduced into the arm of the robot, severe problems in the accuracy, stability, and control are likely to occur.  A more successful control algorithm can be developed only if the effects of link dynamics is properly accounted for. 
+
+   Robotic devices are usually modeled by coupled, nonlinear, differential equations which are impossible to solve exactly.  Addition of flexibility into the arm would further complicate the equations of motion [9-12] .  According to these studies, once periodic inputs with frequency are included, primary forced resonances occur at and .  Moreover, in the case of forced resonance, these studies show that the system exhibits'saturation' which is unique to systems with quadratic nonlinearities. 
+
+   In this paper we perform analytical and numerical investigations of the dynamics of a high speed two degree of freedom flexible-arm robotic device, shown in Figure 1.  The arm is subjected to translational and rotational periodic inputs.  Because of the complexity of the actual system, a simple mathematical model is developed to ease the theoretical and numerical studies.  The two variable expansion perturbation method is used to analyze the stability of the system for and resonant cases.  Comparison of the numerical results with the perturbation solution indicate that the two variable expansion method provides a good approximation of the motion of the system when the amplitude of oscillation are sufficiently small. 
+
+   Furthermore, we show that chaotic motions occur when forced and 2:1 internal resonances exist, concurrently.  The chaotic solutions are determined upon using bifurcation diagrams, fast Fourier transforms, and Poincare maps. 
+
+  DESCRIPTION OF THE MATHEMATICAL MODEL 
+
+   We use the model developed by [13,].  This model is a simple sliding pendulum mechanism as shown in Figure 2.  Mass M1 represents the mass of the dc motor magnet assembly.  Mass M2 is the mass of the body transported by the arm, as well as the effective mass of the flexible-arm r2.  The flexibility of the arm is taken into account by using a torsional spring with spring stiffness K2.  K1 represents the stiffness of the spring used to mechanically centre the position of mass M1.  C1 and C2 are the translational and rotational damping coefficients of the system, respectively. 
+
+   The nondimensional equations of motion take the following form
+
+ (1.1)   
+
+ ,(1.2)  
+
+where dots represent differentiation with respect to the nondimensional time, defined as
+ 
+ (2).
+
+  In (2), nd is the nondimensionalizing frequency.  The nondimensional variables are and, with 
+
+ ,(3)  
+
+and = 2 representing the angular position of the arm.  The nondimensional mass is defined as
+
+ (4).
+
+  The natural frequencies of the uncoupled, unforced linear system are
+
+ ,(5.1)  
+ 
+and
+
+ 	(5.2)  
+
+  The nondimensional damping parameters are defined as 
+
+ ,	(6.1)   
+
+and
+
+ 	(6.2).
+
+  The normalized forcing frequencies are
+
+ ,	(7.1)   
+
+and
+
+ ,	(7.2).
+
+  The base rotation is sinusoidal and takes the form
+
+ (8)  .
+ 
+
+   At this point we scale equations (1) by introducing a small dimensionless parameter,  Hence, we posit a change of variables such that
+
+ ,(9.1)  
+
+ ,(9.2)  
+
+ ,(9.3)  
+
+and
+
+ ;(9.4)  .
+
+  Note that (9.3) implies that F2 be small too, i.e. F2=f2. 
+
+   In order to perturb off the undamped linear equations, we choose to scale the damping coefficients 1 and 2 as
+
+ ,(10.1)  
+
+ (10.2)  .
+
+  Then we substitute equations (9) and (10) into (1.1) and (1.2) and expand the resulting equations using Taylor series for small , such that sin() and cos() are replaced by + and 1-, respectively.  With these assumptions, the equations of motion take the following form
+
+  ,(11.1)  
+
+ , (11.2)  
+ 
+where
+
+ (12).
+
+  Note that the nonlinear terms in (11) are due to the effect of rotation on the geometry of the structure.  Note also that the unforced equations of motion have a stable equilibrium position at ( =0, =0, =0, =0). 
+
+  THE TWO VARIABLE EXPANSION PERTURBATION METHOD 
+
+   Using the two variable expansion perturbation method [18-21] , we replace the independent variable by two new variables, and, such that
+
+ ,(13.1)  
+
+and
+
+ ;(13.2)  
+
+where is just and is a slow time variable.  The idea of the method is to permit the dependent variables and   to depend explicitly on two time scales, and.  For example, periodic steady state behaviour will occur in , while approach to steady state will occur in. 
+
+   Using the chain rule, we can rewrite the time derivatives of (, ) and (, ) as 
+ , 14.1)  
+  14.2).
+
+  We also expand and as
+
+ ,(15.1)  
+
+ .(15.2).
+
+  In order to study resonance cases, we use detunning parameters 1 and 2 such that
+
+ (16.1)  
+
+ (16.2).
+
+  Note that we select fl=f1 to avoid secular terms in the zeroth order equations. 
+
+   Substituting (13) - (15) into (11) and collecting terms, we find the zeroth and first order equations to be
+Order 0 
+
+ ,(17.1)  
+
+ ;(17.2)  
+ 
+Order 
+
+ ,(18.1)  
+
+ ;(18.2)   
+
+where the subscripts represent the partial derivatives.  The solution of (17.1) and (17.2) can be written in the form
+
+ ,(19.1)  
+
+ ,(19.2)   
+
+where
+
+ (20). 
+
+   We now substitute (19.1) and (19.2) into equations (18), suppressing the secular terms sin(1) and cos(1) in (18.1), and sin(2) and cos(2) in (18.2).  Note that we have written
+
+ ,(21.1)  
+
+ ,(21.2)   
+
+ (21.3). 
+ 
+  Due to the length of the expressions, we will eliminate some of the intermediate steps.  Before writing the solvability conditions, we will introduce a polar transformation such that
+
+ ,(22.1)  
+
+ ,(22.2)   
+
+ ,(22.3)  
+
+ ;(22.4)   
+
+where, a- and - are real functions of.  This enables us to obtain the secular term equations in a more convenient form, namely
+
+ ,(23.1)  
+
+ ,(23.2)   
+
+ ,(23.3)  
+
+ ;(23.4)  
+
+where
+
+ ,(24)  
+
+ (25). 
+ 
+  The equilibrium solution is obtained when the right hand sides of (23.2-23.4) are set equal to zero.  There are two possibilities for these equilibrium solutions, ai=i= 0.  The first case is
+
+ ,(26.1)  
+
+ ,(26.2)   
+
+ ,(26.3)  
+
+ ,(26.4)  
+
+which implies that the O() solution is essentially that of the linear system, as follows
+
+ ,(27.1)  
+
+ (27.2). 
+
+  The second case is
+
+ ,(28.1)  
+
+ ,(28.2)  
+
+ ,(28.3)  
+
+ ,(28.4)  
+
+where, 
+ ,(29.1)  
+
+ (29.2).
+ 
+  Hence, the steady state response for this case, with the use of equations (28), is
+
+ ,(30.1).(30.2). 
+ 
+   Comparing these two possible responses, we can see that when the internal resonance holds, the solution has an extra term beyond that of the nonresonant solution.  This implies that will go through a subharmonic bifurcation and is excited by half the frequency of translation 1 in addition to the rotational forcing frequency 2.  From the solution for, we see major difference with respect to nonresonant solution.  That is, the amplitude of the mode is independent of the forcing amplitude f1 (i.e. saturation phenomenon).  We can observe these facts clearly in Figures 3 and 4.  The amplitude response shown in Figure 3, describes the modal amplitudes of response as the forcing amplitude f1 varies.  In this case, 1=-2.0,2=-1.0,1 =9.9,2=0.825, and 1 =2.  The stability of the equilibrium solutions was obtained by finding the eigenvalues of (23.1) - (23.4), evaluated at equilibrium values (26) and (28).  Hence, the solid lines in Figure 3 represents stable solutions while the dash lines indicate the unstable parts.  As we can see there exist two critical values of f1, defined by (28.2) and (28.4) as
+
+ ,(31.1)  
+
+ ,(31.2)  
+
+where, for fc1 The values of a1 and a2 in this region depend upon the choice of the initial conditions.  The system at this region can go through a 'jump' phenomenon, based on the values of initial conditions.  The frequency response curves when 2=-2.0, 1=9.9, 2=0.825, f1 =10.0 and =1=2=1+1, are shown in Figure 4.  In this case, 1 corresponds to the detunning of the forcing frequency, so that when 1=0, the frequencies are related by  =1=2=1.  Again, there exists a jump between the resonant and nonresonant solutions.  The jump however, occurs only in one side of the resonance curve, and that is due to the fact that 20; hence, the resonance curve is unsymmetrical. 
+
+   In order to illustrate the validity of the perturbation solutions, we numerically integrate the governing equations for and, (1.1) and (1.2), and compare the results with the solutions of (26) and (28) which are the equations defining the steady state values of response amplitudes.  The frequency response of equations of motion (1.l) and (1.2) is shown in Figure 5.  In this case, we have fixed 1=1.8, 2=1, 1=0.99, 2= 0.0825, F2= 0.01, and F1 = 0.1.  Note that the damping values have been selected to match those of the experimental system in [13].  Comparing Figures 4 and 5 we can see that the perturbation solution provides a good approximation of the behaviour of the actual system.  Comparing the amplitude response of (1.1) and (1.2), shown in Figure 6, with the perturbation results in Figure 4, one can arrive at the same conclusion.  Note that in Figure 6, the system parameters are fixed at  =1=2=1.5, 1=1.8, 2=1, 1= 0.99, 2= 0.0825, and F2 = 0.01, while F1 is varied. 
+
+   Figure 7 illustrates the phase portrait and the frequency spectra of the motion at  =1.3 prior to the resonance.  Clearly, the response is following the driver, and the system behaves as a linear system.  However, at  =1.8, the system is in resonance and exhibits a subharmonic response.  The frequencies of this response are shown in the frequency spectra of and, in Figure 8. 
+
+  EXISTENCE OF CHAOTIC SOLUTIONS 
+
+   In the previous sections, we discussed the behaviour of the system for small oscillations, and obtained the possible solutions for the system response using the two variable expansion perturbation method.  In this section, we illustrate the behaviour of the numerical system at, for high forcing amplitudes, and show that the system exhibits chaotic solutions. 
+
+   In order to illustrate the transition to chaos as the forcing amplitude increases, we obtain the bifurcation diagram of the motion of for two cases, shown in Figures 9-a and 9-b.  Figure 9-a is obtained for the parameter values  =1=2=1.8, 1=1.8, 2=1, 1=0.99, 2=0.0825, and F2 = 0.01, while F1 is varied from 0 to 0.6.  In this case we can see a very interesting phenomenon as F 1 increases.  The system undergoes two period doubling bifurcations, and reaches a period four, before going back to a period two at F20.3.  Chaotic solutions are observed upon further increase in the forcing amplitude.  This behaviour is not typical in systems exhibiting period doubling routes to chaos, and is has been seen in few other multi-dimensional systems (e.g. see  .  A more conventional response is shown in the bifurcation diagram of, for  =1=2=1.8, 1=1.8, 2=1, 1=0.99, 2= 0.0825, and F2=0.75, Figure 9-b.  

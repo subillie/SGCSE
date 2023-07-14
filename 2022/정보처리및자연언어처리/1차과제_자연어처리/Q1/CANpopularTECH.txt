@@ -1,0 +1,1044 @@
+   S'ware vendor callbacks unsatisfactory, says IDC  
+
+   TORONTO - International Data Corp. (Canada) Ltd. (IDC) has completed a survey of user operating system software support needs and expectations. 
+
+   The purpose of the 1990 Canadian User Satisfaction with Software Support survey is to let vendors know how successful they are in the eyes of customers.  Vendors can compare customer satisfaction ratings in 1990 to those from the 1989 Canadian User Satisfaction with Software Support survey to discover where they have made progress and where they should concentrate their efforts in the upcoming year. 
+
+   It is apparent customers still expect total service from a software service provider, based on average importance ratings of individual software support criteria.  According to the survey: 
+
+   Overall support and quality control of software received were deemed the most important initial support criteria. 
+
+   The ease of reporting a problem and receiving ongoing feedback on the status of a problem / solution were rated the most significant criteria of telephone support. 
+
+   The ability to provide permanent fixes, quality of updates / revisions and their ease of installation, and the ability to provide workarounds were all judged as equally important ongoing support criteria. 
+
+   The ease of maintenance and quality of remote diagnostics were rated as the most significant additional services. 
+
+   One industry trend observed is that vendors, for the most part, are not meeting customer expectations in regards to callback times in both emergencies and under normal circumstances. 
+
+   Hewlett-Packard is the only software support provider meeting its customers' average acceptable callback times in emergencies and under normal circumstances.  In fact, average callback times under normal circumstances have increased; only Hewlett-Packard and NCR achieved decreases in their average callback times under normal circumstances since 1989.  However, average callback times in emergencies have decreased; only IBM and Bull achieved increases in their average callback times in emergencies since 1989.  Vendors are concentrating too much on quicker responses in emergencies to the neglect of their response time under normal circumstances. 
+
+   Customer ratings of individual vendors' performance are included in the report.  Vendors assessed include Bull, Digital, Hewlett-Packard, IBM, NCR, and Unisys. 
+
+   For more information about IDC's 1990 Canadian User Satisfaction with Software Support survey, contact Mark Pellettier at (416) 369-0033.  </I
+
+    Win over friends, neighbors with community marketing  
+  by Catherine Callaghan Special to CDN 
+
+   Common sense dictates that some of your most important business comes from buyers in your area.  But according to Tracy Groves, marketing manager for Concord, Ont.-based Computer Brokers of Canada (CBC), too many dealers overlook their own backyard when it comes to planning a marketing campaign.  "Community-based marketing is vastly underutilized," she says.  "Dealers have to be shown just how cost-effective it can be." 
+
+   There are several good reasons to act locally when it comes to your overall marketing strategy.  Cost is a major consideration. 
+
+   "For anything other than a local campaign, the costs will just destroy you," says Robert Cohen, president of The Cohen Group, an integrated marketing/advertising firm in Richmond Hill, Ont. 
+
+   It's also a chance for you to differentiate yourself from the competition, using the hometeam advantage, or "buy local" mentality to your benefit.  Over the long haul, it's a chance for you to generate goodwill - to establish that your firm is a good corporate citizen.  In a competitive marketplace, the dealer that earns the consumer's trust gets the sales. 
+
+   Not all businesses can approach community-based marketing the same way.  The vehicles you choose depend on who your customers are, says Groves.  "Community marketing is especially important if you serve the retail customer," she says.  Buying a computer represents a big investment - and a major risk - for most, so building trust and credibility over time is important. 
+
+   The scope of your campaign also depends on your size.  A dealer like ComputerLand can afford a major outdoor advertising campaign, says Groves, but one-man shops may have to settle for bus-shelter ads outside the store. 
+
+   Finally, location plays a big part in how you stage your campaign.  In major centres, says Cohen, it's critical to establish yourself as a specialist in some area - say, networking or peripherals.  In smaller communities, where you're up against a handful of competitors, you want to establish yourself as an expert in all areas. 
+
+   The tools of the community-marketing trade will look familiar.  CBC's Groves points to local print and radio advertising as two of the most common ways dealers reach out to their neighbors.  "Community newspapers are extremely well-read outside major centres like Toronto," agrees Cohen.  And while TV advertising is often out of the question for companies on tight budgets, he says, spots on local cable channels can be highly cost-effective. 
+
+   Richard Dexter, co-owner of Basys Consulting Ltd. in Dartmouth, N.S., is a firm believer in the power of local print media.  He and partner Roy Drinnan advertise regularly in the monthly paper that goes to the 2,000 neighbors in their industrial park. 
+
+   "One of our target markets is small and mid-sized business," says Dexter, "and the majority of them fit the profile."  Basys pays between $300 and $400 for an ad in the monthly Burnside News, and Dexter says the campaign plays an important part in the firm's efforts to overcome price competition from dealers in Toronto. 
+
+   Local business and community associations offer another way to reinforce your hometeam advantage.  Time, of course, is a limiting factor, says Cohen, and the extent of your personal involvement has to balance against potential returns: "You need to get your name known in the community without taking up a lot of your time." 
+
+   Membership in a local Chamber of Commerce is a good way to start. 
+
+   Isaac Ehrlich, owner of Richmond Hill, Ont.-based laptop and peripheral reseller Keysoft Network Inc., belongs to three local Chambers.  Listings "tell Chamber members who we are and what we are," says Keysoft general manager Barbara Smith, "and that's reinforced when we attend local functions.  Most of these people really make an effort to buy local." 
+
+   The networking paid off recently when Keysoft landed a deal to sell 10 laptops to the municipality of Vaughn, north of Toronto.  The deal came about when Ehrlich, who lives in Vaughn, met with a municipal representative at a recent Chamber meeting. 
+
+   Event marketing - hosting events ranging from wine-and-cheese open houses to champagne-splashed product launches - has become increasingly popular in recent years, says CBC's Groves.  Event marketing can work very well, she says, particularly in the computer industry.  "Because it's a very technical business, you need to show people a human face when you get them in the door." 
+
+   But she warns that customers have become more blase' about events over the past couple of years, simply because there are so many of them.  As a result, businesses are having to go to even greater lengths to draw a crowd.  "You'll have an event and no one'll show up.  Then you find out that Joe down the street held one last week, and he had champagne and you only had beer - you get into that sort of competition," she says. 
+
+   One response, says Groves, has been for smaller firms to pool their resources and stage "mini trade shows."  Renting space in a local hotel or meeting hall, a group can set up booths and invite members of the local community to browse and partake of food and drink.   With the combined muscle - and budget - of a number of firms, says Groves, mini trade shows offer one way to get your name in front of local buyers. 
+
+   Direct mail offers a very precise way to carry your message to the people who count.  You can buy lists from list brokers, local associations like your Chamber of Commerce, or even church and community groups. 
+
+   Roland Lau, owner of Calgary's The Home Computing Centre Inc., used postal code data to send flyers to 40,000 households in his immediate area.  The effort cost him about $7,500, and while he can't attribute a specific increase in sales to the effort, he will say the mailing increased his visibility. 
+
+   When it comes to competition, says Lau, dealers have two choices: "You can be the biggest, or you can be closest to your community."  Lau estimates that more than 70 per cent of sales come from buyers within a 10-kilometre radius of his retail outlet. 
+
+   Depending on the size of your company, outdoor advertising can be a good way to keep in touch with your community.  But both Groves and Cohen warn that, like any advertising, billboards, bus shelters and taxi tops only work if the ads emphasize some unique selling point. 
+
+   "There is a place for outdoor advertising if you can afford it, and can play up some unique selling feature - if you've got an exclusive on a product, for example," says Groves.  "Everyone's got basically the same bill of goods, so you have to focus on what you do better." 
+
+   Whether your community marketing campaign pays off in direct sales today, or paves the way for tomorrow's orders, the push to act locally remains the same: developing a relationship based on trust. 
+
+   "Being a good corporate citizen is very important, especially when you're talking about a technical business like computers," says Groves.  "When you build that association with the community, they (local buyers) get to know you and trust you.  That's what IBM did - everyone trusts IBM, and look where they are today."  </I
+
+    Quebec makes moves to boost s'ware profiles  
+  by Nina Gilbert Special to CDN 
+
+   How many software companies with an excellent product that meet a real demand remain virtually invisible despite their technical expertise? 
+
+   In Quebec, the number is far too high, according to Yvon Blais, manager of the Quebec computer sector for the Ministry of Industry, Science, and Technology. 
+
+   The problem is lack of marketing expertise, and many, including Blais, hope that the recently established Centre de Promotion du Logiciel Quebecois (CPLQ) will address this concern. 
+
+   The centre, which began operations in September 1990, is a non-profit organization funded by the federal Department of Communications and the provincial Ministry of Communications. 
+
+   The ministries are contributing $200,000 and $400,000 respectively over a period of two years, after which time the centre expects to be self supporting. 
+
+   As the name implies, the centre aims to promote the commercialization of Quebec software. 
+
+   Blais recently threw his support behind the new organization by inviting the CPLQ to co-sponsor a fall workshop that prepared Quebec companies for Comdex. 
+
+   According to Michele Guay, general director of the CPLQ, the Comdex workshop was the first of many that the centre plans to be involved in. 
+
+   "Within a few months we expect to be hosting one workshop per month and one showcase per week," said Guay. 
+
+   Showcases, held in the centre's Montreal showroom, will allow software producers to present products to prospective clients and distributors. 
+
+   Guay's strategy for achieving the centre's goal is two-fold.  On the home front, she intends to help Quebec software producers fully exploit their local markets.  As part of this effort, the CPLQ will try to get large Quebec companies to consider locally developed software before turning to the United States or elsewhere.  Guay believes a strong local base gives companies a real advantage in the international market. 
+
+   The CPLQ also has projects underway for companies targeting markets outside of the province.  The centre plans to collaborate on a national marketing network for educational and training software. 
+
+   Will Dubitsky, an industry policy analyst with Communications Canada, has organized a symposium for April in Vancouver.  At that time, groups from across Canada will meet with Dubitsky and B.C. Tel to discuss implementation. 
+
+   According to Dubitsky, the CPLQ is the only centre of its kind in Canada right now.  They were the obvious choice to represent Quebec in the courseware network. 
+
+   The CPLQ is also collaborating on a plan to give 10 Quebec companies a boost into the international market.  The companies will benefit from the expertise of a marketing firm and the involvement of government agencies.  For the relatively low cost of $5,000, the firms will be helped to launch an international campaign. 
+
+   The CPLQ intends to play an important role as a focus for information about what is available to software producers and distributors.  "We want to be the hub of a net work made up of producers, distributors, buyers, associations, and government agencies involved in the Quebec software industry," explained Guay. 
+
+   Many software producers feel a dire need for just such an information centre.  </I
+
+
+   Is Unix really open?  
+
+   So you've decided on Unix.  But have you decided on which Unix? 
+
+   You're probably letting your hardware decide for you.  After all, the vendor of hardware will likely belong to one of two groups, Unix International (UI) or the Open Software Foundation (OSF). 
+
+   Maybe you'll let the software or the application determine which choice you make.  Don't count on it.  Most software firms are hedging their bets by, at least for now, committing to both the UI and OSF groups. (See story, for example, Computer Associates commits to Unix, p. 21). 
+
+   But why not try this test?  Ask your supplier if their version of Unix is open. 
+
+   Why do we raise this question now?  It has to do with the great momentum behind open systems and the continuing uncertainty around other operating systems. (See stories, p.1).  Open systems may yet force the issue between which version of Unix will emerge as the standard. 
+
+   Not surprisingly, David Sandel, vice-president of marketing, Unix International has stated that he sees "Unix System V as the base of open systems." 
+
+   What this talk does is set up a confrontation by turning the road to open systems into a collision course for competing versions of Unix. 
+
+   If everybody wants open systems, it stands to reason that they will only want one version of an open system.  And if they only want one version of open systems that is based on Unix, then one of the two is sure to face extinction. 
+
+   It's too early to tell if users will go the UI or the OSF route.  Nor do we have any way of knowing if one of the two versions is technically superior to the other. 
+
+   But the hype around open systems seems to have the affect of forcing this issue earlier than we expected.  Users should look now for signs of one version dominating the other. 
+
+   The early returns place UI's version in front.  Said AT&T Canada's Benjamin Scott at the recent Open Systems show in Ottawa: "By the end of 1990, more than 300 companies were shipping products based on System V release 4 platforms.  With those kind of numbers, the UI version has the best chance of becoming the standard around which open systems will flourish. " 
+
+   In contrast, users, as IBM and others have done, should raise some serious concerns about AT&T's ownership of Unix System V. (  Although, it should be noted that AT&T is negotiating to sell off as much of the 40 per cent of its Unix operating system). 
+
+   If an open system is all about being non-proprietary, users may yet look to the OSF for direction. 
+
+   New columnist  
+
+   The Communications section of Computing Canada welcomes another monthly columnist in this issue (see p. 40).  Clyde Boom, director of technical services for Lancom Technologies, a Toronto-based computer services firm, will contribute a LANs (Local-Area Networks) column from a training and systems integration perspective.     </I
+
+    Training should remain a priority  
+  by Paul Swinwood 
+
+  Paul Swinwood is president, Learning Tree International, a Gloucester, Ont.-based firm that specializes in telecommunications, software and management training. 
+
+   Times are tough out there.  Sales managers are reporting lost sales, production managers are reporting low backlogs, CEOs are warning of layoffs and controllers are calling for cutting expenses. 
+
+   What can a manager do?  First no travel, no training, no more giveaways - cut expenses.  Congratulations, well done. 
+
+   That solution may be too simple.  A leading edge, competitive company, however, will continue to spend on two major areas during a recession: future projects and future productivity. 
+
+   Successful companies plan carefully, review projects annually and focus on products, productivity and most importantly, people. 
+
+   As a training institution, we typically feel the downturn significantly as our clients freeze spending.  In our experience, the major successful players in the technology fields react well to market pressures and then focus on the resources available. 
+
+   Some tips on using these resources include: 
+  review your current product and procedures for short-term productivity gains.  Can better training improve productivity of the staff;
+  review your development needs.  Could training cut development costs and time required to bring your newest product to the market quicker and gain a market edge; and,   review your staff needs.  Could training provide the morale boost and productivity improvement to weather these tough times?  Most training can be brought to your location.  You save on travel, staff availability costs and gain productivity immediately because the training is focused on your environment and needs.  Tough times call for tough measures, but the wise manager recognizes training remains important.  </I
+
+    IN CONVERSATION  
+   Mark Skapinker  
+
+   Mark Skapinker is a co-founder and president of Delrina Technology Inc. 
+
+   He is credited with helping to define and to promote the forms processing market through his participation in product innovation and a number of industry engagements.  Under his direction, Delrina's PerForm software has garnered a number of industry awards. 
+
+   Prior to Delrina, he was director of product development for Batteries Included, before its acquisition by Electronic Arts. 
+
+   He has a post-graduate diploma in computer science from the University of Jerusalem. 
+
+   He recently spoke to Computing Canada editor Martin Slofstra at Delrina's head office in Toronto. 
+
+ 
+
+    Derlina Technology Inc.   
+
+   Delrina Technology Inc. is a wholly-owned subsidiary of Toronto-based Delrina Corp. and is recognized as a leading supplier of PC-based graphics forms processing software.  It claims nearly 100,000 units shipped. 
+
+   Other subsidiaries of Delrina are Carolian Systems (data centre management systems for HP 3000) and a 51 per cent share of SoftPort Technologies, distributors of accounting software. 
+
+   In April 1990, IBM Canada Ltd. acquired a 11 per cent stake, representing the first such investment by IBM in a Canadian software company. 
+
+   Delrina Corp. also has offices in Ottawa, Los Gatos, Calif., Washington D.C. and England.  Revenues for the period ending June 30, 1990 were $8.1 million, up from $5.0 million the year before.  </I
+
+    CC: How would you define forms processing and what does it include?  
+
+   Skapinker: Forms processing is basically the computerization of forms.  It takes parts of many other technologies and brings them all together.  In other words, it takes the printing, WYSIWYG (What You See Is What You Get) and complete page layout aspects of desktop publishing, the database data entry elements from database, printing technology, font technology and it also includes communications. 
+
+   CC: Who in the organization would control the forms processing function?  
+
+   Skapinker: I think it depends on the size of the organization.  What we've done is we've split our product line completely down the middle.  So we have regular PerForm, which is really aimed at the entry-level or smaller business, where it's the owner-operator or the administrative people who look after the forms.  Then we've got our PerForm Pro, which is really aimed at the high-end of the marketplace. 
+
+   Certain companies may have a forms department.  The administrative people may look after it, and often, the financial people look after it.  Certainly the MIS people look after only a certain kind of form.  However, it's the senior managers beyond the individual departments, who really see the hidden cost of forms and the advantage of forms processing. 
+
+   CC: Are organizations starting to integrate their forms processing function with their overall information strategy?  
+
+   Skapinker: Very much so.  There is no need to fill in a form on paper and then re-enter the data in afterwards.  It makes absolute sense to be building the form into an existing network of machines or communication of machines, get the data in, be able to use it anywhere within the organization, and of course, get rid of a lot of the waste. 
+
+   Why keep writing your name and address on 50 different forms when you only really need to update your address once and it will appear on any other forms? 
+
+   CC: Forms processing is one application that is said to be ideal for client / server applications.  Do you see that as so?  
+
+   Skapinker: If you ever look at the type of money that people are currently spending on paper forms, it starts becoming far more realistic. 
+
+   There's huge costs based in terms of processing a form.  The cost of processing a form, compared to the cost of printing a paper form is about 50 or 60 to one.  So for every dollar that you spend on buying a paper form, you spend $60 on processing that form. 
+
+   For years, we heard about how the industry had managed to computerize itself, and small office functionality had been able to computerize itself, yet when it came to the large overall management of an office, it has never been able to get computerized.  It's really quite interesting to have a look why this has never happened. 
+
+   A lot of this is that the hardware hasn't been there.  You need the graphics hardware, you need laser printers, you need networks, you need a database which exists out there on a client/server basis. 
+
+   With that all in place, we now have the ability to pull all this together and actually computerize the communications between individuals in an office, which is forms processing.  I think the opportunity is enormous in terms of real live users and the application of form processing in the office. 
+
+   CC: So electronic mail, for example, could be done in the way of forms when you introduce a large enough user base? 
+
+   Skapinker: I don't think that people think in terms of electronic mail.  When I go on a business trip and I come back and I fill in an expense form, I want one copy to go to my manager who is going to sign it off.  
+
+   My manager, once he's signed it off, will probably send it through to the accounting department who will generate a cheque and send that cheque back to me.  I don't think of that as electronic mail.  I think of that as the routing and the processing of the form that I've just filled in. 
+
+   When I've sat with an employee and gone through an employee evaluation process, and I file that away in their file, I don't think of that as mail or database.  I just think of it as, well I've now written this form and I've filled this in, let's put it away. 
+
+   One of the big advantages of form processing is it gets rid of all the jargon of having to update your database, electronically send a piece of information from one person to another and put it in terms that people understand. 
+
+   CC: Are you saying that the form is a good way to automate your business because it's what people can relate to?  
+
+   Skapinker: It's proven.  Every business uses forms as a means of communication and can relate to a means of communication. 
+
+   Part of the difficulty is that people on the entry-level, computer level really are looking for a means of communicating and using computers.  When they really got into word processing, which is what a lot of them do, it really just replaced the type-writer. 
+
+   Why is WordPerfect the most popular word processor?  Because it's the most similar to a typewriter. 
+
+   CC: Forms processing is a hot market for you now.  But what do you to do for an encore and how do you avoid becoming a one product company?  
+
+   Skapinker: The software industry has shown over and over that positioning and market share is very, very important. 
+
+   When we started off, our initial aim was to become the market leader.  Within a one-and-one-half to two-year period, we became the market leader both in the high-end and the low-end.  Our intention is to remain there.  We have a strategic relationship with IBM, that can maybe lead straight into that. 
+
+   By creating a strategic relationship with market leaders, such as IBM, our credibility factor goes up, and our chances of remaining in the market as a market leader, remain very high.  Certainly IBM today owns 11 per cent of Delrina.  We are the only Canadian software company that IBM has invested in. 
+
+   CC: Do you see yourself diversifying into different products or building on forms processing?  
+
+   Skapinker: You will see us building on forms processing.  However, other related graphics business-type applications may become quite interesting to us.  Our long-term aim is to be a leading graphics business software Canadian publisher.  And whatever it takes to do that, you will find us doing.  Certainly, once an infrastructure is built, it will make sense for us to expand into other products.  </I
+   Unmet needs  
+
+   In our organization, we have two facets to our computing function. 
+
+   On one side there are those hired to develop applications - they are programmer / analysts in the traditional sense.  The other side is there to support our expanding base of PC users.  We call them PC support specialists. 
+
+   The last time I checked, both groups were running around furiously.  I'm not sure why but it must of had to do something with mission-critical applications, whatever that is. 
+
+   The reason for my concern is I needed something done.  I wanted a certain kind of software loaded on my machine.  It's not a big request but I suppose it ranks about number 112 on their list of priorities. 
+
+   At our company, there is probably an argument for having two groups responsible for our systems.  In theory, it should work. 
+
+   But where the whole systems breaks down is this growing list of unmet end-user requests. 
+
+   A co-worker needs a modem installed so she can work at home.  Another fellow wants to upgrade his PC with a color monitor.  A third is having troubles with a hard drive.  And to top it off, I have a boss who can produce a one-inch thick stack of printed e-mail messages each representing a request to the PC support supervisor. 
+
+   These are requests that I know of, these are the ones from our department.  Now multiply that by all the other users in all the other departments and what you have is a rather large backlog. 
+
+   Our IS function, such that it is, simply is facing more demands than it can satisfy.  And it is, however undeserved, getting a reputation for unresponsiveness. 
+
+   I'm told, many, if not most organizations, are experiencing similar frustrations. 
+
+   My concern is that IS has been so preoccupied with "serving" others, aiming to please but forgetting all that is promised, that I, typical end-user, have become reluctant to add to their list. 
+
+   So what do you do?  The obvious answer is to add more resources and more people.  That's not popular in these days of cutting back. 
+
+   A second would be to make users more self-sufficient but I'm afraid co-workers would resist any attempt to be transformed into "techies." 
+
+   A third is to involve end-users more in the judicious use of resources that always seem to be limited and to help our technical people set priorities. 
+
+   I think that maybe our computer department, or any IS organization, would be better off if it was run like a business. 
+
+   This does not at all imply that you want to turn IS into a profit centre.  But what it means is doing a better job of telling your IS personnel exactly what is you do to make money - so they can discern between "strategic" use of their time and what is a meaningless digression. 
+
+   And it means accountability, to other departments and to upper management, and depending on your type of business, to customers or suppliers as well. 
+
+  - Martin Slofstra  </I
+
+    Wang profits from change in focus  
+  by Alison Eastwood 
+  Computing Canada 
+
+   After a turbulent 18 months beginning with the accumulation of $575 million (U.S.) in debt, Wang Laboratories, one of the most successful proprietary vendors of the '80s, has a new strategy - it wants to be liked. 
+
+   "We got away from trying to be known to a core base of customers, and we just used our name to get to everybody who wanted word processing," admits acting president of Wang Canada, Vaughn McIntyre. 
+
+   Most of the Fortune 1000 companies in Canada have at one time or another dealt with Toronto-based Wang.  However, the company's focus was on the computer marketplace rather than on the customer.  Even its marketing strategy was guaranteed to turn users off.  
+
+  "We tended to have advertisements that other computer companies would understand and know but that our customers wouldn't.  It became a kind of one-upmanship on the platform."  McIntyre is adamant: "We've got to change that." 
+
+   Regaining people's trust is central to Wang's new strategy.  McIntyre says the company will enter into new business partnerships but confesses: "Over a five-or six-year period, not unlike some of our competitors, we do have to admit to having built up excellent partnerships and then destroyed them with the stroke of a policy change." 
+
+   At the end of 1989 Wang Canada's parent company, Wang Laboratories Inc. of Lowell, Mass., found itself in debt to the tune of $575 million (U.S.).  "We had a very severe cash problem," said McIntyre.  Restructuring the business appears to have paid off - Wang reported a very small profit in the first quarter of ended Sept. 30, 1991, and is hoping to build on that, although, as McIntyre is aware, "it's going to be touch and go for a while." 
+
+   McIntyre attributes the turn-around to the refinement of Wang's business internally and not to the response of its customers.  "I would not want to trick anybody into thinking that people have flocked to our door and begun to buy just because we've cleaned up our act," he said.  "We expect that to come." 
+
+   At Wang Canada, there have been major changes: director of marketing McIntyre had to step into the shoes of president Steve Trotter, who returned to his home country New Zealand four months ago.  "Big disappointment for him, because he was the basis for some of the changes we'd made here," said McIntyre.  "He wanted to watch some of them happen." 
+
+   Changes include a focus on open standards and a push towards the image processing market.  Wang Canada has just announced Open/image for Netware, which integrates document image processing into Novell's Netware 386 network operating system, and Open/image-Windows 3.0, a new release of its image processing software for 286, 386 and 486-based PCs. 
+
+   A major retailer in Toronto has chosen Wang to supply hardware and software, said McIntyre, "and that was a significant win for us.  All our competitors were in there." 
+
+   The company has established an imaging centre in Winnipeg, in conjunction with the government of Manitoba, and is developing a document processing package called Upward, which will incorporate Windows 3.0.  Users will be able to create documents, "heaven forbid, on one of the other products like WordPerfect," which can be transferred back and forth.  Upward will be available within the next couple of months.  </I
+
+     Promoting new image system is a family affair   
+  by Alison Eastwood 
+  Computing Canada 
+
+   Take one film producer, a stockbroker and a software package developed by church-going computer wizards in New York and you have Canadian Interlinear Technology Inc. 
+
+   If this sounds a little bizarre, so is the story of how this Willowdale, Ont.-based company and its flagship product, MEDIS, came into existence. 
+
+   Founder of Canadian Interlinear Technology Angus Sullivan, an Irish Canadian, used to be in the film business.  Last July, on a visit to New York, Sullivan encountered a friend from church who had the documentation to a new software package called MEDIS. 
+
+   "He said, 'This is some technology some friends of mine and some people in the church have developed, and would you like to see what you can do with it in Canada?' " recounted Sullivan.  "I said, 'What do I know about computers?'  Basically I'm a script-schlepper." 
+
+   What Sullivan did was to take the manual back to Canada.  "I thought to myself, 'They tell me in New York that this is hot, hot, hot but what do I know?  How can I find out?  How can I prove it?'" 
+
+   He attempted to interest investors, including one who had backed some of his films, but was told the same thing: go and see some people in the business and talk to end-users.  
+
+   So Sullivan went to Boeing, Spar Aerospace, GE Aerospace and Litton Systems.  He knew he had hit upon something after he left the manual with one of the technical experts at Litton, "because when I came back he was caressing the manual.  I thought he was about to have some weird perverse type of relationship," Sullivan recalled.  "I thought, 'There must be something in this manual;' as an Irishman I can judge passion rather well." 
+
+   MEDIS (Modular Electronic Document Image System) is a document image system with an open, client-server-based architecture that consists of seven software modules designed to run on Unix platforms.  It is compliant with the Computer-aided Acquisition and Support (GALS) initiative specified as a requirement by the U.S. Department of Defense for future defence contracts, which is why Interlinear is initially targeting the aerospace industry.  
+
+   Sullivan showed the product to a chief engineer for one of the major aircraft manufacturers who, while impressed by MEDIS, was "absolutely terrified of the technology because it's his responsibility to bring his company into that kind of thing." 
+
+   Still cautious, "having been in the film business a long time you get your hopes up a lot, and you get 'em smashed a lot," Sullivan contacted his cousin, Robert Angus German, founder of Geac Computer, who pronounced MEDIS "awesome" and advised Sullivan to recruit "some super-technotron" to sell the software. 
+
+   On the strength of this another cousin, Clive Sullivan, quit his job as a stockbroker at Hector Chisholm & Co. in Toronto to sell the MEDIS package and finance the start-up of Canadian Interlinear Technology, along with "an old friend-of-the-family-type," W.K. Buckley Ltd. 
+
+   The company was incorporated on Feb. 1 this year and the Sullivans have exclusive Canadian rights to the MEDIS technology as well as an option on 10 per cent of the American company, Interlinear Technology. 
+
+   The main problem, (Angus) Sullivan admits, is the long lead time between starting up a business and selling your first unit, "which is a long way down the line; so, basically, this is not the type of investment that brokers would advise." 
+
+   Still, it helps to have relatives in the right places.  And Sullivan has a lot of them.  "When the Irish Catholics got to Canada centuries ago they were like rabbits in carrot heaven, so they just went through the place and ate everything and reproduced randomly all over.  I've got cousins from coast to coast."  </I
+
+     Help desk professionals ask for a little respect   
+  by Andre Fuochi  
+  Computing Canada  
+
+   TORONTO - In its first meeting, the Toronto chapter of the Help Desk Institute got off the ground in what it hopes will become a forum for help desk and customer service professionals. 
+
+   "Over the years help desk professional have implemented technology but it's never been truly successful.  At times we aren't even able to articulate the needs of our industry.  That's why we're here, to share our experiences and build from them," says Terry Garbutt, technical product support consultant for the City of Toronto. 
+
+   "People within our industry are never given the proper recognition they deserve.  We need a forum to address the problems and concerns facing help desk professionals.  We didn't want to create another 'me-too' organization.  There are plenty of those around," he adds. 
+
+   The chapter was formed last October and is the first Canadian chapter for the organization.  It plans to set up a branch in Calgary later this year.  The cost to join is $35 a year for members $50 per person for vendors. 
+
+   "We want to give people who work on the front line an opportunity to participate.  Usually, it's the manager or the technical specialist who attends.  In this chapter, we're hoping to inform everyone from the manager to the people who answer the phones," says Gabby Winter-stein, manager of a customer support centre for the Bank of Montreal's customer services department. 
+
+   "We don't need to re-invent the wheel.  We don't have to know each other's secrets but if a company is doing something right both in terms of procedure and technology, then why not share it with us.  It's a very pragmatic approach to sharing information," he says. 
+
+   "There are people in our organization just starting a help desk and those who have one of 100 people or more.  People have a vehicle for getting together and sharing information, both from individuals within their industry and from other areas," Winterstein says. 
+
+   The chapter is looking for input from members, and from those interested in joining, to get some idea of the issues that future meetings should address.  The next meeting of the Toronto Help Desk Institute will take place March 12. 
+
+   For further information, call either Gabby Winterstein at (416) 398-8800 or Terry Garbutt at (416) 392-7077.  </I
+
+    Stratus financial results clarified  
+
+   The In conversion with Robert Gordon of Stratus Computer INC.
+
+
+   Gates vows to remain in OS/2 camp  
+ 
+ 
+  by Paul Barker 
+  Contributing Editor 
+
+   MISSISSAUGA, Ont. - Windows, multimedia and OS/2 will form the cornerstone of Microsoft Corp.'s development efforts during the next decade, the company's co-founder and chairman says. 
+
+   Bill Gates' commitment to OS/2 follows a published report stating that Microsoft planned to abandon an operating system which has generated little interest since its introduction four years ago. 
+
+   "The article was as wrong as an article can be," said Gates.  "We've got more people focused on OS/2 than we ever have.  Particularly when a product's in a position like this, we need to make it absolutely clear what our commitment is." 
+
+   He told reporters here prior to the opening of Microsoft Canada Inc.'s new headquarters, that OS/2 remains the "highest priority" for his company. 
+
+  "The story with Windows from 1983 until just a year ago, was that people said, 'come on, give up, why are you working on that?  It's not important.'" 
+
+   "We had to come back in every speech and say this will be important," he said.  "We find ourselves in exactly the same position with OS/2 today." 
+
+   And the success of Windows 3.0, the graphical user interface (GUI) that burst onto the scene last May, has been nothing short of phenomenal. 
+
+   More than two million copies have been sold worldwide since the introduction and the number of Windows-based applications has soared to 1,000. 
+
+   That figure is expected to double by next year, Gates said. 
+
+   When asked if Microsoft planned to go head-to-head with Cupertino, CA's Apple Computer Inc. as part of a GUI war, he responded by saying "there's no doubt that if they rest on their laurels life will get tough for them." 
+
+   "Macintosh users are fiercely loyal to the Macintosh," he said.  "Windows on the other hand has the advantage of being compatible with the majority of PC hardware."  
+
+  "If you want a portable machine, I can show you 20 that are great Windows machines.  Arguably, there's one or zero great portable Macintoshes." 
+
+   Gates also denied that as custodian of the DOS operating system, Microsoft holds an unfair advantage over other software developers.  "We've been a developer of operating systems and applications from the beginning of the company," he said. "There's nothing new about this.  
+
+  "If we get an advantage by offering MS-DOS, did it help us in our applications, did it help us versus Lotus 1-2-3, did it help us versus WordPerfect?  If it did, I didn't notice." 
+
+   Each application, said Gates, has to "stand on its own." 
+
+   "I really don't see any correlation," he said.  "I'm always curious for someone to provide some example where as the provider of DOS and Windows, we get some advantage." 
+
+  "...We went to Lotus and begged them to do Windows applications - actually signed a contract with Mitch Kapor which they later reneged on; we went to WordPerfect, Ashton-Tate and begged them to do it." 
+
+   All three vendors, said Gates, will "recount how boring it was to have me come down year after year and say the Microsoft application strategy was to focus on Windows." 
+
+  "There were a lot of other people who listened to that story - people like Aldus, Corel and Micrografx. ...  They are seeing the rewards of picking an environment that happened to succeed." 
+
+   Of multimedia, he said, its greatest impact will come in "consumer-type applications.  Encyclopedias, sports, medicine, travel - all of this on a compact disc with sound and pictures and you get to choose what information you're interested in."  </I
+
+    Industry not exempt from recession, say analysts  
+  by Dianne Daniel 
+  Contributing Editor 
+
+   The 1990 recession has left its mark on the information technology industry despite strong financial showings from some companies for the period ended Dec. 31, 1990, say industry analysts. 
+
+   According to Andrew Toller, a consultant with The DMR Group Inc. in Toronto, 1990 was "overall a bad year for the industry."  He says despite a few exceptions - relatively small specialized companies and those who made key announcements in 1990 - growth in the industry has slowed and he sees no signs of it bouncing back soon. 
+
+   International Data Corp. (Canada) Ltd. (IDC) based in Toronto reports, "... Demand for information technology is likely to be more directly affected by the general economic climate over the next few years than recent history might lead one to expect." 
+
+   According to IDC, the belief that the IT industry is independent of the overall business cycle is a myth.  Instead, the research firm reports that users' buying behavior is highly influenced by the economic climate.  "Evidence indicates information technology is as much a tar-get of current cost reduction efforts as are other expenses in the organization...it is reasonable to expect the recession will be a damper on IT industry demand." 
+
+   Although Willowdale, Ont.-based Evans Research Corp. (ERC) predicts IT will "experience a slightly softer landing than the general business environment," it too projects slower growth for most segments in 1990 and 1991. 
+
+   In its report Trends and Forecasts for the Information Technologies Industry, 1990-1994, ERC expected the software segment to grow 15.6 per cent in '90 and 15.7 per cent in '91, down from 16.5 per cent in '89.  The hardware segment was expected to show growth of only 6.3 per cent (including hardware maintenance) in 1990 compared to 7.5 per cent in 1989.  And the PC market was expected to slow from 19.8 per cent in '89 to 16.9 per cent in '90. 
+
+   In addition to slowed growth, the industry also experienced its share of losses.  Beginning with B.C.'s Mission Cyrus which stopped production and laid off all but a few employees late in the summer of 1990, there were five no-table failures.  Canada Remote Systems Inc. went into receivership; Jonas & Erickson Software Technology Inc. was bought by Markham, Ont.'s Geac Computer Corp. Ltd. after filing an assignment in bankruptcy; Myrias Research Corp. laid off all of its staff and appointed a receiver; and, Tinton Falls, NJ-based Concurrent Computer Corp. ended the year by letting 90 employees go as it attempted to ward off a US$55-million debt. 
+
+   Yet financial reports indicate that not all was gloom and doom in the industry for 1990. 
+
+   Armonk, N.Y.-based IBM Corp. reported a 10.1 per cent increase in annual revenue in 1990, reaching US$69 billion.  Toller attributes the financial success to IBM's launch of its 390 architecture which he claims has boosted growth in the already saturated mainframe segment of the industry. 
+
+   ERC's report echoed Toller's comments.  "While IBM is not the only mainframe manufacturer with new product introductions in 1990, it certainly will have the most significant impact on the high end of the market," states Evans. 
+
+   Microsoft Corp. of Redmond, WA, also weathered 1990 well.  The PC software developer reported a 55 per cent increase in revenues for the six months ended Dec. 31, 1990, compared to the same period the year before. 
+
+   The company's performance isn't surprising considering the increasing demand for Microsoft Windows 3.0.  A report from Computer Technology Research based in Charleston, SC, has Windows 3.0 performing well in the short term although it questions its long-term impact. 
+
+   Riding the wave of the Windows 3.0 announcement was Ottawa-based Corel Systems Corp. with its popular PC presentation package CorelDraw, version 2.0.  The company's fourth quarter, ended Nov. 30, 1990, was its best ever posted with net sales hitting $12.2 million, an increase of 56 per cent over 1989's fourth quarter.  Net income for the year was $7 million compared to $2.9 million in '89 . 
+
+   Toller claims the company's success is largely due to the fact that it was prepared for Windows 3.0 and was able to ride the first wave of compatible products. 
+
+   Houston's Compaq Computer Corp. and Cupertino, CA-based Apple Computer Inc. are two PC hardware vendors who performed well in '90 .  Compaq's net income increased 70 per cent to US$135 million for the fourth quarter compared to US$79 million in 1989.  Apple recently posted revenues of US$1.676 billion for its first quarter of fiscal 1991 ended Dec. 28, 1990 - up 12 per cent from the year before. 
+
+   Toller says Compaq experienced about a 25 per cent growth, largely due to successful sales worldwide - specifically in Japan and Australia.  The company also introduced nine well-received products in '90 in the areas of 386SX-based desktops, notebook PCs and PC systems. 
+
+   Apple attributes its outstanding performance to the Macintosh Classic released this year with a reduced entry-level price.  The company claims Macintosh unit shipments have increased by 50 per cent as more first-time users are being attracted by the lower price. 
+
+   And Silicon Graphics Inc. of Mountain View, CA, may have found its niche.  Net revenues for the workstation vendor totalled US$136 million for the quarter ended Dec. 31, 1990, an increase of 32 per cent over revenues for the same period a year earlier. 
+
+   In its trends and forecasts report, ERC predicted 28 per cent growth in the technical workstation market for 1990 as awareness among users continues to grow.  Silicon Graphics was also a notable addition to ERC's The Top 200 IT Companies released last year. 
+
+   In general, a survey of financial reports shows the strongest gains occurring in the hardware segment of the industry: Conner Peripherals Inc. of San Jose, CA, reported a yearly net income of US$130.1 million, up 213 per cent from 1989; Mountain View, CA's Sun Microsystems Inc. reported second quarter revenues for the period ended Dec. 28, 1990, of US$753 million which is 27 per cent higher than a year ago; and, Stratus Computer Inc. of Marlboro, MA, announced fourth quarter 1990 revenues of US$118.5 million, up 21 per cent from '89 . 
+
+   Software companies surveyed recorded the lowest gains.  Legent Corp. of Vienna, VA, expects revenues of US$51.7 million for the three months ended Dec. 31, 1990, compared to US$40.7 million the year prior; El Segundo, CA-based Teradata Corp. reported revenues of US$111.2 for the six months ended Dec. 31, 1990, up from US$97.6 million a year earlier; and, Informix Corp. of Menlo Park, CA, plans to restructure its operations after announcing an expected loss for the fourth quarter and year ended Dec. 31, 1990. 
+
+   Restructuring and layoffs were prominent throughout 1990 as many IT companies struggled.  But Toller is quick to point out that restructuring isn't a response to recessionary times, but rather a response to a changing industry or market. 
+
+   Wang Laboratories Inc. of Lowell, MA, has shown that sometimes it's not too late to turn around.  The company showed an operating profit of US$4.9 million for the six months ended Dec. 31, 1990, compared to a loss of US$38.4 million the prior year.  Net loss for the same period was down from US$72.6 million in 1989 to US$22.1 million in '90 . 
+
+   The company's focus on imaging and related products can be credited for its financial gains.  Wang claims unit sales for its imaging line for the first five months of fiscal 1991 exceeded those for the entire 1990 fiscal year. 
+
+   A stronger focus on niche markets has also helped Westborough, MA-based Data General Corp. weather the recession.  With a major product announcement scheduled for later this month, the company has posted first quarter 1991 profits of US$12.5 million, up from a loss of US$20.5 million at the same time last year. 
+
+   Data General says the turnaround is due to reduced costs, a reorganized sales force and a strengthening of focus on niche markets like health care, geographical information systems and imaging. 
+ </I
+
+    Gandalf unveils government LAN strategy  
+  by Alison Eastwood 
+  Contributing Editor 
+
+   NEPEAN, Ont. - Gandalf Technologies Inc. is aiming to consolidate its share of the government market with a range of 10Base-T connectivity products. 
+
+   The company has developed 10Base-T-compliant modular wiring hubs, called Access Hub 12, 48 and 132, that are designed to link up local-area network (LAN) node devices such as PCs and fileservers.  The Access Hub series coexists with the 10Base-T-compliant mini media access unit (MAU) transceiver, announced last October, and the network interface card LANLine/AT, introduced in January. 
+
+   An Ethernet LAN wide- and local-area networking bridge, multi-protocol wide-area router and SNMP/OSI network management product will be available in May. 
+
+ "The 10Base-T (wire transmission) standard has been issued as policy ... on the way the government wants to install structured wiring systems," said Paul Hession, Gandalf vice-president of Canadian sales.  "We're well-positioned to exploit that." 
+
+   Gandalf already sells into federal government departments such as Health and Welfare, Public Works, and Agriculture.  Hession also predicts expansion in commercial sectors such as finance, insurance and communications (existing customers include Wood Gundy, Telecom Canada, and the CBC). 
+
+   The 10Base-T line extends the company's terminal interconnection and wide-area networking product range based on its Starmaster network processor, which incorporates standards such as X.25, SNA and TCP/IP. 
+
+   The difference with Access Hub is that users can have access to PC data via a LAN, whereas PCs only fulfilled a terminal emulation function under Starmaster. 
+
+   Director of Gandalf's LAN business unit, Peter Burke, said customers had begun to demand PC support, "so we can't ignore it.  It bodes well for a good combination - if we get there in time." 
+
+   On the 10Base-T side, Hession sees an "opportunity" of $600 million worldwide, growing to $2 billion within the next two years.  "It could very well represent, to the Canadian marketplace, 10 per cent of our revenues within 10 months of this launch. " 
+
+   Access Hub uses unshielded twisted-pair wiring and Hession claims that, as technology has evolved, "the data rate we can support ... is 10 million bits per second, which was unheard of five or 10 years ago."  </I
+
+    Crowntek picks ALR "alternative" 
+
+  by David Tanaka 
+  CDN Staff 
+
+   Markham Ont.-based Advanced Logic Research (Canada) Ltd. (ALR) has signed a national reseller agreement in Mississauga, Ont.-based Crowntek Business Centres Inc. 
+
+   Crowntek president and CEO Stewart Davis said the company has been looking for a third PC line for about a year, mainly in response to softening brand loyalty amongst corporate PC users.  </I
+   CONSISTENT COLOR PRINTING  
+  BY RON JEGERINGS
+
+   Making good prints from color negatives isn't difficult.  Given a decent darkroom, a weekend can be spent making attractive prints.  Your level of production may be low, however.  We all dream of higher output - if for no other reason than to churn out enough photo Christmas cards for the season without staying up half the night. 
+
+   In your quest for increased output remember the two C-words: conservative and consistent.  While printing with the speed of a commercial photofinisher is an impossible dream for studio and home darkrooms, there is a lot you can do to improve. 
+
+   First, examine your film habits.  Amateurs tend to try all the new films, while professionals pick a few and stick with them.  A pro will also buy in bulk from the same emulsion batch and cold store all but those for immediate use in order to ensure exact color balance. 
+
+   For experimenting, expose a variety of color-negative films, using the same light and subject.  Avoid trying every film in the store since some may require different enlarger filtration for neutral color balance. 
+
+   Like film, it's wise to buy a large quantity of enlarging paper from the same emulsion batch.  This cuts down on the number of sheets wasted every time you must fine-tune color balance for a new batch.  Consistent paper processing isn't a chore at moderate temperatures.  A simple drum system with a water pre-soak usually does the job, and a water bath for chemistry bottles can be controlled by adding hot or cold water. 
+
+   But low-temperature processing is slow.  Reducing time with higher temperatures, however, may require the use of a table-top processor, or a system that rotates the drum in a temperature-controlled water bath during processing.  Otherwise, temperature drift will have you constantly fiddling with enlarger filtration.  Shorter processing times demand that solutions flow quickly over paper.  A drum system (like a Jobo with an optional Lift) that allows quick solution exchange can also help.  Some printers will compromise between room temperature and the recommended maximum temperature, which decreases humidity to make the process easier. 
+
+   Once you pick a temperature, stick with it.  Change the temperature and you may change color balance and density.  Trying different color chemistries can also alter color balance, as can using a water pre-soak before development for one session and not for the next. 
+
+   Be consistent in all things including the direction you turn enlarger filter dials.  Take your pick, either clockwise or counter-clockwise, but always turn them in the same direction for equal tension and repeatability. 
+
+   The color temperature of printing light should also be consistent.  Tungsten-halogen bulbs in dichroic color enlargers are more stable than household tungsten bulbs normally found in condenser enlargers.  When buying a dichroic color enlarger get a stabilized power supply to compensate for line-voltage fluctuations.  They cost more than simple step-down transformer power supplies sold with some color enlargers, but you will recover the cost in saved paper. 
+
+   While tungsten-halogen bulbs are expensive, buying two or three at a time is cheaper in the long run.  If they are from the same manufacturer, chances are good that only slight filtration changes will be needed when one blows.  And if changing bulbs in your enlarger is fairly easy, you may wish to keep a separate bulb for each color process: one for printing from color negatives, another for making duplicate transparencies.  Using up a bulb to make black-and-white prints after you went to all the bother of doing ringaround tests to establish color balance is foolish.  A few electronic color heads automatically correct color balance, and additive printing systems can compensate for bulb variations. 
+
+   A color analyzer can speed up production by metering exposure and filtration, but isn't like a camera meter in simplicity.  To make a print with correct color balance and density, program the analyzer for the filtration and exposure used.  If you have a master negative that can monitor printing and processing, and it prints with different filtration from session to session, you will spend more time resetting your analyzer than using it.  It's time to analyze technique and see how consistency can be achieved.  Even consistent printers may have to tweak an analyzer program slightly at the start of a session to overcome such problems as chemistry aging, so don't add avoidable problems.  The advantage of test strips and test prints is that they compensate for day-to-day system variations. 
+
+   Once programmed, an analyzer should compensate for color shifts caused by myriad factors: shooting under different lighting conditions, using different enlarger mixing boxes or different bulbs, bulb aging, a white-light lever that doesn't always return dichroic filters to the same position, enlarger lenses with slightly different color correction, and much more. 
+
+   Most color analyzers have easel probes that offer a choice of spot or integrated readings to compensate for varying negative density and magnification changes.  In the integrated mode the same easel probe is used, but a diffuser under the enlarger lens scrambles tones together so only one reading is required. 
+
+   Spot readings are more precise, and like camera spot readings demand more of the operator.  You have to program specifically for the color being metered.  Write a program for flesh tones and not only will it attempt to make grass the color of that flesh tone, it will try to turn all flesh tones the same color. 
+
+   For this reason, most photographers program for a grey tone; it's a good idea to have the image of a standard 18-percent grey card, like Kodak's, in your master negative.  You can use this to set up the analyzer, then look for equivalent tones in mixed negatives, such as pavement and highlights on dark clothing. 
+
+   Since accurate judgement is called for, some photographers use only spot probes when there is time, to place a control grey card in the scene (at the shooting stage.)  Wasting a negative sometimes saves printing time. 
+
+   Exposure errors occur in integrated readings when the negative has large light or dark areas. (They also depend on a mix of scene colors adding up to neutral density.)  Take a picture of a white dog against a blue sky and you will print a yellowish dog as the analyzer tries to correct for the excess blue.  One factor that aids integrated readings which depend on a mix of scene colors adding up to neutral density is that many colors are closer to neutral than we imagine. 
+
+   So, pick a few films and stick with them.  While in theory you program the analyzer only for the paper in use, some have to be programmed for the combination of paper and negative.  The fewer negative-paper programs you have to write - or the fewer small adjustments that have to be made - the more time you spend making prints. 
+
+   Analyzers can be slow.  With subtractive enlargers, changing one filter setting can affect another channel and you may have to go through the filter settings two or more times to eliminate cross-talk. 
+
+   Making up for this slowness is the fact that one analyzer can be used with different enlargers.  Buy a self-contained electronic system, like some of Durst's enlargers or a Beseler/Minolta 45A head, and production increases but you are tied to one machine and perhaps one format.  If this isn't a problem, and you have a lot of spare change, remember that systems vary functionally and require individual research. 
+
+   What holds true for all systems is the need for consistency.  Skip all over the map trying new chemistries, films, processing techniques and equipment and you'll spend more time programming fancy equipment than making pictures.  </I
+
+    ILFORD 400 DELTA  
+  By Henry Gordillo 
+
+   Ilford has introduced a new fast, fine grain black-and-white film: 400 DELTA.  In its technical information brochure (#9446), Ilford promises that DELTA is "ideal for pictorial and fine art photography."  They claim that "prints made from 400 DELTA film exposed at EI 400/27 have very fine grain and outstanding sharpness" and "the results are similar to those expected from a conventional medium speed black-and-white film." 
+
+   Interest in DELTA is high, and its arrival has been eagerly awaited.  Ilford has always maintained an unwavering allegiance to black and white, and I thought they might be able to solve the problem of producing a fine grain version of Kodak Tri-X which continues to be my favorite black-and-white panchromatic film.  I like the quality of the Tri-X image and the fact that dodging/burning and bleaching can bring difficult to print areas of the print in line with the entire image. 
+
+   400 DELTA is Ilford's response to Kodak's T-grain technology. 
+
+   EVALUATION  
+
+   T-Max films are easy to overexpose and overdevelop with the result that grain structure in the affected areas is scrambled and will not print image detail.  So while T-Max is a very fine grain film, it is also a very fussy film best used under extremely controlled studio situations and processed by a properly tuned machine.  Ilford Core Shell Crystal technology on the other hand seems to avoid these problems while still producing fine grain. 
+
+   Reviewing DELTA opens up a lot of good, interesting questions about testing and using black-and-white film.  400 Delta is a beautiful film but it doesn't test out at its rated film speed.  It is really a medium-speed film and a very good one.  The film is crisp, clear, prints beautifully, and has tiny grain.  It compares well with Agfa 25, the slowest black-and-white 35 mm film currently available.  However, it doesn't test at a consistent 400 ISO.  If you want to be sure to capture detail in the shadows, it tests at 100 ISO in practice. 
+
+   THE TESTS  
+
+   Here's what I do to test a black-and-white film.  First, I double check the manufacturer's speed rating for the film.  I do that to protect shadow values.  If the film speed is set incorrectly high, then the shadows run a good chance of not being recorded.  If the speed is set too low, then the film receives unnecessary exposure which can result in increased grain and loss of detail in the whites.  Secondly, I test for the proper development time for the film.  The film needs the development which will allow an exposure three stops above what the meter indicates to print as white with just a little bit of detail.  There needs to be some separation between anything that receives that exposure and the paper base.  Thirdly, I determine the exposure the film needs for a multi-toned subject (including blacks in shadow and whites in sunlight) on a sunny day with sharp-edged shadows.  Among other things, this is a way to compare one film to another under actual shooting conditions.  Lastly, I see how the film responds to a variety of situations and double check my results by using the film a lot.  I need five to 10 rolls of the same emulsion batch to run the tests.  One for starters, then maybe another two to figure out the film development time, and the rest to use in practical picture taking to double check the results. 
+
+   These tests are definitely not just for lab technicians.  These are practical tests that anybody who uses black-and-white film should do. 
+
+   TEST RESULTS  
+
+   Ilford recommends two of its own film developers: Ilfotec HC (a liquid) diluted 1:31 and ID-11 (a powder) used undiluted in its stock solution form. (Literature from Ilford U.S. mentions ID-11 PLUS developer which is not available here.  We get regular ID-11 from England.  According to Ilford Canada these two developers are different!)  I used the Ilford developers in addition to my regular film developer Kodak HC-110 diluted 1:31. 
+
+   With all three developers, the film rated at about 100 ISO using tungsten lights.  Had I used daylight, which is more actinic, it would have rated at about 160 ISO.  HC-110 consistently gave a bit more density than the two Ilford developers.  All three developers produced negatives that look much better than medium speed negatives.  Printers produced from them have excellent tonal separation ranging from deep black with detail to light whites just barely separated from paper base.  </I
+
+   LIGHT MAGIC  
+   The fibre-optic Hosemaster makes painting with light a photographic reality.  
+  By Chris Knowles 
+
+   Behind a studio door the pop, pop of a commercial photographer's army of strobes has been replaced by an odd clapping sound and what sounds like the beep of a truck's backup warning signal.  Inside, Pat LaCroix is bouncing around the set, waving the source of these new and unusual sounds - the Hosemaster - over and around and under a saxophone player and the tool of his trade.  The Polaroid is held under the light of the studio's kitchen stove: the image is remarkable.  The bell of the sax (from whence the sound emerges) glows with hazy highlights.  The player himself is awash in diffused light.  And the difficult exposure balance between the player's face and the gleaming brass instrument has been pulled off perfectly.  What's equally striking is how the image seems to be sharply defined in one part and deliberately hazy in others. 
+
+   LaCroix, a professional photographer for 25 years, is clearly pleased.  "I've been shooting a long time, so it's important to get a little creative buzz every now and then. When I started using the Hosemaster, I began to think, 'Hey! I could use it for this, and this and this....' " 
+
+   The Hosemaster, to hear Hosemaster afficionados such as LaCroix, Peter Horvath and Ottmar Bierwagen describe it, is an innovative new creative tool that may change the face of studio photography.  All three Toronto-based shooters are using it, for both corporate and personal work.  "I have a feeling it's going to become a standard," says Horvath.  "It's definitely right up there on the 'new' list." 
+
+   "I was just astonished by the thing," adds Bierwagen.  "I think it's the most interesting piece of lighting innovation to come along in 20 years." 
+
+   Horvath makes a "vacuum cleaner" analogy; it's an apt description for the Hosemaster, invented by American photographer Aaron Jones, looks just like a pull-along vacuum.  Instead of sucking in dust, however, it beams out light through a 4.6-metre (15 ft.) length of fibre-optic cable.  One end of the cable plugs into a rolling power-supply case, which holds a fan-cooled quartz-arc 5500 K lamp.  The business end of the cable is capped by a rectangular-shaped plastic housing about the size of a small household paintbrush, onto which light-shaping masks or gels can be clipped or Velcroed. 
+
+   Holding this black "paintbrush" by hand, the photographer moves around the set, brushing a stroke of light here, dabbing a pinpoint beam there.  Horvath says it's the closest he's ever come to "feeling like a painter." 
+
+   The Hosemaster differs from other fibre-optic lighting systems, such as the HMI (in existence for 15 years), in that it has its own shutter system, which is mounted on a stand just in front of the camera lens.  The shutter is operated by a button on the paintbrush; another button causes a filter holder (usually fitted with a soft-focus filter) to swing up in front of the lens.  To create a picture, then, the studio is made dark, the camera is set for a time exposure, and the photographer uses the paintbrush to illuminate various parts of the scene, clicking the noisy shutter (the source of that clapping noise) open and closed as he paints with the light, swinging the filter back and forth to make some highlights soft, some hard.  A beeper sounds at one-second intervals while the shutter is open to help the photographer time each exposure: a half-beep wash for the saxophonist's face (so he's not restricted to stay perfectly still), four beeps for the sax's bell, and so on.  And on.  LaCroix's masterly photographing of an otherwise near-impossible publicity shot of his friend Al Clootens, consisted of three different exposures: an initial wash with a wide-open Hosemaster diffused; gold gel clipped into the Hosemaster which was then stuck inside the sax's bell and exposed for four seconds; a half-second exposure with the Hosemaster outside the sax.  Once the initial wash is over, and the face is properly exposed, it doesn't matter if the face moves at all, since these are all separate exposures. (The glow around the sax player was from a diffuser placed in front of the lens.)  "It's a lot of mental gymnastics," admits LaCroix. 
+
+   What LaCroix and others love about the system is the lighting accuracy it affords.  "You can really isolate the light," says LaCroix.  "Even with the most spectral of strobe spots, you can really only get so small.  I'm always playing around with shaving mirrors (to get a narrow beam), but even then you still get spillover." 
+
+   LaCroix pulls out a picture of a collection of small dolls, each of which was lighted individually and differently.  The face of a very ugly, old French hunchback doll was lit from underneath to enhance the sense of ugliness, while a delicate porcelain doll was given a softer wash of light with diffusion.  The face of one of the dolls is pin-sharp, the others slightly diffused.  "You can make one face focused and one diffused with a strobe, but you'd never be able to get the different qualities of light with any other type of lighting," he points out. 
+
+   Because the lighting is applied by hand, and the exposure timed by ear, invariably each frame is slightly different from the one before, and each truly the creative product of the individual holding the "brush."  This unpredictability in the Hosemaster's character is something Ottmar Bierwagen enjoys.  "Every image you get out of it is unique, and there's a little bit of a thrill in that because you sort of don't know what's coming."  Bierwagen created the still life shown here by starting with a strobe exposure of two stops under what his meter read, followed by about 15 exposures using the Hosemaster.  Holding the light close to the flowers, he painted the stems with a slashing motion, and then waved the light inside the buds for about three seconds each.  Next, he projected the light through the back of the vase for about 20 seconds to give it "just a small hint of translucence."  Using a mask with a tiny opening for the light beam, he then circled the light around one side of the pear and red marble.  "You can't control strobes well enough to give you that many spots of light; you'd have to have 35 snoots of various kinds all over the place." 
+
+   Constant movement of the Hosemaster "paintbrush" (and the photographer's body parts) is necessary to avoid imprinting a ghost silhouette on the film.  And, of course, the light mustn't be aimed directly at the lens. 
+
+   A concern of some photographers is that the "Hosehead look" will too soon become a cliche?  Peter Horvath doesn't agree.  Initially skeptical of its potential, Horvath soon fell in love with the versatility of the system and the hot neon colors the light produces.  "I'm seeing a real saturation I wouldn't normally get with strobes," he says.  "I feel like I'm on to something with it: a really new way of shooting." 
+
+   Horvath's "new mutant art form", as he calls it, springs from his technique of not using a base strobe exposure at all, but instead relying on the Hosemaster - usually heavily gelled - for all of an image's light.  "One disadvantage," he says, "is that I have to remember what I did - how long I exposed each area.  I'm trying to develop it into an intuitive thing; I'd like it to come more from my gut than from my head." 
+
+   This kind of innovation doesn't come cheap, however.  Vistek in Toronto, Canadian agent for the Hosemaster, is asking $8,695, or $150 per day on rental. 
+
+   LaCroix bit the bullet and bought one, but both Bierwagen and Horvath are still reeling from sticker shock.  The cost is bound to come down, though, as the Hosemaster's popularity spawns imitators. 
+
+   And most feel the Hosemaster will catch on quickly, as photographers and art directors continue to experiment with a new way of painting with light.  As Ottmar Bierwagen notes, "The style in photography for the last 10 years has been to haul out that 10-foot bank of light and whap through two or three or four thousand watts and make it nice and even and smooth from edge to edge.  I think that style is changing, thanks in part to younger photographers who are using hot lights and shadows and are breaking all the rules.  This Hosemaster kind of lighting system is one more tool of change."  </I
+
+    LIGHT LOSS  
+   Light is like Shangri-la - it's there, you just have to know where to look for it.  
+  BY RON JEGERINGS
+
+ 
+
+   For both amateurs and professionals, one of the great photographic puzzles is the way in which light loses intensity over distance.  Logically, moving a light from two metres away to four metres from the set should halve the intensity.  Logically, you open the lens one stop.  But your light meter says two stops and the aperture is too large for depth-of-field.  Move the light closer and illumination is too uneven across the set.  You become like the proverbial cat chasing its tail. 
+
+   If light loss isn't logical, how can anyone gain control?  Fortunately, a logical pattern is described by the inverse square law.  The mathematics are basic, and once the concept is understood you can chuck the pocket calculator. 
+
+   Though terms like light loss and falloff are convenient, they are misleading.  Light isn't lost over distance, just dispersed differently.  Darkroom workers will understand dispersion.  As an enlarger head is raised, more of the easel is illuminated, but it is merely the same amount of light spread over a larger area. 
+
+   The key, technically speaking, is the inverse square law.  It doesn't matter whether you use feet or metres to calculate, though metres may be too broad and centimetres too minute, for the principle of the inverse square law still holds true: l/2 2  and 1/4  2 = 1/4 and 1/16 
+
+   Light intensities are 1/4 and 1/16 at two and four metres respectively, which explains why the meter recommends two stops instead of one stop more exposure at the longer distance. 
+
+   What happens if we make 1/4 and 1/16, f/4 and f/l6?  Away go the math calculations when working under pressure.  You can match distances to aperture numbers simply because aperture light control is related to the inverse square law.  One side of a set might be four feet from the light (f/4) and the far side eight feet (f/8).  Two stops of light are lost, which is only acceptable for a special effect. 
+
+   Understanding the inverse square law is essential for understanding light in photography and for solving all sorts of lighting problems such as how to achieve even illumination. 
+
+   Lighting problems are inevitable it you do not understand the difference between uneven illumination and high contrast - an easy misunderstanding since uneven light can be almost as contrasty as light that casts deep shadows.  To cure uneven light, a photographer might add a fill light at the camera, which fills in the shadows but still results in uneven light by illuminating both sides equally. 
+
+   Understanding how much light is lost at near distances helps when on-camera flash causes washed-out foregrounds and black-hole backgrounds.  Black backgrounds may not fill a shot - if they add drama or obscure unwanted objects - but washed-out foreground faces are deadly.  When space allows, try a longer lens and shoot from a greater distance for more even illumination. 
+
+   Bounce flash isn't used in color as it is in black and white, for off-white ceilings and walls can create oddly-hued complexions.  Even so, when the bounce surface is off-white (or near-white without the cold tint of green or blue), bounce flash increases light distances (from light to bounce surface and then back to subjects) and illumination is more even.  The only stipulation may be to use a fill card on the flash head to open up shadows cast by bounce lighting.  Moving a light far enough back requires unacceptably large apertures, or the knocking out of a wall.  The solution is to use fill cards on the opposite side of the set to bounce the light. 
+
+   Again, there is confusion between the contributions of even light and fill in lowering contrast.  A large source - such as ceiling or wall with bounce flash creates its own fill to lower the contrast.  Therefore, there is a tendency to attribute contrast reduction solely to source size and discount the contribution of even illumination. 
+
+   An umbrella is a large source which provides its own fill and lowers contrast.  When used for bounce flash it also reduces light fall-off since the light travels up the shaft before returning to the subject, increasing light distance.  Some photographers call umbrellas wall extenders, for they are particularly helpful in expanding small rooms. 
+
+   Feathering the light is another trick.  Since most the lights have a brighter central hot spot in the illumination patch, you can aim a light in such a way that bright central rays travel farthest, thus creating more even illumination.  Some lights are difficult to feather.  When there's no visible hot spot and no intense central light, it's not so easy to know exactly where to aim the centre of the light to achieve even illumination.  </I
+
+
+ <I
+  RCMP using new technology to pull fingerprints from plastic 
+
+   Detecting fingerprints on plastic bags crammed with illegal drugs has been about as easy as getting a crime lord to declare the source of his income to the tax man. 
+
+   But innovative technology using fumes from super-strength glues in a vacuum chamber is giving Royal Canadian Mounted Police investigators clear fingerprints from plastic sandwich bags and other materials that normally yield little evidence. 
+
+   Developed by a scientist at the National Research Council in Ottawa, the technique produces quality prints faster than methods usually used by police.  And it is also safer. 
+
+   RCMP Inspector Richard Shaddick, head of the Mounties' science and technology branch in Ottawa, says prints don't stick well to plastic bags, bottles or porous materials. 
+
+   Methods including dusting will continue to be used by investigators, but the vacuum-chamber method is providing an important new tool in crime fighting. 
+
+   Fumes emitted by cyanoacrylate, the active ingredient in the extra strength glue, have been used for more than a decade to detect fingerprints.  But the material has to be heated to produce the vapors that enhance the ridges on prints. 
+
+   That process requires bulky equipment, often produces imperfect prints and increases exposure to noxious fumes. 
+
+   About a year ago, John Watkin, a scientist on contract to the NRC, experimented by using a vacuum chamber to lower the atmospheric pressure so the cyanoacrylate boils and vaporizes at room temperature. 
+
+   This method, says John Arnold, Watkin's supervisor and manager of the NRC public-security program, produces superior fingerprints. 
+
+   The development is the first for the Canadian Police Research Centre, an Ottawa-based joint venture of the NRC, RCMP and the Canadian Association of Chiefs of Police. 
+
+   The cylindrical vacuum chamber is about five feet long and one foot in diameter - large enough to hold dozens of plastic bags or a weapon as big as a 12-gauge shotgun. 
+
+   When fingerprints are exposed to the cyanoacrylate vapor, a polymer coats the ridges.  The item bearing the prints is then removed from the chamber and dipped into a fluorescent dye solution. 
+
+   Prints are then viewed under a portable fingerprint lamp, also developed for the NRC by Watkin.  Under the Luma-Lite, the prints show up as a brilliant yellow on a black background. 
+
+   Arnold says 10 print units are being shipped to RCMP field-identification centres across Canada for testing.  One has been used since November at the RCMP forensic identification laboratory in Ottawa. 
+
+   Arnold said the units cost about $50,000 to develop and could sell for $10,000 to $20,000 each.  He said the NRC is interested in licensing the technology to companies that will manufacture and market them. 
+ </I
+
+ <I
+  Danish firm testing new system to cut acid rain-producing gases 
+
+   A less costly way of cleaning up acid rain-producing gases emitted by power stations and other industrial systems will be tested in the U.S. 
+
+   Danish firm FLS Miljo will install its gas-treating system at a Kentucky plant for a test that will begin next year. 
+
+   FLS Miljo is a subsidiary of the Danish company FLS Industries - world's largest maker of cement-production equipment - and a leading maker of cement kilns and industrial hardware. 
+
+   Miljo has been diversifying into environmental control systems, including equipment to remove sulphur dioxide gas pollution. 
+
+   As part of Miljo's strategy to produce new clean-up equipment for industrial gases, an experimental system is to be installed next year at a power station in Shawnee, Ky., a test plant run by the Tennessee Valley Authority. 
+
+   If the Danish equipment operates as planned, it could be scaled up to provide equipment for large-scale power stations. 
+
+   The U.S. Department of Energy is paying for the US$4-million (C$4.7 million) filtering system at Shawnee. 
+
+   Removing acid gases from industrial equipment is crucial to reducing acid rain and other pollution.  It is generally accomplished by scrubber systems that pass flue gases through a water-based slurry of lime.  The process turns sulphur dioxide gas into solid calcium sulphate. 
+
+   The new system from Miljo uses the same principles as traditional scrubbers developed by several companies, including Mitsubishi of Japan and Sweden's Flakt, part of Asea Brown Boveri. 
+
+   Like conventional systems, the FLS hardware uses lime - a mixture of water with calcium oxide or calcium carbonate - to react with the gases. 
+
+   But Miljo's system reduces the size and expense of the process by changing the design of the chamber in which the chemical reaction takes place. 
+
+   Lime is directed at the gas stream as it moves up a vertical column.  Conventional scrubbing systems spray lime using a massive chamber in which the gases move horizontally. 
+
+   The Miljo design ensures that the gases stay in contact with the calcium oxide longer.  It also recycles some of the lime. 
+
+   The equipment includes hardware to filter out ash and dust.  It recirculates some of this material along with the lime, which aids the chemical reaction by reducing the acid content of the flue gas. 
+
+   The overall impact of the new design, says Erik Hoffmann-Petersen, Miljo president, is to reduce the size of the complete system. 
+
+   That means a Miljo system can be installed for two thirds of the price of a traditional scrubber. 
+
+   Hoffmann-Petersen says Miljo's gas-removal system could be adapted for use by operational power stations and would cost US$10 million to US$20 million. 
+
+   Versions of the clean-up equipment that will be installed in the U.S. already are being used at six Danish municipal incinerators. 
+
+   The systems are relatively cheap and remove sulphur dioxide and other gases from the waste streams of these plants. 
+
+   The importance of the Kentucky project for Miljo is that it could provide a big break in the large North American market for acid gas removal equipment.  Miljo already derives 25% of its revenues from the U.S. 
+
+   As part of efforts to expand operations in the U.S., Miljo recently bought Airpol, a small environmental-control company based in New Jersey. 
+
+   Besides new acid-gas clean-up hardware, Miljo sells conventional scrubbing equipment that is based on Mitsubishi's design.  Miljo also sells electrostatic precipitators - systems that remove dust and other particles from large industrial plants such as cement works  </I
+
+
+   New software helps treat bone disorders 
+
+   People come in all shapes and sizes.  Some reach their adult height when they're 12 years old, while others don't spurt up until they're 15 or more. 
+
+   People with the same chronological age can have markedly different bone ages.  Accurately assessing someone's bone age is critical in treating growth abnormalities or skeletal deformities, such as scoliosis, that require hormone treatment or surgery, says University of Calgary medical researcher Stuart Coupland. 
+
+  UNEVEN GROWTH RATES 
+
+   He gives an example of a 14-year-old whose left leg is growing faster than the right.  An orthopedic surgeon needs to assess how much more growth remains in the normal leg to determine how big a piece of bone to cut out of the abnormal leg to ensure they'll both end up roughly the same length. 
+
+   Coupland, a neural physiologist who dabbles in computer programming in his spare time, has developed a software program that improves on the speed and accuracy of methods currently used to assess bone age. 
+
+   The method favored by radiologists compares an X-ray of a hand with a compilation of X-rays of hands of known age.  It takes about five minutes, but is only accurate within a two-year period.  What's more, it indicates the age of a person's hand bones, which can vary significantly from the bone age of the same person's leg or hip, says Coupland. 
+
+   A second method, called RWT after the three researchers who devised it 15 years ago, uses 37 measurements of the knee-joint to assess bone age of the lower extremities.  Though accurate to within six months, it takes an hour or more to complete the assessment. 
+
+   Using a Microsoft Quick Basic language program and a MacIntosh II workstation, Coupland has computerized the RWT method to get an answer in less than 10 minutes. 
+
+   "We had to make the RWT method practical in a clinical setting without losing the accuracy," says Coupland.  "Orthopedic surgeons say they are happy with accuracy within six months. When it's one or two years off, they're concerned." 
+
+   Coupland used a video digitizer to transfer X-rays of knee joints on to a computer screen.  Based on the patient's gender and age, the computer decides how many of the 37 measurements of the joint have to be taken to calculate the correct bone age. 
+
+   The program, called COMRAD, for Computerized Radiographic Age Diagnosis, leads the user through the steps to take the measurements off the screen and calculates the bone age. 
+
+   Coupland is enhancing the program to allow users to save the picture and measurements, probably on an optical disk, for future use.  He has applied the same technology to measure abnormalities in facial and head bones.  These craniofacial distortions, which are caused by genetic syndromes, are often diagnosed visually making treatment less exact, he says. 
+
+  TESTING IN CALGARY 
+
+   COMRAD is being marketed by University Technologies International Inc., a technology transfer company, which is a wholly owned subsidiary of the university.  UTI marketing manager Kathy Chan said COMRAD is being tested at a Calgary hospital and plans are under way for tests in the Toronto area. 
+
+   Coupland holds the Canadian copyright for COMRAD and has applied for U.S. copyright.  Any profit he makes is split with the university, which funds UTI.  He hopes to sell the software to various hospital radiology departments and research labs.  UTI is doing a survey to determine the appropriate market and pricing for the product.  </I
+
+
+   Canadian firm has global vision for robot vacuum cleaner's launch 
+
+   Cyberworks Inc., the tiny Canadian company causing a stir with a revolutionary robot for the contract cleaning industry, is pursuing, after just one sale, European and North American markets. 
+
+   "By the end of the summer we're hoping to get Europe launched and then North America by the end of the year," Vivek Burhan Parkar, the 26-year-old founder and president of the Orillia, Ontario firm, said in an interview here. 
+
+  300 UNITS SOLD 
+
+   Cyberworks' first customer is Hudon Groep Internationale of the Netherlands, one of Europe's largest service contractors. 
+
+   Hudon, a wholly owned subsidiary of Vendex International NV, has bought 300 Cyberworks robot vacuum cleaners for $6 million. 
+
+   Burhan Parkar says the robot machines have a unique market advantage: "It's the first machine capable of working entirely on its own, without human programming or instruction." 
+
+   The robot weighs about 180 kilograms - mostly batteries - and uses a sophisticated electronic vision system and artificial intelligence. 
+
+   They are also cost effective at $20,000 each compared with up to almost eight times that amount for competing models that require constant programming, Burhan Parkar says. 
+
+   "We have a tremendous strategic and technological lead.  That positions us as a world leader." 
+
+   "It's a revolution in the cleaning industry," says Cees Ravesteyn, vice-president of marketing and development for Hudon, which made contact with Cyberworks by chance at a demonstration in Cologne, West Germany. 
+
+   Hudon is now using eight of the robots in the Netherlands, Belgium and France and expects to expand by the end of the summer. 
+
+  'CONSERVATIVE' FASHION 
+
+   Studies of market potential in Europe indicate that Cyberworks could sell at least 5,000 units a year, Ravesteyn said. 
+
+   While Burhan Parkar talks confidently about penetrating major markets in North America and Europe, he said Cyberworks plans to proceed in "typically Canadian, conservative fashion." 
+
+   Burhan Parkar says he calculates it will take a minimum of two years for any competition to catch up. 
+ </I
+
+  
+ 
+   Although virtual reality is in the development stages, a California company named VPL Research Inc. has already begun selling headgear called an "eyephone" and a lightweight, sensor-equipped glove that would allow a user to experience the sensation of picking up and moving objects that appear in a virtual-reality environment.  David Benman, VPL's sales-support engineer, said that the eyephone, which also resembles a scuba mask, sells for $11,200, while the glove costs $10,500.  A complete package, which includes the eyephone, glove and two computers manufactured by Silicon Graphics Computer Systems of Newport Beach, California, costs about $267,000.  Benman said that VPL has sold its eyephone and glove to most of the U.S. research institutes and universities that are currently conducting virtual-reality research.   </I
+
+ <I
+  Ontario looking to the future in advanced composite materials 
+
+   Super-strong golf clubs, artificial joints and ceramic engine parts appear to have little in common.  But all are made using space-age materials. 
+
+   These advanced materials are composites, combinations of materials offering extreme strength and lightness.  They are already being used in manufacturing, medicine, communications and aerospace industries.  And the field is becoming increasingly competitive as countries such as Japan pour billions of dollars into research. 
+
+  CENTRES OF EXCELLENCE 
+
+   To help Canada stay in the race, the Ontario government's nonprofit Ontario Centre for Materials Research - biggest of seven centres of excellence set up by the Premier's Council - will receive $43 million in provincial grants over five years. 
+
+   The centre manages and promotes long-term research in advanced materials at the University of Waterloo, Hamilton's McMaster University, University of Western Ontario in London, Queen's University in Kingston and University of Toronto. 
+
+   The two biggest applications for composites are military equipment and sporting goods, says Craig Simpson, of Ontario Hydro's research division. 
+
+   Simpson spoke at the annual meeting of the Ontario Centre for Materials Research (OCMR) this week in Toronto and used a $150 golf-club shaft as a pointer during his presentation. 
+
+   Simpson said the composite club was developed in Japan, where most high-tech sports equipment originates.  With the help of provincial funding and OCMR, a variety of products incorporating composites will one day be made in Ontario, he said. 
+
+   The centre for materials research helps to fund world-class research projects and ensures that technological advances and information on new materials flows into Canadian industry.  When industry develops what the research community wants, funds also flow into corporate coffers. 
+
+   For example, Toronto-based Electrofuel Manufacturing Co. Ltd. supplied two pieces of equipment for McMaster's ceramics research. 
+
+   Electrofuel President Sankar Das Gupta said a high-temperature, high-pressure furnace to measure the expansion and contraction of ceramics was developed by the university and his company. 
+
+   The furnace, which operates at 2,000 C - steel melts at about 1,400 C - costs $55,000. 
+
+   Electrofuel also designed and built a $150,000 vacuum hot press to manufacture ceramics parts. 
+
+   Both pieces of equipment are owned by the centre for materials research, but McMaster will have first crack at acquiring them at fair market value when the centre's funding agreement with the government is completed. 
+
+   Getting the equipment installed and working has resulted in orders from research and development laboratories in other countries, Das Gupta said.  He expects the six-year-old company's revenues to double to $4 million in 1990. 
+
+   Other industry members include heavyweights such as Alcan Aluminium Ltd., Imperial Oil Ltd. and Dofasco Inc., as well as smaller firms such as Ultra High Vacuum Instruments Ltd. in Burlington, Ontario, and Brampton's Colortech Inc. 
+
+   Most OCMR initial funding went to buy equipment necessary to carry out materials research.  More than $1.2 million went to particle beam studies at Western.  McMaster's molecular beam epitaxy unit, which makes new materials for chips used in optical communications systems, cost $1.2 million. 
+
+   The centre also funds university scientists working in: biomaterials, polymers and composites; components handling optical and electronic communications signals; metals and ceramics; the study of surfaces and interfaces. 
+
+  COAGULATION RATES 
+
+   Baxter Healthcare Corp. of Deerfield, Illinois, through its Mississauga-based Canadian subsidiary, is partially funding two OCMR-supported scientists working in biomedical materials at McMaster and University of Toronto. 
+
+   One researcher is studying changes in blood coagulation rates when it comes in contact with materials in kidney dialysis machines and other equipment.  The other researcher is trying to develop a coating to protect transplanted pancreatic cells from being rejected. 
+
+   Almost $10 million was allocated to more than 30 OCMR projects in the year ended March 31, 1989. 
+ </I
+
+
+ <I
+  Brokers offer more market information 
+
+   Discount brokers are offering clients a variety of electronic market-quote systems to get more information into investors' hands - and more commissions into brokers' pockets. 
+
+   Clients at Toronto-based Marathon Brokerage can choose from market-information systems developed by Stratford Software Corp. of Vancouver, Toronto-based International Hay-Info Communications Inc. or Bell Canada's Alex home shopping service. 
+
+   Alex, which has been operating in Montreal for more than a year, will be available in the Toronto area starting next Monday. 
+
+   Stratford and Hav-Info provide real-time quotes.  Alex offers real-time quotes from the Montreal and Toronto stock exchanges and a 15-minute delay on the Vancouver exchange. 
+
+  PHONE ACCESS 
+
+   Toronto Dominion Green Line Investor Services Inc. has its own real-time quote service, which is accessible by touch-tone phone, but it also offers Alex. 
+
+   Discounters say do-it-yourself quotes and market information are ideal for people who manage their own investments, do their own research and analysis, and only use a broker to trade securities. 
+
+   "They take control of their own portfolios and look to us for information, not for advice or recommendations," Marathon President Paul Bates said. 
+
+   He believes giving clients more information means they will trade more often, generating more commission fees. 
+
+   Stratford's information system, called Suzy, has more market-related features than the others, but it doesn't cover U.S. exchanges.  The company started shipping the product this week. 
+
+   Suzy offers quotes from four Canadian exchanges, stock indices, share price changes and volumes, a breakdown of trades on each company, portfolio updates, and news stories and press releases carried by the Globe & Mail's InfoGlobe service and StockWatch, a Vancouver publication.  It can compile lists of the most active stocks or generate daily or weekly stock-price graphs. 
+
+   Bates said Marathon is working with Stratford to develop features that will enable clients to access their own accounts and check the balance and margin available, or get information on Marathon's services. 
+
+   Suzy's electronic mail feature also allows users to send memos or files.  Stratford is setting up information networks on various subjects.  Already available is small business accounting, run by software consultant Richard Morochove, and entrepreneurship, run by Rick Spence, editor of Small Business magazine. 
+
+   Hav-Info doesn't yet provide news items or graphics, but its quotes service is more extensive, covering not only four Canadian exchanges but Trans Canada options, Toronto's over-the-counter stocks, New York and American stock exchanges, and the Dow Jones industrial average. 
+
+  SHOP-AT-HOME SERVICE 
+
+   Alex carries quotes from the three exchanges, but is working with the exchanges and other market-quote service firms to beef up its financial offerings.  It carries a host of other information, including a shop-at-home service. 
+
+   The three companies charge about the same for quote services, but hardware and software requirements differ. 
+
+   The basic fee for Suzy is 20 cents a minute, plus on-line charges or tapping into the news databases and using other features.  Discounts are offered after market hours. Hav-Info charges 29 cents a minute and Alex 25 cents a minute for quotes. 
+
+   Suzy is a software disk that costs $29.95.  To use it you need an IBM or IBM-compatible personal computer with at least 384K of ram memory and a modem.  No other software is required. 
+
+   Hav-Info's system also runs on IBM or IBM compatible PCs with modems.  But Marathon clients who don't have a computer can buy a Hav-Info terminal with built-in modem for $599, a $200 discount from the regular price.  Communications software allowing the unit to send and receive data is free. 
+
+   An IBM or Macintosh PC with modem, and free software provided by Bell, will pick up Alex.  Those without computers need a special terminal, which plugs into a phone jack and rents for $7.95 a month.  The first two months are free. 
+
+   Green Line's direct quote service is free to clients who do at one trade a month through the discounter.  Non-traders get 25 free quotes a month, before a $0.25-a-quote charge kicks in. 
+ </I
+
+
+ <I
+  Bright future forecast for document imaging 
+
+   Document imaging is the latest weapon in the war against paper burden.  These systems scan letters, invoices and legal documents and store them in picture form on computer disk. 
+
+   The process is intended to speed up paper flow through large organizations, said Elliot Katz, a product manager with Wang Canada Ltd. 
+
+   Banks, insurance companies and government agencies are among the first to get into document imaging. 
+
+   "There's massive savings available," said Paul Renaud, director of technology for SHL Systemhouse Inc. of Ottawa.  
+
+   The snag is that document systems are expensive - $15,000 to $20,000 a workstation - because pictures require a lot of hardware.  They also take up a lot of space on disk and demand high-powered microprocessors. 
+
+   With scanners to read documents, optical disk storage and a few high-resolution monitors, a typical entry-level network costs about $650,000.  Large systems can add robot-controlled libraries of optical disks and satellite communications links. 
+
+   The U.S.-based Association for Information & Image Management estimates the market for image systems will be worth US$12.7 billion by 1993, making it potentially one of the strongest segments of the computer industry. 
+
+   The two biggest players are Wang, which has sold 20 of its minicomputer-based systems in Canada, and Filenet Corp. of California, which has sold five. 
+
+   Although suppliers are quick to compare imaging to earlier computer stars, such as data processing in the 1970s or desktop publishing in the 1980s, users haven't been as quick to lay down their cash. 
+
+   Systemhouse's Renaud said one reason could be the generic one-system-for-all approach some suppliers have taken. 
+
+   "There's a fair number of misconceptions about image systems.  The first one is that there's a cookie-cutter or no-brain solution for everyone." 
+
+   Although most large organizations will admit to having a problem with paper, the solution must be tailored to specific bottlenecks in the company and build from their computer system, as opposed to scanning everything in the office, he added. 
+
+   Mutual Life Assurance Co. of Canada uses a Filenet system to speed the processing of death claims. 
+
+   "It has improved our service in the department, reduced the amount of paper and we no longer lose pieces of paper," said Ray Simonson, an administrative services executive with the firm. 
+
+   But, he added, the system "is not really as useful as information coded in a database." 
+
+   For example, a traditional database record system can track customers by sex, age, or other characteristics, which can be easily cross-referenced by computer. 
+
+   Documents stored in picture form can't be automatically broken down into such categories. 
+
+   And organizations that deal with paper efficiently have a hard time justifying the high cost of jumping to an electronic system. 
+
+   But technological improvements and the recent introduction of low-cost systems for personal computers from large manufacturers such as Wang and International Business Machines Corp. are likely to change that, Simonson said. "Now we're looking again." 
+
+   One firm hoping to jump in at the bottom end of the market is software firm Imara Research Corp. of Toronto.  Imara intends to ship a $400 imaging program that can be used on relatively low-cost standard hardware.  The program, which has yet to be named, will be available in June. 
+
+   Imara has already done joint marketing with IBM and software giant Microsoft Corp., which are counting on new products to stimulate sales of computers using Microsoft's new operating system, OS/2. 
+
+   "Imara's is one of the first imaging products built on standard technology that can sit on anybody's machine without spending hundreds of thousands of dollars," said David Boker, Microsoft Canada's corporate accounts manager.  "There's certainly a strong feeling about the product at Microsoft." 
+
+   Imara Chairman Stephen Sutherland projects sales of $1.5 million by February, 1991. 
+
+   Although Sutherland acknowledges the estimate is "really low," he's quick to compare his 15-employee firm's product to other leading personal computer programs, such as Aldus Corp.'s Pagemaker, the breakthrough desktop publishing program, and Wordperfect Corp.'s Wordperfect, the longstanding word processor of choice in many companies. 
+
+   "The fact that there are high-end systems available, just legitimizes the need for the technology." 
+ </I
+
+ <I
+   Indeed, most of the scientists working on the new technology say that they have merely crossed the frontier of an exciting new concept.  But Jacobson predicts that virtual-reality products will be available to such commercial users as architects and engineers within five years, while mass-market consumer entertainment products will be available within a decade.  But given the rate at which previous computer revolutions have occurred, virtual reality could become a commonplace technology much sooner than that. 
+ </I
+
+
+
+   UNHEALTHY BUILDINGS: Experts say indoor air can make people sick 
+
+   Early in 1989, several federal civil servants working in a Montreal office tower began complaining about headaches, fatigue and nausea.  According to some reports, several employees fainted at their desks, recalls Tedd Nathanson, an Ottawa-based engineer with the federal department of public works.  He said that he inspected the building and discovered that automobile exhaust fumes from the underground parking garage were penetrating the offices because the owner of the building had boarded up the underground ventilation system to save money.  Although the source of that problem was unusual, concerns about air quality in the workplace are becoming increasingly common.  Indeed, almost 1,300 scientists, doctors and businessmen from 30 countries met in Toronto last week for a six-day conference aimed at improving air quality in homes and offices. 
+
+   Indoor air quality began to emerge as a health issue during the late 1970s when builders across North America and Europe started installing sealed windows, which cannot be opened, as an energy conservation measure in almost all new office towers, hospitals and schools.  Experts attending the Toronto conference said that air delivered through ventilation systems frequently becomes contaminated with pollutants from inside and outside the building.  When workers begin complaining about headaches, fatigue and other ailments, they are suffering from what experts call "sick-building syndrome." Said Douglas Walkinshaw, an Ottawa-based consultant who led the Toronto conference: "Most people now work in airtight buildings, so it is becoming a very big issue." 
+
+   Just how big was apparent at the meeting, where participants delivered 530 research papers on indoor-air quality.  By comparison, there were only 50 papers at the first conference on indoor air, which was held in Copenhagen in 1978 and which attracted only 230 delegates.  The combination of research and actual investigations of buildings with air-quality problems has revealed dozens of potential sources of pollution.  Said Ole Fanger, a Danish air-quality expert and organizer of the first conference: "It was always assumed that buildings were clean.  That was the big error." 
+
+   New buildings, or structures that have been renovated or refurbished, can contain dozens of pollutants called volatile organic compounds, according to Walkinshaw.  Many of the compounds, including benzene, toluene and octane, are derived from petroleum and are used in the glues applied to upholstery, tiles and carpets.  Moisture within a building is a second source of airborne contaminants, Walkinshaw said.  Dirty humidifiers, condensation on pipes and wet carpets become breeding grounds for such micro-organisms as moulds and fungi. 
+
+   In most sealed buildings, only about 20 per cent of the air circulating at any given time is actually fresh from outside, said Walkinshaw.  The remainder is merely being recirculated, even when it is contaminated by volatile organic compounds or micro-organisms.  Walkinshaw said that the problem can be compounded if building operators shut off their ventilation systems altogether at night or during weekends, in order to save energy - or money. 
+
+   In some cases, poorly designed ventilation systems can lead to contaminated air.  Nathanson said that his department inspected an office tower in Ottawa recently after numerous employees complained about stale air and illness.  Public works inspectors eventually discovered that the air intake duct and the exhaust duct, both of which measured six feet by 12 feet, were side by side on the roof.  About 25 per cent of the air that was pumped out of the building through the exhaust was being sucked back in through the intake duct.  Nathanson said that the flaw was corrected by building a barrier between the two ducts. 
+
+   Some medical experts who have studied sick-building syndrome contend that contaminated indoor air rarely poses a serious threat to an employee's health.  Sherwood Burge, a British doctor who attended the Toronto conference, said that the real problem is the comfort and productivity of office workers.  He and fellow British physician Alastair Robertson conducted a study in which they circulated questionnaires to 4,000 workers based in 47 buildings in Great Britain.  Burge said that employees in sealed buildings reported three times as many health problems, including headaches, runny noses and fatigue, as their counterparts in buildings where the windows could be opened.  Said Burge: "The symptoms are not particularly disabling." 
+
+   According to some of the delegates, solutions to sick-building syndrome are just beginning to emerge as a result of research conducted during the past decade.  Burge said that architects and engineers should begin designing buildings that allow the occupants some measure of individual control over heat and lighting.  For his part, Fanger said that he is part of an eight-member European Community task force set up to develop new ventilation guidelines.  He added, "It will take a complete change in our philosophy and thinking about buildings."  Clearly, it will take some strong medicine to cure the sick-building syndrome that has become such a prevalent problem. 
+ </I
+
+
+ <I
+  Re-creating reality: a new development has tantalizing applications 
+
+   Michael McGreevy says that he will walk on the planet Venus within the next two years.  But he plans to do it without leaving his laboratory in California's Silicon Valley.  McGreevy, a 40-year-old research scientist with the National Aeronautics and Space Administration (NASA), is one of dozens of American and Japanese scientists racing to perfect a newly developed computer technology called virtual reality.  The technology involves the use of computers to create full-color, three-dimensional images of everything from molecules to planetary surfaces.  And rather than merely looking at the images, scientists are using headgear resembling scuba diving masks equipped with image-bearing screens to enter the so-called virtual realities and even manipulate their contents.  There are also potentially tantalizing applications for the entertainment industry.  Some theorists predict that people who now watch steamy TV sex videos could instead experience the sensation of participating in them. 
+
+   Proponents of virtual reality contend that within 10 years, the technology will have a profound influence on the work of architects, engineers and urban planners.  They will be able to translate blueprints and plans for buildings, airplanes and expressways into lifelike, 3-D images that the designers or users can simulate entering to explore and change before construction begins.  Surgeons may be able to put themselves inside the human body, while other scientists will be able to explore room-sized models of molecules.  Said Robert Jacobson, associate director of the Seattle-based Human Interface Technology Laboratory, which is devoted solely to developing virtual reality: "It's a fabulous idea.  If it comes off, it's going to be remarkable." 
+
+   But other experts predict that virtual reality could lead to the problems foreseen by Vancouver author William Gibson in his award-winning 1984 novel Neuromancer.  The book deals with a young man in a futuristic society who becomes obsessed with a virtual-reality fantasy world called "cyberspace."  Louis (Bo) Gehring, a Toronto-based computer graphics expert who is working on virtual-reality projects for the U.S. air force, said, "When you look at the impact video games have already had on kids and compare them to the quality of cyberspace, you cannot overstate the potential impact." 
+
+   People who have sampled virtual reality describe it as a powerful experience.  David Cohn, a senior editor with the Vancouver-based magazine CADalyst, a publication for specialists in computer-aided design, said that he has entered the world of virtual reality four times.  Once, during a demonstration at a Boston hotel, he wore a headpiece that resembled a diving mask and rode a stationary exercise bike that was hooked up to a computer that produced images of outdoor scenes.  Cohn said that when he began pedalling, he felt he had actually entered the computer-generated environment.  The harder he pedalled, the faster the bike appeared to travel.  When he reached 25 m.p.h., the bicycle actually left the ground in the artificial environment and he felt as though he were flying.  Said Cohn: "It was wonderful.  I didn't want to take off the mask." 
+
+   Still, some computer scientists dismiss the technology's entertainment potential and its addictive possibilities.  They maintain that it will be a valuable tool for professionals in several different fields.  Jacobson said that urban planners could translate proposals for expressways into 3-D virtual-reality freeways, then change routes and simulate traffic-flow patterns as they would be now or years into the future.  Said Jacobson: "You need a visceral experience in order to appreciate traffic congestion.  Numbers on paper don't capture the frustration." 
+
+  Computer scientists and doctors at the University of North Carolina at Chapel Hill have used virtual reality to study the accuracy and impact of X-ray treatment beams used to destroy tumors in human patients.  Frederick Brooks, a computer scientist at the university, said that they generated images of internal human organs.  Doctors then simulated entering the artificial realities by putting on special headgear.  They could then watch as computer-generated X-ray treatment beams entered the body from different directions and attacked the tumor.  Brooks said that the purpose of the experiment was to determine whether doctors could aim the beams more accurately so that they would destroy the tumor without damaging other body organs. 
+
+   Apart from its potential for improving medical treatment or the design of earthly structures, virtual reality could be a valuable tool in space exploration.  NASA's McGreevy said that he plans to create virtual-reality images of Venus using data collected by an unmanned NASA spacecraft currently travelling towards the planet.  Said McGreevy: "We will be able to re-create the surface of Venus in virtual reality and explore it almost as you would your office." 
+
+   McGreevy said that the technology may be used on a manned mission to Mars that NASA hopes to undertake by the year 2019.  He said that after landing on Mars, astronauts could send an unmanned rover out from the spacecraft to explore the surface for miles around.  With virtual-reality images of the Martian surface, produced on the basis of previously collected data, astronauts could see in advance what kind of terrain the rover would be crossing and guide it around any hazards.  The rovers would also be equipped with video cameras, which would complement the virtual-reality images. 
+
+   But before virtual reality can be used on an everyday basis, scientists say that they will have to greatly improve the technology for creating computer-generated imagery.  Brooks described the images of human organs generated at the University of North Carolina as "pretty crude, Saturday-morning cartoon quality."  Stephen Hines, research director at a Los Angeles company called 3-D ImageTek Corp., added that even the best color images currently lack detail or any shading. 
+
+   According to Hines, time delays that occur when using the existing technology are another problem.  His firm's virtual-reality headgear is equipped with a sensor that informs the computer of the location and position of the user.  If he were to take three steps forward, the computer would have to produce new images to show how a building or human organ might look from his new position.  But so far, computers cannot produce color images fast enough to keep up with human movements.  As a result, the viewer sees a jerky or choppy movement in virtual reality, said Hines. 
+
+   According to Gehring, who is working with American military and civilian scientists, the U.S. air force has developed the most sophisticated virtual-reality equipment to date in an attempt to reduce the clutter and complexity of the cockpits in modern fighter aircraft.  The instrument panels in jet fighters, said Gehring, "look like a Swiss clock shop gone berserk.  There are typically as many as 200 displays and switches."  Since 1982, the air force has been trying to develop a system that would allow a pilot to fly highly complex aircraft on the basis of an artificial reality presented to him through his headgear.  Rather than dealing with a confusing instrument panel, the pilot would be immersed in computer-generated images of the landscape beneath him and computer symbols projected into his field of vision.  The headgear would also contain 3-D sound so that the pilot could determine with greater speed and precision the position of other planes in his squadron or incoming enemy missiles.  But Gehring said that the development of such a system would not be complete until the mid-1990s at the earliest. 
+
+ <O untranscribed text <O
+
+   Its most prized customer has been NASA.  Benman conceded that VPL's equipment is so far capable of producing only grainy images that lack detail.  But he said that virtual reality is a captivating concept. 
+
+ </I
+
+
+  THE CLEAN CAR QUEST: Los Angeles promotes electric automobiles 
+
+   Since they first appeared in 1888, vehicles powered by electricity have risen and fallen in public popularity.  But many experts now say that electric cars will make a comeback over the next decade as North Americans and Europeans become increasingly concerned about air quality and other environmental issues, as well as rising oil prices.  Earlier this year, Detroit-based General Motors Corp.(GM) unveiled a prototype of a sleek-looking electric car called the Impact.  Last month, the city of Los Angeles, along with a private utility, agreed to invest $8 million in the development of electric vehicles.  Their goal is to put 1,000 electric cars on Los Angeles roads by 1992, with another 9,000 by 1995.  And last week, in a joint venture with GM, Newmarket, Ontario-based VEHMA International, a division of auto-parts maker Magna International, began assembling 60 electric vans.  Two major Canadian electrical utilities and more than 20 U.S. utilities have agreed to purchase the vehicles in order to test their capabilities.  Said Jack Kerr, president of the Electric Vehicle Association of Canada in Mississauga, Ontario: "It's sort of the hush before the storm." 
+
+   Proponents say that, for the first time in decades, a combination of political, economic and environmental forces have made electric vehicles an attractive alternative to gasoline-powered automobiles.  For one thing, Iraq's August 2 invasion of Kuwait has pushed up gas prices in Canada between two and five cents a litre.  U.S. prices have jumped by six to eight cents a litre, and international prices from 10 to 12 cents a litre.  And increased concern about air pollution has led to strict clean-air legislation, especially in such huge urban centres as Los Angeles, and a search for automobiles that do not produce harmful emissions.  Still, some experts maintain that consumers will be reluctant to switch to electric cars until researchers develop a battery capable of powering a vehicle beyond the current limit of about 160 km before a recharge is necessary.  Declared Mark Nantais, executive director of the Toronto-based Motor Vehicle Manufacturers Association: "I don't see gas going by the wayside or a long time yet because it's a very good fuel and the current technology is based on gasoline." 
+
+   But it has not always been that way.  At the turn of the century, 38 per cent of the automobiles in the United States were powered by electricity, 22 per cent used gasoline, and the rest were steam driven.  Then, as now, electric cars were almost silent and required little maintenance.  By 1912, there were nearly 34,000 electric vehicles in use in the United States alone, compared with about 20,000 automobiles powered by internal-combustion engines.  But by the end of the Second World War, electric vehicles had almost completely disappeared from North American roads.  Motorists had given up on the vehicles because they could only be driven a maximum of about 65 km before a recharge.  As well, they could reach a top speed of only 32 km/h, while gas-powered vehicles could easily attain speeds of 140 km/h. 
+
+   Many of the problems associated with electric vehicles during the first half of the century still have not been entirely resolved.  Although more powerful batteries are now available, even the best electric vehicles remain limited, and it takes an average of six hours to fully recharge the batteries.  As a result, most automotive experts argue that electric cars would be useful solely in urban areas.  Even then, motorists would require a network of service centres where the vehicles could be conveniently recharged.  Prolonged testing of electric vehicles has also shown that the batteries must be replaced at about 80,000 km, or once every four to five years, which could cost $1,500 for a car and up to $7,000 for a van.  However, scientists in Europe and North America are looking for alternatives to the current lead-acid batteries in order to increase the range and versatility of electric vehicles. 
+
+   In the past decade, growing public concern over air pollution, much of it caused by internal-combustion engines, has led to renewed interest in electric cars.  According to the Washington-based Environmental Protection Agency (EPA), many U.S. cities regularly exceed the federal clean air standard of 0.12 parts per million of ground-level ozone, a gas contained in automobile exhausts and the principal component of smog.  In Los Angeles and the adjoining communities of San Bernardino, Orange County and Riverside County, where there are eight million registered automobiles, ozone levels exceeded the EPA guidelines on 127 days last year.  EPA monitoring frequently revealed ozone levels at triple the guidelines. 
+
+   With its severe air-quality problems, Los Angeles has become one of the first major urban areas in North America to promote the development and use of electric cars.  Last year, the South Coast Air Quality Management Board, a California regional agency that establishes air-quality standards for much of southern California, ordered that average daily ozone levels in the Los Angeles basin must meet the EPA standards by the year 2010.  To address the problem, the Los Angeles department of water and power and Southern California Edison, a private utility that supplies electricity to the basin, agreed to spend $8 million over a period of five years to finance the design and development of an electric car. 
+
+   After reviewing proposals from 19 companies, the City of Los Angeles and Southern California Edison on September 6 signed an agreement with Swedish-based Clean Air Transport, which has developed a vehicle called the LA 301.  Clean Air was founded in 1988 and is backed by British, American and Swedish investors.  Its four-passenger electric car is designed to travel at top speeds of 115 km/h for distances of between 100 km and 115 km before requiring a recharge.  Jerry Enzenauer, who is managing the program on behalf of Los Angeles, said that the car would likely sell for about $29,000 initially, but that the price would come down as more cars are produced.  Prototypes for the vehicles are currently in production at Clean Air's plant in Sweden.  Enzenauer said that both the city and Southern California Edison plan to add about 30 of the vehicles to their fleets. 
+
+   Meanwhile, the Big Three automakers, General Motors, Ford Motor Co. and Chrysler Corp., devote what analysts regard as a minor portion of their annual development budgets to electric vehicles.  GM's Impact is based on the engineering and design of its solar car, the Sunraycer.  With a range of about 190 km, the 2,200-lb. car can maintain an average speed of 90 km/h on a highway, it can accelerate from zero to 100 km/h in eight seconds and it can reach a top speed of 120 km/h.  The car includes a built-in recharging system, and the 870-lb. battery pack, which houses 32 lead-acid batteries, can be almost completely recharged in two hours.  But GM officials refused to comment about the company's production plans or the projected cost of the Impact. 
+
+   At the same time, the company is also working with VEHMA and has developed the electric G-Van, 60 of which will be produced in Newmarket, 25 km north of Toronto, before the end of this year.  GM has supplied the frames for the vans, while VEHMA is assembling the vehicles.  The vans have already been sold primarily to utilities in the United States and Canada, including three to Hydro Quebec and five to Calgary-based TransAlta Utilities Corp.  The utilities will use the vans primarily for demonstration purposes.  "The initial buyers are really benevolent customers," explained David Sedgwick, the general manager of Powerplex, VEHMA's research and development arm.  "They understand the cost of the vehicles isn't really competitive with internal-combustion vehicles but they want to get involved."  The vans, which will initially cost $57,500, have a range of about 95 km, with a top speed of 90 km/h, and their lead-acid batteries require about eight hours for a complete recharge. 
+
+   Ford, too, has been working on electric vehicles during the past eight years and the company currently has 10 vehicles out in test fleets in the Washington area.  Ford developed its EV program with Fairfield, Conneticut-based General Electric Co. and several major battery manufacturers.  Since 1982, the company has spent about $23 million on the project.  John Jelinek, product information manager at Ford Motor Co. of Canada in Oakville, Ontario, says that there is a good chance the electric vehicles will be widely available to consumers early in the next century in metropolitan areas.  Ford's demonstrator electric vehicles, five vans and five cars, can travel about 160 km without a recharge to the battery.  "That's great if you're in Metro Toronto," says Jelinek.  "So we see it as being an answer in urban areas."  He predicted that electric-powered vehicles will not be significantly more expensive than gas-powered cars. 
+
+   Chrysler appears to be making a smaller commitment to electric vehicle research than either Ford or GM, and officials with the company express less optimism about the technology than their counterparts at the other two companies.  Chrysler is participating in a joint venture with the Electrical Power Research Institute in Palo Alto, California, to develop and test five electric-powered vans.  "We're not convinced that there's a market out there," said Chrysler media relations officer Anthony Cervone.  "Is there a supplier base out there for batteries?  Is there one for electric power?  Electric vehicles seem like the end-all from an emissions standpoint, but electric companies will have to work around the clock." 
+
+   But several Canadian, European and American companies are working to develop solutions to the roadblocks facing the vehicles.  Ford, Powerplex and the West German electrical engineering company Asea Brown Boveri are all testing sodium-sulphur batteries.  According to Sedgwick, there are 30 vehicles in Europe and Canada using the batteries, and their performance has been encouraging.  Sodium-sulphur can store three to four times the energy of lead-acid, which means that a car powered by sodium-sulphur batteries could travel about 385 km without a recharge.  But Sedgwick added that one of the problems with the batteries, which are still in the prototype stage, is that they only last a year or two. 
+
+   Despite the growing evidence that internal-combustion engines are contributing significantly to air pollution in urban areas, most experts agree that electric-powered vehicles do not represent a quick and simple solution yet.  The range of the cars is too limited, the battery replacement costs too high, and the cars themselves are expensive.  But most advocates of electric cars argue that if the vehicles were mass-produced, they would be cost-competitive with conventional vehicles.  "We're moving in the direction of electric vehicles," said Nantais.  "But it all rests on whether the public creates that demand."  Until the auto industry produces an electric vehicle that runs as efficiently - and as inexpensively - as gas-powered automobiles, it will take some time to convince consumers that what was popular in the early 20th century is also the wave of the future.  </I
+
+   A safety hitch: accidents threaten a federal PCB program 
+
+   On February 1, only two weeks after technicians in Goose Bay, Labrador, began testing a mobile incinerator, a power interruption caused an exhaust fan to fail.  As a result, 18 workers were exposed to the fumes from burning polychlorinated biphenyls (PCBs), a suspected carcinogen.  Then, in mid-April, a cooling-system failure caused parts of the incinerator to melt.  A similar portable incinerator in Swan Hills, Alberta, also stopped functioning last November because of water-pressure problems.  Environment Canada officials said that none of the accidents exposed technicians to health risks.  But the mishaps threatened a program aimed at destroying PCBs that are stored in many parts of Canada.  Federal officials said that publicity about the accidents could make it difficult to find communities willing to act as test sites for the program, under which Ottawa hopes to destroy thousands of tons of PCBs by the end of 1993.  Said Steve Hart, director of Environment Canada's waste-management branch: "There is no question, the breakdowns will slow down the process." 
+
+   Since August, 1988, when a fire in a PCB warehouse forced the evacuation of more than 3,000 people in St-Basile-le-Grand, Quebec, Ottawa has been working on plans to destroy stockpiles of PCBs that are stored at more than 3,000 government-controlled locations across the country.  To overcome objections in many communities to PCBs being destroyed locally, then-federal Environment Minister Thomas McMillan unveiled a plan in 1988 to use portable incinerators that could be temporarily installed in communities to burn PCBs in the area.  Now, federal officials say that they fear that the accidents could threaten public acceptance of the program.  Said Captain Gregory McGuire, project manager for the Goose Bay test program, which is being conducted at the nearby Canadian Armed Forces base: "One of the things we probably did wrong was to leave the impression that this would run without a hitch.  Nothing mechanical ever does."  
+
+   Although they were never manufactured in Canada, 40,000 tons of PCBs were used across the country, mainly as coolants and insulators in electrical equipment, between 1929 and 1977.  A series of studies in the early 1970s showed a link between them and liver cancer in laboratory animals.   
+
+
