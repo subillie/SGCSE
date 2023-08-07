@@ -1,6 +1,6 @@
 TARGET = myshell
 
-SRC = csapp.c myshell.c signal.c evaluator.c executer.c parser.c
+SRC = csapp.c myshell.c signal.c evaluator.c executor.c parser.c
 OBJ = $(SRC:.c=.o)
 
 CC = gcc

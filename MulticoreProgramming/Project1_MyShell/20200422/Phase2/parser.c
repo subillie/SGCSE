@@ -92,7 +92,7 @@ static int render_line(char *cmdline, char *buf, int *pipe_count) {
 			buf[++i_b] = ' ';
 			count += 2;
 
-		// If there exist an unmatching quote
+		// If there exists an unmatching quote
 		} else if (match[i_c] == -1) {
 			flag = i_c;
 			quote = cmdline[i_c];
