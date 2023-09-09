@@ -1,0 +1,3711 @@
+  
+
+        Locational Referencing and Geographical
+Information Systems    
+    DAVID V. HAWKE  
+    Geographical Information Systems (GIS), commonly
+subsumed within the guise of automated mapping, computer aided
+draughting or land information systems, might best be
+described as spatial analysis or decision support systems
+(Cowan, 1988).   Their primary role is to provide analytical
+facilities for the study of spatial features based on both the
+feature 's locational and other characteristics.   The dual
+nature of spatial data is emphasised by the duality of data
+storage mechanisms found in competent GIS such that spatial
+relationships (topology) are preserved by specially developed
+storage methodologies while non-locational characteristics are
+stored in more traditional methodologies.  
+    As the technology is still in its infancy by
+comparison to information technology in general, a
+considerable research emphasis has been placed on the
+development of appropriate methodologies for storing the
+locational component of spatial features within GIS.   While
+this emphasis may distract attention from the analytical
+capabilities of a GIS, its importance must not be
+underestimated.   Much of the analysis performed within the
+GIS environment requires the use of spatial characteristics at
+some stage of the analysis, even though the results may only
+be presented by means of tabular or other forms of report
+generation.   An inappropriate locational referencing
+system, whether engendered by the data model or the physical
+storage mechanism used by the software, is therefore likely to
+be detrimental to successful utilisation of a GIS.  
+    This paper explores the influence of locational
+referencing schemes on spatial analysis, placing emphasis on
+the underlying model of space and its constraints and
+advantages.   The general field of spatial modelling will be
+briefly reviewed to illustrate the range of strategies in use
+and to provide an insight into the characteristics of
+alternative views of space.  
+    MODELLING SPACE  
+    The underlying characteristic which distinguishes
+Geographic Information Systems from other spatial data
+handling technologies is the ability to analyse space.
+  This requires that any modelling strategy preserves the
+topological character of the data by ensuring that spatial
+relationships are implicitly or explicitly maintained
+(permitting, for example, assessment of nearness, adjacency or
+connectivity).   Spatial modelling procedures are typically
+grouped into those based on vector methodologies (utilising
+coordinate data to model curvilinear features) on the one hand
+and tessellated methodologies (modelling surfaces by means of
+a regular or irregular mesh) on the other (Peuquet, 1984).
+  Vector data models (Figure 1) assume that spatial features
+may be represented as points, lines (chains of points linking
+the end points or nodes of the line), or polygons (areas
+bounded by linked lines).   These models focus attention on
+the attributes of the data clement in the case of the point
+and line, and of the bounded area in the case of the polygon.
+  Strategies range from simple data structures which require
+visual analysis to reconstruct the topological relationships
+between features, through models utilising single (straight)
+vectors to model linear features, to those using long chains
+of short vectors to model irregular features.   The more
+complex models maintain topology by retaining neighbourhood
+data with each feature&semi; for example, identifiers for the start
+and end of chains and identifiers for the two polygons a line
+separates, and the linkages between lines composing the
+boundaries of polygons.   Such explicit retention of
+topology ensures that analysis of spatial patterns is
+possible.  
+    Tessellated strategies assume that space may be
+decomposed into cells within a regular or irregular matrix
+(Figure 2).   The most common form of tessellation is that
+of the square or rectangular grid (commonly referred to as a
+raster model due to the similarities between the grid and
+raster display devices), although hexagonal and triangular
+networks have also received some attention (van Roessel, 1988&semi;
+Peuquet, 1984).   These methodologies assume that each cell
+is homogeneous in terms of the theme being modelled, and
+frequently suffer from problems at boundaries where a cell
+must be coded by its dominant characteristic rather than
+homogeneity (Figure 3).   Attempts to resolve this problem
+are based on the use of matrices having an irregular cell size
+or shape (for example, TIN methodologies) or cells based on
+the regular and recursive decomposition of space (quadtree
+methodologies&semi; see, for example, Samet, 1984).   Irregular
+tessellations have been applied in a wide variety of
+situations to simplify data analysis by overlay techniques
+since they maintain attribute data for a single set of
+boundaries.   Such representations are often described as
+the 'tea-bag' model of a GIS, where attribute data for a
+variety of themes are tagged to each polygon and stored
+together (see, for example, Van Berkel and Williams, 1985).
+  The more general or generic model assumes that each data
+theme is represented by a separate graphic description and is
+maintained in a separate storage location.  
+    The translation of data models into physical data
+storage within a GIS places further constraints on the spatial
+representation utilised owing to the need to achieve accuracy
+over large areas and the current trend to provide a continuous
+view of space in a manner transparent to the user (the concept
+of seamless space as opposed to the restrictions imposed by
+map sheet boundaries).   Attempts to resolve these problems
+have resulted in the development of utilities to maintain
+libraries of files relating to small units of space and
+include some hybrid approaches.  
+  figure 1  
+    One such approach uses a vector strategy to model
+spatial features, but a quadtree approach to maintain
+individual data files at a size ensuring optimum performance
+of the system.   This is achieved by constructing a quadtree
+description of the spatial extent of the data, and storing the
+features contained in each cell of the tree as a vector
+description.   As data is added to a file, reconfiguration
+occurs automatically if a predetermined number of features is
+reached, decomposing the cell (and hence file) into the four
+cells of the next lower level of the quadtree.   The
+quadtree provides a description of the topological
+relationships between data files and provides rapid access to
+neighbouring data.   Hence the spatial extent covered by an
+individual graphic data file varies in response to the volume
+of data available.   The user remains unaware of the
+physical storage mechanism for data as queries for extents
+which transcend file extents are automatically handled by the
+system.  
+    The alternative approach (defining a fixed spatial
+extent for a file of data, akin to the fixed size of a map
+sheet) requires either a careful assessment of the amount of
+data to be included in each file or a manual reconstruction of
+the database when individual files become unwieldy owing to
+their size.  
+    Problems arising through the use of particular spatial
+models relate to the resolution which they can achieve (that
+is, the size of the minimum spatial extent distinguishable),
+the precision with which data are stored (usually defined in
+terms of the number of digits retained for each element, a
+function of implementation and influenced by both software and
+hardware) and their accuracy (the likeness to reality, usually
+defined in terms of an error margin, a function of data
+collection and resolution).  
+    The influence of resolution is most graphically seen
+in the tessellated models where the assumption of homogeneity
+of cell contents requires a cell size small enough to maintain
+the assumption or alternatively a larger cell size and abuse
+of the assumption.   The tradeoff associated with the
+necessity to maintain homogeneity is seen in the volume of
+storage required for the database.   For example, in a
+square grid based structure, the increase in resolution
+achieved by halving the cell size results in a quadrupling of
+the data storage requirements where no compression is applied,
+and increases the redundancy of the data held in the
+system.  
+    Problems associated with precision (numeric resolution
+of the combined hardware/software implementation of the model)
+constrain the size of the numeric references which may be
+held, influencing vector models in particular.   Many of the
+commercially available GIS packages operate on 32 bit
+computers, typically limiting single precision numbers to six
+or seven significant digits (providing millimetre resolution
+for extents of up to one kilometre, metre resolution up to
+1000km).   To overcome this problem, some vector
+implementations store location in files covering a defined
+spatial extent using compact coordinates to describe the
+offset from the origin of the extent (file).   Other
+implementations permit the use of double precision (in this
+case, 64 bit) coordinates with up to 16 significant digits,
+readily permitting specification of location on a global
+referencing system to millimetre resolution.   The influence
+of these techniques is most felt in the overhead necessary to
+convert sheet coordinates to real world coordinates or to
+process unnecessarily large numbers for many of the
+operations.  
+    Problems relating to accuracy are more diverse, but
+typically relate to decisions taken at the outset of a data
+collection exercise.   For example, resolution of data
+capture defines the accuracy of the data model, and it is not
+possible to improve the accuracy simply, without recapturing
+the data.   Constraints are usually imposed by the purpose
+for which the model is established, and
+  figure 2  
+particularly by definition of the type and scale of
+cartographic products expected to derive from the data
+set.  
+    While the spatial data models discussed in this
+section ultimately rely on an explicit specification of
+location, they do not necessarily require detailed spatial
+references.   Rather, procedures must be available to permit
+the use of higher level referencing and its ultimate
+decomposition within the model.   Both direct and higher
+level systems are in common use as locational referencing
+schema.    
+    LOCATIONAL REFERENCING IN SPATIAL MODELS  
+    Locational referencing techniques may be broadly
+grouped into those which provide an explicit reference and
+those providing an implicit reference (which may require
+resolution to an explicit value for some purposes).
+  Explicit techniques rely on the specification of location
+in terms of an offset from a fixed or arbitrary origin, and
+typically either consider all references to define location in
+the 'plane' of the Earth 's surface or explicitly supply a
+reference to the third dimension.   These systems are
+dominated by coordinate systems utilising either spherical or
+Cartesian geometry.   Implicit referencing systems rely on
+translation of some characteristic of the system to explicit
+terms, and include hierarchical systems (for example, the
+street network) and grid systems where the translation is
+maintained by storage of data in an order defined by the
+cell 's row and column offset from the grid origin.  
+      Coordinate Referencing Systems    
+    Locational referencing systems which utilise a
+coordinate schema are the dominant techniques used in vector
+representations of space.   Coordinate specification is made
+in terms of a feature 's offset from an origin in Cartesian or
+spherical space and has a numeric format.  
+    Graticule models are based on the spherical geometry
+of the Earth and utilise latitude and longitude to define
+location.   Latitude is defined by the angular offset of the
+feature from the Equatorial plane while longitude is defined
+by the great circle which intersects the feature and both
+Poles, and is specified as the angular offset from an
+arbitrary origin (the great circle passing through Greenwich,
+and both Poles).   The locational reference provided by this
+system is quoted in degrees, minutes and seconds of arc for
+both elements, and the feature is assumed to lie on the
+surface of the Earth.   Accuracy of representation using
+graticule models depends on the level to which locations are
+defined, ranging from an accuracy of the order of +/- 30m at
+the equator if degrees, minutes and seconds are specified, to
++/- 1800m if only degrees and minutes are specified.   The
+major problems involved in the use of these models relate to
+the variable spatial extent defined by
+    10    1&deg;     of longitude (111km
+at the equator to 0km at the poles) and to the difficulty of
+providing a locational reference for a point without
+considerable technical difficulty.  
+    Cartesian models may be applied in both a two and
+three dimensional sense, although the most common use is the
+two dimensional referencing of the location of features on an
+assumed planar surface.   Axes of the system are normally
+defined in terms of a North-South and an East-West system, and
+location is typically defined by grid references which define
+the offset of a feature from an arbitrary origin on both axes.
+  Accuracy of representation is a function of the scale of
+the system and the number of digits specified in the grid
+reference.   The most common specification utilises a six
+digit reference, three digits for east-west location and three
+for north-south location.   Accuracy is therefore a function
+of the scale at which map data are portrayed and the density
+of the grid.   Where coordinate data are supplied in this
+form from a primary source (for example, field survey),
+accuracy is a function of the data collection procedure.  
+    The most common spatial referencing technique for
+locational representation is achieved by means of the
+Cartesian model, since it provides a uniformity of distance
+representation in all directions from all points within the
+extent modelled and additionally provides uniformity of
+angular representation for small areas.   The feature common
+to all of these systems is that location is defined by means
+of the offset of the feature from a previously defined origin.
+  They therefore explicitly hold information on the
+topological
+  figure 3  
+relationships between features which allows distance between
+features and relative orientations to be determined in a
+direct and straight forward manner.   Coordinate data for
+use in vector GIS are most typically described in terms of
+offsets in metres from the grid origin, and the accuracy
+depends on the scale at which the original data were
+collected.  
+      Implicit Referencing Systems    
+    A number of systems exist which define location in
+terms of position within a spatial structure.   Some of
+these systems implicitly store data on the topological
+relationships between features (for example, regular
+tessellations), while others (for example, the street address
+system), require an expansion or conversion of the locational
+reference to define topology.   The street addressing system
+is an hierarchial system which specifies location within a
+hierarchy made up of region (suburb), network link in the
+region (street or road) and offset from an origin on the link
+(property identifier).   While the model provides an ability
+to define location to the resolution of land parcel or
+subparcel, it requires a pre-existing knowledge of the street
+network system to enable determination of the location of the
+addressed parcel in physical space.   The model has few
+advantages for spatial processing since there is no mechanism
+to store spatial relationships within the data, except by
+extending the definition of the network.   For example,
+while the network definition holds data on the relationship
+between adjacent links, the relationship between distant links
+requires a search through the network.   Similarly, the use
+of the land parcel or property as the basic addressable unit
+provides information only on the sequence of occurrence of
+properties, rather than their relative positions in space.
+  Ultimately, spatial analysis of data held in an indirect
+form requires their translation into a coordinate form.  
+    Tessellated data models implicitly store topological
+relationships as a function of the way individual data
+elements are addressed (and in many cases, stored).   The
+clearest example is that of the family of square and
+rectangular gridded structures where elements are addressed by
+the row and column which they occupy in the matrix, and which
+are usually stored in a physical form which parallels the
+addressing scheme.  
+    SPATIAL ANALYSIS AND LOCATIONAL REFERENCING  
+    Successful utilisation of a GIS relies on both the
+availability of data in a form suitable for analysis as well
+as the provision of appropriate functionality within the
+software in use.   Considerable dependence is therefore
+placed upon the approach taken by the GIS, which ultimately
+translates into the spatial model constructed.   Problems
+which result from the use of an inappropriate approach or
+model are highlighted by those related to boundary definition
+and scale.  
+      The Influence of the GIS Approach    
+    The general model of a GIS recognises the differences
+between spatial and non-spatial attributes and endeavours to
+store (and analyse) them in a way best suited to their
+character.   In particular, it requires the storage of
+topological relationships (for example, nearness, adjacency,
+connectivity) to permit spatial analysis and the creation of
+new spatial entities.   This approach separates the spatial
+description of different data themes and provides the tools
+for their integration by means of intersection or overlay.
+  Tessellated models using implicit locational referencing
+provide the simplest example, since the data for different
+themes are stored separately but in the same relative spatial
+location in the tessellation.   Topological analysis is
+readily achieved since distance and directional relationships
+may be derived from the location of cells of interest in the
+matrix, and overlay functions operate by selection and
+comparison of data for each cell from the relevant themes.
+  Vector data models typically record sufficient topological
+data to permit polygon overlay and assessment of spatial
+relationships to be achieved rapidly and also permit
+construction of new polygons as a result of analysis by
+dissolving redundant boundaries.  
+    A more simplistic approach, frequently described as
+the 'tea-bag' model, defines space in terms of a single,
+usually irregular, tessellation, with all data attributes for
+each unit stored as separate fields in a combined record (for
+example, the New Zealand Land Resource Inventory).   In
+common with the family of tessellated models, this structure
+permits overlay analysis only as a function of the data themes
+stored for each unit of the tessellation.   Typically,
+results of overlay analysis are presented in terms of the
+original polygon boundaries, even where adjacent polygons have
+similar characteristics identified by the analysis.   This
+model cannot, however, permit analysis based on distance and
+directional relationships without either storing the
+coordinates of a reference point within each unit as a data
+theme or by reconstructing the topology graphically by
+plotting the data.   While the precise analytical abilities
+available depend on the functionality built into a GIS, the
+computational overhead necessary to derive topological
+relationships where they are not readily available places
+significant constraints on the usefulness of a system.  
+      Problems of Scale    
+    Analysis within the framework of a GIS is effectively
+independent of map scale since the results are determined by
+computational means.   Results may therefore be expressed to
+the precision of the hardware/software combination, frequently
+implying spurious accuracy.   More significantly, as far as
+the system is concerned, rarely is the mechanism available for
+indicating the error margin associated with a locational
+reference.   Hence data acquired from 1:50,000 map sheets
+are considered as accurate as (and comparable to) that from
+1:1,000 sheets.   Considerable onus is therefore placed on
+the operator/analyst to ensure that due recognition is given
+to the error margins associated with data themes.
+  Disparities of this nature inevitably arise as a result of
+analyses involving anthropogenic and resource data.  
+      Problems of Homogeneity of Spatial Units    
+    Tessellated data models rely on the assumption that
+the basic unit of the tessellation is homogeneous.   This
+assumption is frequently breached at the boundaries of
+irregular spatial features where the data value stored for a
+unit commonly reflects the dominant characteristic, resulting
+in distortion to the shape of features (Figure 3).   While
+these errors may not be significant where the application is
+concerned with gross detail or summary measures, it rises in
+importance in cartographic applications.   Similar problems
+plague the classification of remotely sensed imagery where the
+variation in the sensed surface is at a finer resolution than
+the sensor is capable of achieving.   Vector data models
+typically avoid such problems by allowing more accurate
+modelling of boundaries, although the problem of variation at
+a scale approaching the resolution of the model may still
+arise.   Quadtree tessellations similarly avoid the problem
+by utilising small cells to model the rapid variations
+exhibited at boundaries while allowing large blocks in the
+centre of homogeneous regions to be modelled by a few large
+cells.  
+      Boundary Characteristics    
+    The character of the boundary modelled in a GIS
+requires attention since each of the models assumes that it
+describes a sharp boundary.   While this assumption may hold
+for anthropogenic data, resource data frequently provide
+conflicts, since boundaries between features may be gradual.
+  Despite their 'fuzzy' nature in space, they are modelled
+as a sharp boundary, providing a misrepresentation of reality.
+  As yet, no commercial system permits the use of 'fuzzy'
+boundaries in modelling space.  
+      Temporal Stability    
+    Temporal analyses are readily incorporated into the
+GIS structure by treating time as an additional variable such
+that each data theme is representative of the time at which
+the data were collected.   This is achieved either by
+preserving a separate layer in the database as a snapshot
+taken at a particular time, or by storing the temporal element
+as an additional attribute for each feature.   While
+complexities arise where a feature has only a limited temporal
+span, analyses requiring temporal comparison of data are
+frequently concerned with the migration of features in space
+and hence with boundary movement.   The results suffer
+considerably if boundary changes are artifactual, being
+related to data collection mechanisms, rather than
+demonstrating true boundary migration.   In the natural
+resources area, such problems may arise as a function of
+varying sampling strategies during data collection, but are
+relatively minor in comparison to the problems associated with
+social data.  
+    Analyses of social data typically rely heavily on a
+regular census of the population carried out by government
+agencies.   The results of such exercises are reported on an
+aggregated basis to preserve the confidentiality of individual
+data, and are thus heavily dependent on the aggregation
+mechanism utilised.   In regions of rapid change,
+considerable variation in the boundaries of regions may occur
+between censuses, making interpretation of temporal analyses
+difficult.   Although reporting agencies recognise these
+difficulties and attempt to maintain a systematic reporting
+structure (for example, the New Zealand Standard Meshblock,
+where the only valid boundary changes occur by subdivision
+except where boundaries are eased for other purposes and the
+change causes little variation in the aggregate measures), the
+history of boundary change is often ill-preserved and requires
+considerable effort on the part of the analyst to untangle.
+  An ever increasing body of opinion, probably best
+expressed by the United Kingdom report on geographic
+information (Chorley, 1987), is now pressing for the reporting
+of data at the finest unit of aggregation possible to permit
+more ready assessment of change with time and better
+conformance to other boundaries.   In the United Kingdom,
+for example, pressure is mounting for the 1991 census to be
+reported on the basis of the postal unit, typically comprising
+as few as 14 postal delivery addresses.  
+      CONCLUSIONS  
+    While GIS have the potential to become a major
+analytical tool in the geographer 's domain, their application
+will not be free of problems.   They suffer from similar
+problems to those of the quantitative revolution since it is
+possible to draw data from increasingly diverse sources into
+analyses without comprehension of the assumptions involved in
+their collection and modelling.   The potential for analysis
+of enormous data sets in short periods of time also provides
+scope for disaster as a result of blind acceptance that data
+modelled in a system provide a realistic view of space.  
+    While many of the problems discussed in this paper are
+receiving attention at present, it is essential that GIS
+techniques are applied with the rigour required of other
+quantitative procedures and that analyses are designed to
+operate within the assumptions of the underlying data
+models.      
+  
+
+        Establishing Complexity Correlations
+Between Pseudocode and Program Source Code    
+  STEPHEN MACDONELL and PHILIP SALLIS  
+  Computer and Information Science, University of Otago
+      Abstract    
+      Two major problems inhibit the use of three
+widely cited software complexity assessment methods.   The
+first is late derivation - measurement is often performed
+after the coding phase, clearly eliminating the opportunity
+for useful estimation.   The second significant problem is
+one of implementation dependence - due to language
+differences, the valid comparison of the complexity of various
+projects is often impossible.    
+      This paper demonstrates the application of metrics to
+pseudocode descriptions of twenty-four algorithms and
+compares the results with a similar analysis of programs
+derived from the pseudocode.   The correlative results
+obtained are suggested to be indicative of the outcome which
+could be observed from actual instances of pseudocode and
+program source code.   These results are given to provide
+support for the use of complexity metrics in the prediction of
+final-system characteristics.   It is suggested therefore,
+that data such as this can be used to obtain higher quality
+and higher productivity in the systems development
+process.    
+        1 Introduction      
+    In general, the ultimate aim of any measurement
+procedure is to enable those concerned to effectively control
+their environment.   In terms of software complexity
+assessment, metrics are used to provide data for the control
+of certain aspects of the system development process.   This
+can be achieved through model development, model-based
+prediction and comparison of actual and predicted results.  
+    Despite its relatively short history, software
+engineering research has seen the development of more than
+fifty models or techniques purported to provide complexity
+measurement and prediction capabilities.   This number in
+itself is indicative of the importance which is often attached
+to this issue and the elusiveness of a single obvious solution
+to the model choice problem.  
+    There are several reasons why complexity measurement
+is perceived as being important.   For example, project
+management can be made more effective through more
+accurate allocation of time and other resources.   More
+complex systems are likely to be longer in development and
+thus cost more.   Programs with high complexity levels we
+assume, are more susceptible to logic errors.   The early
+detection of the likelihood of errors through complexity
+evaluation may also help to reduce development costs.
+  Furthermore, if we assume that a more complex piece of
+software is likely to require more rigorous testing, the
+resources required for this testing can be more adequately
+defined.   If such resource data is kept over time, some
+cost forecasting for this aspect of the system development
+process can be achieved.   It may be, as an extension of
+this process, that subsequent maintenance effort costs can
+also be estimated, and in some cases reduced.  
+    Despite the large number of techniques suggested, at
+least two significant problems have impaired their widespread
+use.   The first concerns the late derivation of analytical
+results - many methods are derived from the program code
+itself (DeMarco 1984, Samson et al 1987, Londeix 1987) which
+means that part of the effort has been expended before the
+measure has been applied.   The second problem is one of
+language dependence - results obtained from systems
+implemented using one language are often not comparable
+with those constructed with another coding method (Arthur
+1985, Shen et al 1983, Miller et al 1987).   This reduces
+the generalisable nature (and hence usefulness) of the results
+from one analysis   in situ   to another.    
+    It seems desirable therefore, to extend the
+application of the measurement techniques to
+  pseudocode   descriptions of the system.
+  Pseudocode is written before coding is started, so the
+metrics should provide more effective and more immediately
+useful estimation results.   Our assumption is that
+pseudocode is written prior to program construction.
+  Intuitively we are aware that many forms of pre-coding
+conventions are used to develop algorithms to a point where
+language-dependent structures and phrases are used by
+individual programmers.   In many cases we assume, no
+pseudocode is ever developed, or is perhaps developed after
+the coding has commenced for documentation or other
+requirements.   Furthermore, if pseudocode is developed, it
+is likely to follow in some respects the syntactic conventions
+of its target implementation language.   Having said
+that, we also acknowledge the desire by project managers and
+others for higher quality and increased productivity in the
+software development process which, in implementation,
+manifests itself as a need for such things as pseudocode in
+order to detect and reduce logic errors as early as possible
+during the development process   For this reason, we began
+to explore the complexity correlation existing between
+pseudocode and its corresponding program code.  
+    Finding a sample of program code which had been
+derived independently from a corresponding set of pseudocode
+representations was a non-trivial task.   We decided
+instead, to define an initial study of a selection of software
+metrics applied to a known set of pseudocode and corresponding
+program code.   In effect, the purpose of this study is not
+to determine absolutely the correlation between complexity
+measured in the sample, but rather to demonstrate how these
+measures may be applied to such a sample.  
+      2 Pseudocode    
+    The use of pseudocode in depicting the flow of program
+logic evolved partly as a response to criticism of the then
+prevailing flowchart representations.   Some researchers
+(e.g. see Gane and Sarson 1979) extended this concept by use
+of the term 'Structured English'.   The approach generally
+uses statements similar to computer programming instructions
+to provide a top down structural representation of the tasks
+which the system is to perform.   The representation is
+conceptually language and operating environment independent,
+but often closely relates to the proposed target programming
+language.   Figure 1 below illustrates the general concepts
+of the method.   Variants of pseudocode abound (e.g. see Orr
+1981), but in this paper we will confine discussion to the
+generic form as illustrated in the Figure 1 example.   This
+representation follows for the most part a COBOL syntactic
+orientation.  
+    Flowchart representations have been criticised for
+    beign    being     cumbersome, difficult and
+time-consuming to follow and maintain, and for not being
+entirely suited to structured programming techniques (Stern
+and Stern 1980).   They are also control-oriented and
+environment dependent in terms of their use of hardware
+symbols.   Pseudocode has therefore been used with
+increasing frequency both for the documentation of systems
+and for coding assistance.   Grauer (1983) remarks that as
+well as being clear and concise, pseudocode representations
+are generally quick and simple to write and are more likely to
+be maintained if modifications are needed.   They are
+sufficiently precise to serve as a real aid in program
+development, while remaining informal enough to be
+understood by those not directly involved in programming
+and sufficiently non-syntactic to be
+implementation-independent.  
+      3 Measurement Techniques    
+    Three widely investigated methods of complexity
+measurement have been used in this study.   They are
+lines of code metrics, Halstead 's software science measures
+(1977) and McCabe 's cyclomatic complexity measure (1976).  
+  Figure 1: an example of pseudocode.  
+  caption  
+      3.1 Lines of code metrics    
+    Lines of code (LOC) techniques are widely used in
+quantitative software assessment (Gaffney et al 1984).
+  They are based on the often valid premise that a larger
+program is more difficult to comprehend than a smaller one.
+  There has been some empirical support for the continued
+use of these measures (Gaffney 1984, Gremillion 1984) and they
+have performed very favourably when compared with other more
+complicated assessment methods (Basili and Hutchens 1983, Lind
+and Vairavan 1989).   Furthermore these techniques are easy
+to derive and use (Samson et al 1987) and can provide
+consistent, useful results if a standard definition is
+constantly applied.   Two specific measurement methods have
+been used in this study.   The first involves the
+determination of the number of non-commentary lines of code
+(NCLOC) in the pseudocode and in the program.   This is
+simply the count of all the lines occurring in each
+representation excluding blank and comment lines.   The
+second quantification scheme (applied only to the programs for
+obvious reasons) involves
+    countig    counting     non-commentary
+non-declarative lines of code (NCNDLOC).   In effect, this
+compares just the processing code in the programs to the
+respective pseudocode representations (which incorporate
+only processing information).  
+      3.2 Halstead 's metrics    
+    This comprehensive set of quantitative software
+assessment techniques was enunciated by Halstead in a theory
+known as   software science  .   The approach is based
+on counts of operands (variables or constants) and
+operators (symbols or combinations of symbols that
+    effect    affect     the value or ordering of
+an operand) in the implementation (Halstead 1977).   Four
+fundamental properties form the basis of all of Halstead 's
+work and it is this set of counts which were used in the
+experimental phase of this study:
+  formulae: definitions of   n    1  ,
+  n    2  ,   N    1  ,
+  N    2    
+  The   vocabulary   is derived from these initial
+figures as:
+  formula:   n   =   n    1   +
+  n    2    
+and the implementation   length   as
+  formula:   N   =   N    1   +
+  N    2      
+    From the basic parameters, several other formulae
+were developed.   For example, one of the primary measures
+formulated was the size measure,   volume  :
+    V   =   N   log  2  
+  n      
+    Over large samples Halstead 's theory has been
+extensively validated, in the prediction of such aspects as
+error occurrence, error location time and maintainability
+(e.g. see Fitzsimmons and Love 1978, Hartman 1982).
+  Moreover, extraction of the measures can be automated
+during compilation.  
+    To its credit, the overall theory has at least
+attempted to assess aspects of human cognition and it is based
+on a finer level of assessment i.e. the focus is on
+implementation elements rather than on complete lines.  
+      3.3 McCabe 's cyclomatic complexity
+metric    
+    Whereas the two previous techniques take a size-based
+view of software, this method adopts a significantly different
+approach.   It is a topological measure, with its basis in
+the control flowgraph of the code.   Complexity (v(G)) is
+determined by counting the number of execution paths and
+the number of functional nodes in the program:
+  formula: v(G) = e - n + 2p  
+  formulae: definitions of e, n, p    
+    It is implied through the use of this measure that
+difficulty of understanding is greater when the number of
+distinct execution paths is high, as each must be followed to
+gain a full understanding of the total functionality of
+the software.   Positive empirical support for this
+technique has been provided by Hartman (1982) and Moss (1988)
+among others.   The measure is easy to derive
+(Jayaprakesh et al 1987, Li and Cheung 1987), experimental
+criticism is sparse and control flow, neglected in the
+previous techniques, is fully considered.  
+      4 Empirical Work    
+    It must be stated again that this work has been
+carried out to demonstrate the application of metric methods
+to the notion of pseudocode-source code correlation.  
+      4.1 The sample    
+    Consistency of style in the sample was ensured because
+all of the pseudocode and program listings were taken from the
+same source.   Manning 's   Advanced COBOL: A Structured
+Approach   (1985) provided an ideal test-bed, in that it
+contained twenty-four examples of pseudocode and
+corresponding programs, all adhering to the same structure
+and format.   Furthermore, the programs varied in their
+length and function.  
+    As the pseudocode for each example was developed from
+a hierarchy chart, some degree of modularisation was used at
+an early stage.   This is appropriate for the development of
+well-structured final code.   An example of the
+transformation from chart to pseudocode is shown in Figures 2
+and 3.  
+  Figure 2: Hierarchy chart: Funding report example  
+  Figure 3: Pseudocode: Funding report example  
+      4.2 Experimental procedure    
+    The results were obtained by the authors in one
+analysis session.   While these results could therefore be
+considered as interim, the procedure is valid because of the
+demonstrative nature of the study.   It is clear however,
+that a larger group of analysts would provide greater insight
+into the degree of confidence which can be placed upon these
+results, together with the use of software tools such as a
+program parser.   This extension to the experiment is
+currently being performed by the authors and includes one
+group of programmers deriving source code from the pseudocode
+created by another group.  
+      4.3 Comments on the counting methods    
+    In the analysis of the pseudocode all verbs and
+comparatives which were not part of a program-like construct
+were considered to be operators.   Anything else (i.e.
+names, labels etc.) were considered to be operands.   The
+full stops '.' used in the program code were disregarded in
+the token counts as a matter of choice.   This of course,
+strengthens the likeness with pseudocode in the sample used in
+this study because no full stops are used.   They are
+implied however, so it seemed fairer to eliminate them from
+the source-code count.   The END Procedure-name constructs
+as used     inth    in the     pseudocode
+representations were also disregarded, as no explicit
+equivalent was used in the program code.   ORs, ANDs, AT
+ENDs and INVALID KEYs were considered as distinct branches in
+the assessment of McCabe 's measure.   Overloading of symbols
+or names was not assessed.  
+      5 Results    
+    Correlation and regression techniques were used to
+determine the existence of useful relationships between the
+statistics obtained from the pseudocode and the programs.
+  The statistical results are summarised in Table 1
+below.  
+      5.1 LOC metrics    
+    Very strong linear correlations were evident in the
+results for the lines of code measures.   This at least,
+confirms the strength of the relationship between the
+informality of pseudocode and the formality of source code.
+  The correlation coefficient (Pearson 's product moment
+coefficient   r  ) between the pseudocode and
+non-commentary lines of program code was 0.94.   Between the
+pseudocode and the number of non-commentary non-declarative
+lines, the correlation coefficient was 0.97.   Linear
+relationships were strongly evident in plots of the respective
+data sets (Figure 4) and linear regression results also
+reinforced this conclusion.   The R  2   statistic,
+representing the explanatory power of the regression model,
+was 0.88 (where the upper bound is 1) for the pseudocode
+prediction of NCLOC and 0.94 for
+    NCNCLOC    NCNDLOC     prediction.  
+  Figure 4: Pseudocode LOC plotted against Code NCNDLOC  
+      5.2 Halstead 's metrics    
+    Similarly strong results were obtained in the
+relationships between the pseudocode and the programs for all
+four of Halstead 's basic parameters.   Correlations of 0.92,
+0.95, 0.91 and 0.97 were observed in the two values for
+  n    1  ,   N    1  ,
+  n    2   and   N    2  
+respectively.   Plots again revealed definite linear
+relationships and this was also evident in the regression
+results.   The R  2   levels for these
+    predicitive    predictive     relationships
+fall between 0.83 and 0.94.  
+      5.3 McCabe 's metric    
+    Further support for the predictive value of
+pseudocode-based measurement was provided from the results
+derived for McCabe 's measure.   A correlation of 0.99 was
+achieved for this measure under the two representations.
+  The data point plot (Figure 5) and the explanatory level
+were similarly strong, with an R  2   of 0.97 for the
+predictive relationship.  
+  Table 1: Statistical results  
+  Figure 5: Pseudocode cyclomatic complexity plotted against
+Code cyclomatic complexity  
+      6 Limitations of the study    
+    Quantification of both the pseudocode and the program
+code was performed manually by the authors.   This was
+necessary to ensure consistent interpretation of frequently
+used constructs (particularly in the pseudocode), but this
+did leave the procedure open to human error and subjectivity
+in counting.   Furthermore, because the purpose of the work
+was to demonstrate how software metrics can be applied to
+pseudocode and its corresponding source code, there is a lack
+of rigour in the experimental design.  
+      7 Conclusions and Future Directions    
+    Notwithstanding the demonstrative nature of this
+paper, based on the results obtained from the empirical work
+reported here, it would appear that accurate predictive
+complexity data can be obtained from pseudocode
+representations of software systems.   All of the three
+techniques investigated showed very strong positive linear
+relationships between the two representations, so it would
+seem that any of these methods could be used with
+approximately the same level of accuracy.   The aim of this
+study was not to validate the methods themselves but to
+determine the existence of useful predictive
+relationships.   If a high correlation exists between
+pseudocode and source code, it would seem that prediction of
+complexity at an earlier time in the systems development
+process can be achieved.   This could then positively affect
+the structure and content of programs thus reducing the
+likelihood of errors in the code construction phase.   This,
+we suggest, (see Sallis 1989) will reduce post-implementation
+maintenance and therefore, improve overall productivity.  
+    It is clear that as outlined earlier, more
+experimental work is needed to validate the results obtained
+in this study.   The experiment was conducted in good faith
+but its limitations were well realised.   This study used
+only COBOL programs, so more immediate work could concentrate
+on determining the existence of similar relationships for
+programs implemented in other languages.   In the long
+term however, work should be centred around even earlier
+descriptions of the system i.e. the specification of the
+software.   If accurate predictive data can be obtained
+directly from software specifications, the opportunities
+for useful estimation clearly become far greater.  
+      Overall, we are endeavouring to further the cause
+of higher quality systems and greater productivity in the
+systems development process, which can only, we suggest,
+be achieved by reducing the cost of post-implementation
+maintenance&semi; and that means reducing logic errors as early as
+possible in the development process.      
+  
+
+          Quantum leap for RNZ
+offices      
+    Technology with the potential to create a "paperless"
+radio station, and a music recording studio representing a
+world first in acoustic design are two features of RNZ 's new
+Auckland premises.  
+        R    adio New Zealand 's new
+headquarters in Auckland sit next to one of the city 's
+noisiest intersections.   Yet within the cobalt blue
+building not a whisper intrudes from the outside.    
+    The special acoustic requirements of RNZ have been one
+of the chief factors influencing the refurbishment of the
+former Kodak photo processing laboratory on the corner of
+Cook and Nelson Streets.   The entire building is double
+glazed, with triple glazing for the Newstalk 1ZB station.
+  Walls, floors and ceilings
+  photo    caption  
+have been specially designed to meet stringent acoustic
+standards, and in the recording studio, the most demanding
+environment, RNZ has achieved a world first in acoustic
+design.  
+    Jasmax, the interior designers for this project, have
+created an aesthetically pleasing environment for RNZ
+employees and the overall layout of the work space is a
+quantum leap from RNZ 's first home in Durham Lane.   An
+example is 1ZB (now Newstalk 1ZB), New Zealand 's oldest radio
+station (it was founded in 1926) which now operates from
+spacious accommodation with wide views of the city and
+harbour.   No bunker-like studios here.   Especially
+designed to cater for its Newstalk format, the studios provide
+an extremely pleasant environment for the people who put out
+the news.   Says programme director Trish Carter:
+  "We feel like we 're part of Auckland now."    
+    RNZ 's original accommodation in the heart of Auckland
+city was built in the 1930s.   At the time it represented a
+most modern example of a radio environment, but after half a
+century of service it was showing its age.  
+    RNZ considered leasing, but instead opted to buy the
+Kodak premises, gut them and completely refurbish,
+anticipating a 15-20 year commitment to the new
+accommodation.   The project, an enormous undertaking
+done to tight deadlines, was the most expensive single
+undertaking ever made by RNZ.  
+      Fortuitous choice    
+    Architect Grant Coupland says the three-storey Kodak
+structure - essentially a warehouse - proved a fortuitous
+choice.   The floors were capable of taking heavy loads and
+one floor in particular had unusually high studs - tailor-made
+for the recording studio.  
+    There was no time to waste, however.   RNZ took over
+the building on September 1 1989.   The first control
+rooms had to be in place by December.   Engineering and
+Operation were responsible for the technical project
+management and in view of the tight deadline opted to
+prefabricate at Huntly six control rooms and eight voice
+booths, each weighing between five and 10 tonnes.  
+    The rooms, complete with wiring and control desks,
+were inserted into the building through holes left in the
+walls and "skidded" across the floor and into place.  
+      Unifying move    
+    The new building brings together formerly
+disparate elements of the RNZ team.   Newstalk 1ZB for
+example, used to have its journalists in Albert St and its
+presenters and sales reps in Durham Lane.   Te Reo Aotearoa
+was also housed in Albert St, having moved from
+Papatoetoe.   It is now located on the first level, the
+same floor as the drama studios, with the Newstalk 1ZB studios
+(the former Kodak cafeteria) on the third floor, and the new
+recording studio in between on the second.  
+    The Newstalk 1ZB news team moved into their new
+quarters on April 14.   A central control room is
+surrounded by seven rooms for on-air use, five news booths and
+an editing booth.   Newstalk 1ZB administration and
+sales staff work on the next floor down.  
+    The design priorities for the Newstalk 1ZB news room
+posed special challenges for the acoustic engineers.
+  Visual contact between presenters, programme staff and
+journalists was deemed a priority, hence a lot of glass has
+been used.  
+    The walls were required to be as thin as possible.
+  Brian McGettigan, RNZ acoustic expert and project 's
+acoustic consultant, looked at several studios abroad and
+spent many hours working on a computer model before coming up
+with the chosen design.  
+    The walls, which are 180 mm thick, use lead as part of
+their lining.   The doors, specially designed and built
+by Winstones, have magnetic seals.   The outer glass walls
+are triple glazed and those between the rooms are double
+glazed.   Services such as fire sprinklers and air
+conditioning have been isolated.  
+    RNZ has brought most of its technology with it
+from Durham Lane.   However it is still among the most
+advanced in New Zealand and in some cases unique.   This can
+be said of Touchstone, a software-based presentation system
+which is helping 1ZB move closer towards the ideal of a
+paperless radio station.  
+    Touchstone, from Media Touch Systems Incorporated
+of Salem, New Hampshire, was bought by RNZ about five
+years ago for evaluation.   It is the only one
+    if    of     its kind in New Zealand and one
+of few in use around the world.  
+    The Touchstone system centres on an IBM PC-based
+controller which performs all the audio and control switching
+functions of a radio station announcer 's console.
+  It stores and manipulates a schedule which is displayed
+for the announcer, greatly simplifying his/her job by
+replacing the keyboard with a touchscreen.  
+      Touchscreen technology    
+    RNZ has three touchscreens (located in the news/sports
+studio, the weather/traffic studio, and the announcer 's
+studio) and a master in the producer 's studio.   A full
+account of everything happening in the station is available
+via the screen.   Touchstone can be operated from any of
+the studios, allowing RNZ to reduce the need to duplicate
+such facilities as tape and cartridge machines.  
+    The touchscreen switching system is triggered
+literally by touching the appropriate portion of a grid
+display on the screen, allowing the operator to do just about
+anything from simply broadcasting a commercial to
+rearranging the order of the commercials, news, weather or
+inserting music.  
+    Touchstone is responsible for commercials and
+every other piece of presentation that happens in the radio
+station.   It has allowed RNZ to design its present
+equipment to suit the newstalk format (most systems are
+designed for music stations).   The old control desk has
+been retained however, just in case it 's needed.  
+    The telephones and microphones do not operate through
+Touchstone&semi; they use conventional technology.
+  (Newstalk 1ZB uses a Studer hybrid telephone system
+which incorporates an EvenTide digital delay facility.
+  It is used for talkback programmes in the evening and for
+programming calls from local and foreign correspondents).  
+    The Touchstone software is used in conjunction
+with Columbine radio programme scheduling software, a
+Pegasus financial package and Displaywrite wordprocessing.
+  The Columbine software ensures preprogrammed conditions
+are met - eg, two news broadcasts don't follow one after
+the other.   (The operations manager represents the hourly
+radio sessions as a pie chart and this information is
+keyed into the computer by the Columbine operator).  
+    Columbine produces a spool file which Touchstone
+captures.   A report of the day 's schedule is thus produced
+and a print out of the log of the following day 's schedule is
+also possible.   Late changes are made on the Touchstone
+system, which also accepts commercials downloaded from the DAS
+machine.  
+      Storage doubled    
+    Commercials are stored on disk.   The DAS machine
+replaces a CUERAC.   Its storage capacity has been doubled
+from the original two-and-a-half hours.  
+    RNZ has made a number of enhancements to
+Touchstone primarily because it won't accept the downtime
+tolerated by stations in the US.   Despite the R&amp;D that has
+gone into Touchstone, it is still regarded as an economical
+installation.  
+    Touchstone interfaces with the Electronic News
+Processing (ENP) system which has completely replaced
+typewriters in the newsroom.   The speed and efficiency of
+ENP technology provides major advantages for an
+organisation like RNZ.  
+    Newstalk 1ZB transmits its own bulletins and takes
+news from the network from 7 am to 6 pm.   Each reporter has
+a VDU.   They enter their stories into the database, and
+these are checked by a subeditor.   Those of national
+interest are sent to Wellington.   Late breaking stories
+can be sent to Wellington and broadcast within minutes.  
+    While the station 's technology has made life easier
+for those who work there, it has also become a drawcard for
+new talent.   Trish Carter says people applying for
+positions with the station frequently cite the technology
+as a major reason for moving to RNZ.  
+      Acoustic design    
+    The second level of the RNZ building houses music
+studios which represent a world first in acoustic design.  
+    The music studios comprise two control rooms (one for
+the Concert Programme 
+  photo    caption  
+and one for National radio) looking out onto a performing
+studio.   Traditionally several studios were necessary
+to record different types of music.   Because of the unique
+acoustic equipment in the new studio, this is no longer
+necessary&semi; it can record anything from pop to chamber
+music, and drama as well.  
+    RNZ acoustic expert Brian McGettigan says he worked
+towards a reverberation time of 0.4 seconds and 1.5 seconds
+for the two extremes, although in fact the end result is
+considerably better than that.  
+    The key elements in achieving this centre on two
+devices: a Variable Studio Acoustics unit (VSA) designed
+by ComputerSwitch of Tasmania, Australia, and an ADR unit
+McGettigan designed himself.   ComputerSwitch devised a
+computer control system for both types of unit.
+  Installation, completed at the end of October, has
+been a joint venture between RNZ and ComputerSwitch.  
+      Time-saving    
+    The performing studio uses 79 VSA units each
+comprising 600mm x 1200mm movable blinds mounted on the
+ceiling.   The modules, each of which has a microcontroller,
+can be individually adjusted by a studio engineer using a
+computer mounted in the audio desk.   The operator uses
+a trackball, not a keyboard, and can see exactly what is
+happening via the graphic display on screen.  
+    Individual acoustic configurations are stored in the
+computer 's memory for future reference.   The computer
+controlled system saves a lot of setting up time.   It also
+makes fine tuning easier and quicker.  
+    The 37 ADR units, a patented RNZ device, are
+triangular in shape, 600mm wide and 3m high.   They line the
+walls of the studio.   The three surfaces are in turn made
+up of hard Tasman oak, an absorbent foam surface (RNZ Foam
+120) and a quadratic root diffuser (QRD).   Any of these
+surfaces, which rotate in one degree increments, may face into
+the room in any combination.  
+    McGettigan says RNZ has been able to reduce the size
+of the recording studio from 100m  2   to 70m  2  
+without reducing the performance space&semi; the diffusing surface
+allows the artists to work within 500mm of the wails.   In
+conventional studios artists need to be about one-and-a-half
+metres away.   This represents significant savings for RNZ.
+  In addition, McGettigan believes there is a large
+international market for the system.  
+      Floating floor    
+    The recording studio itself has been separated from
+the rest of the building.   The   walls   700mm thick
+walls comprise an external wooden-framed slab-to-slab wall, a
+concrete block wall slab-to-slab and, inside on the floating
+floor, another wooden-framed floor and ceiling.  
+    The floating floor comprises a reinforced concrete
+slab with a polythene break layer superimposed on the
+building 's existing floor, and 150 rubber cones.
+  McGettigan says that by using rubber he
+    as    has     achieved an NC reading of about
+11, more than   than   the NC15 he had been working
+towards and 14 points below the standard control room level of
+NZ25.   The fire sprinklers and air-conditioning have been
+isolated.  
+    The two control rooms adjacent to the recording studio
+each comprise a live end and a dead end, with the production
+engineer sitting in the middle who has at his or her disposal
+the latest in recording equipment.  
+    While the Touchstone system and the acoustic design of
+the music studios are probably the most unique aspects of
+RNZ 's new home from a technical point of view, other changes
+have been made to provide the best in facilities and working
+conditions for employees.  
+    One example is the new technical workshop, which
+shares the first floor with Te Reo Aotearoa, the public radio
+studio for drama&semi; National radio presentation and the archival
+section&semi; the workshop is open plan.  
+      Integrated circuitry    
+    Technical manager Robin Moor explains that the
+equipment serviced in 1990 is predominantly based on
+integrated circuitry, and the design caters for this with
+tables and chairs rather than workshop benches, antistatic
+pads for CMOS equipment and an adjacent area for plotters,
+Cad PCB draft work and termination data.  
+    The workshop allows for a full range of servicing
+tasks for broadcasting clients, and to plan, instruct and
+commission turn  -  key projects for a varied client
+base.  
+    The facilities now employed by RNZ in its new
+headquarters make it one of the most advanced stations in
+Australasia.   RNZ has made a commitment to its present site
+and the standard of the building reflects that.    
+  
+
+        Maui Stage II Development Project - technical
+overview    
+  byline  
+      The Maui gas condensate field, 35 to 50 kilometres
+off the coast from Opunake in South Taranaki, was discovered in
+January 1969.   Development of the field and the agreements
+between the respective parties are described in the White Paper
+published in 1973.  
+    The White Paper envisaged that the Maui field would be
+developed in two stages, Stage I being the installation of the Maui
+A platform, the development of the onshore processing
+facilities at Oaonui and the onshore distribution pipeline, all of
+which were completed in 1979.  
+    It was also intended that a Stage II development would
+follow shortly thereafter with the installation of a Maui B
+platform.   Stage II had an expected onstream date of 1983.
+  This development was well in hand during the late 1970s when a
+major change in national energy forecast caused this development to
+be deferred.  
+    Extensive studies carried out during 1986 examined field
+performance against projected demand for gas and established
+the need for an additional production platform in the Maui field to
+be in place by the winter of 1993.  
+    Engineering studies were initiated to define the best
+development option, culminating in a development plan, basis
+for design, project specification and project execution plan.
+  These formed the basis on which the project has been designed
+and is currently being constructed and managed.  
+    Put simply, the completed Maui Stage II Development (MSIID)
+project will enable the Maui owners to maintain a capacity to
+continue to produce gas to meet the Maui Gas Sales and Purchase
+Contract.      
+  Figure 1: Maui location map  
+    The MSIID project will not increase the gas production
+above that of the original capacity of Maui A alone which is now
+declining as the reservoir depletes.  
+    The principal components of the project comprise:
+  list    
+      Maui B Platform    
+    The Maui B platform has been positioned to recover
+hydrocarbon fluids from the reservoir in the southwest lobe of the
+field (See Figure 1).  
+    A three well appraisal drilling programme conducted in
+1986 determined the B area of the field to be isolated from the A
+area in the hydrocarbon bearing zones but in pressure communication
+through the underlying water zone.  
+    The selected configuration for Maui B is different from the
+proposals set out in the White Paper which envisaged a standalone
+integrated platform supporting the wells, production facilities
+and accommodation for drilling, production and maintenance
+crews.  
+    Maui B has been designed with simplicity in mind and
+will be a satellite to the A platform.   As such it will support
+a drilling equipment set for drilling the eight wells, pipe work to
+manifold the production of the eight wells into the pipeline,
+minimal utilities to support the production, controls and basic
+safety systems which will be monitored remotely from the Maui
+A platform via a microwave link and a shelter module for operations
+and maintenance crew who may be stranded on the platform through
+inclement weather.  
+    The platform is designed to operate in a normally unmanned
+mode, with personnel commuting from Maui A on a day work basis
+about one visit per week.  
+    The platform is to be located in 110 metres of some of the
+most exposed and turbulent water on the New Zealand coast.   It
+has been designed to withstand 20.6 m high waves, 45.3 m/s wind and
+"strength level" and "ductility level" earthquakes of return
+periods 350 and 3000 years respectively.  
+    A number of support structure types were studied including
+the use of concrete, but the final selection was a tubular
+steel space frame which will be pinned to the seabed by twelve
+1.872 m diameter piles driven some 45 m into the seabed.  
+    Designed by Earl and Wright in San Francisco, the
+substructure weighing some 6 500 tonnes is being fabricated by
+Nippon Steel Corporation in Japan.  
+    The deck structure, or topsides for the platform, is being
+built of steel although it will be equipped with an aluminium
+helideck, glassed reinforced epoxy
+   Figure 2: Pictorial representation of the Maui II Development
+project  
+walkway gratings, duplex stainless steel process piping, kunifer
+piping for sea  -  water service and a selection of
+corrosion resistant materials in the well completions to
+minimise maintenance and hence reduce the need for personnel
+attendance on the platform.  
+    The topsides was designed by EB Global Engineering in New
+Plymouth and is currently under construction as an integrated unit
+by Sembawang Engineering Limited in Singapore.  
+    Drilling equipment purchased second hand in the USA is
+being packaged in Singapore for installation on the topsides on
+location.  
+      Maui B drilling    
+    To minimise facilities on Maui B the drilling of the wells
+is to be carried out with the support of a drilling tender vessel
+moored alongside the platform.  
+    The drilling tender will provide accommodation for the
+drilling crews, mud pumping and processing, cementing and a number
+of utility and control functions.  
+    The actual wells will be sunk from the B platform.
+  Personnel will transfer between the drilling tender and the
+B platform via a telescoping bridge which is designed to
+accommodate the relative movement from a one year return period
+storm.   The bridge and umbilicals will be disconnected if the
+weather exceeds this level.  
+      Maui B to Maui A pipeline    
+    The untreated wellstream fluids from Maui B will be
+exported to Maui A through a single 15 km long, 508 mm diameter,
+two-phase flow pipeline.   This pipeline has to withstand the
+closed in wellhead tubing head pressure of 220 bar and a maximum
+operating temperature of 78&deg;C.  
+    Hydraulic analysis of the flow regimes predict flow in the
+stratified and intermittent flow regimes.   Liquid slugs are
+predicted and these will be handled by high pressure receiver
+vessels on the Maui A platform.  
+    Water is present in the wellstream and hydrates (ice-like
+substances) have been calculated to occur at temperatures less than
+20&deg;C, posing risks of pipeline blockages.  
+    To overcome this threat the pipeline will be buried under
+a minimum cover of one metre to provide insulation to maintain
+outlet temperatures above the hydrate temperature under normal
+operating conditions.  
+  photo    caption  
+    During extended shutdown, glycol will be injected on Maui
+B to prevent hydrate formation.   Should this not be possible in
+time, then the pipeline will be depressurised from Maui A.  
+    The well fluids can contain up to 4 mol percent of carbon
+dioxide which in combination with produced water forms a
+corrosive mixture.   For this reason the pipeline is internally
+clad with a 3 mm thick 316L stainless steel material.   The
+structural strength of the pipeline is provided by 19 mm thick
+carbon steel.  
+    External corrosion protection of the pipeline is achieved
+by a factory-applied polypropylene coating and zinc anodes.   The
+one metre of cover over the pipelines provides thermal
+insulation but also prevents thermal upheaval buckling.  
+    Unfortunately, the in situ soils have insufficient strength
+to restrain the pipeline and as a consequence aggregates with
+a particle size range of 1 mm to 60 mm will be imported from
+quarries in the north Taranaki region.   It is anticipated that
+between 120 000 and 200 000 tonnes of aggregates may be
+required.  
+    Whilst the Maui B platform will be delivered to site with
+its pipeline riser already installed, this is not the case at Maui
+A where a new riser has to be retrofitted with support from a
+diving vessel.  
+    The pipeline ends will be connected to each of the
+platforms by means of hyperbaric welds which will be undertaken
+from a dynamically positioned diving vessel using an underwater
+habitat in which a computer controlled automatic TIG welding
+process will be employed.  
+      Maui A modifications    
+    All processing of Maui B wellstream fluids will be carried
+out on the Maui A platform.   Fluids arriving on the platform via
+the pipeline will be directed to a new high pressure separator
+vessel where initial gas/liquid separation will take place.  
+    This vessel has been sized to accept the large liquid slugs
+generated in the pipeline riser and will thus stabilise the flow
+for processing.  
+    The gas from the separator will be directed to the
+existing low temperature separation (LTS) trains with the liquid
+stream being directed to a low pressure separator where
+condensate/water separation will occur.  
+    Both space and weight constraints dictate that one of
+the existing 12 LTS trains be removed to make room for the new
+equipment, requiring extensive rerouting of cabling and
+pipework as well as module floor strengthening.  
+    Extensive modifications are required to the instrumentation
+and control systems to accommodate the new facilities on Maui
+A but also to provide remote monitoring and control of Maui B.  
+    Major work is also required to provide for the installation
+of the new riser plus its associated pig receiving and handling
+facilities.  
+    The major challenge of the work on Maui A has been to
+execute the extensive modifications whilst the platform
+continues in operation, producing some 90 percent of New Zealand 's
+gas production.  
+      Maui production station Oaonui
+modifications    
+    Extensions to the Maui production station facilities at
+Oaonui have two main objectives.   The first is to control the
+calorific value and C6+ component content of the Maui gas
+stream.   The second is the provision of additional fractionation
+capacity to handle the expected increase in liquids from the higher
+condensate to gas ratio of the Maui B reservoir.  
+      Gas specification and C6+ component
+control    
+    The existing plant was designed to chill the gas stream to
+minus 15&deg;C in order to achieve the gas specification.
+  Apart from a higher condensate to gas ratio, the Maui B
+reservoir has a lower percentage of inert gases, requiring
+deeper refrigeration of the gas stream to remove the heavier
+hydrocarbon components.  
+      An   Additional refrigeration plant has been
+installed, chilling the gas to minus 28&deg;C which is the
+lowest temperature consistent with the metallurgical and design
+limits of existing equipment.  
+    This deeper chilling will reduce the residual C6+ content
+of the gas by around 50 percent, thus providing a greater liquid
+yield.  
+    Another major advantage of deeper chilling and consequent
+removal of the heavier residual components is that surplus
+liquefied petroleum gas (LPG) can now be re-injected into the sales
+gas pipeline whereas in the past it often had to be flared.  
+    The extra chilling has been achieved by the addition of a
+secondary gas chiller in each of the existing three gas trains plus
+the addition of two 3 500 kW gas turbine driven refrigerant
+compressors handling the propane refrigerant.   This plant came
+on stream in September of this year.  
+      Additional condensate fractionation    
+    An additional condensate fractionation train of nominal
+capacity 18.5   l  /s against the two existing fractionation
+trains each of capacity of 31.5   l  /s is being installed.
+  The two existing trains are three column systems comprising a
+de-ethaniser, de-butaniser and de-propaniser.  
+    The new train will be a two column system consisting of a
+new de-ethaniser and the conversion of a de-propaniser from one of
+the existing two trains to a de-butaniser.  
+    Utilities requiring upgrading as a consequence of the
+modification work include:
+  list  
+  Diethylene glycol (DEG) is currently used for hydrate
+suppression in the gas chilling system and in the condensate
+pipeline from Maui A.   When the C6+ project is commissioned
+mono-ethylene glycol (MEG) will be used in the gas system, it being
+more suited to use at the lower temperatures.  
+    An onsite glycol purification system will also be
+incorporated to overcome a current salt contamination problem which
+is predicted to worsen after Maui B start-up.  
+    The modifications at Oaonui are expected to be complete
+by the end of 1992.   As with Maui A, stringent safety measures
+have been implemented to enable simultaneous construction and
+operation.  
+      Offshore installation    
+    The offshore installation of the Maui B platform and the
+pipeline are scheduled to take place over the summer months of
+1991-92.  
+    Working in the tempestuous Tasman Sea is arduous and
+costly, which has led to the selection of some of the biggest and
+most sophisticated equipment available to the industry.  
+    The prime piece of equipment to be used during the
+installation is the semi  -  submersible crane vessel Balder
+which will be deployed by Heerema Marine Contractors Limited to
+install the 15 km pipeline between the two platforms&semi; support the
+installation of the 6 500 Maui B substructure&semi; drive the 12 Maui B
+piles and 10 well conductors&semi; lift and place the 2 500 tonne
+integrated deck onto the substructure as well as a series of
+smaller lifts associated with the drilling equipment set.  
+    The Balder is a giant unit some 130 metres long by 86
+metres wide with facilities to accommodate up to 350 people
+aboard although this will not be necessary in the case of Maui.
+  It is equipped with two very large revolving cranes, one
+capable of lifting 3 600 t and the other 2 700 t at their minimum
+reach.  
+    The larger of these two cranes will be working close to its
+limits when lifting the 2 500 t Maui B topsides into place.  
+    When Maui A was installed in 1975-76 it took over a year to
+drive the piles.   Pile driving technology has advanced since
+that time.  
+    The 12 Maui B piles, each 65 m long, will be driven by a
+Menck MHU 1700 hydraulic underwater hammer which has a rated
+capacity of 1 700 kNm.   Each pile is expected to take less than
+a day to drive.  
+    Installation of the pipeline will require the
+deployment of a dynamic positioned dive support vessel.
+  Whilst the specific vessel has not been selected yet it will be
+around 100 metres long with a dual bell saturation diving
+system.  
+    This unit will initially assist with the installation of
+the gas riser on Maui A then carry out the hyperbaric welding of
+the pipeline to the risers.   A submarine plough weighing 150 t,
+will trench in the pipeline ready for burial with land quarried
+aggregates.   These will be placed by the dynamically positioned
+dredging vessel Trollnes I through a fall pipe and remote operated
+vehicle (ROV) placement head.   Sonar systems will be used to
+verify the specified thickness of overburden.  
+    It is planned that the Maui B platform will be installed by
+March 1992 with the placement of aggregates taking about two months
+longer to complete.   Drilling is expected to begin shortly after
+the B platform is installed, in April 1992.  
+        Project management    
+    Shell Todd Oil Services Limited (STOS) is contracted by the
+owners of the Maui field - Fletcher Challenge Petroleum
+Investments, 20 percent&semi; Petrocorp Offshore (No 7), 48.75
+percent&semi; Shell Petroleum Mining, 18.75 percent&semi; Todd Petroleum
+Mining, 12.5 percent - to operate the field and manage the project
+on its behalf.  
+    STOS has established a dedicated project team to
+execute the MSIID project from its New Plymouth office.   The
+team is largely staffed by personnel transferred from its
+technical, operations and administrative functions.  
+    Management systems substantially drawn from the corporate
+organisation were established at the outset and applied within
+the structure of a quality assurance system.  
+    Safety is of paramount importance to the company and the
+project and receives as much attention as quality, schedule and
+cost objectives.   Commitment to safety is sought from
+contractors engaged on the project, and is vigorously enforced
+by the management team.  
+    Safety performance targets set for 1991 are Lost Time
+Injury Frequency (number of lost work cases per million manhours
+worked) of 0 for the project management team and 3 for contractors.
+  As at the end of July performance was recorded as 0 and 0.9
+respectively.  
+    The project is progressing to schedule and confidence is
+high that it will be completed as planned at the end of March
+1993.      
+  
+
+        A quiet revolution    
+      T  here has been a quiet revolution in
+electrical instrument design which challenges the traditional
+philosophy of electrical calibration.   While the adoption
+of new and exciting quantum effects to help define the volt
+and ohm have taken up much of the time of scientists at
+various national standards laboratories, equipment
+manufacturers have also been busy developing new solutions to
+measurement problems.  
+    Only a dozen years ago, the idea of using an
+electronic instrument as a laboratory standard was
+regarded with suspicion.   The electronic intrusion was
+tolerated only if there was a "real" instrument available to
+check it against, where "real" generally meant
+electromechanical.   This suspicion was perhaps justified by
+some of the earlier attempts at digital voltmeters but
+thankfully there has been a considerable improvement since
+then.   In fact, accuracy of the best electronic instruments
+of today is such that they require intercomparison directly
+against the national standards.  
+    At first the developments were largely a case of
+applying the computing power of microprocessors to provide
+convenient features for the users, rather than to enhance the
+basic accuracy of the instruments.   There is no
+doubting that the great advances in computer control and speed
+of data acquisition met a very real demand for a great number
+of applications.  
+    From the calibration perspective the first significant
+development was the adoption of software calibration
+constants.   These allowed the readout of an instrument to
+be adjusted to the true value without adjusting a variable
+resistor with a screwdriver.   This now meant that an
+adjustment could be made without risking the long  -  term
+stability of the instrument.   However, for those of us in
+the business of providing calibration reports it was
+disconcerting to realise that the value of the reports was
+dependent on numbers stored in memory, probably relying on
+battery backup.   The ability of battery failure to destroy
+an expensive meter calibration was clearly not popular with
+customers.   A trim pot adjustment could be protected with a
+calibration seal, the protection of a software constant
+relied on the manufacturer 's implementation.   Instruments
+which reported the calibration constants being used were
+clearly preferable to those which hid this information.  
+    The second significant development has been the
+increasing use of software to directly enhance the accuracy of
+the instruments.   The best meters and calibrators of
+today are capable of using a minimum of externally applied
+stimuli to calibrate themselves over their full operating
+range.   A meter or calibrator presented with a 10V
+reference is capable of internally deriving a voltage scale
+from micro to kilo volts.   The extensive scaling procedures
+previously carried out by skilled standards laboratory
+technicians are now executed in firmware.   These techniques
+can also be used to extend the usable temperature range
+without loss of accuracy.   The potential benefits of
+such schemes are enormous but they can lull users into a false
+sense of security.   There is the obvious problem of
+ensuring the reliability of all the extensive internal
+switching required for these schemes.   Also it is a
+sobering thought that a firmware implementation may use of the
+order of 100,000 line of code and even for a high-quality
+instrument the manufacturer would expect a few defects in
+the code.   One manufacturer detected an obscure and
+essentially benign fault which had existed in a range of
+instruments for 10 years without ever being reported by users.
+  Our experience is that the defects are not always benign
+and can sometimes generate subtle but serious faults.  
+    The task faced by a calibration laboratory is to
+develop measurement procedures which cope with this new
+complexity.  
+    A thorough understanding of the design principles of
+an instrument is a necessary starting point.   The skills
+required to achieve this understanding have shifted from
+traditional electrical and electromechanical principles to
+analogue and digital electronic circuit design, and now to
+software.   Unfortunately the firmware documentation
+provided by manufacturers is minimal and so the techniques
+being used in any particular instrument are not always
+clear.   Traceability can only be established if there is
+documented evidence of the performance of the internal
+calibration process.  
+    From the average user 's point of view the most likely
+trap is to be confused by the multitude of terms used by
+various manufacturers.   "Selfcal", "Calcheck", "Selftest",
+"Autocal", may all make a great deal of sense after a few days
+with the operator 's manual but in a sales brochure can lead to
+unrealistic expectations.   A manager approving the
+purchase of such an instrument may be surprised to learn that
+the purchase price is only a small part of the cost of
+ownership.   Even a "self  -  calibrating" instrument
+needs to be maintained according to a strict documented
+procedure with careful analysis of the wealth of information
+provided by the software.   Furthermore, although the
+frequency of calibration at a standards laboratory may be
+reduced such a calibration   photo  
+  caption  
+will still be required at regular intervals.
+  Of course the software analysis, if done properly, will
+allow decisions on the calibration frequency to be based on
+the performance history.  
+    For a company conforming to the requirements of the
+ISO 9000 series on quality management and quality systems, the
+control of measuring and test equipment is just one of
+many areas requiring solutions.   Although the company will
+undoubtedly have the technical skills required for producing
+its product it is unlikely to have the skills of a
+measurement scientist.   Seeking advice early about
+appropriate instrumentation and procedures can save money.
+  It is unfortunate that often the first contact we make
+with a company is one week before a quality assessor is due.
+  Discovering at this late stage that acquiring traceability
+to the national standards will take time and cost money, which
+has not been budgeted for, is frustrating for all parties.
+  With all the recent advances in instrumentation,
+establishing traceability should be relatively
+straightforward and painless.  
+    - By Keith Jones, DSIR Physical
+Sciences.      
+        A shortcut to traceability?    
+      T  raceability requires that an unbroken
+chain of documented measurements exists linking the
+measurement in question to a recognised standard held in a
+national or international standards laboratory.   Traceable
+measurements are almost always referenced back to such a
+standard operating at a single level.   The ability to
+accurately measure ratios of physical quantities is therefore
+fundamental to providing traceable measurements.  
+    Consider a digital multimeter (DMM) requiring
+traceability.   This instrument may have dc voltage ranges
+from 100mV to 1000V.   But the national standards
+laboratory will maintain the volt at a single level of
+either 1V or 10V.   Similarly, the 100 ohm to 1G ohm
+resistance ranges of such a DMM will need to be referenced
+back to the national resistance standard maintained at
+perhaps 1 ohm or 10k ohm.   Techniques have to be developed
+for scaling up and down from the national standard in
+order to provide traceability for the DMM.  
+    The problem for calibration laboratories including
+the national standards laboratories is that the performance of
+the latest generation of DMM 's  inconsistent use of
+apostrophe   and also multifunction calibrators have
+improved to the extent that new techniques are having to be
+developed.  
+    The highly linear response of the latest A/D and D/A
+converters are perhaps the key factor to these improvements.
+  To put the linearity obtained by these components into
+perspective it is equivalent to an "ideal crow" only deviating
+from a straight line path by 1mm in its flight from
+Wellington to Auckland!   This remarkable linearity
+allows such A/D convertors to themselves perform very accurate
+ratio measurements.  
+    An example of the techniques developed to accurately
+measure voltage ratios has recently been commissioned at New
+Zealand 's national standards laboratory in Lower Hutt.
+  This automated apparatus measures 10V to 1V ratios to an
+uncertainty of better than two parts in 10  7  .  
+    The technique used is conceptually simple.   Ten
+series-connected 1k ohm resistors are wired to the stable 10V
+output of an electronic voltage reference.   The nearly
+equal 1V potential drops across the 1k ohm resistors are
+compared with a 1V standard voltage.   The ratio of the 10V
+to the 1V standard voltages is then just the ratio of the sum
+of the ten 1V voltages to the single 1V voltage.  
+    Leakage currents can invalidate the technique but
+these can be reduced to a negligible level with careful
+design.   Another requirement is that the instrument used to
+measure the eleven individual 1V voltages is linear and
+accurate over the small voltage range around 1V that
+measurements are made.   Modern DMMs are very good at
+this and their linearity over small voltage ranges can be
+easily verified to high accuracy.  
+    Last year an electronic voltage reference, having
+both 1V and 10V outputs that had been measured using this
+ratio apparatus, was transported to the Australian
+national standards laboratory.   Their technique for
+measuring 10V:1V ratios is quite different and the agreement
+obtained was pleasing verification of our technique.  
+    Resistance ratio measurement poses similar problems.
+  The recently completed build-up resistor allows
+measurement of the ratio of resistors at the 1, 10, 100, 1k
+and 10k ohm levels to an accuracy of one part in
+10  8  .   It relies on a simple statistical fact that
+the ratio of the resistance of N nominally equal resistors
+connected in series to the resistance in parallel is close
+to N  2  .   If the N resistors have a fractional
+scatter in value about their mean equal to X then the ratio of
+the two configurations is accurate to a fractional error of
+X  2  .   Therefore, resistors matched to 100 ppm
+provide a ratio accurate to 0.01 ppm.  
+    The problem is to connect the resistors in parallel
+without introducing any additional contact or lead
+resistance.   B V Hamon solved the problem in the 1950s by
+using permanent four-terminal series connection of the N
+resistors and employing additional potential balancing
+resistors to reduce the effect of the inevitable
+interconnection resistances.  
+    The DSIR build-up resistor which follows a design
+developed at the Australian national standards laboratory
+comprises 1000 resistors of 100 ohm nominal value that can be
+interconnected in various series and parallel combinations
+to give the resistors a nominal value in decade steps from 1
+to 10k ohms.   Mercury pool contacts which achieve
+contact resistances of less than 100 micro-ohms on a
+repeatable basis are used to create the different
+configurations.   The four-terminal junctions that
+interconnect the main 100 ohm resistors were manufactured
+using a numerically controlled mill and the copper-lead
+wires hard-soldered into them using precision-machined fillets
+of solder.   It is interesting to note that these junctions
+achieved cross-resistance of less than 10 nano-ohms without
+adjustment, whereas similar junctions made in the 1960s using
+manual milling techniques required hand trimming to achieve
+this accuracy: technological advance in one area flows
+into others.  
+    The strength of such conceptually simple and
+physically accessible ratio techniques from a traceability
+point of view is that the possible sources of error can be
+independently measured.   An accuracy limit can then be
+assigned so that these ratio standards can provide a
+traceability path without the need for independent
+verification.   However, the possible error sources must be
+periodically re-measured to guard against such things as
+increasing leakage resistance.   Even ratio standards are
+seldom trusted initially without independent verification
+because there is always the risk of overlooking some important
+source of error.   National standards laboratories
+intercompare their ratio standards for this reason.  
+    This somewhat
+    priveleged    privileged     position that
+ratio standards occupy, in terms of traceability, may
+apply to the above passive techniques which are amendable to
+error calculation but not to the active techniques used in
+electronic instruments.   This is not to criticise the
+careful design that has gone into developing these electronic
+devices, but rather reflects the impracticality of getting
+inside the integrated circuits to subsequently check the
+relevant error contributions.   With such electronic ratio
+techniques it is easier to take the black box approach and
+measure the overall response on a more frequent basis.   In
+other words, conventional external calibration is more
+practicable.  
+    - By Laurie Christian, DSIR Physical
+Sciences.    
+        Where to now for standards lab?    
+      A   country 's ability to make
+measurements greatly affects the level of technology it
+can use.   Quality systems require measurement traceability
+to the national standards laboratory.   The national
+standards laboratory is the organisation with the legal
+responsibility to provide for uniform measures throughout
+a country by maintaining physical realisations of the legal
+definitions of the units of measurement.  
+    Note that the national standards laboratory is not
+an enforcement agency, such as weights and measures, but one
+that provides authoritative physical measurement
+standards for the calibration of reference instruments as
+well as advising on instrumentation suitable for maintaining
+traceability of measurements.  
+    In New Zealand the legal units are the International
+System (SI) of units as further defined through the
+  Convention du Metre 1875  .   The
+laboratory responsible for the base measurement units eg,
+second, metre, kilogram, ampere, kelvin and candela, was the
+Physics and Engineering Laboratory of the DSIR.  
+    As a result of the restructuring of the DSIR in 1990,
+the standards became a part of DSIR Physical Sciences.
+  Next year, 1992, the DSIR will be dissolved and replaced
+by a series of Crown Research Institutes (CRI) organised more
+like companies than Government departments.  
+    With all these changes going on at least two questions
+arise: the first is where will the national standards
+laboratory be located inside the new organisation, and the
+other is what services will it provide?  
+    The CRIs will be organised along sector lines and
+the national standards laboratory will probably be in the
+CRI for the manufacturing and processing sector since the
+laboratory is largely industrially oriented, even though it
+does provide measurement standards for all other sectors.
+  At present the empowering legislation will be
+required.  
+    As yet no decision on this has been made, but a likely
+home is under the Foundation for Research, Science and
+Technology (FoRST) Act.  
+    Thus, the new CRI would carry out the functions of the
+national standards laboratory under contract from FoRST.
+  Legislative details should be available later this
+year.   Physically, of course, the standards are expected to
+stay where they are, namely on the Gracefield site of the DSIR
+(later the CRI).  
+    Also, no staff changes are expected and so contacts
+made previously will continue.   Visitors will note that the
+notice board at the gate still directs them to the Physics and
+Engineering Laboratory, and the staff wonder if this will
+continue under a CRI!  
+    Will it be "business as usual" in a CRI?   The
+answer to that question is dependent on the funding available,
+either from the Crown or from industry.   Over the last few
+years, most areas of the DSIR have had decreased Crown
+funding, and the test and calibration areas were no
+exception.  
+    In spite of increasing user pays charges, there is not
+enough funding to continue many existing services, let alone
+tackle new areas.   Most of the effort of the national
+standards laboratory has been directed to ensuring the
+international credibility of New Zealand 's measurement
+standards, as well as providing higher accuracy
+calibration services to an increasingly sophisticated
+market.   This restriction of the range of measurement
+services occurs at a time when industry is adopting quality
+systems which require a wider range of test and calibration
+services.  
+    Some services have been picked up by commercial firms
+where there is a sufficient volume of work for
+profitability.   In other cases offshore calibration
+services have been used, often at some inconvenience.
+  While for a small country, such as New Zealand, a few
+offshore services will always be needed for highly specialised
+calibrations, it needs to be remembered that the logic of
+offshore services means that industry is likely to move
+offshore to be closer to its services.  
+    Thus, a main reason for providing measurement services
+is to encourage growth of local industry.   Improvements
+should be possible under the new CRI as industry can form
+joint ventures with the CRI to develop or expand the
+measurement services it requires.   Crown funding is
+likely to be minimal for these areas and so the initiative for
+new measurement services will be with the industries
+concerned.  
+    - By J V Nicholas, DSIR Physical
+Sciences.    
+        To calibrate or not to calibrate    
+      Robin Hodgson, service manager for
+Communication Instruments of Wellington, looks at
+calibration and the maintenance of test equipment
+inventories.    
+      U  sers of test equipment must ensure that
+their instruments are periodically calibrated to ensure the
+measurements they make are accurate and that they relate to a
+national standard  .     They must also have a procedure
+for ensuring the test instruments they are using are
+working correctly.   However, when test equipment
+inventories begin to get substantial they become expensive to
+maintain, calibrate and manage.  
+    Our view is that it is not necessary to calibrate
+every piece of test equipment every year.   This is because
+some instruments will sit on the shelf and will be
+seldom used, while others simply will not require
+calibration.   It is also very expensive to calibrate
+each piece of test equipment every year.   The cost may
+not be justified.  
+    There are items of test equipment that require
+calibration every year due to the nature of the instrument,
+its specifications, or its usage.   Our recommendation is to
+identify these test instruments, have the calibrated every
+year and use them as in  -  house standards in order to
+check the other, lower specified equipment against them
+periodically.  
+    The benefits of this are the obvious cost savings in
+calibrating a smaller number of instruments and less downtime
+of equipment while it is away being calibrated.
+  Additionally, there is also a benefit to the technicians
+using the equipment as they become more aware of the
+limitations of their test instruments when they have to
+periodically test them against the standards.   This may
+also     shows    show     up any faults on the
+equipment earlier than during an annual calibration check.  
+    Of course, the disadvantage of this system is that
+some test equipment must remain as "standard" and unless it is
+specified for harsh environments etc it should not be used
+as such.   When test equipment is in short supply this may
+be a difficult task.   By buying good quality equipment this
+problem is reduced significantly.  
+    Another disadvantage, is that the technicians must
+take time to check their test instruments before using them.
+  This can be countered by the time savings made if a fault
+was found with the equipment before arriving at a distant
+station or at a customer 's premises.  
+    A managed test equipment system such as this will
+provide the required standards of instrument maintenance and
+calibration, will cause people involved with test
+equipment to be more aware of the instruments that they
+are using, and most importantly in this economic climate,
+will be an efficient and economical method of maintaining
+a test instrument inventory.    
+  
+
+        A PERFORMANCE SPECIFICATION FOR THE SEISMIC
+DESIGN OF THE DC HYBRID LINK, NEW ZEALAND    
+  JNO COAD    *     and RD
+SHARPE    **    
+      *  Trans Power New Zealand Ltd.,
+Wellington  
+      **  Beca Carter Hollings &amp; Ferner Ltd.,
+Wellington  
+        SUMMARY      
+    The two electrical supply and distribution systems of
+the principal islands of New Zealand have been connected by a
+600 MW high voltage direct current (HVDC) link since 1965.
+  A project to double the capacity of this two-way link,
+with its associated submarine cable and AC/DC converter
+equipment, is being undertaken.  
+    Strategic planning for the rest of New Zealand 's
+supply requires the link to be maintained in the event of
+large earthquakes near the link 's terminals, one of which is
+close to the Wellington Fault in the seismically high hazard
+area of Wellington.  
+    The use of a performance specification for the seismic
+aspects of such an international design-build tender is
+unusual.   The reasoning behind the use of this form of
+specification is described, along with a description of the
+form it took and the problems associated with its
+implementation.    
+        INTRODUCTION      
+    The existing DC link terminates just north of
+Wellington at Haywards substation (Figure 1).   The site is
+approximately 0.8 km to the west of the Wellington Fault on a
+man-made platform in hills overlooking the Hutt Valley.  
+    The owner of the distribution system, Trans Power New
+Zealand, requires that the operation of the HVDC link should
+continue in the event of a major earthquake in the Wellington
+region, as such an earthquake, may have little impact on the
+demand from more distant densely populated regions unaffected
+by this event.  
+    Studies commissioned by Trans Power identified the
+maximum ground shaking likely at both the Haywards site and
+the less seismically active Benmore dam site in the South
+Island.  
+    Because of the specialist nature of the equipment
+required, there are a relatively small number of international
+suppliers.   Though there have been a few such installations
+in seismic regions elsewhere in the world, it was unlikely
+that there would be any suitable standard equipment which
+would meet the stringent New Zealand seismic loading
+requirements.  
+  Map :Figure 1: Location of HVDC Transmission Link  
+    In order to ensure that competitive bids would be
+forthcoming on a project of this large size, it was essential
+that the tender documents did not exclude electrical process
+solutions which might not fit conventional seismic design
+approaches.  
+    The principal concerns were the design of the
+thyristor valves and the seismic performance of high voltage
+electrical equipment mounted on porcelain insulators.  
+    The thyristor valves are electrically complex and are
+required to have an extremely high reliability.   This
+dictated that the design be proven technology and thus
+substantially the same as other existing systems.   No one
+seismic solution scheme could be specified as it was known
+that some suppliers would prefer to offer solutions in which
+the thyristor conversion valves were hung from above, while
+others had proven floor-mounted technology.   The building
+at each site was to be designed principally to contain the
+thyristor valves and consequently the support system dominated
+the building design philosophy.   The extent of this is such
+that the building must be considered as a part of the
+equipment.  
+    High voltage electrical equipment must be insulated
+from ground and this is commonly achieved by mounting
+equipment on porcelain post insulators.   Porcelain is
+inherently brittle and its use contrasts with modern seismic
+design principles where brittle supports are avoided where
+possible.  
+    These and other concerns required the specification to
+be as unrestrictive as possible to potentially innovative
+solutions, while ensuring the adequacy of the seismic
+qualification of the complete system.  
+        TWO LEVEL EARTHQUAKE APPROACH      
+    Although it has been implied in seismic codes such as
+New Zealand 's NZS 4203   [1]   for many years, it is
+only relatively recently that designers have focused on a
+two-level performance criterion to be met by structures.
+  [1]  Reference        In the nuclear
+industry, the concepts of an Operating Basis Earthquake (OBE)
+and a higher level Safe Shutdown Earthquake (SSE) are embodied
+in at least US codes.   US design rules for offshore
+platforms have a lower elastic response level and a larger
+ductility level.   The draft New Zealand loadings code DZ
+4203 has the concept of a serviceability level and a higher
+loading under which damage might occur but collapse should
+not.  
+    Trans Power adopted for this project similar criteria
+based on performance requirements.   At a lower level
+earthquake with a relatively high probability of occurrence in
+the life of the complex, it was required that there be no
+interruption to the conversion process.   In an innovative
+move, Trans Power set the higher level requirement by
+stipulating that the conversion process must be able to be
+restored within five working days after a major earthquake
+with a relatively low probability of occurrence.  
+    The lower level (OBE) effectively meant that there
+should be no damage at all under this event.   The higher
+level performance criterion, labelled the Maximum Design
+Earthquake (MDE), thus allowed the contractor to decide
+whether to adopt a strength or ductility design approach or
+provide spare equipment somewhere safe.  
+    In order to prevent the building or components
+collapsing catastrophically or in a brittle fashion at load
+levels just a fraction higher than the MDE, the specification
+called for ductile collapse mechanisms to be included.  
+    This absolute requirement was later modified by
+agreement to state that: a ductile collapse mechanism need
+only be specifically designed for equipment with a safety
+factor of less than 1.3 on brittle failure under MDE loadings,
+although the concepts of capacity design must be embodied in
+even this equipment.  
+        LOAD LEVEL SPECIFICATION      
+    The two levels of earthquake shaking, the MDE and the
+lesser OBE, were specified in the form of response spectra for
+each of the terminal sites, each being shown for a range of
+damping values.   The larger spectra for the Haywards site
+are shown in Figures 2 and 3.  
+  Graph: Figure 2: Haywards Maximum Design Earthquake  
+  Graph: Figure 3: Haywards Operating Basis Earthquake  
+    The OBE can be seen to have a relatively greater long
+period (low frequency) content than the MDE.   This reflects
+the contribution of more distant earthquakes.   The response
+represented by the OBE has a return period of approximately
+150 years.   The MDE has a return period of 700 years.
+  These levels are compatible with the design of other
+overseas critical facilities but also recognise that there is
+a higher probability of an earthquake on the Wellington fault
+than simply indicated by the return period due to the length
+of time since the last event.  
+        FURTHER REQUIREMENTS      
+    It was a key aim of the specification that the
+complete process, and not just individual items of equipment,
+was seismically qualified.   To ensure this occurred, and
+knowing that very large organisations would be tendering, it
+was required that the successful tenderer nominate one person
+with a demonstrable understanding of seismic design principles
+to take responsibility for approving all seismic aspects of
+the design.  
+    The successful tenderer was required to produce a
+seismic design philosophy during the preliminary design phase.
+  The seismic design philosophy essentially is a more
+detailed agreement proposed by the Contractor that fulfils the
+performance requirements of the specification.   In this
+way, the experience of the manufacturer is used to define
+better the capabilities of his product.   Once in place,
+this document simplifies the review of seismic reports as
+often only compliance with the philosophy needs to be
+checked.  
+    While tenderers were free to adopt any reasonable
+approach to their design of parts and portions, they were of
+course going to have to report on the methods they had adopted
+so that these could be verified by Trans Power.   They were
+given the choice of following the style of the methods
+specified in the New Zealand codes NZS 4203   [1]  
+and NZS 4219   [2]  , as long as they adapted certain
+of the parameters to suit the performance requirement.
+  [1]  reference    
+  [2]  reference      
+        TENDER EVALUATION      
+        THE SUCCESSFUL TENDER      
+    The successful tenderer was Asea Brown Boveri (ABB), a
+multi-national company based in Sweden and Switzerland.
+  ABB employed a New Zealand consulting engineer as designer
+of the main buildings.   Base isolation of the principal
+buildings and valve hall did not prove to be a viable option
+and a conventional structure of reinforced concrete and steel
+roof members was the accepted solution.   The relative
+closeness of the responses described by the OBE and MDE
+spectra meant that, for the buildings, compliance with the OBE
+dictated the design.   Inherently, there needed to be only
+limited ductile behaviour for the buildings to survive the MDE
+of low probability.   The general level of the design
+loadings did, however, require the design to consider the
+question of uplift on the foundations.  
+    Suspended thyristor valves (Figure 4) were offered by
+ABB, with the     principle    principal    
+difference between existing designs being the inclusion of a
+damper at the valve base to limit displacements.  
+  Diagram: Figure 4: Suspended Thyristor Valves  
+        EQUIPMENT DESIGN      
+    The specification allowed the contractor to
+demonstrate seismic compliance by analysis, test or a
+combination of both.  
+    The majority of the equipment was qualified by
+response spectrum analysis, though equipment with base
+isolation was qualified by time history analysis.   Such
+simulations were performed by generating artificial earthquake
+records whose response spectra enveloped the specified
+spectra.   In some situations, it was necessary to generate
+floor spectra corresponding to the ground design spectra so
+that the equipment mounted there could be proven to meet the
+performance specification.  
+    Critical parts of the performance specification were
+the requirements that the analysis technique itself be
+qualified and that any critical damping values above 2 % be
+demonstrated by test.   ABB often chose to test complete
+items of equipment where they had assumed high damping and
+thus they proved both the adequacy of the damping assumption
+and the accuracy of the analysis technique in the same
+test.  
+    The extent of such testing gave Trans Power
+considerable confidence in the ABB analysis technique.   The
+only specific request by Trans Power was for the performance
+of a snapback test on a thyristor valve.   It was realised
+that the low levels of acceleration induced by such a test
+would excite only lower modes of vibration and therefore such
+a test would not be adequate to qualify fully the valve.
+  However, it was considered that a snapback test would be
+sufficient to prove the applicability of the analysis
+procedure for such a structure.  
+        RESULTS OF PERFORMANCE
+SPECIFICATION      
+    The performance specification format has allowed ABB
+to adopt a number of solutions to the seismic design problems
+imposed by the onerous Haywards NME and OBE spectra.  
+    The high seismic spectral response at the Haywards
+site and the inability merely to strengthen off the shelf
+equipment has resulted in the use of a wide variety of ductile
+devices and strength solutions.  
+    The approach of using ductility to avoid catastrophic
+collapse is not a very familiar concept to designers in
+predominantly non-seismic regions of the world.   It is
+their natural tendency to want to detail for maximum strength.
+  With the high level of the loads implied by the specified
+response spectra, this has the potential for designers to
+chase their tails as the increased material leads to higher
+masses and so to higher inertial loads to be resisted.   As
+has been shown many times before in New Zealand
+  [3]  , electrical equipment with its international
+applicability, but often inherent brittleness, offers
+opportunities for simple modification to give predictably
+reliable seismic
+performance.  [3]  reference      
+    ABB, despite their location in a predominantly
+non-seismic region, have made full use of the concept of
+ductile design.   In many cases they have chosen this
+solution in preference to viable and available strength
+solutions.   This may be due to their previous experience in
+seismically active regions of the USA.  
+    Because of the ABB company structure, which is based
+on independent business units manufacturing different
+electrical components, many different solutions to the same
+generic problem have been offered and installed.   For
+example, ABB Capacitors used a rocking plate design to
+introduce base flexibility and damping (Figure 5) while ABB
+Switchgear offered a flexible plate to achieve the same effect
+(Figure 6).  
+  Diagram: Figure 5: Rocking Plate Solution  
+  Diagram: Figure 6: Flexible Plate Solution  
+    The importance of maintaining a single co-ordinating
+and approving point must be emphasised.   When such a
+variety of solutions are on offer, it is imperative that each
+is subjected to the same degree of analysis to ensure
+consistency and compatibility at the interfaces and across the
+site.   When many individually qualified items are added
+together to form a system, it is the co-ordination which
+ensures the complete process is also seismically adequate.  
+    To some extent, this is controlled by the early
+implementation of a seismic design philosophy and the
+identification of co-ordinating documents.  
+    Equipment, or equipment interactions, at the
+interfaces between different areas of responsibility can often
+be overlooked by both the contractor and the client,
+especially where a performance specification is used.  
+    A potentially major drawback with a seismic
+performance specification is the requirement for good
+communications between the client 's seismic designer and those
+of the contractor.   Such contact can often be affected by
+contractual difficulties.   During this project, ABB 's
+Swedish resident specialist seismic engineer was readily
+available to discuss ABB 's approach to any given problem and
+this degree of co-operation is reflected in the high standard
+of seismic engineering in the HVDC link project.  
+    It was interesting to note that it can be both
+difficult and onerous for the client to verify analyses
+submitted by the contractor for approval of seismic design of
+complex items.   Consideration would be given in future
+performance specifications to strengthening the client 's right
+to ask for further verification analysis and to placing more
+weight on the need to demonstrate ductile collapse
+mechanisms.  
+          CONCLUSIONS      
+    The use of a performance specification for the seismic
+design aspects of an important electrical process has been
+thoroughly tested by this large project.   It has resulted
+in many innovative aspects of seismic design being offered to
+tailor the international supplier 's standard product to the
+needs of an installation in locations with high seismic
+hazard.   The advantages of insisting on the successful
+tenderer producing a seismic design philosophy were seen as
+the project progressed.   Consideration would be given in
+the preparation of any future performance specifications to
+more weight being placed on a requirement for the provision of
+ductile mechanisms to be demonstrated where appropriate.
+  Provisions for requesting further verification analysis
+would also be tightened.   The need for the contractor to
+nominate a seismic engineer (acceptable to the client) to
+oversee and co-ordinate all aspects of the product being
+offered was considered an important part of this
+specification.      
+  
+
+        NMR AS A CHEMICAL TOOL    
+    Jan Coddington, University of Auckland  
+    Nuclear magnetic resonance started life as a
+  physicists'   orphan, somewhat maligned and
+unappreciated.   By the time of the first review article in
+this journal    1    , it had become the
+favourite child of many spectroscopists and has continued
+to develop as an essential chemical tool.
+  1.  reference       Its current
+growth is being driven by the demands of molecular
+biologists, biophysicists and geologists as well as by
+chemists.  
+    This article discusses some of the current
+applications of NMR.   The examples used are research
+projects involving the Bruker 40OMHz instrument at the
+University of Auckland (Figure 1).   Regular users of
+the instrument include the Chemistry, Biochemistry, Zoology,
+Botany departments and the Cancer Research Laboratory of the
+University of Auckland, and the Chemistry department of
+Waikato University.   Occasional users have included
+researchers from the Pathology, Physiology, Cellular and
+Molecular Biology departments, DSIR and commercial consulting
+chemists.    
+      Organic Chemistry    
+    NMR is now essential to the organic chemist for any
+type of structure elucidation.   Usually simple   1  H
+and   13  C spectra are enough to give an indication of
+the carbon skeleton and functional groups present.   Methods
+for obtaining such spectra under a variety of conditions are
+now well developed.   (Excellent guidebooks
+abound    2    ).
+  2.  reference       Combined with an
+editing experiment such as DEPT (Distortionless
+Enhancement by Polarisation Transfer), to distinguish CH,
+CH  2   and CH  3   groups such conventional
+spectra are often sufficient to resolve structural
+uncertainties.   For example, Professor Con Cambie 's group
+in the Chemistry department isolates a large number of very
+similar diterpenes and derivatives, such as kaurene
+  1  , from native plants.   The presence of a 
+  diagram 1  
+keto or hydroxyl group in ring A is common and is easily
+determined from the   13  C chemical shifts: a C=O
+occurs about 210ppm and a CH-OH at about 75ppm.   The
+position and stereochemistry of the substituent is assessed by
+the magnitude of the   1  H coupling constants: an
+equatorial OH will allow its geminal H to show a large diaxial
+coupling (  ca  . 12Hz) to any vicinal axial H, while an
+axial OH will permit a 1,4-W coupling (  ca  . 1.5Hz) to
+any suitable equatorial H.   The rest of the molecule can be
+examined similarly since most signals are quite well resolved.
+  A range of these compounds has now been investigated
+and the combined data set is of predictive value.  
+  diagram 2  
+    Sometimes, spectra have so many overlapping
+resonances and the coupling pattern is so complex that
+they appear hopelessly jumbled.   New techniques   (new
+pulse sequences)   have helped enormously by spreading the
+information into two dimensions.   It is possible, for
+example, to have just the chemical shift information in one
+dimension 
+  photo    caption (Figure 1)  
+and the coupling network in the other.   These methods are
+now the backbone of modern NMR analysis and application
+monographs are appearing    3    .
+  3.  reference      
+    The most useful of the new experiments is undoubtedly
+COSY   (Correlated Spectroscopy)   which gives a map of
+the coupling partners of every hydrogen in a molecule.
+  This was used extensively by Dr. Alistair Wilkins at
+Waikato to determine the structure of   2  , a
+constituent of commercial chlordane.   The number of
+chlorine atoms present and their relative stereochemistry had
+to be established.   The coupling interactions between
+the hydrogen nuclei were used to do this.   Part of the COSY
+spectrum is shown in Figure 2.
+  figure 2  
+  A correlation between two hydrogens is indicated by a
+  cross peak   at a grid position corresponding to the
+chemical shift (one in each dimension) of the nuclei involved.
+  In this way, the whole skeleton could be traced.  
+      Biomolecules    
+    The appearance of 2-D techniques has given renewed
+impetus to the study of biological molecules where
+materials may be unstable and of limited availability.
+  At the Division of Horticulture and Plant Processing,
+DSIR, Dr. R. Mitchell has isolated and characterised a
+phytotoxin produced in liquid cultures of a pathogenic
+plant bacterium.
+  diagram 3   
+  The structure of tagetitoxin   3  , was
+established using a combination of mass spectra and NMR.
+  Several 2-D heteronuclear NMR correlation methods were
+used to unequivocally connect carbonyl   13  C H
+nuclei to several bonds away.   A critical piece of
+information was also supplied by the observation of a
+nuclear Overhauser effect   (NOE)   between the H at C7
+and one of the H nuclei at C2.   This effect is the result
+of dipolar couplings and is observed
+    ony    only     when H nuclei are within 0.4nm
+of each other.  
+    Most biomolecules are immense by solution NMR
+standards and further complicate observation by being
+soluble only in water.   Because their concentrations are
+usually not more than 1-2mM, such molecules can only be
+routinely observed using high-sensitivity   1  H
+spectra.   Special methods are then needed to remove the
+massive H  2  O peak that otherwise dominates the
+spectrum.   Even in D  2  O solution, the residual HOD
+peak is huge and must be suppressed.   The overall result is
+that such spectra are collected over long periods to get
+useful results.   Nevertheless, many proteins, carbohydrates
+and nucleic acids have been studied.  
+    Some typical spectra of the relatively small protein,
+bovine parathyroid hormone, are shown in Figure 3.   Many of
+the lines are broad and there is considerable overlap.
+  figure 3    
+  However, it is still possible to obtain information about
+the tertiary structure of the protein, for instance as the pH
+is changed.   In particular, the aromatic region from
+6-10ppm is quite well resolved.   It can be used to
+determine the pK  a   of individual histidine residues
+and indicate accessibility to solvent.   Any specific
+conformational changes in the other aromatic amino acids are
+also easily observed.   In water, the region also contains
+all the NH resonances whose behaviour is characteristic of
+specific amino acids and conformations of the global
+protein structure.   Dr. Peter Barling in the Biochemistry
+department is using this information in the study of
+structure-activity relationships of the various domains of the
+protein.  
+    In an equally technically demanding project, a group
+led by Professor Alistair Renwick is investigating the
+carbohydrate sequences of several glycoprotein hormones,
+using primarily 2-D NMR methods.  
+    All NMR studies of biomacromolecules depend on the
+exquisite sensitivity of the new spectrometers with high-field
+superconducting magnets.   This sensitivity is also used to
+advantage in labelling and feeding studies.   Metabolic
+pathways were originally determined by feeding radioactive
+  14  C-labelled precursors.   Isolation of products
+was often very tedious and difficult.   It is now routine to
+feed   13  C-labelled material which is NMR visible but
+not radioactive.   Incorporation of the label can often be
+determined without isolation of individual products.   A
+whole bacterial culture, for example, may be put in an NMR
+tube and, under ideal conditions, signals will only be
+detected from those compounds containing the label.
+  (The problem of assigning the signals to specific
+compounds may not be trivial).  
+    Part of the biosynthetic pathway of rhizobitoxine
+  4  , another toxin from a plant pathogen, has
+been determined in this way by Dr. Mitchell at DSIR.   The
+pathogenic bacteria were fed aspartic acid   5  ,
+which was specifically labelled with   13  C at the C4
+carboxyl position.   Enhanced   13  C NMR signals,
+indicating incorporation of label, were detected at the C1 and
+C4 positions of rhizobitoxine.   Label was also detected at
+the C4 position of hydroxythreonine   6  ,
+confirming a previous suggestion that it was an
+intermediate in the pathway.   In this case, the compounds
+were extracted and partially purified before the NMR
+experiments were done.  
+  diagrams 4,5,6  
+        In Vivo   Studies    
+    One of the most fascinating and challenging areas in
+NMR is the study of biologically viable samples.   These can
+include cell cultures, perfused organs and even whole plants
+and animals.   Dr. Alison Stewart of the Botany
+department and Dr. Alwyn Rees of the Marine Research
+Laboratory have been interested in the symbiotic
+relationship between the algal and fungal components of
+various New Zealand lichens.   The major metabolite is one
+of several polyols, such as arabinitol, ribitol or mannitol,
+and is species specific.   As such, the identification of
+the compound may serve as an aid to taxonomic classification.
+  Intact lichens and their methanol extracts give good
+  13  C NMR spectra where the dominant peaks arise from
+the polyol present.   Experiments to follow the path of the
+algal photosynthetic product to the major fungal metabolite
+are now in progress: the lichens are maintained in an
+atmosphere of   13  CO  2   for 12 hours and then
+spectra are obtained after various times.  
+    Some sea anemone species are also involved in a
+symbiotic relationship with algae.   There is great interest
+in whether the alga supplies glycerol or lipids (fatty acid
+triesters of glycerol) to its host.   Dr. Rees has
+identified an anemone that can be examined by NMR: it is small
+enough to fit comfortably inside a 10mm NMR tube.   Figure 4
+shows the   13  C spectrum of 50 of these live animals,
+surrounded by sea water.   The major peaks can be assigned
+to lipid with resonances for both carboxyl and unsaturated
+bonds as well as the expected methylene envelope being
+observed.   Also present are peaks corresponding to glycerol
+and several amino acids.   The resolution of the spectrum is
+impressive since many   in vivo   samples give
+generalised blobs for spectra.   The anemones did not appear
+to be under stress.   A   31  P study showed normal
+energy metabolism with the expected levels of ATP and the
+animals resumed feeding when returned to a more spacious
+environment.  
+  figure 4  
+    Monitoring the health of a living system using
+  31  P NMR is becoming routine.   Figure 5 shows the
+spectrum of an intact rat heart.   In a healthy muscle such
+as this, high levels of phosphocreatine (-5ppm) and ATP (-8m
+-12, -22ppm) and low levels of inorganic phosphate (0ppm, but
+pH dependent) and ADP (-7, -12ppm) should be observed.
+  Dr. Stuart Humphrey in the Pathology department is
+interested in the use of various buffer systems to extend the
+functional lifetime of hearts for use in transplants.   An
+organ preparation is placed in the spectrometer, operating
+at 278 K, and spectra are obtained every 30 minutes until
+there is no phosphocreatine or ATP left.   At that point,
+the pH of the organ has usually changed substantially,
+indicating pathological dysfunction.   This is easily
+followed by the chemical shift changes of the inorganic
+phosphate peak.  
+  figure 5  
+      Inorganic Chemistry    
+    These bio-organic applications have been driving much
+of the current wave of software development in NMR.   Better
+hardware, such as frequency synthesisers and more powerful
+transmitters, has resulted from demands for easy observation
+of all the magnetically active nuclei.   NMR is becoming an
+increasingly important technique in modern inorganic
+chemistry    4    .   4.
+  reference      
+    Most organometallic and coordination compounds bear
+ligands containing H and C atoms, which often give simple
+spectra.   The presence of a metal atom at the centre of the
+coordination sphere can influence the   1  H and
+  13  C spectra in several ways however.   Some metal
+centres, particularly transition metals with partially filled
+d shells, are paramagnetic and they have a dramatic effect
+on the spectra.   The unpaired electron spins interact with
+the nuclear spins so that peaks are often broadened, sometimes
+to the point of disappearance, and the chemical shifts are
+significantly changed.  
+    A metal centre can also behave as a heteroatom,
+affecting the chemical shift of nearby H and C atoms.
+  For example, a hydride ligand (hydrogen bonded directly to
+a metal) usually has a resonance much further upfield than the
+0-10ppm range typical of organic molecules.   In the
+diamagnetic ruthenium complex
+RuHCl(CO)(PPh  3  )  3   (prepared by Stage
+III undergraduate chemists at Auckland), the hydride ligand is
+observed at -7.2ppm in the   1  H spectrum.   The
+presence of phosphorus atoms in the complex results in
+coupling to the hydride and the resonance appears as a
+doublet of triplets.   This is good evidence for two of the
+PPh  3   ligands being equivalent, indicative of a
+specific geometry around the metal.   Professor Warren
+Roper 's group has synthesised many new ruthenium, osmium and
+iridium compounds containing both phosphine (PR  3  )
+and fluorocarbon ligands.   There is extensive coupling
+between   31  P,   19  F and   1  H nuclei,
+leading to very complex spectra.  
+    Figure 6 shows the   31  P spectrum of a
+porphyrin complex prepared by Dr. Penny   Brothers'  
+group.   Here, the central atom is phosphorus and it is
+coupled to eight chemically equivalent hydrogens on the
+porphyrin macrocycle and a further six equivalent hydrogens on
+the two methoxy ligands.   The resonance appears as a
+nonet of septets.  
+  figure 6  
+      Chemical Exchange    
+    The advantage of a multinuclear spectrometer is the
+ability to     chose    choose     which element
+in a molecule will give the most informative spectrum.
+  Often this will be the atom at the centre of the complex.
+  The spectra of these nuclei will be relatively simple
+since there will be only a few different chemical shifts
+present and the coupling patterns should be straightforward to
+interpret.  
+  diagrams 7,8,9  
+    Dr. Michael Taylor has been interested in the
+formation of complexes between borate and polyhydroxy
+compounds.   It has been established that the
+B(OH)  4   is complexed by diols to give both
+mono-chelated and bis-chelated anions.   1,2-Diols form five
+membered ring complexes and 1,3-diols form six-membered rings.
+  Glycerol is a 1,2,3-triol, which may behave as a 1,2- or
+1,3-diol in its interaction with borate.   The   11  B
+NMR spectrum of a 1:3 mixture of NaB(OH)  4   and
+glycerol showed separate peaks for the monocyclic five- and
+six-membered rings as well as the bis-spirocyclic forms
+  7   and   8  .   The mixed complex 9
+is also present.   The   11  B spectrum contains at
+least eight peaks, since the borate anion is participating in
+polyborate formation equilibria as well.   The   13  C
+and   1  H spectra can be interpreted in terms of the
+major species observed but they are quite complex.   This
+system is obviously most easily
+    studies    studied     by starting with the
+less familiar NMR nucleus.  
+      The most readily accessible nuclei are those which
+have a nuclear spin quantum number, 1, equal to 1/2.   These
+include   1  H,   13  C,   19  F,
+  31  P and   119  Sn.   The last of these has
+been used in another of Dr. Taylor 's projects to study the
+behaviour of tin (II) halides in solution.   The
+  119  Sn spectra of aqueous mixed halide solutions
+consist of single lines, the positions of which depend on the
+composition of the mixture and lie between those of the
+separate chloride, bromide or iodide systems.   The signals
+are averages of the chemical shifts of the various species
+present: (SnX  n  Y  (3-n)  )(X,Y=Cl, Br, I,
+n=0-3).  
+    These are labile in water at room temperature on the
+NMR timescale.   If these solutions are extracted with
+diethyl ether and the extracts cooled to 213 K, then the
+  119  Sn spectra show each of the individual species
+present (see Figure 7).   The exchange rate has been slowed
+down by lowering the temperature in a less
+      coordination    coordinating      
+solvent.   Thus the chemical shifts of all ten
+trihalogenostannate (II) anions can be determined.  
+  figure 7  
+      Physical Interactions    
+    If a suitable probe nucleus can be found, NMR is also
+useful for looking at physically interacting systems as well
+as more orthodox chemical exchanges.     129  Xe is
+another nucleus with I= 1/2.   Xenon gas is composed of
+large polarisable atoms whose chemical shift is very sensitive
+to the environment.   Dr. Russell Howe has been using
+  129  Xe NMR to study the structure and composition of
+several zeolite catalysts which are important in hydrocarbon
+refining and synthetic petrol production.   Most of the
+NMR protocols described here rely on liquid samples or at
+least on samples that approach homogeneity, contained in
+unsealed glass tubes (see figure 8).   This is not the
+case for the zeolite experiments.   The sample consists of
+solid zeolite material in the bottom of a tube which is then
+filled with a known amount of xenon gas and the whole sealed
+off from the atmosphere.   The experiment works because the
+xenon atoms behave like a liquid inside the zeolite,
+interacting with each other and with the solid.   The
+properties of the catalysts depend on the size, shape and
+coatings of their internal pores and these are exactly the
+variables to which the xenon nuclei are responsive.   The
+results are spectra which give an indication of the size of
+the catalyst pores, their water content and the effects of a
+variety of heat treatments mimicing the operating
+    conditons    conditions     under which the
+zeolites are used.  
+    The interaction between sweeteners and taste receptors
+is also amenable to interrogation by NMR.   A surprisingly
+wide range of compounds elicit the same sweet taste on the
+human tongue.   These include saccharin, aspartame
+  (Nutrasweet)  , potassium cyclamate, lead acetate
+and chloroform as well as sucrose and most of the
+monosaccharides.   No structural similarities between these
+are obvious.   The taste response may be triggered by a
+specific molecular conformation when interacting with the
+receptor.   NMR can be used to determine the solution
+conformation of the molecules and monitor any changes when
+they meet the receptor.   A major restriction is the
+unavailability of isolated functioning human taste buds.
+  These are considered to be essentially lipid membranes and
+are modelled by unilamellar phospholipid vesicles.
+  Changes in the   1  H and   13  C chemical
+shifts and parameters monitoring molecular constraints such as
+relaxation times, are being used to examine the effect of the
+liposomes on a selection of sweet compounds.  
+      NMR Trends    
+    These examples, while covering a wide range of
+research interests, simply indicate what is possible on one
+type of modern NMR spectrometer.   The subject is much
+wider.   Some other important areas under intense
+development are&semi; experiments giving data in three dimensions
+with an inherent increase in available information,
+spectroscopy of solid materials using a range of nuclei, and
+magnetic resonance imaging (MRI) which can display NMR-edited
+maps of living systems as an alternative to CAT scanning.
+  At the moment, these appear to be separate and disparate.
+  Library classifications of books in these areas certainly
+finds them widely dispersed.   This reflects the enormous
+range of applications rather than underlying fundamental
+techniques.   It may be that NMR is really evolving as a
+discrete discipline.  
+  photograph      caption (figure 8)      
+  
+
+          5 Greenhouse friendly alternatives      
+        5.1 Introduction      
+    In this section technical alternatives to additional
+coal-fired generation at Bream Bay that will produce less carbon
+dioxide are examined.   It should be made clear that the choice
+of an alternative is not simply a choice between the large
+centralised electricity generating alternatives - hydro, gas, oil,
+coal and nuclear.   These major electricity supply options
+provide generating capacity in large units generally of 250 MW or
+more.   Many of the other options described below provide supply
+or substitute for electricity consumption in very small units and
+thus offer   the opportunity to cope with demand growth in an
+incremental way  .  
+    There are five main classes of alternative - energy
+management/conservation, increased transmission capacity, direct
+use of fuels, increased efficiency in burning fuels and
+substitution with "renewable" energy.   Each of these is
+discussed in turn.  
+    It must be noted that the Bream Bay proposal is for power
+station development in two stages each of 500 MW, each stage
+consisting of two 250 MW alternators.   The alternatives are,
+therefore, discussed, where possible, in terms of blocks of energy
+corresponding to baseload generation at 250 MW.   In other words,
+alternatives that involve blocks of energy of about 1850 GWh
+(corresponding to 250 MW at 100% load and 85% availability) are
+sought.  
+        5.2 Energy management and
+conservation      
+    The history of electricity in this country has so far
+revolved around the development of centralised generation.   The
+pattern of development reflects the natural resource opportunities
+- hydro, geothermal, coal, natural gas, and imported oil.   What,
+so far, decision makers have failed to recognise is the potential
+for "generating" electricity by improvements in end-use technology
+- sometimes referred to as the "fifth fuel".   The scale of this
+potential is commensurate with the total level of electricity
+supply.  
+    Examples of the "fifth fuel" are computer control of
+heating and ventilation in commercial buildings, and more efficient
+lights that produce the same light intensity from less power.
+  There are a multitude of such systems that operate at the
+microscopic end of the energy chain.    
+    There is enormous potential for economic electricity
+"generation" from energy management.   However, the "resource" is
+complex and diffuse and a detailed analysis is beyond the scope of
+this report.   The Ministry for the Environment 's preliminary and
+very approximate estimate of the potential for reductions from
+energy management are about 77 PJ per year in energy and about 3.8
+million tonnes per year of carbon dioxide.  
+        5.3 Increased transmission capacity      
+    The HVDC link is to be upgraded by 1992 - an action that
+will help prevent the absurdity of burning coal in the North Island
+while water is spilled in the South Island.   This cable is
+believed to be of 1200 MW capacity, which will allow for another
+600 MW to be sent north assuming that the power is available.
+  The installed capacity of the Clyde station is 432 MW which
+will about match the new cable 's extra capacity.  
+    In the long run, however, it is not simply the installed
+capacity of the generating stations and the cable that matter but
+rather the relation between the river flows, the storage capacities
+of the hydro lakes and the load patterns that determine how much
+electricity can be sent from south to north (and vice versa).
+  This is a matter for detailed modelling of the whole generation
+and transmission system which is outside the scope of this study
+(and is, presumably, being carried out on a continuing basis by
+Electricorp).   The maximum possible assuming that Clyde comes on
+stream is about an extra 500 MW peak load and perhaps 250 MW
+average.   This corresponds to an annual reduction of about two
+million tonnes of carbon dioxide from future North Island
+generation.  
+        5.4 Direct use of fuels      
+    Burning fossil fuels to generate electricity incurs a high
+energy penalty&semi; two thirds goes up the stack.   Gas can be burned
+directly for heating at an efficiency of 60-90%, whereas if the gas
+is first converted to electricity, the overall efficiency of
+heating is only about 32% (including transmission losses).  
+    If we assume that half of the electricity generated in
+thermal stations is used for heating and that this is replaced by
+direct use of the fuel at an efficiency of 66%, then a 25%
+reduction in fuel consumption (and in carbon dioxide production)
+would be achieved.  
+        5.5 Increased efficiency in burning
+fuels      
+    There are a number of ways in which fuels can be burned
+more efficiently to generate electricity than in the proposed Bream
+Bay plant.  
+    Firstly, the design of the Bream Bay plant could be
+modified to a combined cycle system.   Until recently, combined
+cycle generation was confined almost exclusively to gas- and
+oil-fired systems because of the difficulties in firing gas
+turbines from coal.   However, there has been a move to
+integrated coal gasification combined cycle (IGCC) systems in which
+the coal is first gasified.   Demonstration plants using this
+technology are currently under construction.   Construction of
+the Bream Bay plant as an IGCC system would reduce the carbon
+dioxide emissions from about 8.4 million tonnes per year to about
+7.0 million tonnes per year.  
+    Secondly, existing power plants could be converted to
+combined cycle operation.   Conversion of both New Plymouth and
+Huntly to gas turbine boosted combined cycle offers the possibility
+of an extra 400 MW or more of total capacity for a carbon dioxide
+emission of about 650,000 tonnes per year.   In other words,
+these two stations could generate 40% of the output of the Bream
+Bay plant but it would be accompanied by 80% less carbon dioxide
+per GWh.  
+    A third possibility is the use of natural gas to upgrade
+the use of geothermal fluid for power production.   This
+possibility arises because New Zealand 's geothermal generating
+systems are based on a supply of superheated water from which steam
+is flashed to feed the turbines.   The possibilities here range
+from gas-fired superheating of the flashed steam to the use of the
+geothermal fluid as the preheating source for the boiler water to
+a very large gas-fired system.   The marginal efficiency of the
+use of the gas varies depending on the manner in which it is used
+and the scale on which one wishes to generate from a particular
+geothermal source, but it can always be arranged to be
+significantly higher than that of a simple Rankine cycle or of a
+combined cycle.   The carbon dioxide emissions would be
+correspondingly lower.   A range of possibilities has been
+discussed in some detail by Dobbie (1979 and 1985) and it seems
+unfortunate that these possibilities have apparently been
+overlooked in recent geothermal developments.  
+    A fourth way of raising the efficiency of fuel use is
+cogeneration.   Cogeneration is the generation of electric power
+in conjunction with the production of low temperature process heat
+from the combustion of high temperature fuels or by using waste
+heat from industrial processes.   This has been discussed in
+detail in the past (Wallace &amp; Williamson, 1984, Dobbie, 1979 and
+1985).   The most recent survey by Zoellner (1990) lists 43
+existing installations with cogenerating capability totalling 157
+MW.  
+    Because cogeneration uses the excess temperature of the
+fuel combustion above that required for the process, it generates
+electricity at a very high marginal efficiency (85-100%) and
+therefore produces 50-60% less carbon dioxide per kWh even than new
+combined cycle installations.  
+    The potential for further cogeneration plant depends on the
+price of electricity that the cogenerator can avoid or can realise
+by selling back to the grid (these are not necessarily the same).
+  In many cases the economics have been muddied because of the
+difference between the price charged for bulk supply from the grid
+to the supply authorities and the cost of cogenerated electricity
+and the long run marginal cost of new generation.   Depending on
+how these are related, one can arrive at economic cogeneration
+capacity of from 150 to 500 MW and from 600 to 1200 GWh per year.
+  This corresponds to from one sixth to one half of the installed
+capacity and from one twelth to one sixth of the energy of the
+Bream Bay plant.  
+    Because of the structure of the electricity generating and
+distribution industries in New Zealand it has not in the past been
+easy for the two parties most concerned with cogeneration, namely
+the generating group (Electricorp) and the cogenerating group
+(industry), to come to suitable commercial arrangements of benefit
+to both.   In fact, potential cogenerators in New Zealand have
+been actively discouraged by pricing structures and other means.
+  It is noticeable that in countries where there is only one
+commercial boundary between the main electricity generating company
+and the consumer (potential cogenerator), much more progress has
+been made in the implementation of cogeneration.  
+        5.6 Substitution by renewables      
+    There are many "renewable" technologies for electricity
+generation or substitution.   For example, Electricorp has been
+carrying out investigations for wind turbine sites and also
+considering wave generation for the Chatham Islands.  
+    We have selected one "renewable" technology with which we
+are very familiar - domestic solar water heating - for assessment.
+  In what follows, a comparison of this "soft" dispersed energy
+source and a thermal power station is made.  
+    The technology for solar water heating is well developed
+and a range of types of equipment suitable for various applications
+is available.   It is clearly not convenient to try to provide
+all of a household 's hot water energy from the sun since this would
+require an inordinately large installation.   Experience has
+shown that for New Zealand conditions it is appropriate to design
+for the provision of about two thirds of the annual hot water
+energy to be supplied from the solar system.   This means that a
+typical solar installation should aim to provide around 2500 kWh
+per year.  
+    We estimate that at least 50% of New Zealand 's one million
+houses would be suitable candidates for solar water heating.
+  The potential for substitution is thus about 1250 GWh per
+year.  
+    This translates to one third of the output of the first
+stage of the Bream Bay plant, about one third of the present output
+of Huntly or 12 times the present output of Meremere.   In terms
+of carbon emissions, this would eliminate the need for a thermal
+station that would burn about 500,000 tonnes of coal per year and
+emit 1.4 million tonnes of carbon dioxide per year.  
+    One analysis showed that solar water beating using a system
+available at that time could produce hot water at an equivalent
+cost of around six cents (1985) per kWh (Wright &amp; Baines, 1986).
+  This analysis has been updated to give nine cents (1990) per
+kWh.   The cost would be lower with large scale production of
+solar systems.  
+    The cost of electricity "supplied" from a domestic solar
+water heater should be compared with the marginal cost of power
+  delivered   from centralised power plants.
+  Estimates of marginal cost are very dependent on the
+characteristics of the particular power plant under consideration.
+  We estimate the   delivered   cost of electricity
+from new thermal     plant    plants     such as that
+proposed by CRA to be from nine to twelve cents (1990) per kWh if
+the fuel can be obtained cheaply&semi; that is, the coal would need to
+be purchased at about $80 per tonne.  
+    However, the domestic solar hot water option barely
+competes with the average cost of electricity as it is presently
+sold to consumers.   In particular, the option cannot compete
+with off peak domestic rates.   This problem again can be traced
+to the fact that electricity is generated and transmitted by one
+agency (Electricorp) that sells it to a second agency (the
+Electricity Supply Authority) at some kind of average price.
+  The second agency distributes the power locally and sells it to
+the consumer.   These two commercial boundaries act like
+"crossed" polarisers so that the generating agency that could
+benefit from solar water heating and, the consumer, who under the
+current arrangements would pay the capital cost of the
+installation, never "see" each other.   As a result there is a
+classic non-market situation where the costs and the benefits
+accrue to different parties.  
+    One of the advantages of solar water heating is that the
+substitution releases energy in the area in which the increase in
+demand occurs, and there is therefore less need for new
+transmission lines from remote generating stations.   Solar water
+heating also has the advantage that it can be implemented at a
+number of rates since the quantum of installation is small.
+  This is also a disadvantage.   At the moment the scale of the
+industry is very small, so that overheads are large and costly
+labour-intensive methods are used.  
+    Another advantage of an industry of this kind is that it is
+sufficiently flexible to respond to changing conditions.   For
+example, if it turned out that for some unanticipated reason solar
+water heating were not a good thing, one would not be faced with
+the question of whether or not to abandon a programme into which
+tens or even hundreds of millions of dollars had been sunk and out
+of which nothing had come.   Abandoning a solar water heating
+programme, for whatever reason, would leave one with the advantages
+of the equipment already installed up to the point of cessation and
+the only real loss would be the few million dollars in
+manufacturing plant.  
+    Solar water heating is not the only substitution industry
+that should be considered&semi; however, it is an outstanding example of
+a neglected opportunity.  
+    It is worth noting that in the very long run it may prove
+possible to incorporate solar electricity generation into the
+system.   Present technology is capable of producing electricity
+from solar energy either by direct (photovoltaic) methods or by
+indirect (solar thermal) methods.   The largest solar thermal
+installation at present is in California and has a capacity of 300
+MW with a further 300 MW to be installed by 1992.   The cost of
+the electricity is claimed to be eight cents (U.S.) per kWh, which
+is competitive with nuclear excluding the costs of decommissioning
+and fuel reprocessing (Luz Engineering, 1990).   The scale is
+certainly appropriate for consideration in terms of plants like
+Bream Bay.  
+    The cost of solar electricity is still significantly higher
+than that of conventional thermal generation.   However, if the
+emission of carbon dioxide into the atmosphere is controlled or
+taxed then solar thermal generation will become a much more viable
+option.    
+  
+
+      2 SETTING GOALS    
+    The first step in any programme to produce less waste
+is a commitment to action, usually through a statement of
+policy (Environmental Defense Fund, 1986).   This need not
+be in detailed form, although some governments and
+organisations have produced detailed policies (as will be
+shown in this chapter).   Policies can often be set at an
+early stage, before the details of an implementation plan have
+been established.   However, it is important to define what
+exactly the policy is referring to.  
+    There are a number of names used to describe the
+actions of producing less wastes.   Some of these are:
+pollution prevention, waste reduction, waste minimisation,
+source reduction, waste avoidance, and low-waste, non-waste,
+clean or cleaner technology.   There is much debate about
+the right words to use, and how they are defined, as will be
+noted in this and the following chapters of this paper.
+  Waste reduction has been chosen as the appropriate term
+for this paper and is recommended for use in New Zealand.
+  (It 's shorter and easier to spell than waste
+minimisation.)  
+    No matter what terminology is used, the ultimate goal
+in waste reduction is:   To prevent the generation of
+waste at its source rather than to control, treat or manage it
+afterwards.    
+    This goal is also known as the first principle in the
+hierarchy of waste management.   It does not include waste
+recycling, the treatment of wastes after they are generated,
+or any action that merely concentrates the waste to reduce its
+volume or dilutes it to reduce the degree of hazard.  
+      Setting goals from which to develop waste
+reduction strategies is critical.   All subsequent actions
+undertaken by organisations or individuals should relate back
+to the goals.    
+      Everyone should set goals for reducing wastes&semi; it is
+only through the combined efforts of each of us that waste
+reduction will be achieved.    
+    This chapter looks initially at the policies that have
+been set by the international and regional organisations of
+which New Zealand is a member.   The policies of firstly the
+public sector (countries, states) and secondly the private
+sector (companies, business and industry organisations) are
+then discussed.   Finally, examples of some of the policies
+already adopted in New Zealand are presented.   From these
+examples, New Zealanders can choose those most appropriate for
+their individual needs.  
+        2.1 International agencies      
+    New Zealand is a member of various international
+organisations which are involved in matters relating to
+wastes.   The two most important are the OECD (Organisation
+for Economic Co-operation and Development) and UNEP (United
+Nations Environment Programme).   Both organisations set
+policy directions for their member countries which are binding
+on members.   New Zealanders should therefore be aware of
+these requirements when setting their own policies.  
+      2.1.1 Organisation for Economic Co-operation
+and Development    
+    In 1974 the OECD Environment Committee, which oversees
+all work involving environmental matters, set up the Waste
+Management Policy Group (WMPG) (OECD, May 1990).   This
+Group is primarily responsible for considering and developing
+international policy to promote appropriate waste management.
+  Since 1988 the Group has stepped up its work on waste
+minimisation, including the consideration of a discussion
+paper on policy options prepared by the Secretariat (OECD
+WMPG, Sep 1988).   These policy options had to be flexible
+to allow a variety of actions for promoting waste minimisation
+to reflect the market economy approach of OECD member
+countries.  
+    The OECD WMPG paper set out in priority order a list
+of ten goals for encouraging waste reduction (see Box 2.1).
+  The first six items were considered as probably necessary,
+with the final four items being of lesser importance.  
+    Note that this OECD list implies that information
+about the rate at which waste is being generated is of primary
+importance.   Without this basic information, there is no
+precise way that anyone - policy maker, waste producer or
+enforcer - can determine the success, failure or trends of a
+waste reduction programme, i.e. whether the goals are being
+achieved.   Further information on the system proposed by
+the OECD for measuring the waste generation rate is given in
+Chapter 3 and Appendix II.  
+    The first six items in Box 2.1 are mainly aimed at the
+governments which comprise the OECD, as they require detailed
+legislative and financial interventions (although they can
+also be used as a guide to action by local government).
+  For example, the Federal Republic of Germany has
+stipulated that solvent wastes can only be recycled or
+incinerated (Bailey, Aug 1989), thus controlling the disposal
+of such wastes through regulations.   However, the OECD
+recognises that individual countries need to select and
+implement 
+  photo  
+  caption  
+  box 2.1  
+policies which are appropriate to their circumstances.  
+    The OECD also developed policies during the 1980s for
+the monitoring and control of transfrontier movements of
+hazardous wastes (OECD, May 1990), which formed the basis of a
+series of Council Acts (see section 9.1.1).   Recently, the
+Waste Management Policy Group worked on a policy to reduce the
+transfrontier movements of wastes.   The
+Decision-Recommendation on the Reduction of Transfrontier
+Movements of Waste was adopted at the meeting of the OECD
+Environment Committee at Ministerial level in January 1991
+(OECD, Jan 1991).  
+      2.1.2 United Nations Environment
+Programme    
+    UNEP undertakes a wide range of work in relation to
+wastes including setting policy, providing information,
+promoting research and development, and encouraging training.
+  Its policy is negotiated through meetings which often
+involve more than 100 countries.   UNEP 's policy for wastes
+is set out in the Cairo Guidelines and Principles for the
+Environmentally Sound Management of Hazardous Wastes (UNEP,
+June 1987).  
+    The Basel Convention on the Control of Transboundary
+Movements of Hazardous Wastes and their Disposal (UNEP, Mar
+1989) also sets out waste policy, but as this is also an
+instrument of control it is discussed in detail in Chapter 9
+(see section 9.1.2).  
+    The Cairo Guidelines were designed to assist
+governments to develop policies for the management of
+hazardous wastes (the definition used is given in section
+3.1.2), and drew on experience already gained through existing
+agreements and legislation.   They therefore deal more with
+administrative aspects rather than technical details of
+managing hazardous wastes.   However, specific references to
+reducing wastes are found in two places (see Box 2.2).  
+      These guidelines should be considered by all
+those setting goals for managing hazardous wastes, as they
+represent the consensus of a large number of
+countries.    
+      2.2 Regional    
+    New Zealand is also a member of a number of regional
+organisations, including ANZEC (Australian and New Zealand
+Environment Council) and SPREP (South Pacific Regional
+Environment Programme).   Although not a member, New Zealand
+is also affected by the policies of the European Community
+(EC).  
+      2.2.1 Australian and New Zealand Environment
+Council    
+    The Australian and New Zealand Environment Council
+(ANZEC) comprises the Australian Federal, State and Territory
+and New Zealand Ministers for the Environment.   It has long
+had an interest in waste management issues.   Recently it
+turned its attention to reducing wastes and produced a draft
+document entitled "Towards a National Waste Minimisation and
+Recycling Strategy" (ANZEC, Mar 1991).   This document 
+  box 2.2  
+will be released for public comment.  
+    The draft strategy has among its objectives the need
+to change Australian production, consumption and disposal
+activities to minimise waste and pollution and promote clean
+production practices.  
+    The strategy will be implemented in accordance with
+the following principles:
+&bullet;    Waste management hierarchy - waste
+avoidance and reduction is the first preference.  
+&bullet;    Clean production practices - to
+avoid or eliminate hazardous wastes and hazardous products and
+use the minimum amount of raw materials, water and
+energy.  
+&bullet;    Life-cycle approach - including all
+aspects of resource use, waste generation, storage, transport,
+treatment and disposal.  
+&bullet;    Precautionary approach - working
+towards longer term goals.  
+&bullet;    "User pays" principle - the users
+of resources pay fully for costs to society.  
+&bullet;    "Polluter pays" principle - the
+costs of containing or eliminating pollution are internalised
+into the costs of production.  
+&bullet;    Economic efficiency - actions that
+promote greater waste minimisation but are not economically
+viable may not be justifiable.  
+&bullet;    Individual and corporate
+responsibility - achievement of waste minimisation will depend
+primarily on the decisions of individuals and corporate
+producers and consumers, as the outcome is the sum of all
+their actions.  
+&bullet;    Education and awareness - concern
+for waste reduction becomes an integral part of
+decision-making by all in the community.  
+&bullet;    Appropriate technology - the
+minimum standard of waste reduction should be equivalent to
+the best waste reduction achievable by proven and commercially
+available technology.    
+      In view of New Zealand 's close links with
+Australia in trade and culture, these principles should be
+considered when adopting goals for waste reduction.    
+      2.2.2 South Pacific Regional Environment
+Programme    
+    The South Pacific region contains a major part of the
+world 's oceans.   It is therefore not surprising that the
+issue of marine pollution has been a part of the work of the
+South Pacific Regional Environment Programme (SPREP).   One
+of the causes of marine pollution is the disposal of wastes,
+both domestic and non-domestic, including agricultural and
+mining wastes (South Pacific Commission, Aug 1990a).   The
+fishing industry and shipping also contribute towards marine
+pollution.   In 1988 an integrated marine pollution
+programme was established.  
+    So far the programme has gathered data through
+monitoring.   However, the information is insufficient to
+provide an overall picture of pollutants entering the marine
+environment.   Without adequate data it is difficult for
+governments to take appropriate action to correct pollution
+and waste problems.  
+    An intergovernmental meeting was held in 1990 to
+consider project proposals to be included in the 1991-92 SPREP
+Work Programme (South Pacific Commission, Aug 1990b).   A
+new project on marine pollution was proposed for the next two
+years.   This would develop a more accurate database to
+assess such pollution and provide a basis for recommendations
+to prevent and control pollution.  
+    The SPREP Secretariat is in the process of developing
+a co-ordinated regional programme on pollution prevention or
+waste reduction for land and freshwater pollution.   This is
+likely to be addressed at the next intergovernmental meeting
+in mid 1991.  
+      2.2.3 European Community    
+    The European Community (EC) was founded in 1957
+through the Treaty of Rome (Haigh &amp; von Moltke, Jul/Aug 1990).
+  At present it consists of 12 member countries, although
+several other countries have applied to join.   The Treaty
+of Rome, as amended by the Single European Act of 1987,
+enshrines environmental policy among the official policies of
+the EC.   In particular, Article 130r(2) lays down that
+  "action by the Community relating to the environment
+shall be based on the principles of preventive action,
+rectification of environmental damage at source as a priority
+and the principle that the polluter should pay"  
+(Commission of the European Communities (CEC), Sep 1989).  
+    The main institutions setting policies on wastes are
+the Commission, which consists of 17 people appointed by the
+governments of member countries, and the Council, which
+comprises one minister from each member country (Haigh &amp; von
+Moltke, Jul/Aug 1990).   The Commission has the power to
+propose legislation, but only the Council may enact it.  
+    In 1989 the Commission prepared a strategy for waste
+management (CEC, Sep 1989), in which the prevention of waste
+was the first priority.   A dual preventive strategy was
+proposed:
+&bullet;    Prevention by
+technologies - the development of clean technologies for
+industry.   Such technologies usually tend to improve
+manufacturing processes generally.  
+&bullet;    Prevention by products - the
+preparation of ecological parameters for products aimed at the
+introduction of a Community ecological labelling scheme.
+  Public procurement can play a crucial role in implementing
+this strategy.    This may be a quote    
+    In May 1990 the Council passed a resolution on waste
+policy in response to the Commission 's strategy (Council of
+the European Communities, May 1990).   The resolution
+welcomed and supported the strategy, and urged the Commission
+and member countries   "to promote further the
+development of clean technologies and clean products so as to
+minimise the production of waste"  .  
+    The European Community has also been considering new
+product-packaging rules (Anon, Apr 1991), with a goal of
+reducing the total volume of packaging produced by 10 percent
+between 1990 and 2000.   The rules would prohibit the use in
+packaging of harmful substances, such as heavy metals, and set
+standards for the amount of recycled material in
+packaging.  
+      Because of its trade with the European
+Community, New Zealand should ensure that its exports meet
+these goals.    
+        2.3 Public sector - countries and
+states    
+    Most industrialised countries have set in place
+policies as goals for their strategies for waste management&semi;
+these always include waste prevention as the first priority.
+  In this section only a selection of these policies are
+presented - for two of the Australian states, United States
+(the federal policy plus a few of the states), Canada, The
+Netherlands and the United Kingdom.   Some information on
+the goals of other countries can be gleaned from information
+presented on aspects of their waste reduction programmes in
+subsequent chapters.  
+    A study of strategies for hazardous wastes
+minimisation in six countries - Japan, Denmark, Sweden,
+Federal Republic of Germany, The Netherlands and Canada -
+gives some information about policies in each of these
+countries (Beecher et al, 1988).  
+      2.3.1 Australia    
+    Two Australian states, Victoria and New South Wales,
+have been working on policies for reducing wastes.
+  Victoria has now put in place a very detailed policy
+(State of Victoria, Oct 1990), which covers implementation as
+well as the goals.  
+    New South Wales also includes waste minimisation in
+its waste plan.  
+    In 1986 the Victorian Government adopted its
+Industrial Waste Strategy (Environment Protection Authority of
+Victoria (EPAV), Jul 1985), which included the following
+policy on waste production:  
+      "Waste minimisation, recovery and reuse is
+strongly preferred over disposal.   All reasonably
+practicable measures should be taken by government, industry
+and the community to avoid materials becoming part of the
+waste stream."    
+      "Strong measures should be taken to prevent
+and avoid the use of industrial substances which may generate
+intractable wastes, or which themselves may become intractable
+wastes at the end of their life cycle."    
+    The Environmental Protection Authority of Victoria
+(EPAV) is implementing this strategy through waste management
+policies and tools such as (Joy, Nov 1989):
+&bullet;    Annual reporting of the quantity
+and types of wastes generated.  
+&bullet;    Licensing of major on-site waste
+storage and handling facilities and off-site waste treatment
+facilities.   Non-licensed premises are controlled on a
+needs basis by Pollution Abatement Notices.  
+&bullet;    The tracking of all prescribed
+wastes from generator via transporter to treater or disposer
+through a waste transport permit and certificate
+system.    
+    Initially this strategy was well received (Robinson,
+Nov 1989&semi; Robinson, 1990) because it was the first public
+commitment to waste avoidance as a priority in waste
+management.   Unfortunately the strategy had limited
+success, in part because of the lack of co-operation from all
+sectors of industry in improving their waste management
+practices.   Incidents involving wastes continued to happen.
+  This led to the public losing faith in the strategy
+because it perceived that the required changes had not
+happened.  
+    To overcome the difficulties, the Victorian Government
+through the Environment Protection Authority is now using both
+carrots and sticks to more effectively implement the strategy
+(Robinson, Nov 1989).   Actions which have been initiated
+over the past two years to encourage industry to identify and
+take advantage of opportunities to minimise waste include
+(Joy, Nov 1989):
+&bullet;    The preparation of the Industrial
+Waste Minimisation Policy.  
+&bullet;    The establishment within the EPAV
+of a Waste Minimisation Task Force (see section
+5.2.1).  
+&bullet;    The establishment of the Clean
+Technology Incentive Scheme (see section 6.4.1).    
+    The Industrial Waste Minimisation Policy was the first
+policy to be prepared under the Industrial Waste Strategy
+(Joy, Nov 1989).   The draft policy was released for an
+extended period of public comment in April 1988, and came into
+operation on November 1, 1990 (State of Victoria, Oct 1990&semi;
+EPAV, Oct 1990).  
+    The policy 's primary objective is   "... to
+reduce potential hazards to human health and to the
+environment posed by industrial wastes by ensuring the
+generation of such wastes is minimised."     Secondary
+objectives include a number of broad economic benefits
+including resource conservation, reduced monitoring and
+enforcement costs, and reduced infrastructure costs.  
+    In assessing waste management options, the order of
+preference is:
+(a) waste avoidance and/or waste reduction&semi;
+(b) waste reuse, recycling, and reclamation&semi;
+(c) waste treatment&semi;
+(d) waste disposal.  
+    Principles of the policy include the adoption of an
+integrated approach to the management of industrial waste, the
+application of the "polluter pays" and "user pays" principles
+to waste generation, treatment and disposal, and the use of
+appropriate technologies.   Waste minimisation should be
+considered for any new industrial projects or works early in
+the project planning stage.  
+      Such a detailed policy can act as a guide for
+New Zealand.    
+    The Victorian Government has recently developed a
+Recycling and Waste Reduction Plan with the goal of a
+reduction of 50 percent in waste going to landfill by the year
+2000 compared to 1990 (based on weight per capita) (EPAV,
+1991).   This goal is to be accomplished by a combination of
+a reduction in packaging, the recycling of domestic,
+commercial and building wastes, and the composting of food and
+garden wastes.   After consultation on the draft plan, which
+is based on a ten-point programme, legislation is to be
+introduced into Parliament in 1991 with a target date for
+commencement of January 1, 1992.  
+    In New South Wales, the State Pollution Control
+Commission (SPCC) published a discussion paper on waste
+reduction and resource conservation in 1984 (SPCC, Nov 1984).
+  Most of the discussion in this report centred on actions
+to improve resource recovery and recycling and to prevent
+littering, with only brief mention of preventing waste being
+produced.   An example of waste reduction was the Industrial
+Waste Exchange which was set up by the Sydney Metropolitan
+Waste Disposal Authority (now the Waste Management Authority
+of New South Wales) in 1977.   Reduction by industry in raw
+material use was also cited.   The paper noted that
+government preferred industry to take voluntary action to
+achieve waste reduction and resource conservation, although
+intervention might be needed if industry did not
+co-operate.  
+    In 1989 the approach in New South Wales was still to
+use positive incentives for voluntary waste minimisation
+efforts and not to rely on regulations (Cook, Nov 1989).
+  Waste minimisation benefits, such as reduced costs for on-
+and off-site waste treatment, lower risks for spills,
+accidents and emergencies, and reduced production costs
+through better management and efficiency, were believed to
+provide industry with strong incentives for
+self-regulation.  
+    In 1990 the Waste Management Authority of New South
+Wales (WMANSW) published its "Waste Planning for Industry: A
+Guide" (Beck et al, Apr 1990).   This plan is based on the
+hierarchy of waste management, with the prevention and
+reduction of waste (called waste minimisation) being
+emphasised.   The plan was seen as an essential first step
+towards the minimisation of non-productive costs and the
+avoidance of possible future liabilities.   Further
+information about the plan is given in section 4.1.3.  
+        2.3.2 United States      
+    The need for waste reduction had been recognised as an
+important aspect of waste management for some time in the US.
+  When the Resource Conservation and Recovery Act was
+amended by the US Congress in November 1984, the following
+statement was included (Office of Technology Assessment (OTA),
+Jun 1987):  
+      "The Congress hereby declares it to be
+national policy Of the United States that, wherever feasible,
+the generation of hazardous waste is to be reduced or
+eliminated as expeditiously as possible.   Waste
+nevertheless generated should be treated, stored, or disposed
+of so as to minimise the present and future threat to human
+health and the environment".    
+    This policy statement was supported by adding waste
+minimisation provisions to the Act.  
+    In 1986 the Office of Technology Assessment released
+its report, "Serious Reduction of Hazardous Waste" (OTA, Sep
+1986).   The following month the Environmental Protection
+Agency (USEPA) delivered its report, "Minimization of
+Hazardous Waste" (USEPA, Oct 1986a), to Congress, and also
+issued its document on issues and options for waste
+minimisation (USEPA, Oct 1986b).   Subsequently, OTA was
+requested to analyse the USEPA report and to describe
+  "how [US]EPA 's findings and conclusions differ from
+those of OTA"   with the emphasis on
+  "differences that either implicitly or explicitly
+support different congressional actions"   on waste
+reduction (OTA, Jun 1987).   The resulting report,"From
+Pollution to Prevention: A Progress Report on Waste
+Reduction", not only compared the OTA and USEPA reports but
+also provided Congress with four critical policy choices.  
+    In the US, environmental protection has conventionally
+been improved by imposing more regulations and enforcing them
+more firmly.   However, the environmental results of this
+strategy are now acknowledged to have been disappointing, as
+control technologies have failed to perform as expected, the
+problem being compounded by human failures.   Moreover, the
+conventional strategy both increased government spending and
+added to the competitive disadvantage of US manufacturing
+industries through high costs for pollution control.  
+    Consequently the OTA has proposed that a
+  "concerted national effort"   is needed to
+reduce the generation of hazardous wastes and environmental
+pollutants at their sources, whether they are regulated or not
+(OTA, Jun 1987).   It felt that the US should acknowledge
+that waste reduction is the   "environmental option of
+choice"  , which also provides economic benefits.  
+    The OTA felt that the lack of implementation of waste
+reduction was because of   "... human, organisational,
+and institutional obstacles in industry and
+government"  .   These included:
+&bullet;    Industry 's requirement to put
+resources mainly into regulatory compliance.  
+&bullet;    Government agencies focusing on
+fixing the mistakes of the past.  
+&bullet;    Companies most needing to implement
+waste reduction usually having the worst competitiveness
+problems.  
+&bullet;    Potential economic benefits not
+being understood or captured systematically in
+industry.  
+&bullet;    Using the term waste minimisation,
+broadly interpreted to include waste treatment.   This was
+leading to capital investment in new waste treatment
+facilities such as incinerators, which can inadvertently
+restrict waste reduction even though the latter offers better
+environmental protection at lower costs.    
+    However, the OTA report noted that nearly everyone
+agreed that the use of regulations to prescribe waste
+reduction is technically not feasible and administratively
+impractical.   Instead the following three fundamental
+policy options were offered to Congress (OTA, Jun 1987):
+1.      "  Take no new action to directly
+help industry to reduce waste generation."    
+    This policy relied on industry efforts to achieve
+waste reduction.   However, in practice waste reduction does
+not usually take priority over other traditional responses to
+rising environmental costs and liabilities, such as changes in
+pollution control technologies, acceptance of high costs for
+waste treatment and disposal, and occasionally the shutting
+down of industries.   This policy also did not take into
+account the obstacles to waste reduction such as the lack of
+information on sources of wastes and technologies and methods
+to reduce their generation.   Therefore, this option would
+bring about little change to what was already
+happening.    
+2.    "    Institute a small Federal effort
+through existing environmental statutes and regulatory
+program[me]s."    
+    This policy would have limited waste reduction to
+certain regulated wastes and posed administrative problems for
+the USEPA.   It could also have had limited credibility
+because existing environmental programmes have done little
+work on waste reduction.   This policy, too, might not
+significantly change what was already occurring.    
+3.    "    Through new legislation, establish
+a separate Federal program[me] within [US]EPA to support waste
+reduction and to provide national leadership.   Fund it and
+State program[me]s by allocating several percent of [US]EPA 's
+operating budget."    
+    This policy would provide industry with Government
+funded in-plant technical assistance and central sources of
+information, which could lead the way for industry to adopt
+voluntary, comprehensive waste reduction.   Thus industry
+would learn that reducing the generation of all wastes is
+technically feasible and in its own economic self-interest to
+do as soon as possible.   State programmes could be funded
+by a five-year seeding grant.   Moreover, increased
+corporate profits from waste reduction savings could result in
+increased tax revenues which would offset the cost of the
+Federal programme, possibly in as little as one
+year.      
+    Option 3 was adopted.   On January 19, 1989, the
+Pollution Prevention Policy Statement was published in the
+Federal Register (Commoner, Jul/Aug 1989).   This
+acknowledged that much of the USEPA 's past effort had been on
+pollution control rather than pollution prevention.   By
+this statement, a major reorientation of American
+environmental policy was forecast.  
+    Subsequently, the USEPA published its blueprint for a
+comprehensive national pollution prevention strategy (United
+States Government, Feb 1991).   The strategy has two main
+objectives:
+&bullet;    "  To provide guidance and
+direction for efforts to incorporate pollution prevention
+within [US]EPA 's existing regulatory and non-regulatory
+program[me]s&semi;  
+&bullet;  To set forth a program[me] that will
+achieve specific objectives in pollution prevention within a
+reasonable timeframe."      
+    The problems of disposing of municipal solid wastes in
+the United States have led to investigations into policies for
+the prevention of household and commercial wastes (USEPA, Feb
+1989&semi; OTA, Oct 1989&semi; Levenson, 1990).   A national policy
+would have as its primary goal - source reduction (including
+reuse) to decrease the volume and toxicity and increase the
+useful life of products in order to reduce the volume and
+toxicity of wastes.  
+    There are two basic ways to prevent municipal waste:
+1.  Manufacturers can change the design of products and
+the way they are packaged.  
+2.    Consumers can alter their purchasing decisions
+about existing products and the way that they use and discard
+products.    
+    These two ways are connected in that consumer choice
+alters   manufacturers'   behaviour, as has been seen in
+the rise of "green consumerism".  
+    The USEPA has embarked on a far-reaching programme to
+implement this goal and to integrate pollution prevention into
+the fabric of American society, so that it becomes an integral
+part of everyone 's way of life (Reilly, Jan/Feb 1990).   It
+has set a target of achieving a 25 percent reduction in the
+country 's waste by 1992.   Moreover, the USEPA is
+implementing its own agency-wide waste minimisation programme
+as an example to others.   More information on specific
+programmes is given in Chapters 4 and 8.  
+    In the USA, states have the primary responsibility for
+waste management.   In the past they have focused mainly on
+waste treatment (primarily incineration) and disposal rather
+than waste reduction.   However a number of the American
+states have put in place policies on waste reduction.  
+    Some of these policies are enshrined in legislation,
+whereas others pursue waste reduction through executive
+decisions.   Both California, in its Hazardous Waste
+Reduction and Management Review Act, and Massachusetts, in its
+Toxic Use Reduction Act, require producers of hazardous wastes
+to set goals for reducing them (Parkinson, Jul 1990).   In
+Massachusetts, after 1995 a company that achieves less waste
+reduction than others in its industry may be obliged to meet
+set goals, based on general results.  
+    US government agencies have also set themselves goals
+for reducing wastes (CMA, Feb 1990b).   For example, the US
+Air Force has set a goal of reducing hazardous wastes by 50
+percent by 1992.   It expects to spend US$42 million
+annually to achieve this goal.   The US Navy has a more
+ambitious goal of 100 percent reduction of hazardous wastes.
+  It has already identified the 17 processes that generate
+99 percent of its hazardous wastes.      
+  
+
+        Fire resistance of NZ concretes    
+      The Building Research Association of New Zealand
+(BRANZ) has been investigating the performance of concretes made
+with local aggregates when exposed to fire in order to confirm or
+update the fire resistance ratings currently found in SANZ
+Miscellaneous Publication MP9 Fire Properties of Building Materials
+and Elements of Structure.    
+  byline with biography  
+    MP9 specifies the minimum thickness of a concrete wall or
+floor necessary to achieve a given fire resistance rating.   Fire
+resistance of these types of concrete elements is usually
+determined by the time taken for the average temperature rise on
+the unexposed surface to exceed 140&deg;C.   The
+fire resistance rating is then found by rounding down the fire
+resistance to the nearest half-hour (usually).  
+    The requirements in MP9 are "notional" in that they have
+not been derived from fire tests of New Zealand made concretes, but
+rather have been taken from overseas building codes and tests of
+overseas concretes.  
+    It is known that the thermal properties of concrete are
+largely determined by the properties of the constituent aggregates,
+in which there can be wide variation depending on the
+mineralogical composition of the aggregate and its physical
+location.  
+    It was expected that the performance of New Zealand made
+concretes could be quite different from overseas concretes
+particularly as New Zealand has many aggregates of volcanic
+origin.  
+      Fire testing of concrete slabs    
+    An initial study of the relative performance of different
+aggregate type concretes was conducted by subjecting unloaded 1 m
+  graph: relative performance of NZ concretes based on time to
+exceed 140 &deg;C  
+square vertical slabs to a standard fire test using the
+diesel-fired pilot furnace at BRANZ laboratories at Judgeford,
+north of Wellington.  
+    The concrete slabs were 130 mm thick, reinforced with steel
+bars and instrumented with thermocouples to record the
+temperature rise within the concrete and on the concrete
+surfaces.  
+    A humidity sensor was also positioned within each slab to
+monitor the drying process and indicate when the concrete was
+ready to be tested.  
+    Fire testing of all the slabs followed in accordance with
+the ISO 834 test standard.  
+    Casting of the slabs was performed by Central Laboratories,
+Works and Development Services Corporation under contract to
+BRANZ.   The concrete mixes generally differed only in the
+geological source of the aggregate.  
+    The aggregates studied were: limestone, quarried
+andesite, quarried dacite, alluvial and quarried greywacke,
+quarried basalt, alluvial andesite, alluvial quartz, rhyolite,
+phonolite, and pumice.  
+    These aggregates represented a wide range of concrete types
+used throughout New Zealand, with the first six allocated a higher
+priority.  
+    The fire resistance achieved by each 130 mm thick slab
+(determined by an average temperature rise exceeding
+140&deg;C on the unexposed surface of the concrete) was
+recorded and, in general, improved values of fire resistance were
+indicated over those currently nominated in MP9.  
+    This confirmed that the current "notional" ratings are at
+least likely to be safe, and are probably conservative for some of
+the aggregate types.  
+    However, a limited programme of further testing is required
+to examine both greater and lesser thicknesses of concrete before
+definitive proposals can be made regarding changes to the current
+MP9 requirements.   BRANZ will be undertaking this further
+work during 1990.  
+    The performance of the slabs (given as the mean time for
+the temperature rise of the unexposed surface to exceed
+140&deg;C), ranged from 152 minutes for the alluvial
+quartz concrete to 306 minutes for the pumice concrete.  
+    The volcanic aggregate showing the least fire resistance
+was quarried basalt with 176 minutes.  
+    The benchmark value for a 130 mm thick wall for comparison
+with MP9 is approximately 138 minutes (resulting from an
+interpolation between 120 mm and 150 mm thick siliceous aggregate
+concrete).  
+    Examination of the test results shows the possibility of
+creating, say, five groups of different aggregates with
+significantly different performances which may be useful in
+revising current ratings.   For example: alluvial quartz and
+greywacke (Group I)&semi; quarried greywacke, basalt, and dacite (Group
+II)&semi; quarried andesite, phonolite, and rhyolite (Group III)&semi;
+limestone and alluvial andesite (Group IV)&semi; and pumice (Group
+V).  
+    The performance of each group could then be based upon the
+performance of the most conductive aggregate in the group.  
+    During the fire testing of concrete, BRANZ was also
+interested in the occurrence of spalling under standard test
+conditions.  
+    None was observed in any of the siliceous or volcanic
+aggregates except pumice where minor surface spalling was
+observed.  
+    The limestone aggregate concrete, however, did exhibit
+severe deterioration following the test, and after exposure to
+weather, as a result of chemical changes (calcination).
+  Fortunately, limestone aggregate concrete is not widely used&semi;
+nonetheless its performance following a severe fire may be
+questionable.    
+      Conclusions    
+    The initial study and test programme established the
+relative performance between different types of aggregate, with
+all aggregate types tested showing better performance (for the
+single thickness examined) than the fire resistance ratings
+currently indicated by MP9.  
+    It is expected that once the test programme is
+completed it will be possible to recommend reductions in the
+concrete
+  photo  
+  caption  
+thicknesses currently given in MP9 for a particular fire resistance
+for most of the concrete aggregates examined.   A full report
+presenting the results from the initial study will be published by
+BRANZ.  
+      Related Work at BRANZ    
+    BRANZ has also been investigating fire engineering methods
+for calculating the fire resistance of concrete members using
+structural engineering principles and material properties at
+elevated temperature.  
+    Methods developed overseas have been available in the
+literature for some time and, by preparing a background report and
+technical guidance on this topic (to be published 1990), BRANZ
+aims to increase awareness and encourage the use of fire
+engineering calculations and rational fire design in New
+Zealand.    
+    photograph  
+      The Hutt Estuary Bridge - A first for prestressed
+concrete technology in NZ    
+      It is an uncommon experience in the professional
+life of an engineer to be associated with a project incorporating
+new and untried technology on a significant scale.   The Hutt
+Estuary Bridge, more commonly known as the Hutt Pipe Bridge, was
+such a project.    
+  byline  
+    My personal involvement in the project from 1952 to 1954
+was undoubtedly a significant milestone in my career.   The
+foresight, initiative and courage of the owners, being the
+combined local bodies of Lower Hutt City, Wellington City, Petone
+Borough, Eastbourne Borough and Hutt County, the designer W G
+Morrison Consulting Engineer and the contractor Wilkins &amp;
+Davies Construction Co Ltd was an inspiration to all who
+participated in the project.  
+    The selection of the pipe bridge as part of the IPENZ 1990
+Project to commemorate New Zealand 's engineering heritage
+acknowledges both the engineering significance of the project,
+being the first major prestressed concrete bridge designed and
+constructed in New Zealand, and the enterprise and courage of those
+who made it possible.  
+    The unique features of the bridge, uncommon at the
+time, included:
+&bullet;  The adoption of a
+post-tensioned, prestressing system with no precedent in New
+Zealand
+&bullet;    The engineering solutions adopted for
+casting, storage, handling and erection of the 80 precast concrete
+beams each spanning 105 feet and weighing 40 tons.  
+&bullet;    The quality controls involved in mixing,
+placing and curing of the high-strength concrete demanded by the
+prestressed concrete solution  .    
+&bullet;    The development and implementation of
+quality controls associated with the prestressing
+operations.      
+        Concrete construction trends    
+      Each decade of construction seems to go through
+periods of adjustment where construction systems of one form or
+another hold an ascendancy in popularity.   If the seventies are
+broadly characterised by in situ structures with precast concrete
+cladding, certainly the eighties can be classified as the
+decade of precast concrete with structural frames and floor systems
+being substantially precast construction.    
+    The growth of precast structural systems has seen the
+establishment of a review team from the NZ National Society for
+Earthquake Engineering, the Concrete Society and the Cement &amp;
+Concrete Association, to produce a state-of-the-art document on
+good practice.  
+  photo    byline  
+      Whither the gay nineties?    
+    If there is one thing guaranteed to ensure loss of market
+share it is complacency.   For nearly 10 years I have advocated
+the use of reinforced concrete shear cores with precast concrete
+beam and post construction to support the floor system on
+multistorey buildings.  
+    Reading the various publicity information put forward by
+the marketing forces for structural steel, I find ductile shear
+walls in concrete with beam and post in structural steel as a
+promotable item.  
+    Some years ago an evaluation of timber construction was
+carried out comparing a beam and post timber system stabilised
+by concrete shear walls with a two way ductile reinforced concrete
+frame.  
+    Recent evaluation of structural concrete systems with US
+consultants revealed that shear wall and gravity beam post
+systems are by far the most popular form of construction.  
+    The signs are that the 90s will see the development of this
+form of construction in concrete as already practised in structural
+steel and timber.  
+    Our current developments in high strength concrete 70-80
+MPa and higher can be conveniently applied to the gravity column
+situation ensuring slender members result.  
+    Fast erection of such systems is certainly correct.
+  Some market play has been made by the promoters of structural
+steel comparing beam/post steel erection times with ductile
+concrete frame, in situ or precast.   By removing most of the
+earthquake design elements from the concrete frame, one then starts
+to be able to directly compare one system with another.  
+    Steel promoters have drawn on overseas information to try
+to prove a speed of erection superiority.   Information from the
+UK certainly supported such claims in the early 80s since the
+concrete industry 's complacency blunted any concerted efforts at
+developments to improve the industry performance.  
+    Within five years the roles were reversed with several
+major developments that started off in structural steel having
+subsequent stages redesigned in reinforced concrete - from both
+cost and speed of erection viewpoints.  
+    The concrete industry in New Zealand has a significant
+onshore infrastructure which permits a greater degree of
+flexibility during the design and construction processes to cope
+with client variations.  
+    Indenting of basic steelwork from overseas well ahead of
+fabrication must represent a significant initial cost and early
+design fix for a project.  
+    There are no wonder structural materials in the
+construction industry that are perfect for all building types and
+configurations.   It is the responsibility of the architect and
+engineer to map out the most cost effective use of a material.  
+    The most successful buildings are a balanced use of the
+basic building materials.   Having previously had the opportunity
+to design and construct with all types of structural materials
+I have seen both successful and unsuccessful combinations of
+material.  
+    As the degree of experience in material specialisation has
+grown I naturally perceive a higher percentage of concrete
+utilisation than most.  
+    However all structural concrete is a composite material of
+steel and concrete.   One of the country 's most successful
+    cladding    claddings     for housing is a
+combination of cellulose fibres (from timber) and Portland
+cement.  
+    The construction of concrete components depends upon steel
+and timber, and hence the Cement and Concrete Association has an
+active interest in the performance of these materials.  
+    Whether the concrete is precast or not the matter of
+forming the shapes still remains and while extruded floors require
+little more than a flat plate lower surface, other components still
+require to have formwork.  
+    The formwork element of the total cost of a concrete
+component still remains significant.   As a consequence the
+need for the care and design of formwork to achieve both
+satisfactory economic and finish requirements remains an
+important goal.  
+    Many serious defects in the finish relate to faults in
+formwork.   Whilst placing and vibration of concrete are an
+essential part of producing satisfactory finishes, they cannot
+cover or make up for the deficiencies in the formwork into which
+the concrete is placed.  
+    If the formwork is correct then there is every chance of a
+successful job&semi; if it is wrong then an unsightly, out of tolerance,
+expensive eyesore is guaranteed.  
+    With the need for the finished concrete components to
+display what the owner or designer desires, it is not surprising
+that the Cement and Concrete Association devotes significant time
+in training and research to formwork design and detailing.  
+    The material developments for the manufacturers of
+proprietary formwork during the past 10 years has seen the gradual
+introduction of aluminium materials in replacement of
+steel.  
+    Overseas occupational health laws are tending to specify
+reduced weights for manhandling individual components of a
+formwork or falsework system, and so aluminium will continue to
+replace steel in componentry.  
+    The pace of replacements will be linked to the potential
+level of future building activity.   With proprietary steel frame
+systems currently in stock and not in use, one is not likely to see
+significant investment into re-equipping with aluminium based
+frames in use overseas.  
+    Within New Zealand the size of aluminium based floor
+centres has at this stage been limited by a 205 mm diameter of the
+forming die.   The significant use of precast flooring systems at
+the moment would seem to act as a disincentive for the immediate
+future development of larger aluminium based sections.  
+    The contrast between the levels of in situ construction for
+floors in Australia and New Zealand is significant.   The use of
+in situ concrete for floors in Australia generates a whole raft of
+falsework design associated with table forms.   Such systems
+appear to be rarely used or necessary in New Zealand.  
+    In the same way slip-forming of concrete service core walls
+on multistorey development is common enough in Australian urban
+construction yet comparatively rare in New Zealand.  
+    Special formwork systems have been introduced at various
+times into New Zealand by contractors intent on providing a special
+construction solution.   One example of this was the Heitkamp
+system used by Wilkins &amp; Davies Ltd for the construction of the
+Ohaaki Cooling Tower.  
+    Other self climbing system forms have been used on specific
+projects but the potential lack of continuity of work and perhaps
+significant modification costs between such work does tend to
+negate their significant use in the short term future.  
+    With increased load capacity of soldiers or walers from
+traditional double timber sections, the whole pattern of using
+form ties has changed.   No longer are there requirements for
+  a   relatively close spaced low capacity load tie pattern to
+suit the dual timber setup.   Instead more substantial
+through-ties designed to carry much heavier individual loading are
+the norm today compared to the previous decade of she-bolts.  
+    In the matter of concrete pressures within the formwork the
+Cement and Concrete Association have been evaluating the
+pressure suggested by the UK organisation CIRIA.  
+  photo    caption (Figure 1)  
+    The on-site and laboratory measurements (see Figure 1) in
+New Zealand confirm the general acceptance of CIRIA formulae but
+also illustrate that, depending upon the height of the formwork
+pour, the significant quantities of reinforcing steel required for
+seismic design in building columns can result in reductions in pressure.  
+    This research work was fund aided by
+    Transit    Tranzit    which is how the company
+spells it     NZ and is currently being reviewed prior to
+full publication.  
+    One feature of the use of precast concrete flooring has
+been the need for falsework systems to cope with this concentrated
+and eccentric loading on the building periphery.  
+    There was perhaps some delay in coming to terms with the
+new requirements of the loading situation leading   to   the
+Department of Labour and others to require some attention to safety
+aspects.  
+    The realisation of the special requirements for this
+falsework has tended to induce builders and contractors to
+sub-contract the falsework erection to specialists to ensure that
+the extra special skills now required are inputted into the job as
+well as the aspects of responsibility.  
+    Such specialisation has led to the greater use of scaffold
+systems which, in the hands of a specialist, are perhaps easier
+to erect than the heavy duty frame systems.  
+    A growth of safety requirements is likely to continue.
+  Local authorities are becoming tougher in their construction
+bylaw ordinances with public safety in mind, with other
+agencies continuing to see that worker safety in the building
+industry is improved.   Hopefully, as safety is increased that
+would become a recognisable factor in ACC levies.  
+    The use of encapsulating perimeter climbing protection
+units appears to be virtually mandatory in Australia.   However
+the costs of such equipment needs to be balanced against the
+potential reuse factors in New Zealand.  
+    Alternative screen and barrier protection systems can be
+put in place which will provide an upgrading in safety sought both
+on behalf of the worker and public.  
+      So whither the gay nineties?    
+    There is no doubt the industry fortunes of concrete
+construction are linked to the general building activity.
+  Depressed activity as at present perhaps suppresses the drive
+towards pursuing different techniques and materials.  
+    However there is no doubt the industry is now well aware of
+the opportunities and responsibilities it must take for the future
+to face competition.  
+    The developments during the past decade show the industry 's
+capability to respond to the changing scenes, it just has to keep
+it up.   
