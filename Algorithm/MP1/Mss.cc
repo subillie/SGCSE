@@ -44,7 +44,6 @@ Mss::~Mss() {
 int Mss::o6() {
 	int maxSum = 0;
 	int thisSum = 0;
-	int rowStart = 0, rowEnd = 0, colStart = 0, colEnd = 0;
 
 	for (int r1 = 0; r1 < _row; r1++) {
 		for (int c1 = 0; c1 < _col; c1++) {
@@ -56,45 +55,41 @@ int Mss::o6() {
 							thisSum += _array[y][x];
 						}
 					}
-					if (thisSum > maxSum) {
+					if (maxSum < thisSum) {
 						maxSum = thisSum;
-						rowStart = r1;
-						rowEnd = r2;
-						colStart = c1;
-						colEnd = c2;
 					}
 				}
 			}
 		}
 	}
+
 	return maxSum;
 }
 
 int Mss::o4() {
 	int maxSum = 0;
 	int thisSum = 0;
-	int rowStart = 0, rowEnd = 0, colStart = 0, colEnd = 0;
 
-	for (int r1 = 0; r1 < _row; r1++) {
-		for (int r2 = r1; r2 < _row; r2++) {
+	for (int r = 0; r < _row; r++) {
+		for (int c = 0; c < _col; c++) {
 			thisSum = 0;
-			for (int x = 0; x < _col; x++) {
-				for (int y = r1; y <= r2; y++) {
+			for (int y = r; y < _row; y++) {
+				for (int x = c; x < _col; x++) {
 					thisSum += _array[y][x];
 				}
-				if (thisSum > maxSum) {
+				if (maxSum < thisSum) {
 					maxSum = thisSum;
-					rowStart = r1;
-					rowEnd = r2;
-					colStart = 0;
-					colEnd = x;
 				}
 			}
 		}
 	}
+
 	return maxSum;
 }
 
 int Mss::o3() {
-	return 0;
+	int maxSum = 0;
+	int thisSum = 0;
+
+	return maxSum;
 }

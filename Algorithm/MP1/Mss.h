@@ -12,6 +12,7 @@ class Mss {
 	private:
 		std::vector< std::vector<int> > _array;
 		int _row, _col;
+
 	public:
 		Mss(std::ofstream& outfile, char* av[]);
 		~Mss();

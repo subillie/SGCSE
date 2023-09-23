@@ -16,6 +16,8 @@ int main(int ac, char* av[]) {
 	}
 
 	Mss maximumSumSubrectangle = Mss(outfile, av);
+
+	// Find the maximum sum subrectangle
 	start = clock();
 	if (algorithmIndex == 1) {
 		maxSum = maximumSumSubrectangle.o6();
