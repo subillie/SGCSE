@@ -8,17 +8,22 @@
 #include <vector>
 #include <time.h>
 
+#define CLOCKS_PER_MSEC 1000
+
 class Mss {
 	private:
+		std::ofstream _outfile;
 		std::vector< std::vector<int> > _array;
 		int _row, _col;
+		int _maxSum;
+		clock_t _start, _end;
 
 	public:
-		Mss(std::ofstream& outfile, char* av[]);
+		Mss(char* av[]);
 		~Mss();
-		int o6();
-		int o4();
-		int o3();
+		void o6();
+		void o4();
+		void o3();
 };
 
 #endif

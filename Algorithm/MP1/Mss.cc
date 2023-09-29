@@ -1,27 +1,28 @@
 #include "Mss.h"
 
-Mss::Mss(std::ofstream& outfile, char* av[]) {
-	int num;
-	std::string line;
+Mss::Mss(char* av[]) {
 	std::ifstream infile(av[1]);
-	if (!infile) {
+	_outfile.open("result_" + std::string(av[1]));
+	if (!infile || !_outfile) {
 		std::cout << "File open error" << std::endl;
 		exit(1);
 	}
 
-	outfile << av[1] << std::endl; // 1st line: input file name
-	outfile << av[2] << std::endl; // 2nd line: algorithm index
+	_outfile << av[1] << std::endl; // 1st line: input file name
+	_outfile << av[2] << std::endl; // 2nd line: algorithm index
 
 	// Read the first line
+	std::string line;
 	std::getline(infile, line);
 	std::stringstream ss(line);
 	ss >> _row >> _col;
-	outfile << _row << std::endl; // 3rd line: # of rows in the given 2D array
-	outfile << _col << std::endl; // 4th line: # of columns in the given 2D array
+	_outfile << _row << std::endl; // 3rd line: # of rows in the given 2D array
+	_outfile << _col << std::endl; // 4th line: # of columns in the given 2D array
 	line.clear();
 	ss.clear();
 
 	// Read the rest of the infile
+	int num;
 	for (int i = 0; i < _row; i++) {
 		std::vector<int> row;
 		std::getline(infile, line);
@@ -38,13 +39,17 @@ Mss::Mss(std::ofstream& outfile, char* av[]) {
 }
 
 Mss::~Mss() {
+	_outfile << _maxSum << std::endl; // 5th line: sum of the maximum sum subrectangle
+	_outfile << (double)(_end - _start) / CLOCKS_PER_MSEC << std::endl; // 6th line: running time in milliseconds
+	_outfile.close();
 	_array.clear();
 }
 
-int Mss::o6() {
-	int maxSum = 0;
+void Mss::o6() {
 	int thisSum = 0;
 
+	_maxSum = 0;
+	_start = clock();
 	for (int r1 = 0; r1 < _row; r1++) {
 		for (int c1 = 0; c1 < _col; c1++) {
 			for (int r2 = r1; r2 < _row; r2++) {
@@ -55,41 +60,62 @@ int Mss::o6() {
 							thisSum += _array[y][x];
 						}
 					}
-					if (maxSum < thisSum) {
-						maxSum = thisSum;
+					if (_maxSum < thisSum) {
+						_maxSum = thisSum;
 					}
 				}
 			}
 		}
 	}
-
-	return maxSum;
+	_end = clock();
 }
 
-int Mss::o4() {
-	int maxSum = 0;
+void Mss::o4() {
 	int thisSum = 0;
+	int *lineSum = new int[_col];
 
-	for (int r = 0; r < _row; r++) {
-		for (int c = 0; c < _col; c++) {
-			thisSum = 0;
-			for (int y = r; y < _row; y++) {
-				for (int x = c; x < _col; x++) {
-					thisSum += _array[y][x];
+	_maxSum = 0;
+	_start = clock();
+	for (int r1 = 0; r1 < _row; r1++) {
+		for (int r2 = r1; r2 < _row; r2++) {
+			memset(lineSum, 0, sizeof(int) * _col);
+			for (int c = 0; c < _col; c++) {
+				for (int r = r1; r <= r2; r++) {
+					lineSum[c] += _array[r][c];
 				}
-				if (maxSum < thisSum) {
-					maxSum = thisSum;
+			}
+			thisSum = 0;
+			for (int c = 0; c < _col; c++) {
+				thisSum = std::max(lineSum[c], thisSum + lineSum[c]);
+				if (_maxSum < thisSum) {
+					_maxSum = thisSum;
 				}
 			}
 		}
 	}
-
-	return maxSum;
+	_end = clock();
 }
 
-int Mss::o3() {
-	int maxSum = 0;
+void Mss::o3() {
 	int thisSum = 0;
+	int* lineSum = new int[_col];
 
-	return maxSum;
+	_maxSum = 0;
+	_start = clock();
+	for (int r1 = 0; r1 < _row; r1++) {
+		memset(lineSum, 0, sizeof(int) * _col);
+		for (int r2 = r1; r2 < _row; r2++) {
+			for (int c = 0; c < _col; c++) {
+				lineSum[c] += _array[r2][c];
+			}
+			thisSum = 0;
+			for (int c = 0; c < _col; c++) {
+				thisSum = std::max(lineSum[c], thisSum + lineSum[c]);
+				if (_maxSum < thisSum) {
+					_maxSum = thisSum;
+				}
+			}
+		}
+	}
+	_end = clock();
 }
