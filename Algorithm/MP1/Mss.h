@@ -4,9 +4,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include <sstream>
 #include <vector>
 #include <time.h>
+#include <cstdlib>
 
 #define CLOCKS_PER_MSEC 1000
 

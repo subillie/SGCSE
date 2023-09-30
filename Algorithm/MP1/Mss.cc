@@ -2,7 +2,7 @@
 
 Mss::Mss(char* av[]) {
 	std::ifstream infile(av[1]);
-	_outfile.open("result_" + std::string(av[1]));
+	_outfile.open(("result_" + std::string(av[1])).c_str());
 	if (!infile || !_outfile) {
 		std::cout << "File open error" << std::endl;
 		exit(1);
