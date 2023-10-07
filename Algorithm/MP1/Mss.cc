@@ -40,7 +40,7 @@ Mss::Mss(char* av[]) {
 
 Mss::~Mss() {
 	_outfile << _maxSum << std::endl; // 5th line: sum of the maximum sum subrectangle
-	_outfile << (double)(_end - _start) / CLOCKS_PER_MSEC << std::endl; // 6th line: running time in milliseconds
+	_outfile << _end - _start << std::endl; // 6th line: running time in milliseconds
 	_outfile.close();
 	_array.clear();
 }

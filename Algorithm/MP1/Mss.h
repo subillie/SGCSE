@@ -10,8 +10,6 @@
 #include <time.h>
 #include <cstdlib>
 
-#define CLOCKS_PER_MSEC 1000
-
 class Mss {
 	private:
 		std::ofstream _outfile;
