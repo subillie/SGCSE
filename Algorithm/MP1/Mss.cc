@@ -39,10 +39,35 @@ Mss::Mss(char* av[]) {
 }
 
 Mss::~Mss() {
+	int allNeg = 1;
+	int maxSum = _array[0][0];
+	for (int r = 0; r < _row; r++) {
+		for (int c = 0; c < _col; c++) {
+			if (_array[r][c] >= 0) {
+				allNeg = -1;
+				break;
+			}
+			if (maxSum < _array[r][c]) {
+				maxSum = _array[r][c];
+			}
+		}
+		if (allNeg == -1) {
+			break;
+		}
+	}
+	if (allNeg == 1) {
+		_maxSum = maxSum;
+	}
+	_end = clock();
+
+	for (int r = 0; r < _row; r++) {
+		_array[r].clear();
+	}
+	_array.clear();
+
 	_outfile << _maxSum << std::endl; // 5th line: sum of the maximum sum subrectangle
 	_outfile << _end - _start << std::endl; // 6th line: running time in milliseconds
 	_outfile.close();
-	_array.clear();
 }
 
 void Mss::o6() {
@@ -67,7 +92,6 @@ void Mss::o6() {
 			}
 		}
 	}
-	_end = clock();
 }
 
 void Mss::o4() {
@@ -93,7 +117,6 @@ void Mss::o4() {
 			}
 		}
 	}
-	_end = clock();
 }
 
 void Mss::o3() {
@@ -117,5 +140,4 @@ void Mss::o3() {
 			}
 		}
 	}
-	_end = clock();
 }
