@@ -41,6 +41,8 @@ Mss::Mss(char* av[]) {
 Mss::~Mss() {
 	int allNeg = 1;
 	int maxSum = _array[0][0];
+
+	// If all numbers are negative, then the maximum sum is the largest number
 	for (int r = 0; r < _row; r++) {
 		for (int c = 0; c < _col; c++) {
 			if (_array[r][c] >= 0) {
