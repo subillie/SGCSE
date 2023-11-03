@@ -24,6 +24,12 @@ class Sort {
 		void _parse();
 		void _partition(int left, int right);
 		void _swap(int a, int b);
+		void _devide(int left, int right);
+		void _conquer(int left, int mid, int right);
+		int _getMax();
+		int _getMin();
+		void _countPosNum(int max);
+		void _countNegNum(int min);
 
 	public:
 		Sort(char *av[]);
@@ -31,7 +37,7 @@ class Sort {
 		void insertion();
 		void quick();
 		void merge();
-		// the fastest algorithm
+		void counting();
 };
 
 #endif

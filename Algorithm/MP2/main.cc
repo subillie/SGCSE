@@ -17,9 +17,9 @@ int main(int ac, char *av[]) {
 		sort->quick();
 	} else if (algorithm == 3) {
 		sort->merge();
-	} //else {
-		//sort->fastest();
-	//}
+	} else {
+		sort->counting();
+	}
 	delete sort;
 	return 0;
 }

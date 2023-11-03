@@ -33,12 +33,13 @@ Sort::Sort(char *av[]) {
 }
 
 Sort::~Sort() {
-	_outfile << double(_end - _start) / CLOCK_PER_SEC << std::endl; // 4th line: running time in seconds
+	_outfile << double(_end - _start) << std::endl; // 4th line: running time in seconds
+	// _outfile << double(_end - _start) / CLOCK_PER_SEC << std::endl; // 4th line: running time in seconds
 	for (int i = 0; i < _size; i++) { // 5th line: the sorted list
 		_outfile << _list[i] << " ";
 	}
 
-	// delete[] _list;
+	delete _list;
 	_outfile.close();
 }
 
@@ -91,36 +92,163 @@ void Sort::_swap(int a, int b) {
 }
 
 void Sort::merge() {
-	int i, a, b;
-	std::queue<int> q;
+	_start = clock();
+	_devide(0, _size - 1);
+	_end = clock();
+}
 
-	// Copy the list to the queue
-	for (i = 0; i < _size; i++) {
-		q.push(_list[i]);
+void Sort::_devide(int left, int right) {
+	// Base case
+	if (left >= right) {
+		return;
 	}
 
-	// Merge sort
-	_start = clock();
-	while (q.size() > 1) {
-		a = q.front();
-		q.pop();
-		b = q.front();
-		q.pop();
+	// Devide the list
+	int mid = (left + right) / 2;
+	_devide(left, mid);
+	_devide(mid + 1, right);
 
-		if (a > b) {
-			q.push(b);
-			q.push(a);
+	// Merge the list
+	_conquer(left, mid, right);
+}
+
+void Sort::_conquer(int left, int mid, int right) {
+	int l, r, iter;
+	int sizeL = mid - left + 1;
+	int sizeR = right - mid;
+	int *tmpL = new int[sizeL]; // tmporary list for the left side
+	int *tmpR = new int[sizeR]; // tmporary list for the right side
+
+	// Copy the list
+	for (l = 0; l < sizeL; l++) {
+		tmpL[l] = _list[left + l];
+	}
+	for (r = 0; r < sizeR; r++) {
+		tmpR[r] = _list[mid + 1 + r];
+	}
+
+	// Merge the list
+	l = r = 0;
+	iter = left;
+	while (l < sizeL && r < sizeR) {
+		if (tmpL[l] < tmpR[r]) {
+			_list[iter++] = tmpL[l++];
 		} else {
-			q.push(a);
-			q.push(b);
+			_list[iter++] = tmpR[r++];
 		}
 	}
-	_end = clock();
-
-	// Copy the sorted list to the original list
-	memset(_list, 0, _size * sizeof(int));
-	for (i = 0; i < _size; i++) {
-		_list[i] = q.front();
-		q.pop();
+	while (l < sizeL) {
+		_list[iter++] = tmpL[l++];
 	}
+	while (r < sizeR) {
+		_list[iter++] = tmpR[r++];
+	}
+
+	delete [] tmpL;
+	delete [] tmpR;
+}
+
+/* int max, min값 처리... -> radix sort도 고려해보기 */
+void Sort::counting() {
+	int max = _getMax();
+	int min = _getMin();
+
+	_start = clock();
+	if (min >= 0) {
+		_countPosNum(max);
+	} else if (max <= 0) {
+		_countNegNum(min);
+	} else {
+		_countPosNum(max);
+		_countNegNum(min);
+	}
+	_end = clock();
+}
+
+int Sort::_getMax() {
+	int max = _list[0];
+	for (int i = 1; i < _size; i++) {
+		if (max < _list[i]) {
+			max = _list[i];
+		}
+	}
+	return max;
+}
+
+int Sort::_getMin() {
+	int min = _list[0];
+	for (int i = 1; i < _size; i++) {
+		if (min > _list[i]) {
+			min = _list[i];
+		}
+	}
+	return min;
+}
+
+void Sort::_countPosNum(int max) {
+	int i, j, k;
+	int *count = new int[max];
+	int *countSum = new int[_size];
+	int *sorted = new int[_size];
+
+	// Initialize the count array
+	for (i = 0; i < _size; i++) {
+		count[i] = 0;
+	}
+	// Count the number of each element
+	for (i = 0; i < _size; i++) {
+		count[_list[i]]++;
+	}
+	// Calculate the sum of the count array
+	countSum[0] = count[0];
+	for (i = 1; i < max; i++) {
+		countSum[i] = countSum[i - 1] + count[i];
+	}
+	// Sort the list
+	for (i = 0; i < _size; i++) {
+		sorted[countSum[_list[i]] - 1] = _list[i];
+		countSum[_list[i]]--;
+	}
+	// Copy the sorted list
+	for (i = 0; i < _size; i++) {
+		_list[i] = sorted[i];
+	}
+
+	delete [] count;
+	delete [] countSum;
+	delete [] sorted;
+}
+
+void Sort::_countNegNum(int min) {
+	int i, j, k, max = -1 * min;
+	int *count = new int[max];
+	int *countSum = new int[_size];
+	int *sorted = new int[_size];
+
+	// Initialize the count array
+	for (i = 0; i < _size; i++) {
+		count[i] = 0;
+	}
+	// Count the number of each element
+	for (i = 0; i < _size; i++) {
+		count[_list[i]]++;
+	}
+	// Calculate the sum of the count array
+	countSum[0] = count[0];
+	for (i = 1; i < max; i++) {
+		countSum[i] = countSum[i - 1] + count[i];
+	}
+	// Sort the list
+	for (i = 0; i < _size; i++) {
+		sorted[countSum[_list[i]] - 1] = _list[i];
+		countSum[_list[i]]--;
+	}
+	// Copy the sorted list
+	for (i = 0; i < _size; i++) {
+		_list[i] = sorted[i];
+	}
+
+	delete [] count;
+	delete [] countSum;
+	delete [] sorted;
 }
