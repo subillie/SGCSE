@@ -148,7 +148,12 @@ void Sort::_conquer(int left, int mid, int right) {
 	delete [] tmpR;
 }
 
-/* int max, min값 처리... -> radix sort도 고려해보기 */
+/*
+ * countPosNum: 0 ~ (int max - 1)
+ * countNegNum: (int min + 1) ~ -1
+ * int max, int min은 따로 count해서 마지막에 처리
+ * radix sort도 고려해보기
+ */
 void Sort::counting() {
 	int max = _getMax();
 	int min = _getMin();
