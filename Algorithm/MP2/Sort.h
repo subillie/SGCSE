@@ -26,10 +26,11 @@ class Sort {
 		void _swap(int a, int b);
 		void _devide(int left, int right);
 		void _conquer(int left, int mid, int right);
-		int _getMax();
-		int _getMin();
-		void _countPosNum(int max);
-		void _countNegNum(int min);
+		void _countingSort();
+		// int _countPosNum(int min, int max);
+		// void _sortPosNum(int max);
+		// void _sortNegNum(int min);
+		// void _sortNum(int min, int max, int count);
 
 	public:
 		Sort(char *av[]);

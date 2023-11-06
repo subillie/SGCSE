@@ -155,105 +155,39 @@ void Sort::_conquer(int left, int mid, int right) {
  * radix sort도 고려해보기
  */
 void Sort::counting() {
-	int max = _getMax();
-	int min = _getMin();
-
 	_start = clock();
-	if (min >= 0) {
-		_countPosNum(max);
-	} else if (max <= 0) {
-		_countNegNum(min);
-	} else {
-		_countPosNum(max);
-		_countNegNum(min);
-	}
+	_countingSort();
 	_end = clock();
 }
 
-int Sort::_getMax() {
+void Sort::_countingSort() {
+	// Get min and max
+	int min = _list[0];
 	int max = _list[0];
-	for (int i = 1; i < _size; i++) {
+	for (int i = 0; i < _size; i++) {
+		if (min > _list[i]) {
+			min = _list[i];
+		}
 		if (max < _list[i]) {
 			max = _list[i];
 		}
 	}
-	return max;
-}
 
-int Sort::_getMin() {
-	int min = _list[0];
-	for (int i = 1; i < _size; i++) {
-		if (min > _list[i]) {
-			min = _list[i];
+	// Count the number of each value
+	int range = max - min + 1;
+	int *count = new int[range];
+	for (int i = 0; i < range; i++) {
+		count[i] = 0;
+	}
+	for (int i = 0; i < _size; i++) {
+		count[_list[i] - min]++;
+	}
+
+	// Get the sorted array from the count array
+	int iter = -1;
+	for (int i = 0; i < range; i++) {
+		for (; count[i] > 0; count[i]--) {
+			_list[++iter] = i + min;
 		}
 	}
-	return min;
-}
-
-void Sort::_countPosNum(int max) {
-	int i, j, k;
-	int *count = new int[max];
-	int *countSum = new int[_size];
-	int *sorted = new int[_size];
-
-	// Initialize the count array
-	for (i = 0; i < _size; i++) {
-		count[i] = 0;
-	}
-	// Count the number of each element
-	for (i = 0; i < _size; i++) {
-		count[_list[i]]++;
-	}
-	// Calculate the sum of the count array
-	countSum[0] = count[0];
-	for (i = 1; i < max; i++) {
-		countSum[i] = countSum[i - 1] + count[i];
-	}
-	// Sort the list
-	for (i = 0; i < _size; i++) {
-		sorted[countSum[_list[i]] - 1] = _list[i];
-		countSum[_list[i]]--;
-	}
-	// Copy the sorted list
-	for (i = 0; i < _size; i++) {
-		_list[i] = sorted[i];
-	}
-
-	delete [] count;
-	delete [] countSum;
-	delete [] sorted;
-}
-
-void Sort::_countNegNum(int min) {
-	int i, j, k, max = -1 * min;
-	int *count = new int[max];
-	int *countSum = new int[_size];
-	int *sorted = new int[_size];
-
-	// Initialize the count array
-	for (i = 0; i < _size; i++) {
-		count[i] = 0;
-	}
-	// Count the number of each element
-	for (i = 0; i < _size; i++) {
-		count[_list[i]]++;
-	}
-	// Calculate the sum of the count array
-	countSum[0] = count[0];
-	for (i = 1; i < max; i++) {
-		countSum[i] = countSum[i - 1] + count[i];
-	}
-	// Sort the list
-	for (i = 0; i < _size; i++) {
-		sorted[countSum[_list[i]] - 1] = _list[i];
-		countSum[_list[i]]--;
-	}
-	// Copy the sorted list
-	for (i = 0; i < _size; i++) {
-		_list[i] = sorted[i];
-	}
-
-	delete [] count;
-	delete [] countSum;
-	delete [] sorted;
 }
