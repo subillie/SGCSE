@@ -4,8 +4,12 @@ int *parse(char *filename, int size);
 
 int main(int ac, char *av[]) {
 
+	if (ac != 3) {
+		std::cerr << "Usage: ./mp2_20200422 [input file] [algorithm index]" << std::endl;
+		exit(1);
+	}
 	int algorithm = atoi(av[2]);
-	if (ac != 3 || !(1 <= algorithm && algorithm <= 4)) {
+	if (!(1 <= algorithm && algorithm <= 4)) {
 		std::cerr << "Usage: ./mp2_20200422 [input file] [algorithm index]" << std::endl;
 		exit(1);
 	}
@@ -18,7 +22,7 @@ int main(int ac, char *av[]) {
 	} else if (algorithm == 3) {
 		sort->merge();
 	} else {
-		sort->counting();
+		sort->tim();
 	}
 	delete sort;
 	return 0;

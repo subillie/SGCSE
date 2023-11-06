@@ -148,46 +148,23 @@ void Sort::_conquer(int left, int mid, int right) {
 	delete [] tmpR;
 }
 
-/*
- * countPosNum: 0 ~ (int max - 1)
- * countNegNum: (int min + 1) ~ -1
- * int max, int min은 따로 count해서 마지막에 처리
- * radix sort도 고려해보기
- */
-void Sort::counting() {
+void Sort::tim() {
 	_start = clock();
-	_countingSort();
+	for (int i = 0; i < _size; i += TIM_NUM) {
+		insertion();
+	}
+	for (int i = TIM_NUM; i < _size; i *= 2) {
+		for (int left = 0; left < _size; left += 2 * i) {
+			int mid = left + i - 1;
+			if (mid > _size - 1) {
+				mid = _size - 1;
+			}
+			int right = left + 2 * i - 1;
+			if (right > _size - 1) {
+				right = _size - 1;
+			}
+			_conquer(left, mid, right);
+		}
+	}
 	_end = clock();
-}
-
-void Sort::_countingSort() {
-	// Get min and max
-	int min = _list[0];
-	int max = _list[0];
-	for (int i = 0; i < _size; i++) {
-		if (min > _list[i]) {
-			min = _list[i];
-		}
-		if (max < _list[i]) {
-			max = _list[i];
-		}
-	}
-
-	// Count the number of each value
-	int range = max - min + 1;
-	int *count = new int[range];
-	for (int i = 0; i < range; i++) {
-		count[i] = 0;
-	}
-	for (int i = 0; i < _size; i++) {
-		count[_list[i] - min]++;
-	}
-
-	// Get the sorted array from the count array
-	int iter = -1;
-	for (int i = 0; i < range; i++) {
-		for (; count[i] > 0; count[i]--) {
-			_list[++iter] = i + min;
-		}
-	}
 }
