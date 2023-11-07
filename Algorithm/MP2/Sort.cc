@@ -49,6 +49,7 @@ void Sort::insertion() {
 	_start = clock();
 	for (iter = 1; iter < _size; iter++) {
 		key = _list[iter];
+		// Find the position to insert
 		for (i = iter - 1; (i >= 0 && key < _list[i]); i--) {
 			_list[i + 1] = _list[i];
 		}
@@ -73,14 +74,17 @@ void Sort::_partition(int left, int right) {
 	int pivot = _list[right];
 	int key = left - 1;
 	for (int i = left; i < right; i++) {
+		// Swap the elements smaller than the pivot to the left side
+		// and the elements larger than the pivot to the right side
 		if (_list[i] < pivot) {
 			_swap(++key, i);
 		}
 	}
-	_swap(key + 1, right);
-	pivot = key + 1;
+	// Place the pivot between the left and the right side
+	pivot = ++key;
+	_swap(pivot, right);
 
-	// Sort recursively
+	// Sort each side recursively
 	_partition(left, pivot - 1);
 	_partition(pivot + 1, right);
 }
@@ -113,7 +117,7 @@ void Sort::_devide(int left, int right) {
 }
 
 void Sort::_conquer(int left, int mid, int right) {
-	int l, r, iter;
+	int l, r, iter = left;
 	int sizeL = mid - left + 1;
 	int sizeR = right - mid;
 	int *tmpL = new int[sizeL]; // tmporary list for the left side
@@ -129,7 +133,6 @@ void Sort::_conquer(int left, int mid, int right) {
 
 	// Merge the list
 	l = r = 0;
-	iter = left;
 	while (l < sizeL && r < sizeR) {
 		if (tmpL[l] < tmpR[r]) {
 			_list[iter++] = tmpL[l++];
@@ -150,9 +153,11 @@ void Sort::_conquer(int left, int mid, int right) {
 
 void Sort::tim() {
 	_start = clock();
+	// Use insertion sort for small size
 	for (int i = 0; i < _size; i += TIM_NUM) {
 		insertion();
 	}
+	// Use merge sort for large size
 	for (int i = TIM_NUM; i < _size; i *= 2) {
 		for (int left = 0; left < _size; left += 2 * i) {
 			int mid = left + i - 1;
