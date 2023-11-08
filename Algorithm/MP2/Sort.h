@@ -23,10 +23,13 @@ class Sort {
 		int _size;
 		int *_list;
 		void _parse();
+		// Quick Sort (2nd algorithm)
 		void _partition(int left, int right);
 		void _swap(int a, int b);
+		// Merge Sort (3rd algorithm)
 		void _devide(int left, int right);
 		void _conquer(int left, int mid, int right);
+		// Optimized Quick Sort (4th algorithm)
 		int _optPartition(int left, int right);
 		void _optInsertion(int left, int right);
 
