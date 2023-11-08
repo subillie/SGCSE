@@ -18,9 +18,9 @@ int main(int ac, char *av[]) {
 	if (algorithm == 1) {
 		sort->insertion();
 	} else if (algorithm == 2) {
-		sort->quick();
+		sort->quick(0, -1);
 	} else if (algorithm == 3) {
-		sort->merge();
+		sort->merge(0, -1);
 	} else {
 		sort->optQuick(0, -1);
 	}

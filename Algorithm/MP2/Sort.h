@@ -12,8 +12,7 @@
 #include <queue>
 #include <stdlib.h>
 
-#define CLOCK_PER_SEC 1000000
-#define OPT_NUM 16
+#define OPT_NUM 32
 
 class Sort {
 	private:
@@ -23,22 +22,17 @@ class Sort {
 		int _size;
 		int *_list;
 		void _parse();
-		// Quick Sort (2nd algorithm)
-		void _partition(int left, int right);
+		int _partition(int left, int right);
 		void _swap(int a, int b);
-		// Merge Sort (3rd algorithm)
-		void _devide(int left, int right);
 		void _conquer(int left, int mid, int right);
-		// Optimized Quick Sort (4th algorithm)
-		int _optPartition(int left, int right);
-		void _optInsertion(int left, int right);
+		void _insertion(int left, int right);
 
 	public:
 		Sort(char *av[]);
 		~Sort();
 		void insertion();
-		void quick();
-		void merge();
+		void quick(int left, int right);
+		void merge(int left, int right);
 		void optQuick(int left, int right);
 };
 

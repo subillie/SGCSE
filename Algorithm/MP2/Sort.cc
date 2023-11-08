@@ -1,10 +1,16 @@
 #include "Sort.h"
 
 Sort::Sort(char *av[]) {
+	_start = clock();
+
 	// Open the input and output files
 	_infile.open(av[1]);
+	if (!_infile) {
+		std::cerr << "File open error" << std::endl;
+		exit(1);
+	}
 	_outfile.open(("result_" + std::string(av[2]) + "_" + std::string(av[1])).c_str());
-	if (!_infile || !_outfile) {
+	if (!_outfile) {
 		std::cerr << "File open error" << std::endl;
 		exit(1);
 	}
@@ -33,8 +39,8 @@ Sort::Sort(char *av[]) {
 }
 
 Sort::~Sort() {
+	_end = clock();
 	_outfile << double(_end - _start) << std::endl; // 4th line: running time in seconds
-	// _outfile << double(_end - _start) / CLOCK_PER_SEC << std::endl; // 4th line: running time in seconds
 	for (int i = 0; i < _size; i++) { // 5th line: the sorted list
 		_outfile << _list[i] << " ";
 	}
@@ -44,33 +50,28 @@ Sort::~Sort() {
 }
 
 void Sort::insertion() {
-	int key, iter, i;
-
-	_start = clock();
-	for (iter = 1; iter < _size; iter++) {
-		key = _list[iter];
+	for (int iter = 1; iter < _size; iter++) {
+		int i, key = _list[iter];
 		// Find the position to insert
 		for (i = iter - 1; (i >= 0 && key < _list[i]); i--) {
 			_list[i + 1] = _list[i];
 		}
 		_list[i + 1] = key;
 	}
-	_end = clock();
 }
 
-void Sort::quick() {
-	_start = clock();
-	_partition(0, _size - 1);
-	_end = clock();
-}
-
-void Sort::_partition(int left, int right) {
-	// Base case
-	if (left >= right) {
-		return;
+void Sort::quick(int left, int right) {
+	if (right == -1) {
+		right = _size - 1;
 	}
+	if (left < right) {
+		int pivot = _partition(left, right);
+		quick(left, pivot - 1);
+		quick(pivot + 1, right);
+	}
+}
 
-	// Partition the list by pivot
+int Sort::_partition(int left, int right) {
 	int pivot = _list[right];
 	int key = left - 1;
 	for (int i = left; i < right; i++) {
@@ -83,11 +84,49 @@ void Sort::_partition(int left, int right) {
 	// Place the pivot between the left and the right side
 	pivot = ++key;
 	_swap(pivot, right);
+	return pivot;
 
-	// Sort each side recursively
-	_partition(left, pivot - 1);
-	_partition(pivot + 1, right);
+	// int pivot = _list[(left + right) / 2];
+	// int l = left - 1;
+	// int r = right + 1;
+	// while (true) {
+	// 	while (_list[++l] < pivot);
+	// 	while (_list[--r] > pivot);
+	// 	if (l >= r) {
+	// 		return r;
+	// 	}
+	// 	_swap(l, r);
+	// }
 }
+
+// void Sort::quick() {
+// 	_partition(0, _size - 1);
+// }
+
+// void Sort::_partition(int left, int right) {
+// 	// Base case
+// 	if (left >= right) {
+// 		return;
+// 	}
+
+// 	// Partition the list by pivot
+// 	int pivot = _list[right];
+// 	int key = left - 1;
+// 	for (int i = left; i < right; i++) {
+// 		// Swap the elements smaller than the pivot to the left side
+// 		// and the elements larger than the pivot to the right side
+// 		if (_list[i] < pivot) {
+// 			_swap(++key, i);
+// 		}
+// 	}
+// 	// Place the pivot between the left and the right side
+// 	pivot = ++key;
+// 	_swap(pivot, right);
+
+// 	// Sort each side recursively
+// 	_partition(left, pivot - 1);
+// 	_partition(pivot + 1, right);
+// }
 
 void Sort::_swap(int a, int b) {
 	int tmp = _list[a];
@@ -95,13 +134,11 @@ void Sort::_swap(int a, int b) {
 	_list[b] = tmp;
 }
 
-void Sort::merge() {
-	_start = clock();
-	_devide(0, _size - 1);
-	_end = clock();
-}
-
-void Sort::_devide(int left, int right) {
+void Sort::merge(int left, int right) {
+	// Set the right boundary to the last index if it is not given
+	if (right == -1) {
+		right = _size - 1;
+	}
 	// Base case
 	if (left >= right) {
 		return;
@@ -109,8 +146,8 @@ void Sort::_devide(int left, int right) {
 
 	// Devide the list
 	int mid = (left + right) / 2;
-	_devide(left, mid);
-	_devide(mid + 1, right);
+	merge(left, mid);
+	merge(mid + 1, right);
 
 	// Merge the list
 	_conquer(left, mid, right);
@@ -152,37 +189,21 @@ void Sort::_conquer(int left, int mid, int right) {
 }
 
 void Sort::optQuick(int left, int right) {
-	_start = clock();
 	// Set the right boundary to the last index if it is not given
 	if (right == -1) {
 		right = _size - 1;
 	}
-	// Use quick sort if the list is large
+	// Use quick sort if the chunk is large
 	if (left < right && right - left > OPT_NUM) {
-		int pivot = _optPartition(left, right);
+		int pivot = _partition(left, right);
 		optQuick(left, pivot);
 		optQuick(pivot + 1, right);
 	}
-	// Use insertion sort if the list is small enough
-	_optInsertion(left, right);
-	_end = clock();
+	// Use insertion sort if the chunk is small enough
+	_insertion(left, right);
 }
 
-int Sort::_optPartition(int left, int right) {
-	int pivot = _list[(left + right) / 2];
-	int l = left - 1;
-	int r = right + 1;
-	while (true) {
-		while (_list[++l] < pivot);
-		while (_list[--r] > pivot);
-		if (l >= r) {
-			return r;
-		}
-		_swap(l, r);
-	}
-}
-
-void Sort::_optInsertion(int left, int right) {
+void Sort::_insertion(int left, int right) {
 	int key, iter, i;
 
 	for (iter = left + 1; iter <= right; iter++) {
