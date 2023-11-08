@@ -12,7 +12,7 @@
 #include <queue>
 #include <stdlib.h>
 
-#define OPT_NUM 32
+#define OPT_NUM 16
 
 class Sort {
 	private:
