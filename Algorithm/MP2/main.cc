@@ -22,7 +22,7 @@ int main(int ac, char *av[]) {
 	} else if (algorithm == 3) {
 		sort->merge();
 	} else {
-		sort->tim();
+		sort->optQuick(0, -1);
 	}
 	delete sort;
 	return 0;

@@ -151,25 +151,46 @@ void Sort::_conquer(int left, int mid, int right) {
 	delete [] tmpR;
 }
 
-void Sort::tim() {
+void Sort::optQuick(int left, int right) {
 	_start = clock();
-	// Use insertion sort for small size
-	for (int i = 0; i < _size; i += TIM_NUM) {
-		insertion();
+	// Set the right boundary to the last index if it is not given
+	if (right == -1) {
+		right = _size - 1;
 	}
-	// Use merge sort for large size
-	for (int i = TIM_NUM; i < _size; i *= 2) {
-		for (int left = 0; left < _size; left += 2 * i) {
-			int mid = left + i - 1;
-			if (mid > _size - 1) {
-				mid = _size - 1;
-			}
-			int right = left + 2 * i - 1;
-			if (right > _size - 1) {
-				right = _size - 1;
-			}
-			_conquer(left, mid, right);
-		}
+	// Use quick sort if the list is large
+	if (left < right && right - left > OPT_NUM) {
+		int pivot = _optPartition(left, right);
+		optQuick(left, pivot);
+		optQuick(pivot + 1, right);
 	}
+	// Use insertion sort if the list is small enough
+	_optInsertion(left, right);
 	_end = clock();
+}
+
+int Sort::_optPartition(int left, int right) {
+	int pivot = _list[(left + right) / 2];
+	int l = left - 1;
+	int r = right + 1;
+	while (true) {
+		while (_list[++l] < pivot);
+		while (_list[--r] > pivot);
+		if (l >= r) {
+			return r;
+		}
+		_swap(l, r);
+	}
+}
+
+void Sort::_optInsertion(int left, int right) {
+	int key, iter, i;
+
+	for (iter = left + 1; iter <= right; iter++) {
+		key = _list[iter];
+		// Find the position to insert
+		for (i = iter - 1; (i >= left && key < _list[i]); i--) {
+			_list[i + 1] = _list[i];
+		}
+		_list[i + 1] = key;
+	}
 }

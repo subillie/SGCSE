@@ -13,7 +13,7 @@
 #include <stdlib.h>
 
 #define CLOCK_PER_SEC 1000000
-#define TIM_NUM 32
+#define OPT_NUM 16
 
 class Sort {
 	private:
@@ -27,6 +27,8 @@ class Sort {
 		void _swap(int a, int b);
 		void _devide(int left, int right);
 		void _conquer(int left, int mid, int right);
+		int _optPartition(int left, int right);
+		void _optInsertion(int left, int right);
 
 	public:
 		Sort(char *av[]);
@@ -34,7 +36,7 @@ class Sort {
 		void insertion();
 		void quick();
 		void merge();
-		void tim();
+		void optQuick(int left, int right);
 };
 
 #endif
