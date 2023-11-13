@@ -64,7 +64,7 @@ void Sort::quick(int left, int right) {
 	if (right == -1) {
 		right = _size - 1;
 	}
-	if (left < right) {
+	if (left < right && right - left > 1) {
 		int pivot = _partition(left, right);
 		quick(left, pivot - 1);
 		quick(pivot + 1, right);
@@ -72,61 +72,19 @@ void Sort::quick(int left, int right) {
 }
 
 int Sort::_partition(int left, int right) {
-	int pivot = _list[right];
-	int key = left - 1;
-	for (int i = left; i < right; i++) {
-		// Swap the elements smaller than the pivot to the left side
-		// and the elements larger than the pivot to the right side
-		if (_list[i] < pivot) {
-			_swap(++key, i);
+	int pivot = _list[(left + right) / 2];
+	int l = left - 1;
+	int r = right + 1;
+	while (true) {
+		while (_list[++l] < pivot);
+		while (_list[--r] > pivot);
+		if (l >= r) {
+			return r;
 		}
+		_swap(l, r);
 	}
-	// Place the pivot between the left and the right side
-	pivot = ++key;
-	_swap(pivot, right);
 	return pivot;
-
-	// int pivot = _list[(left + right) / 2];
-	// int l = left - 1;
-	// int r = right + 1;
-	// while (true) {
-	// 	while (_list[++l] < pivot);
-	// 	while (_list[--r] > pivot);
-	// 	if (l >= r) {
-	// 		return r;
-	// 	}
-	// 	_swap(l, r);
-	// }
 }
-
-// void Sort::quick() {
-// 	_partition(0, _size - 1);
-// }
-
-// void Sort::_partition(int left, int right) {
-// 	// Base case
-// 	if (left >= right) {
-// 		return;
-// 	}
-
-// 	// Partition the list by pivot
-// 	int pivot = _list[right];
-// 	int key = left - 1;
-// 	for (int i = left; i < right; i++) {
-// 		// Swap the elements smaller than the pivot to the left side
-// 		// and the elements larger than the pivot to the right side
-// 		if (_list[i] < pivot) {
-// 			_swap(++key, i);
-// 		}
-// 	}
-// 	// Place the pivot between the left and the right side
-// 	pivot = ++key;
-// 	_swap(pivot, right);
-
-// 	// Sort each side recursively
-// 	_partition(left, pivot - 1);
-// 	_partition(pivot + 1, right);
-// }
 
 void Sort::_swap(int a, int b) {
 	int tmp = _list[a];
