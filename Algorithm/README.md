@@ -2,7 +2,7 @@
 
 ## Contents
 - [Definition of Algorithm](./CH01-02.md)  
-- [Characterizing Performance of Algorithms](./CH03.md)  
+- Characterizing Performance of Algorithms  
 - Divide-and-Conquer  
 - Randomized Algorithms  
 - Sorting Algorithms  
