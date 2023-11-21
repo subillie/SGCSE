@@ -1,13 +1,16 @@
-# SGCSE
-
-## 현황표
+# CSE
 
 6학기 (23년도 1학기)
-|과목명|과목코드|교수|한줄평|
-|:---:|:---:|:---:|:---:|
-|Computer Network|CSE4175|소정민|수업은 너무너무 재밌었으나 말아먹음...<br>내용 잊어버리기 전에 꼭 정리해두기!!|
-|Data Structures|CSE3080|소정민|70% 자료구조 + 30% 알고리즘|
-|Introduction To Computer System|CSE3030|문의현|그냥 말 그대로 컴퓨터시스템의 개론|
-|Multicore Programming|CSE4100|박성용|운영체제 입문 수업<br>내용이랑 과제가 제일 재밌고 제일 어려웠음|
-|Psychology Of Group Behavior|PSY4009|남상희|사회심리학은 이제 그만^^|
-|Software Engineering|CSE4115|박수용|매주 팀플의 늪, 얻어가는 건 팀플 친구가 전부..|
+|과목명|내용|
+|:---:|:---:|
+|컴퓨터 네트워크|네트워크 전반|
+|자료구조|70% 자료구조 + 30% 알고리즘|
+|컴퓨터 시스템 개론|어셈블리, 기초적인 컴퓨터 구조, 캐시|
+|멀티코어 프로그래밍|운영체제 입문 <br> 개인 프로젝트: shell, concurrent server, malloc 구현|
+|소프트웨어 공학|UCM(usecase modeling) 등 다양한 모델링 기법 실습|  
+
+7학기 (23년도 2학기)
+|과목명|내용|
+|:---:|:---:|
+|알고리즘 설계와 분석|시간복잡도(T(n), Big O) 계산, 여러 알고리즘 구현|
+|해킹 및 정보보안|C 코드를 assembly와 stack frame 단위로 분석해서 python 코드로 exploit|  
