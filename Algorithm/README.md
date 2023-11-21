@@ -14,7 +14,7 @@
 - Machine-learning Algorithms  
 
 ## Machine Problem
-### MP1
+### [MP1](./MP1/)
 1. Problem  
 	`Maximum Sum Subrectangle` in a 2D array
 2. Goal  
@@ -22,7 +22,7 @@
 3. Description  
 	Find a subrectangle, which has the largest sum
 
-### MP2
+### [MP2](./MP2/)
 1. Problem  
 	`Master of Sorting`
 2. Goal  
@@ -37,7 +37,7 @@
 	```  
 	For algorithms 1-3, don’t apply optimization techniques because they are for comparison purposes. For algorithm 4, do your best to optimize the algorithm.  
 
-### MP3
+### [MP3](./MP3/)
 1. Problem  
 	`Huffman Coding` for File Compression
 2. Goal  
