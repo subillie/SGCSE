@@ -9,9 +9,9 @@ int main (int ac, char **av) {
 	Huffman huffman;
 	std::string flag = av[1];
 	if (flag == "-c") {
-		huffman.encode(av[2]);
+		huffman.compress(av[2]);
 	} else if (flag == "-d") {
-		huffman.decode(av[2]);
+		huffman.decompress(av[2]);
 	} else {
 		std::cerr << "Usage: ./huffman [-c|-d] [input file]" << std::endl;
 		return 1;
