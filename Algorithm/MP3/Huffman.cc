@@ -31,6 +31,29 @@ void Huffman::compress(std::string input) {
 	_outfile.close();
 }
 
+// void Huffman::compress(std::string input) {
+// 	_fdIf = open(input.c_str(), O_RDONLY);
+// 	if (_fdIf == -1) {
+// 		std::cerr << "File open error" << std::endl;
+// 		return;
+// 	}
+// 	_fdOf = open((input + ".zz").c_str(), O_WRONLY | O_CREAT, 0644);
+// 	if (!_fdOf == -1) {
+// 		std::cerr << "File open error" << std::endl;
+// 		close(_fdIf);
+// 		return;
+// 	}
+
+// 	// TODO: getline -> read
+	
+// 	while (read(_fdIf, _buffer, 1) > 0) {
+// 		_infile << _buffer;
+// 	}
+
+// 	close(_fdIf);
+// 	close(_fdOf);
+// }
+
 void Huffman::encode(std::string line) {
 	std::map<char, int> frequency;
 	for (int i = 0; i < line.length(); i++) {

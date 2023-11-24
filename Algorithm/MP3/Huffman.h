@@ -1,7 +1,6 @@
 #ifndef HUFFMAN_H
 #define HUFFMAN_H
 
-#include <unistd.h>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -9,6 +8,8 @@
 #include <queue>
 #include <vector>
 #include <map>
+// #include <unistd.h>
+// #include <fcntl.h>
 
 class Huffman {
 	public:
@@ -20,12 +21,6 @@ class Huffman {
 
 	private:
 		void encode(std::string input);
-		// void decode(std::string input, std::string output);
-		// struct Node *newNode(char character, int frequency);
-		// struct Node *mergeNodes(struct Node *left, struct Node *right);
-		// void printCodes(struct Node *root, std::string str);
-		// void printTree(struct Node *root, int indent);
-		// void deleteTree(struct Node *root);
 
 	protected:
 		struct Node {
@@ -40,6 +35,8 @@ class Huffman {
 		std::map<char, int> _frequency;
 		std::ifstream _infile;
 		std::ofstream _outfile;
+		// int _fdIf;
+		// int _fdOf;
 };
 
 #endif
