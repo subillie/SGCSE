@@ -10,8 +10,8 @@ int main (int ac, char **av) {
 	std::string flag = av[1];
 	if (flag == "-c") {
 		huffman.compress(av[2]);
-	} else if (flag == "-d") {
-		huffman.decompress(av[2]);
+	// } else if (flag == "-d") {
+	// 	huffman.decompress(av[2]);
 	} else {
 		std::cerr << "Usage: ./huffman [-c|-d] [input file]" << std::endl;
 		return 1;
