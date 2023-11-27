@@ -11,6 +11,20 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+struct Node {
+	Node(char character, __int64_t count) {
+		this->character = character;
+		this->count = count;
+		this->left = NULL;
+		this->right = NULL;
+	}
+
+	char character;
+	__int64_t count;
+	Node *left;
+	Node *right;
+};
+
 class Huffman {
 	public:
 		Huffman();
@@ -19,27 +33,18 @@ class Huffman {
 		void compress(std::string input);
 		// void decompress(std::string input);
 
-		// static const int CHUNK_SIZE = 1024;
-
 	private:
-		void encode(std::string input);
+		void encode();
+		// void decode();
+		void traverse(Node *node, std::string code);
+		void deleteTree(Node *node);
 
 	protected:
-		struct Node {
-			char character;
-			__int64_t frequency;
-			Node *left;
-			Node *right;
-		};
-
 		struct Node *_root;
 		std::string _codes[256];
 		std::map<char, __int64_t> _frequency;
 		std::ifstream _infile;
 		std::ofstream _outfile;
-		// int _fdIf;
-		// int _fdOf;
-		// char *_buf;
 };
 
 #endif

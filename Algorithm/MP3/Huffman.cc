@@ -2,19 +2,30 @@
 
 Huffman::Huffman() {
 	_root = NULL;
-	_buf = NULL;
-	_fdIf = -1;
-	_fdOf = -1;
 	for (int i = 0; i < 256; i++) {
 		_codes[i] = "";
-	}
-	for (int i = 0; i < 256; i++) {
-		_frequency[i] = 0;
 	}
 }
 
 Huffman::~Huffman() {
-	// deleteTree(root);
+	if (_root != NULL) {
+		deleteTree(_root);
+	}
+	if (_infile.is_open()) {
+		_infile.close();
+	}
+	if (_outfile.is_open()) {
+		_outfile.close();
+	}
+}
+
+void Huffman::deleteTree(Node *node) {
+	if (node == NULL) {
+		return;
+	}
+	deleteTree(node->left);
+	deleteTree(node->right);
+	delete node;
 }
 
 void Huffman::compress(std::string input) {
@@ -26,81 +37,72 @@ void Huffman::compress(std::string input) {
 	_outfile.open(input + ".zz", std::ios::binary);
 	if (!_outfile.is_open()) {
 		std::cerr << "File open error" << std::endl;
-		_infile.close();
 		return;
 	}
 
-	char buf;
-	while (get(_infile, buf)) {
-		_frequency[buf]++;
+	// Read infile and count frequency
+	char buf = '\0';
+	while (_infile.get(buf)) {
+		if (_frequency.find(buf) == _frequency.end()) {
+			_frequency[buf] = 0;
+		} else {
+			_frequency[buf]++;
+		}
 	}
+
+	// Huffman encoding
 	encode();
 
-	_infile.close();
-	_outfile.close();
+	// Write binary tree to outfile
+	for (int i = 0; i < 256; i++) {
+		_outfile << _codes[i] << " ";
+	}
+
+	// Write a newline to separate header from body
+	_outfile << std::endl;
+
+	// Write encoded texts to outfile
+	buf = '\0';
+	while (_infile.get(buf)) {
+		_outfile << _codes[buf];
+	}
 }
 
-// void Huffman::compress(std::string input) {
-// 	_fdIf = open(input.c_str(), O_RDONLY);
-// 	if (_fdIf == -1) {
-// 		std::cerr << "File open error" << std::endl;
-// 		return;
-// 	}
-// 	_fdOf = open((input + ".zz").c_str(), O_WRONLY | O_CREAT, 0644);
-// 	if (!_fdOf == -1) {
-// 		std::cerr << "File open error" << std::endl;
-// 		close(_fdIf);
-// 		return;
-// 	}
-
-// 	_buf = NULL;
-// 	std::stringstream chunk;
-// 	int count = 0;
-// 	while (read(_fdIf, _buf, 1) > 0) {
-// 		// Add to stringstream
-// 		if (count < CHUNK_SIZE) {
-// 			chunk << _buf;
-// 			count++;
-// 		// Encode the chunk and reset stringstream and count
-// 		} else {
-// 			encode(chunk.str());
-// 			chunk.str("");
-// 			count = 0;
-// 		}
-// 	}
-// 	encode(chunk.str());
-
-// 	close(_fdIf);
-// 	close(_fdOf);
-// }
-
-void Huffman::encode(std::string line) {
+void Huffman::encode() {
+	// Create a priority queue sorted by frequency
+	// Priority queue<data type, container, comparison>
 	std::priority_queue<Node *, std::vector<Node *>, Node> pq;
 	for (auto iter = _frequency.begin(); iter != _frequency.end(); iter++) {
 		pq.push(new Node(iter->first, iter->second));
 	}
 
-	while (pq.size() != 1) {
-		Node *tmpL = pq.top();
+	// Turn the priority queue into a binary tree
+	while (pq.size() > 1) {
+		Node *leftChild = pq.top();
 		pq.pop();
-		Node *tmpR = pq.top();
+		Node *rightChild = pq.top();
 		pq.pop();
 
-		Node *parent = new Node(tmpL->frequency + tmpR->frequency);
-		parent->left = tmpL;
-		parent->right = tmpR;
+		Node *parent = new Node('\0', leftChild->count + rightChild->count);
+		parent->left = leftChild;
+		parent->right = rightChild;
 		pq.push(parent);
 	}
-
 	Node *root = pq.top();
 	pq.pop();
 
-	// std::string str;
-	// printCodes(root, str);
+	// Traverse the tree and assign codes
+	std::string code = "";
+	traverse(root, code);
+}
 
-	for (int i = 0; i < line.length(); i++) {
-		_outfile << _codes[line[i]];
+void Huffman::traverse(Node *node, std::string code) {
+	if (node->left == NULL && node->right == NULL) {
+		_codes[node->character] = code;
+		return;
 	}
+	traverse(node->left, code + "0");
+	traverse(node->right, code + "1");
 }
 
 // void Huffman::decompress(std::string input) {
@@ -112,7 +114,6 @@ void Huffman::encode(std::string line) {
 // 	_outfile.open(input + ".yy");
 // 	if (!_outfile.is_open()) {
 // 		std::cerr << "File open error" << std::endl;
-// 		_infile.close();
 // 		return;
 // 	}
 
