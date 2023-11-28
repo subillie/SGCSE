@@ -8,16 +8,17 @@
 #include <queue>
 #include <vector>
 #include <map>
+#include <bitset>
 
 struct Node {
 	Node();
-	Node(char c, __int64_t cnt);
+	Node(char character, __int64_t frequency);
 	bool operator()(const Node *lhs, const Node *rhs) const;
 
 	Node *left;
 	Node *right;
-	__int64_t count;
-	char character;
+	__int64_t freq;
+	char symbol;
 };
 
 class Huffman {
