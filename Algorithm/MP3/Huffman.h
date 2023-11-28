@@ -26,7 +26,7 @@ class Huffman {
 		~Huffman();
 
 		void compress(std::string input);
-		// void decompress(std::string input);
+		void decompress(std::string input);
 
 	private:
 		void encode();
