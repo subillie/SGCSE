@@ -8,21 +8,16 @@
 #include <queue>
 #include <vector>
 #include <map>
-#include <unistd.h>
-#include <fcntl.h>
 
 struct Node {
-	Node(char character, __int64_t count) {
-		this->character = character;
-		this->count = count;
-		this->left = NULL;
-		this->right = NULL;
-	}
+	Node();
+	Node(char c, __int64_t cnt);
+	bool operator()(const Node *lhs, const Node *rhs) const;
 
-	char character;
-	__int64_t count;
 	Node *left;
 	Node *right;
+	__int64_t count;
+	char character;
 };
 
 class Huffman {

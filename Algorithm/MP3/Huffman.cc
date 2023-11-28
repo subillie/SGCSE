@@ -1,7 +1,6 @@
 #include "Huffman.h"
 
-Huffman::Huffman() {
-	_root = NULL;
+Huffman::Huffman() : _root(NULL) {
 	for (int i = 0; i < 256; i++) {
 		_codes[i] = "";
 	}
@@ -10,6 +9,7 @@ Huffman::Huffman() {
 Huffman::~Huffman() {
 	if (_root != NULL) {
 		deleteTree(_root);
+		_root = NULL;
 	}
 	if (_infile.is_open()) {
 		_infile.close();
@@ -68,11 +68,24 @@ void Huffman::compress(std::string input) {
 	}
 }
 
+Node::Node() : \
+	left(NULL), right(NULL), count(0), character('\0') {
+}
+
+Node::Node(char c, __int64_t cnt) : \
+	left(NULL), right(NULL), count(cnt), character(c) {
+}
+
+bool Node::operator()(const Node *lhs, const Node *rhs) const {
+	return lhs->count > rhs->count;
+}
+
 void Huffman::encode() {
 	// Create a priority queue sorted by frequency
 	// Priority queue<data type, container, comparison>
 	std::priority_queue<Node *, std::vector<Node *>, Node> pq;
-	for (auto iter = _frequency.begin(); iter != _frequency.end(); iter++) {
+	std::map<char, __int64_t>::iterator iter;
+	for (iter = _frequency.begin(); iter != _frequency.end(); iter++) {
 		pq.push(new Node(iter->first, iter->second));
 	}
 
