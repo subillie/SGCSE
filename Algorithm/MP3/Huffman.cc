@@ -60,17 +60,17 @@ void Huffman::compress(std::string input) {
 			_frequency[buf]++;
 		}
 	}
-	std::cout << "++++++++ Frequency ++++++++" << std::endl;
-	for (auto iter = _frequency.begin(); iter != _frequency.end(); iter++) {
-		std::cout << iter->first << " " << iter->second << std::endl;
-	}
-	std::cout << "++++++++ Frequency ++++++++" << std::endl;
+	// std::cout << "++++++++ Frequency ++++++++" << std::endl;
+	// for (auto iter = _frequency.begin(); iter != _frequency.end(); iter++) {
+	// 	std::cout << iter->first << " " << iter->second << std::endl;
+	// }
+	// std::cout << "++++++++ Frequency ++++++++" << std::endl;
 
 	// Huffman encoding
 	encode();
 
 	// Write header (encoded bits for each character)
-	std::cout << "++++++++ Codebook ++++++++" << std::endl;
+	// std::cout << "++++++++ Codebook ++++++++" << std::endl;
 	for (int i = 0; i < 256; i++) {
 		std::cout << _codebook[i] << std::endl;
 		if (_codebook[i] != "") {
@@ -79,7 +79,7 @@ void Huffman::compress(std::string input) {
 	}
 	// Write newline to separate header from body
 	_outfile << std::endl;
-	std::cout << "++++++++ Codebook ++++++++" << std::endl;
+	// std::cout << "++++++++ Codebook ++++++++" << std::endl;
 
 	// Write body (encoded texts of infile)
 	_infile.clear();
@@ -98,12 +98,12 @@ void Huffman::encode() {
 	for (iter = _frequency.begin(); iter != _frequency.end(); iter++) {
 		pq.push(new Node(iter->first, iter->second));
 	}
-	std::cout << "++++++ PriorityQueue ++++++" << std::endl;
-	while (!pq.empty()) {
-		std::cout << pq.top()->symbol << " " << pq.top()->freq << std::endl;
-		pq.pop();
-	}
-	std::cout << "++++++ PriorityQueue ++++++" << std::endl;
+	// std::cout << "++++++ PriorityQueue ++++++" << std::endl;
+	// while (!pq.empty()) {
+	// 	std::cout << pq.top()->symbol << " " << pq.top()->freq << std::endl;
+	// 	pq.pop();
+	// }
+	// std::cout << "++++++ PriorityQueue ++++++" << std::endl;
 
 	// Turn the priority queue into a binary tree
 	while (pq.size() > 1) {
@@ -119,12 +119,12 @@ void Huffman::encode() {
 	}
 	Node *root = pq.top();
 	pq.pop();
-	std::cout << "+++++++ Binary Tree +++++++" << std::endl;
+	// std::cout << "+++++++ Binary Tree +++++++" << std::endl;
 
 	// Traverse the tree and assign codes
 	std::string code = "";
 	traverse(root, code);
-	std::cout << "I'm out." << std::endl;
+	// std::cout << "I'm out." << std::endl;
 }
 
 void Huffman::traverse(Node *node, std::string code) {
