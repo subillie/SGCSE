@@ -37,7 +37,7 @@ class Huffman {
 
 	protected:
 		struct Node *_root;
-		std::string _codes[256];
+		std::string _codebook[256];
 		std::map<char, __int64_t> _frequency;
 		std::ifstream _infile;
 		std::ofstream _outfile;

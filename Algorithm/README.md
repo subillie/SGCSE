@@ -44,4 +44,7 @@
 	To design and implement a Huffman Coding-based file compression utility program.
 3. Description  
 	For compression, you are going to use Huffman Coding, which is a greedy algorithm. The goal of the algorithm is to assign long bit strings to rare characters and short bit strings to characters that appear frequently.  
-4. [Reference](https://junstar92.tistory.com/182)  
+4. Huffman coding ([Tistory](https://junstar92.tistory.com/182), [Wikipedia](https://en.m.wikipedia.org/wiki/Huffman_coding))  
+	Read infile -> Count frequency -> Put in a qriority queue -> Convert it to a binary tree -> Encode the inputs
+	- The information to reconstruct the tree must be sent a priori, which could be overhead  
+	- Rather than storing the structure of the code tree explicitly, `canonical Huffman codes` ([Wikipedia](https://en.m.wikipedia.org/wiki/Canonical_Huffman_code)) are ordered in such a way that it suffices to only store the lengths of the codewords, which reduces the overhead of the codebook.

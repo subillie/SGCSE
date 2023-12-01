@@ -2,7 +2,7 @@
 
 Huffman::Huffman() : _root(NULL) {
 	for (int i = 0; i < 256; i++) {
-		_codes[i] = "";
+		_codebook[i] = "";
 	}
 }
 
@@ -55,29 +55,38 @@ void Huffman::compress(std::string input) {
 	char buf = '\0';
 	while (_infile.get(buf)) {
 		if (_frequency.find(buf) == _frequency.end()) {
-			_frequency[buf] = 0;
+			_frequency[buf] = 1;
 		} else {
 			_frequency[buf]++;
 		}
 	}
+	std::cout << "++++++++ Frequency ++++++++" << std::endl;
+	for (auto iter = _frequency.begin(); iter != _frequency.end(); iter++) {
+		std::cout << iter->first << " " << iter->second << std::endl;
+	}
+	std::cout << "++++++++ Frequency ++++++++" << std::endl;
 
 	// Huffman encoding
 	encode();
 
-	// Header: encoded bits for each character
+	// Write header (encoded bits for each character)
+	std::cout << "++++++++ Codebook ++++++++" << std::endl;
 	for (int i = 0; i < 256; i++) {
-		if (_codes[i] != "") {
-			_outfile << static_cast<char>(i) << " " << _codes[i] << " ";
+		std::cout << _codebook[i] << std::endl;
+		if (_codebook[i] != "") {
+			_outfile << static_cast<char>(i) << " " << _codebook[i] << " ";
 		}
 	}
-	_outfile << std::endl; // Newline: to separate header from body
+	// Write newline to separate header from body
+	_outfile << std::endl;
+	std::cout << "++++++++ Codebook ++++++++" << std::endl;
 
-	// Body: encoded texts of infile
+	// Write body (encoded texts of infile)
 	_infile.clear();
 	_infile.seekg(0, std::ios::beg);
 	buf = '\0';
 	while (_infile.get(buf)) {
-		_outfile << _codes[buf];
+		_outfile << _codebook[buf];
 	}
 }
 
@@ -89,6 +98,12 @@ void Huffman::encode() {
 	for (iter = _frequency.begin(); iter != _frequency.end(); iter++) {
 		pq.push(new Node(iter->first, iter->second));
 	}
+	std::cout << "++++++ PriorityQueue ++++++" << std::endl;
+	while (!pq.empty()) {
+		std::cout << pq.top()->symbol << " " << pq.top()->freq << std::endl;
+		pq.pop();
+	}
+	std::cout << "++++++ PriorityQueue ++++++" << std::endl;
 
 	// Turn the priority queue into a binary tree
 	while (pq.size() > 1) {
@@ -104,15 +119,17 @@ void Huffman::encode() {
 	}
 	Node *root = pq.top();
 	pq.pop();
+	std::cout << "+++++++ Binary Tree +++++++" << std::endl;
 
 	// Traverse the tree and assign codes
 	std::string code = "";
 	traverse(root, code);
+	std::cout << "I'm out." << std::endl;
 }
 
 void Huffman::traverse(Node *node, std::string code) {
 	if (node->left == NULL && node->right == NULL) {
-		_codes[node->symbol] = code;
+		_codebook[node->symbol] = code;
 		return;
 	}
 	traverse(node->left, code + "0");
@@ -142,7 +159,7 @@ void Huffman::decompress(std::string input) {
 			break;
 		}
 		ss >> code;
-		_codes[(int)c] = code;
+		_codebook[(int)c] = code;
 	}
 
 	// Huffman decoding
