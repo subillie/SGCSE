@@ -6,13 +6,13 @@
 #include <fstream>
 #include <string>
 #include <queue>
-#include <vector>
+// #include <vector>
 #include <map>
-#include <bitset>
+// #include <bitset>
 
 struct Node {
 	Node();
-	Node(char character, __int64_t frequency);
+	Node(char symbol, __int64_t frequency);
 	bool operator()(const Node *lhs, const Node *rhs) const;
 
 	Node *left;
@@ -31,14 +31,15 @@ class Huffman {
 
 	private:
 		void encode();
-		// void decode();
+		void decode();
 		void traverse(Node *node, std::string code);
+		void writeHeader(Node *node);
+		Node *readHeader();
 		void deleteTree(Node *node);
 
 	protected:
-		struct Node *_root;
+		Node *_root;
 		std::string _codebook[256];
-		std::map<char, __int64_t> _frequency;
 		std::ifstream _infile;
 		std::ofstream _outfile;
 };
