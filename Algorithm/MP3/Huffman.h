@@ -6,9 +6,8 @@
 #include <fstream>
 #include <string>
 #include <queue>
-// #include <vector>
 #include <map>
-// #include <bitset>
+#include <bitset>
 
 struct Node {
 	Node();
@@ -33,8 +32,8 @@ class Huffman {
 		void encode();
 		void decode();
 		void traverse(Node *node, std::string code);
-		void writeHeader(Node *node);
-		Node *readHeader();
+		void makeHeader(Node *node, std::string &header);
+		Node *readHeader(std::string &header, int index);
 		void deleteTree(Node *node);
 
 	protected:

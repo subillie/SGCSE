@@ -52,15 +52,46 @@ void Huffman::compress(std::string input) {
 	encode();
 
 	// Write header (information for binary tree)
-	writeHeader(_root);
-	_outfile << std::endl;
+	std::string header = "";
+	makeHeader(_root, header);
+	std::bitset<8> bitset;
+	bitset.reset();
+	int count = 0;
+	for (int i = 0; i < header.length(); i++) {
+		bitset.set(count, header[i] == '1');
+		count++;
+		if (count == 8) {
+			_outfile << bitset;
+			bitset.reset();
+			count = 0;
+		}
+	}
+	if (count > 0) {
+		_outfile << bitset;
+	}
+	_outfile << '\n';
 
 	// Write body (encoded texts of infile)
 	_infile.clear();
 	_infile.seekg(0, std::ios::beg);
 	char buf = '\0';
+	std::string body = "";
+	count = 0;
 	while (_infile.get(buf)) {
-		_outfile << _codebook[buf];
+		body += _codebook[(int)buf];
+		while (body.length() >= 8) {
+			bitset.set(count, body[0] == '1');
+			count++;
+			if (count == 8) {
+				_outfile << bitset;
+				bitset.reset();
+				count = 0;
+			}
+			body = body.substr(1);
+		}
+	}
+	if (count > 0) {
+		_outfile << bitset;
 	}
 }
 
@@ -119,18 +150,17 @@ void Huffman::traverse(Node *node, std::string code) {
 	traverse(node->right, code + "1");
 }
 
-void Huffman::writeHeader(Node* node) {
+void Huffman::makeHeader(Node* node, std::string& header) {
 	if (node == NULL) {
 		std::cout << "NULL" << std::endl;
 		return;
 	}
 	if (node->left == NULL && node->right == NULL) {
-		std::cout << node->symbol << std::endl;
-		_outfile << node->symbol;
+		header += node->symbol;
 	} else {
-		_outfile << '0'; // Indicator for internal node
-		writeHeader(node->left);
-		writeHeader(node->right);
+		header += '0';
+		makeHeader(node->left, header);
+		makeHeader(node->right, header);
 	}
 }
 
@@ -146,42 +176,71 @@ void Huffman::decompress(std::string input) {
 		return;
 	}
 
-	_root = readHeader();
+	// Read header and restructure the binary tree
+	char bit = '\0';
+	bool isHeader = true;
+	std::string header = "";
+	while (_infile.get(bit) && isHeader) {
+		std::bitset<8> bitset(bit);
+		for (int i = 0; i < 8; i++) {
+			if (bit == '\n') {
+				isHeader = false;
+				break;
+			}
+			header += bitset[i] ? '1' : '0';
+		}
+	}
+	_infile.clear();
+	_infile.seekg(0, std::ios::beg);
+	_infile.ignore(1000, '\n');
+	_root = readHeader(header, 0);
 	decode();
 
 	_infile.close();
 	_outfile.close();
 }
 
-Node* Huffman::readHeader() {
-	// Read header and restructure the binary tree
-	char bit;
-	if (_infile.get(bit)) {
-		if (bit == '0') {
-			Node* internalNode = new Node('\0', 0);
-			internalNode->left = readHeader();
-			internalNode->right = readHeader();
-			return internalNode;
-		} else {
-			// Leaf node
-			return new Node(bit, 0);
-		}
+Node* Huffman::readHeader(std::string &header, int index) {
+	if (header.length() == 0) {
+		return NULL;
 	}
-	return NULL;
+	char bit = header[index];
+	header = header.substr(1);
+	if (bit == '0') {
+		Node *internalNode = new Node('\0', 0);
+		internalNode->left = readHeader(header, index + 1);
+		internalNode->right = readHeader(header, index + 1);
+		return internalNode;
+	} else {
+		// Leaf node
+		char symbol = '\0';
+		for (int i = 0; i < 8; i++) {
+			symbol += (header[i] - '0') << (7 - i);
+		}
+		header = header.substr(8);
+		return new Node(symbol, 0);
+	}
 }
 
 void Huffman::decode() {
-	Node *node = _root;
 	char bit = '\0';
+	std::bitset<8> bitset;
+	std::string body = "";
+	Node *node = _root;
 	while (_infile.get(bit)) {
-		if (bit == '0') {
-			node = node->left;
-		} else {
-			node = node->right;
-		}
-		if (node->left == NULL && node->right == NULL) {
-			_outfile << node->symbol;
-			node = _root;
+		std::bitset<8> bitset(bit);
+		std::string str = bitset.to_string();
+		for (int i = 0; i < str.length(); i++) {
+			bit = str[i];
+			if (bit == '0') {
+				node = node->left;
+			} else {
+				node = node->right;
+			}
+			if (node->left == NULL && node->right == NULL) {
+				_outfile << node->symbol;
+				node = _root;
+			}
 		}
 	}
 }
