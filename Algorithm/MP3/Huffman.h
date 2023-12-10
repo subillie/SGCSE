@@ -6,7 +6,7 @@
 #include <fstream>
 #include <string>
 #include <queue>
-#include <map>
+#include <unordered_map>
 #include <bitset>
 
 struct Node {
@@ -30,15 +30,17 @@ class Huffman {
 
 	private:
 		void encode();
-		void decode();
-		void traverse(Node *node, std::string code);
+		void decode(size_t fileSize);
+		void traverse(std::string code, Node *node);
 		void makeHeader(Node *node, std::string &header);
-		Node *readHeader(std::string &header, int index);
+		void stringToBinary(std::string &str);
+		std::string binaryToString(unsigned char byte, int size);
 		void deleteTree(Node *node);
 
 	protected:
 		Node *_root;
-		std::string _codebook[256];
+		std::string _body;
+		std::unordered_map<char, std::string> _codebook;
 		std::ifstream _infile;
 		std::ofstream _outfile;
 };
