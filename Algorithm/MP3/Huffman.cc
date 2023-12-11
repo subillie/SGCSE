@@ -37,12 +37,12 @@ bool Node::operator()(const Node *lhs, const Node *rhs) const {
 }
 
 void Huffman::compress(std::string input) {
-	_infile.open(input);
+	_infile.open(input.c_str());
 	if (!_infile.is_open()) {
 		std::cerr << "File open error" << std::endl;
 		return;
 	}
-	_outfile.open(input + ".zz", std::ios::binary);
+	_outfile.open((input + ".zz").c_str(), std::ios::binary);
 	if (!_outfile.is_open()) {
 		std::cerr << "File open error" << std::endl;
 		return;
@@ -55,7 +55,7 @@ void Huffman::compress(std::string input) {
 	_outfile << ucSize;
 
 	// Write header
-	std::unordered_map<char, std::string>::iterator iter;
+	std::map<char, std::string>::iterator iter;
 	for (iter = _codebook.begin(); iter != _codebook.end(); iter++) {
 		_outfile << (unsigned char)iter->first;
 		unsigned char len = iter->second.length();
@@ -93,7 +93,7 @@ void Huffman::compress(std::string input) {
 
 void Huffman::encode() {
 	// Read infile and count frequency
-	std::unordered_map<char, __int64_t> frequency;
+	std::map<char, __int64_t> frequency;
 	std::string text = "";
 	char buf = '\0';
 	while (_infile.get(buf)) {
@@ -105,7 +105,7 @@ void Huffman::encode() {
 	// Create a priority queue sorted by frequency
 	// Priority queue<data type, container, comparison>
 	std::priority_queue<Node *, std::vector<Node *>, Node> pq;
-	std::unordered_map<char, __int64_t>::iterator iter;
+	std::map<char, __int64_t>::iterator iter;
 	for (iter = frequency.begin(); iter != frequency.end(); iter++) {
 		Node *node = new Node(iter->first, iter->second);
 		pq.push(node);
@@ -145,12 +145,12 @@ void Huffman::traverse(std::string code, Node *node) {
 }
 
 void Huffman::decompress(std::string input) {
-	_infile.open(input, std::ios::binary);
+	_infile.open(input.c_str(), std::ios::binary);
 	if (!_infile.is_open()) {
 		std::cerr << "File open error" << std::endl;
 		return;
 	}
-	_outfile.open(input + ".yy");
+	_outfile.open((input + ".yy").c_str());
 	if (!_outfile.is_open()) {
 		std::cerr << "File open error" << std::endl;
 		return;
@@ -170,7 +170,6 @@ void Huffman::decode(size_t fileSize) {
 	size_t len = 1;
 	size_t symbolNum = _infile.get();
 	// Restore codebook
-	std::cout << "1" << std::endl;
 	for (size_t i = 0; i < symbolNum; i++) {
 		char symbol = _infile.get();
 		len++;
@@ -193,7 +192,6 @@ void Huffman::decode(size_t fileSize) {
 		}
 		_codebook[symbol] = code;
 	}
-	std::cout << "2" << std::endl;
 
 	// Read body
 	fileSize -= len;
@@ -209,11 +207,10 @@ void Huffman::decode(size_t fileSize) {
 		body += binaryToString(byte, size);
 		byte = _infile.get();
 	}
-	std::cout << "3" << std::endl;
 	std::string code = "";
 	for (size_t i = 0; i < body.length(); i++) {
 		code += body[i];
-		std::unordered_map<char, std::string>::iterator iter;
+		std::map<char, std::string>::iterator iter;
 		for (iter = _codebook.begin(); iter != _codebook.end(); iter++) {
 			if (code == iter->second) {
 				_outfile << iter->first;
@@ -222,7 +219,6 @@ void Huffman::decode(size_t fileSize) {
 			}
 		}
 	}
-	std::cout << "4" << std::endl;
 }
 
 std::string Huffman::binaryToString(unsigned char byte, int size) {

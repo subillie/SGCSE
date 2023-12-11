@@ -6,8 +6,10 @@
 #include <fstream>
 #include <string>
 #include <queue>
-#include <unordered_map>
+#include <map>
 #include <bitset>
+#include <cmath>
+#include <algorithm>
 
 struct Node {
 	Node();
@@ -40,7 +42,7 @@ class Huffman {
 	protected:
 		Node *_root;
 		std::string _body;
-		std::unordered_map<char, std::string> _codebook;
+		std::map<char, std::string> _codebook;
 		std::ifstream _infile;
 		std::ofstream _outfile;
 };
