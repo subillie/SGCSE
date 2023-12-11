@@ -75,12 +75,12 @@ void Huffman::compress(std::string input) {
 	}
 
 	// Write body
-	std::cout << "encoded body: " << _body << std::endl;
 	unsigned char byte = 0;
+	unsigned char remainder = 0;
 	for (size_t i = 0; i < _body.length();) {
 		for (int bit = 0; bit < 8; i++, bit++) {
 			if (i >= _body.length()) {
-				byte = (unsigned char)bit;
+				remainder = (unsigned char)bit;
 				break;
 			}
 			byte = (byte << 1) | (_body[i] & 1);
@@ -88,7 +88,7 @@ void Huffman::compress(std::string input) {
 		_outfile << byte;
 		byte = 0;
 	}
-	_outfile << byte;
+	_outfile << remainder;
 }
 
 void Huffman::encode() {
@@ -169,25 +169,31 @@ void Huffman::decode(size_t fileSize) {
 	// Read header
 	size_t len = 1;
 	size_t symbolNum = _infile.get();
+	// Restore codebook
+	std::cout << "1" << std::endl;
 	for (size_t i = 0; i < symbolNum; i++) {
 		char symbol = _infile.get();
 		len++;
 		int symbolLen = _infile.get();
 		len++;
 
+		// Read code
+		std::string tmp = "";
 		std::string code = "";
 		while (symbolLen > 0) {
 			unsigned char byte = _infile.get();
 			len++;
 			if (symbolLen > 8) {
-				code += binaryToString(byte, 8);
+				tmp = binaryToString(byte, 8);
 			} else {
-				code += binaryToString(byte, symbolLen);
+				tmp = binaryToString(byte, symbolLen);
 			}
+			code += tmp;
 			symbolLen -= 8;
 		}
 		_codebook[symbol] = code;
 	}
+	std::cout << "2" << std::endl;
 
 	// Read body
 	fileSize -= len;
@@ -199,11 +205,11 @@ void Huffman::decode(size_t fileSize) {
 			unsigned char remainder = _infile.get();
 			size = (int)remainder;
 		}
-		body += binaryToString(byte, size);
 		fileSize--;
+		body += binaryToString(byte, size);
 		byte = _infile.get();
 	}
-	std::cout << "decoded body: " << body << std::endl;
+	std::cout << "3" << std::endl;
 	std::string code = "";
 	for (size_t i = 0; i < body.length(); i++) {
 		code += body[i];
@@ -216,21 +222,16 @@ void Huffman::decode(size_t fileSize) {
 			}
 		}
 	}
+	std::cout << "4" << std::endl;
 }
 
 std::string Huffman::binaryToString(unsigned char byte, int size) {
 	std::string str = "";
 	for (int i = 7; i >= 0; i--) {
-		if (i >= size) {
+		if (size <= i) {
 			continue;
 		}
 		unsigned char bit = pow(2, i);
-		// if (byte >= bit) {
-		// 	str += '1';
-		// 	byte -= bit;
-		// } else {
-		// 	str += '0';
-		// }
 		str += (byte & bit) == bit ? '1' : '0';
 	}
 	return str;
