@@ -15,6 +15,9 @@ let [A-Za-z]
 "/"                         { return DIV; }
 "("                         { return LPAR; }
 ")"                         { return RPAR; }
+"="                         { return ASSIGN; }
+","                         { return COMMA; }
+";"                         { return SEMICOLON; }
 {dig}+                      { yylval.n = atoi(yytext); return NUM; }
 ({let}|_)({let}|{dig}|_)*   { yylval.s = strdup(yytext); return ID; }
 [ \t\n]+                    { /* Skip whitespaces. */ }

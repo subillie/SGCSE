@@ -19,7 +19,7 @@ AST* make_id_ast(char *s) {
     AST* ast = (AST*)malloc(sizeof(AST));
     ast->kind = Identifier;
     ast->num = 0;
-    ast->id = strdup(s); // 주어진 문자열 s를 기반으로 새로운 AST node 생성
+    ast->id = s; // 주어진 문자열 s를 기반으로 새로운 AST node 생성
     ast->left = NULL;
     ast->right = NULL;
     return ast;
